@@ -25,7 +25,7 @@ templates = PageTemplateLoader(os.path.join(currentdir, 'src', 'templates'))
 def main():
     ships = fish.get_ships_in_buy_menu_order()
 
-    grf_nml = codecs.open(os.path.join('fish.nml'),'w','utf8')
+    grf_nml = codecs.open(os.path.join('unsinkable-sam.nml'),'w','utf8')
     header_items = ['header', 'cargo_table', 'disable_default_ships']
     for header_item in header_items:
         template = templates[header_item + '.pynml']

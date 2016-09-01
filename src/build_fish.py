@@ -3,7 +3,7 @@
 from time import time
 start = time()
 
-print("[BUILD] build_fish.py")
+print("[BUILD] build_unsinkable_sam.py")
 
 import os.path
 currentdir = os.curdir
