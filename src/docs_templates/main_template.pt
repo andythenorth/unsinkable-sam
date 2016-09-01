@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-    <title >Squid Ate FISH</title>
+    <title >Unsinkable Sam</title>
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,7 +49,7 @@
             </ul>
             <ul class="nav navbar-nav pull-right">
                 <li class="${doc_helper.get_active_nav(doc_name, 'translations')}">
-                    <a href="translations.html"><i class="icon-globe icon-white"></i> Help Translate FISH</a>
+                    <a href="translations.html"><i class="icon-globe icon-white"></i> Help Translate Unsinkable Sam</a>
                 </li>
                 <li>
                     <a href="${metadata['dev_thread_url']}"><i class="icon-comment icon-white"></i> Discuss at TT-Forums.net</a>
@@ -69,7 +69,7 @@
         random_img()
         </script>
         <div class="container">
-            <h1 style="font-size:48px; padding-top:30px;">Squid Ate FISH</h1>
+            <h1 style="font-size:48px; padding-top:30px;">Unsinkable Sam</h1>
             <p class="lead">New Ships for OpenTTD</p>
         </div>
     </div>
@@ -82,7 +82,7 @@
         </metal:block>
     </div>
     <div style="margin-top:30px; text-align:center; color:#999; padding:5px; background-color:#eee; border-top:solid 1px #ddd; box-shadow: inset 0px 1px 1px #ddd">
-        Squid Ate FISH, with thanks to all who helped
+        Unsinkable Sam, with thanks to all who helped
     </div>
 </body>
 </html>
