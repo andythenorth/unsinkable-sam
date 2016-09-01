@@ -8,7 +8,7 @@ sys.path.append(os.path.join('src')) # add to the module search path
 
 import codecs # used for writing files - more unicode friendly than standard open() module
 
-import fish
+import unsinkable_sam
 import utils
 import global_constants
 
@@ -23,7 +23,7 @@ templates = PageTemplateLoader(os.path.join(currentdir, 'src', 'templates'))
 
 
 def main():
-    ships = fish.get_ships_in_buy_menu_order()
+    ships = unsinkable_sam.get_ships_in_buy_menu_order()
 
     grf_nml = codecs.open(os.path.join('unsinkable-sam.nml'),'w','utf8')
     header_items = ['header', 'cargo_table', 'disable_default_ships']

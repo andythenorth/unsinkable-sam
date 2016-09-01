@@ -1,22 +1,22 @@
 # Here also go all build targets specific to this very newgrf
 
-GENERATE_NML := fish-nml
-GENERATE_LNG := fish-nml
-GENERATE_DOC := fish-nml
+GENERATE_NML := unsinkable-sam-nml
+GENERATE_LNG := unsinkable-sam-nml
+GENERATE_DOC := unsinkable-sam-nml
 
-GENERATE=src/build_fish.py
+GENERATE=src/build_unsinkable_sam.py
 
  # default num. pool workers for python compile, default is 1 to avoid accidental DoS of people's system
 pw = 1
 ic = False
 roster = *
 
-fish-nml:
+unsinkable-sam-nml:
 	$(_E) [GENERATE]
-	$(_V) python3 src/build_fish.py '${REPO_TITLE}' '${REPO_REVISION}' '${ic}' '${pw}' '${roster}'
+	$(_V) python3 src/build_unsinkable_sam.py '${REPO_TITLE}' '${REPO_REVISION}' '${ic}' '${pw}' '${roster}'
 
 clean::
-	$(_V)-rm fish.nml
+	$(_V)-rm unsinkable-sam.nml
 	$(_V)-rm -r docs
 	$(_V)-rm -r chameleon_cache
 	$(_V)-rm -r generated

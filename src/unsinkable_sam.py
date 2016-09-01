@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-print("[PARSE CONFIG] FISH.py")
+print("[PARSE CONFIG] unsinkable_sam.py")
 
 import os.path
 currentdir = os.curdir
@@ -28,11 +28,6 @@ from rosters import registered_rosters
 
 from rosters import brit
 brit.roster.register()
-
-"""
-from rosters import euro
-euro.roster.register()
-"""
 
 def get_ships_in_buy_menu_order():
     ships = []

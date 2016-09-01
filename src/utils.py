@@ -5,7 +5,7 @@ def get_repo_vars(sys):
                      'incremental_compile': sys.argv[3], 'num_pool_workers': int(sys.argv[4]),
                      'roster': sys.argv[5]}
     else: # provide some defaults so templates don't explode when testing python script without command line args
-        repo_vars = {'repo_title' : 'FISH - compiled without makefile', 'repo_version' : 1}
+        repo_vars = {'repo_title' : 'Unsinkable Sam - compiled without makefile', 'repo_version' : 1}
     return repo_vars
 
 def unescape_chameleon_output(escaped_nml):

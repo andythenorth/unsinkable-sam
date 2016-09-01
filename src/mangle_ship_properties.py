@@ -8,7 +8,7 @@ property_to_move = 'graphics_status'
 property_to_insert_after = 'gross_tonnage'
 line_to_insert = "            vehicle_groups = ['sea'], \n"
 
-import fish
+import unsinkable_sam
 
 filenames = [ship.id + '.py' for ship in fish.get_ships_in_buy_menu_order()]
 

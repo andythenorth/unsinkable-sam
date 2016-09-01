@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
 """
-  This file is part of FISH Newgrf for OpenTTD.
-  FISH is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 2.
-  FISH is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-  See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with FISH. If not, see <http://www.gnu.org/licenses/>.
+  This file is part of Unsinkable Sam Newgrf for OpenTTD.
+  Unsinkable Sam is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 2.
+  Unsinkable Sam is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with Unsinkable Sam. If not, see <http://www.gnu.org/licenses/>.
 """
 print("[PYTHON] render docs")
 
@@ -47,10 +47,10 @@ repo_vars = utils.get_repo_vars(sys)
 # get the strings from base lang file so they can be used in docs
 base_lang_strings = utils.parse_base_lang()
 
-import fish
+import unsinkable_sam
 from ship import Trawler, MixinRefittableCapacity
 
-ships = fish.get_ships_in_buy_menu_order()
+ships = unsinkable_sam.get_ships_in_buy_menu_order()
 # default sort for docs is by ship intro date
 ships = sorted(ships, key=lambda ship: ship.intro_date)
 
@@ -60,8 +60,8 @@ metadata = {}
 dates = sorted([i.intro_date for i in ships])
 metadata['dates'] = (dates[0], dates[-1])
 metadata['dev_thread_url'] = 'http://www.tt-forums.net/viewtopic.php?f=26&t=44613'
-metadata['repo_url'] = 'http://dev.openttdcoop.org/projects/fish/repository'
-metadata['issue_tracker'] = 'http://dev.openttdcoop.org/projects/fish/issues'
+metadata['repo_url'] = 'http://dev.openttdcoop.org/projects/unsinkable_sam/repository'
+metadata['issue_tracker'] = 'http://dev.openttdcoop.org/projects/unsinkable_sam/issues'
 
 class DocHelper(object):
     # dirty class to help do some doc formatting
