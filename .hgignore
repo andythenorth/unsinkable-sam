@@ -1,0 +1,60 @@
+# Use glob syntax:
+syntax: glob
+
+# The local makefile should be ignored:
+Makefile.local
+
+# And the description file and the grfs and tars which are generated automatically
+unsinkable-sam*.grf
+unsinkable-sam*.tar
+unsinkable-sam*.tar.zip
+
+# Ignore files and dirs generated automatically:
+unsinkable-sam.nml
+*.nfo
+*.cnfo
+*.cpnfo
+*.md5
+docs/*
+unsinkable-sam/*
+custom_tags.txt
+.version
+chameleon_cache
+generated/*
+
+
+# Dependency files:
+Makefile.dep
+*.dep
+*.REV
+parsetab.py
+unsinkable-sam.grf.cache
+unsinkable-sam.grf.cacheindex
+.nmlcache/*
+
+
+# Ignore directories from bundle creation / install:
+unsinkable-sam-*
+
+#The .renum dir
+.renum
+
+# Ignore frequent development left-overs like
+# editor backups, patches, rejects etc. pp
+*.orig
+*.bak
+*.log
+*.rej
+*.diff
+
+# Files created by Mac image preview and file browser:
+.DS_Store
+Thumbs.db
+
+# Don't add python .pyc and .pyo files
+*.pyc
+*.pyo
+
+# Things I am hacking with that are not of use to other people
+misc/tasks
+misc/pyramid_buildout
