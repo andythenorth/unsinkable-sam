@@ -24,7 +24,7 @@ class Ship(object):
         # setup properties for this ship
         self.title = kwargs.get('title', None)
         self.numeric_id = kwargs.get('numeric_id', None)
-        self.str_type_info = kwargs.get('str_type_info', None).upper()
+        self.str_type_info = kwargs.get('str_type_info').upper() if kwargs.get('str_type_info', None) is not None else None
         self.intro_date = kwargs.get('intro_date', None)
         self.replacement_id = kwargs.get('replacement_id', None)
         self.vehicle_life = kwargs.get('vehicle_life', None)
@@ -38,12 +38,8 @@ class Ship(object):
         self.buy_menu_width = kwargs.get('buy_menu_width', None)
         self.use_legacy_template = kwargs.get('use_legacy_template', True)
         self.offsets = kwargs.get('offsets', None)
-        self.inland_capable = kwargs.get('inland_capable', None)
-        self.sea_capable = kwargs.get('sea_capable', None)
         self.speed = kwargs.get('speed', None)
         self.speed_unladen = self.speed * kwargs.get('speed_factor_unladen', None)
-        self.ocean_speed = (1, 1)[self.sea_capable] # currently there is no penalty at sea for river boats
-        self.canal_speed = (0.7, 1)[self.inland_capable]
         # declare capacities for pax, mail and freight, as they are needed later for nml switches
         self.capacity_pax = kwargs.get('capacity_pax', 0)
         self.capacity_mail = kwargs.get('capacity_mail', 0)
@@ -284,8 +280,6 @@ class LivestockCarrier(MixinRefittableCapacity, Ship):
         self.default_cargo = 'LVST'
         self.default_cargo_capacity = self.capacities_refittable[0]
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
-         # kludge to adjust canal speed of the one reefer ship.
-        self.canal_speed = (0.65, 1)[self.inland_capable]
 
 
 class LogTug(MixinRefittableCapacity, Ship):
@@ -412,8 +406,6 @@ class Reefer(Ship):
         self.default_cargo = 'GOOD'
         self.default_cargo_capacity = self.capacity_freight
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
-         # kludge to adjust canal speed of the one reefer ship.
-        self.canal_speed = (0.6, 1)[self.inland_capable]
 
 class ContainerCarrier(Ship):
     """
@@ -429,5 +421,3 @@ class ContainerCarrier(Ship):
         self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'GOOD'
         self.default_cargo_capacity = self.capacity_freight
-         # kludge to adjust canal speed of the one fast ocean-going container feeder.
-        self.canal_speed = (0.45, 1)[self.inland_capable]
