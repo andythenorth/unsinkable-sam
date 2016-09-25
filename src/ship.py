@@ -38,7 +38,9 @@ class Ship(object):
         self.use_legacy_template = kwargs.get('use_legacy_template', True)
         self.offsets = kwargs.get('offsets', None)
         self.speed = kwargs.get('speed', None)
-        self.speed_unladen = self.speed * kwargs.get('speed_factor_unladen', None)
+        # speed_unladen left in place for possible use by log tugs, but might be better removed
+        self.speed_unladen = self.speed
+        utils.echo_message("speed_unladen property set; might be better removed")
         # declare capacities for pax, mail and freight, as they are needed later for nml switches
         self.capacity_pax = kwargs.get('capacity_pax', 0)
         self.capacity_mail = kwargs.get('capacity_mail', 0)

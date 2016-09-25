@@ -92,7 +92,6 @@ class DocHelper(object):
             result = self.fetch_prop(result, 'Ship Name', ship.get_name_substr() + base_lang_strings[ship.get_str_name_suffix()])
             result = self.fetch_prop(result, 'Extra Info', base_lang_strings[ship.get_str_type_info()])
             result = self.fetch_prop(result, 'Speed Laden', int(ship.speed))
-            result = self.fetch_prop(result, 'Speed Unladen', int(ship.speed_unladen))
             result = self.fetch_prop(result, 'Intro Date', ship.intro_date)
             result = self.fetch_prop(result, 'Vehicle Life', ship.vehicle_life)
             result = self.fetch_prop(result, 'Capacity Pax', ship.capacity_pax)
