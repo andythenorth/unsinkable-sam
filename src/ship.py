@@ -25,7 +25,7 @@ class Ship(object):
         self.title = kwargs.get('title', None)
         self.numeric_id = kwargs.get('numeric_id', None)
         self.str_type_info = 'COASTER' # !! temp during refactoring
-        utils.echo_message("str_type_info forced to 'COASTER', needs refactored to use string set by ship class")
+        utils.echo_message("str_type_info forced to 'COASTER'; needs refactored to use string set by ship class")
         self.intro_date = kwargs.get('intro_date', None)
         self.vehicle_life = kwargs.get('vehicle_life', 100) # default 100 years, assumes 2 generations of ships 1850-2050
         self.buy_cost = kwargs.get('buy_cost', None)
@@ -33,13 +33,14 @@ class Ship(object):
         self.fuel_run_cost_factor = kwargs.get('fuel_run_cost_factor', None)
         self.gross_tonnage = kwargs.get('gross_tonnage', None)
         self.loading_speed = 20
-        utils.echo_message("loading_speed forced to 20, refactor to calculated get_loading_speed() method as per Road Hog")
+        utils.echo_message("loading_speed forced to 20; needs refactored to calculated get_loading_speed() method as per Road Hog")
         self.cargo_age_period = kwargs.get('cargo_age_period', global_constants.CARGO_AGE_PERIOD)
         self.buy_menu_bb_xy = kwargs.get('buy_menu_bb_xy', None)
         self.buy_menu_width = kwargs.get('buy_menu_width', None)
         self.use_legacy_template = kwargs.get('use_legacy_template', True)
         self.offsets = kwargs.get('offsets', None)
-        self.speed = kwargs.get('speed', None)
+        self.speed = 20
+        utils.echo_message("speed forced to 20; needs refactored to use speed by intro date and vehicle class, as per Iron Horse")
         # speed_unladen left in place for possible use by log tugs, but might be better removed
         self.speed_unladen = self.speed
         utils.echo_message("speed_unladen property set; might be better removed")
