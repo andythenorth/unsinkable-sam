@@ -32,7 +32,8 @@ class Ship(object):
         self.fixed_run_cost_factor = kwargs.get('fixed_run_cost_factor', None)
         self.fuel_run_cost_factor = kwargs.get('fuel_run_cost_factor', None)
         self.gross_tonnage = kwargs.get('gross_tonnage', None)
-        self.loading_speed = kwargs.get('loading_speed', None)
+        self.loading_speed = 20
+        utils.echo_message("loading_speed forced to 20, refactor to calculated get_loading_speed() method as per Road Hog")
         self.cargo_age_period = kwargs.get('cargo_age_period', global_constants.CARGO_AGE_PERIOD)
         self.buy_menu_bb_xy = kwargs.get('buy_menu_bb_xy', None)
         self.buy_menu_width = kwargs.get('buy_menu_width', None)

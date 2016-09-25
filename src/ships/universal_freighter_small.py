@@ -11,7 +11,6 @@ ship = UniversalFreighter(id = 'universal_freighter_small',
             speed = 20.0,
             offsets = [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]],
             buy_menu_width = 96,
-            loading_speed = 20,
             intro_date = 1870,
             buy_menu_bb_xy = [645, 21],
             effects = ['EFFECT_SPRITE_STEAM, 8, 0, 24'])
