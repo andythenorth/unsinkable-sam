@@ -1,7 +1,7 @@
 import global_constants
-from ship import GeneralCargoVessel
+from ship import UniversalFreighter
 
-ship = GeneralCargoVessel(id = 'altamira_freighter',
+ship = UniversalFreighter(id = 'altamira_freighter',
             numeric_id = 1110,
             title = 'Altamira [Freighter]',
             capacity_cargo_holds = 360,

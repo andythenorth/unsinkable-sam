@@ -224,15 +224,16 @@ class ModelVariant(object):
         self.spritesheet_suffix = spritesheet_suffix # use digits for these - to match spritesheet filenames
 
 
-class GeneralCargoVessel(Ship):
+class UniversalFreighter(Ship):
     """
     General purpose freight vessel type. No pax or mail cargos, refits any other cargo including liquids (in barrels or containers).
+    IRL: "multi-purpose vessel"
     """
     def __init__(self, id, **kwargs):
-        super(GeneralCargoVessel, self).__init__(id, **kwargs)
+        super(UniversalFreighter, self).__init__(id, **kwargs)
         self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['all_freight']
-        self.label_refits_allowed = [] # no specific labels needed, GCV refits all freight
+        self.label_refits_allowed = [] # no specific labels needed, refits all freight
         self.label_refits_disallowed = ['TOUR']
         self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'COAL'

@@ -1,10 +1,10 @@
 from roster import Roster
 
 # ships in alphabetical order
-from ships import (gcv_large,
-                   gcv_micro,
-                   gcv_mini,
-                   gcv_small,
+from ships import (universal_freighter_large,
+                   universal_freighter_micro,
+                   universal_freighter_mini,
+                   universal_freighter_small,
                    tanker_large,
                    tanker_small)
 
@@ -12,9 +12,9 @@ from ships import (gcv_large,
 roster = Roster(id = 'default',
                 numeric_id = 1,
                 # ships in buy menu order
-                ships = [gcv_micro,
-                         gcv_mini,
-                         gcv_small,
-                         gcv_large,
+                ships = [universal_freighter_micro,
+                         universal_freighter_mini,
+                         universal_freighter_small,
+                         universal_freighter_large,
                          tanker_small,
                          tanker_large])
