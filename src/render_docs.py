@@ -95,7 +95,6 @@ class DocHelper(object):
             result = self.fetch_prop(result, 'Speed Unladen', int(ship.speed_unladen))
             result = self.fetch_prop(result, 'Intro Date', ship.intro_date)
             result = self.fetch_prop(result, 'Vehicle Life', ship.vehicle_life)
-            result = self.fetch_prop(result, 'Replacement ID', ship.replacement_id)
             result = self.fetch_prop(result, 'Capacity Pax', ship.capacity_pax)
             result = self.fetch_prop(result, 'Capacity Mail', ship.capacity_mail)
             result = self.fetch_prop(result, 'Capacity Freight', ship.capacity_freight)

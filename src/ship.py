@@ -26,7 +26,6 @@ class Ship(object):
         self.numeric_id = kwargs.get('numeric_id', None)
         self.str_type_info = kwargs.get('str_type_info').upper() if kwargs.get('str_type_info', None) is not None else None
         self.intro_date = kwargs.get('intro_date', None)
-        self.replacement_id = kwargs.get('replacement_id', None)
         self.vehicle_life = kwargs.get('vehicle_life', None)
         self.buy_cost = kwargs.get('buy_cost', None)
         self.fixed_run_cost_factor = kwargs.get('fixed_run_cost_factor', None)
