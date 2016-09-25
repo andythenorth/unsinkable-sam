@@ -1,10 +1,10 @@
 import global_constants
-from ship import UniversalFreighter
+from ship import PieceGoodsCarrier
 
-ship = UniversalFreighter(id = 'universal_freighter_large',
-            numeric_id = 3,
-            title = 'Large [Freighter]',
-            capacity_cargo_holds = 576,
+ship = PieceGoodsCarrier(id = 'piece_goods_carrier_small',
+            numeric_id = 7,
+            title = 'Small [Piece Goods Carrier]',
+            capacity_cargo_holds = 240,
             replacement_id = '-none',
             buy_cost = 28,
             fixed_run_cost_factor = 3.5,
@@ -12,10 +12,10 @@ ship = UniversalFreighter(id = 'universal_freighter_large',
             speed = 20.0,
             speed_factor_unladen = 1.1,
             offsets = [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]],
-            buy_menu_width = 125,
+            buy_menu_width = 96,
             loading_speed = 20,
             intro_date = 1870,
-            buy_menu_bb_xy = [620, 28],
+            buy_menu_bb_xy = [645, 21],
             str_type_info = 'COASTER',
             effects = ['EFFECT_SPRITE_STEAM, 8, 0, 24'],
             vehicle_life = 40,

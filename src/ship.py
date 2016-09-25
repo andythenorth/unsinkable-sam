@@ -227,17 +227,51 @@ class ModelVariant(object):
 class UniversalFreighter(Ship):
     """
     General purpose freight vessel type. No pax or mail cargos, refits any other cargo including liquids (in barrels or containers).
-    IRL: "multi-purpose vessel"
+    IRL: "multi-purpose vessel".
+    Not "general cargo vessel", IRL they carry only piece goods (confusing much?).
     """
     def __init__(self, id, **kwargs):
         super(UniversalFreighter, self).__init__(id, **kwargs)
         self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['all_freight']
         self.label_refits_allowed = [] # no specific labels needed, refits all freight
-        self.label_refits_disallowed = ['TOUR']
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'COAL'
         self.default_cargo_capacity = self.capacity_freight
+
+
+class PieceGoodsCarrier(Ship):
+    """
+    Piece goods cargos, other selected cargos.  Equivalent of Road Hog box hauler and Iron Horse box wagon.
+    IRL: "GCV", "Break-bulk", "Pallete carrier".
+    Not "box ship" because IRL they are container carriers (yair).
+    """
+    def __init__(self, **kwargs):
+        super(PieceGoodsCarrier, self).__init__(**kwargs)
+        self.template = 'general_cargo_vessel.pynml'
+        self.class_refit_groups = ['packaged_freight']
+        self.label_refits_allowed = ['MAIL', 'GRAI', 'WHEA', 'MAIZ', 'FRUT', 'BEAN', 'NITR'] # Iron Horse compatibility
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
+        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
+        self.default_cargo = 'GOOD'
+        self.default_cargo_capacity = self.capacity_freight
+
+
+class BulkCarrier(Ship):
+    """
+    Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse hopper wagon.
+    """
+    def __init__(self, **kwargs):
+        super(BulkCarrier, self).__init__(**kwargs)
+        self.template = 'general_cargo_vessel.pynml'
+        self.class_refit_groups = ['dump_freight']
+        self.label_refits_allowed = [] # no specific labels needed
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_dump_bulk']
+        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
+        self.default_cargo = 'COAL'
+        self.default_cargo_capacity = self.capacity_freight
+        self.loading_speed_multiplier = 2
 
 
 class UtilityVessel(Ship):
@@ -370,7 +404,7 @@ class Tanker(Ship):
         self.template = 'tanker.pynml'
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
-        self.label_refits_disallowed = global_constants.label_refits_disallowed['edible_liquids'] # don't allow known edible liquids
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
         self.capacity_tanks = kwargs.get('capacity_tanks', None)
         self.capacity_freight = self.capacity_tanks
         self.default_cargo = 'OIL_'
@@ -386,7 +420,7 @@ class EdiblesTanker(Ship):
         self.template = 'tanker.pynml'
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
-        self.label_refits_disallowed = global_constants.label_refits_disallowed['non_edible_liquids'] # don't allow known inedibles
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
         self.capacity_tanks = kwargs.get('capacity_tanks', None)
         self.capacity_freight = self.capacity_tanks
         self.default_cargo = 'WATR'
@@ -407,6 +441,7 @@ class Reefer(Ship):
         self.default_cargo = 'GOOD'
         self.default_cargo_capacity = self.capacity_freight
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
+
 
 class ContainerCarrier(Ship):
     """

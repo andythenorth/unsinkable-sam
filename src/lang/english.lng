@@ -17,6 +17,7 @@ STR_PARAM_ROSTER_DESC                                           :Choose which se
 STR_PARAM_ROSTER_OPTION_0                                       :This Sceptered Isle
 STR_PARAM_ROSTER_OPTION_1                                       :The Blue Danube
 
+STR_NAME_SUFFIX_BULK_CARRIER                                    :Bulk Carrier
 STR_NAME_SUFFIX_BARGE_TUG                                       :Barge Tug
 STR_NAME_SUFFIX_CATAMARAN                                       :Catamaran
 STR_NAME_SUFFIX_CONTAINER_FEEDER                                :Container Feeder
@@ -30,6 +31,7 @@ STR_NAME_SUFFIX_HYDROFOIL                                       :Hydrofoil
 STR_NAME_SUFFIX_LIVESTOCK_SHIP                                  :Livestock Ship
 STR_NAME_SUFFIX_LOG_TUG                                         :Log Tug
 STR_NAME_SUFFIX_PADDLE_STEAMER                                  :Paddle Steamer
+STR_NAME_SUFFIX_PIECE_GOODS_CARRIER                             :Piece Goods Carrier
 STR_NAME_SUFFIX_REEFER                                          :Reefer
 STR_NAME_SUFFIX_RIG_SUPPLY_FAST_CATAMARAN                       :Fast Supply Vessel
 STR_NAME_SUFFIX_STEAMER                                         :Steamer

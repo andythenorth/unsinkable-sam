@@ -1,9 +1,9 @@
 import global_constants
-from ship import UniversalFreighter
+from ship import BulkCarrier
 
-ship = UniversalFreighter(id = 'universal_freighter_large',
-            numeric_id = 3,
-            title = 'Large [Freighter]',
+ship = BulkCarrier(id = 'bulk_carrier_large',
+            numeric_id = 9,
+            title = 'Large [Bulk Carrier]',
             capacity_cargo_holds = 576,
             replacement_id = '-none',
             buy_cost = 28,

@@ -6,15 +6,18 @@ base_refits_by_class = {'empty': [],
                        'pax_mail': ['CC_PASSENGERS','CC_MAIL'],
                        'liquids': ['CC_LIQUID'],
                        'packaged_freight': ['CC_PIECE_GOODS', 'CC_EXPRESS', 'CC_ARMOURED', 'CC_LIQUID'],
+                       'dump_freight': ['CC_BULK'],
                        'refrigerated_freight': ['CC_REFRIGERATED'],
                        'express_freight': ['CC_EXPRESS','CC_ARMOURED']}
 
-label_refits_disallowed = {'edible_liquids': ['MILK', 'WATR', 'BEER', 'FOOD'],
-                           'non_edible_liquids': ['RFPR', 'OIL_', 'FMSP', 'PETR']}
+disallowed_refits_by_label = {'non_dump_bulk': ['WOOD', 'SGCN', 'FICR', 'BDMT', 'WDPR', 'GRAI', 'WHEA', 'CERE', 'MAIZ', 'FRUT', 'BEAN', 'CMNT', 'CTCD', 'FERT', 'OLSD', 'SUGR', 'SULP', 'TOFF', 'URAN'],
+                              'edible_liquids': ['MILK', 'WATR', 'BEER', 'FOOD', 'EOIL'],
+                              'non_edible_liquids': ['RFPR', 'OIL_', 'FMSP', 'PETR', 'RUBR'],
+                              'non_freight_special_cases': ['TOUR']}
 
 # used to construct the cargo table automatically
 # ! order is significant ! - openttd will cascade through default cargos in the order specified by the cargo table
-cargo_labels = ['PASS', # pax first
+cargo_labels = ('PASS', # pax first
                 'TOUR',
                 # "the mail must get through"
                 'MAIL',
@@ -64,7 +67,22 @@ cargo_labels = ['PASS', # pax first
                 'OLSD',
                 'SUGR',
                 'BEAN',
-                'NITR']
+                'NITR',
+                'JAVA',
+                'VEHI',
+                'EOIL',
+                'CASS',
+                'NUTS',
+                'MNO2',
+                'PHOS',
+                'PORE',
+                'POTA',
+                'FERT',
+                'CMNT',
+                'CTCD',
+                'TOFF',
+                'SULP',
+                'URAN')
 
 # chameleon templating goes faster if a cache dir is used; this specifies which dir is cache dir
 chameleon_cache_dir = 'chameleon_cache'
