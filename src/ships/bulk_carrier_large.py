@@ -14,7 +14,6 @@ ship = BulkCarrier(id = 'bulk_carrier_large',
             loading_speed = 20,
             intro_date = 1870,
             buy_menu_bb_xy = [620, 28],
-            str_type_info = 'COASTER',
             effects = ['EFFECT_SPRITE_STEAM, 8, 0, 24'])
 
 ship.add_model_variant(intro_date=0,
