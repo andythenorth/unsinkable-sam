@@ -26,7 +26,7 @@ class Ship(object):
         self.numeric_id = kwargs.get('numeric_id', None)
         self.str_type_info = kwargs.get('str_type_info').upper() if kwargs.get('str_type_info', None) is not None else None
         self.intro_date = kwargs.get('intro_date', None)
-        self.vehicle_life = kwargs.get('vehicle_life', None)
+        self.vehicle_life = kwargs.get('vehicle_life', 100) # default 100 years, assumes 2 generations of ships 1850-2050
         self.buy_cost = kwargs.get('buy_cost', None)
         self.fixed_run_cost_factor = kwargs.get('fixed_run_cost_factor', None)
         self.fuel_run_cost_factor = kwargs.get('fuel_run_cost_factor', None)

@@ -16,8 +16,7 @@ ship = BulkCarrier(id = 'bulk_carrier_small',
             intro_date = 1870,
             buy_menu_bb_xy = [645, 21],
             str_type_info = 'COASTER',
-            effects = ['EFFECT_SPRITE_STEAM, 8, 0, 24'],
-            vehicle_life = 40)
+            effects = ['EFFECT_SPRITE_STEAM, 8, 0, 24'])
 
 ship.add_model_variant(intro_date=0,
                        end_date=global_constants.max_game_date,
