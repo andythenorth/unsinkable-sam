@@ -239,6 +239,7 @@ class UniversalFreighter(Ship):
         self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'COAL'
         self.default_cargo_capacity = self.capacity_freight
+        self.gross_tonnage = self.default_cargo_capacity * 1.25
 
 
 class PieceGoodsCarrier(Ship):
@@ -256,6 +257,7 @@ class PieceGoodsCarrier(Ship):
         self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'GOOD'
         self.default_cargo_capacity = self.capacity_freight
+        self.gross_tonnage = self.default_cargo_capacity * 1.25
 
 
 class BulkCarrier(Ship):
@@ -271,6 +273,7 @@ class BulkCarrier(Ship):
         self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'COAL'
         self.default_cargo_capacity = self.capacity_freight
+        self.gross_tonnage = self.default_cargo_capacity * 1.25
         self.loading_speed_multiplier = 2
 
 
@@ -409,6 +412,7 @@ class Tanker(Ship):
         self.capacity_freight = self.capacity_tanks
         self.default_cargo = 'OIL_'
         self.default_cargo_capacity = self.capacity_freight
+        self.gross_tonnage = self.default_cargo_capacity * 1.25
 
 
 class EdiblesTanker(Ship):

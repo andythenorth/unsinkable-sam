@@ -19,8 +19,7 @@ ship = Tanker(id = 'tanker_small',
             buy_menu_bb_xy = [645, 21],
             str_type_info = 'SMALL_TANKER_COASTAL_INLAND',
             effects = ['EFFECT_SPRITE_DIESEL, 8, 0, 18'],
-            vehicle_life = 35,
-            gross_tonnage = 350)
+            vehicle_life = 35)
 
 ship.add_model_variant(intro_date=0,
                        end_date=global_constants.max_game_date,

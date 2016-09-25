@@ -18,8 +18,7 @@ ship = PieceGoodsCarrier(id = 'piece_goods_carrier_small',
             buy_menu_bb_xy = [645, 21],
             str_type_info = 'COASTER',
             effects = ['EFFECT_SPRITE_STEAM, 8, 0, 24'],
-            vehicle_life = 40,
-            gross_tonnage = 360)
+            vehicle_life = 40)
 
 ship.add_model_variant(intro_date=0,
                        end_date=global_constants.max_game_date,
