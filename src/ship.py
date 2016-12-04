@@ -131,7 +131,6 @@ class Ship(object):
         capacities_mail = [int(self.capacity_mail * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
         capacities_freight = [int(self.capacity_freight * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
         result = {'pax': capacities_pax, 'mail': capacities_mail, 'freight': capacities_freight}
-        print(result)
         return(result)
 
     @property
