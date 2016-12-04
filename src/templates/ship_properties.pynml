@@ -1,15 +1,5 @@
 // -- some switches are common to all vehicles so included with properties -- //
 
-// -- dibble about with purchase menu capacity to handle various cargo-specific capacity issues (cargo might be missing etc) -- //
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_purchase_cargo_capacity, cargo_type_in_veh) {
-    <!--! if FISH cargo is missing, trawlers need to still work -->
-    <tal:trawlers condition="ship.str_type_info.lower()=='trawler'">
-        FISH: return ${ship.capacity_fish_holds};
-        PASS: return ${ship.capacity_pax};
-    </tal:trawlers>
-    return ${ship.default_cargo_capacity};
-}
-
 // -- smoke -- //
 switch (FEAT_SHIPS, SELF, ${ship.id}_create_visual_effect, ${ship.get_expression_for_effects()}) {
     return ${len(ship.effects)};
@@ -48,7 +38,7 @@ item(FEAT_SHIPS, ${ship.id}, ${ship.numeric_id}) {
         speed:                          ${ship.id}_switch_speed_varies_with_load_amount;
         purchase_speed:                 ${ship.id}_switch_purchase_speed;
         cargo_capacity:                 ${ship.id}_switch_cargo_capacity;
-        purchase_cargo_capacity:        ${ship.id}_switch_purchase_cargo_capacity;
+        purchase_cargo_capacity:        ${ship.default_cargo_capacity};
         additional_text:                ${ship.get_buy_menu_string()};
         cargo_subtype_text:             ${ship.id}_switch_cargo_subtype_text;
         default:                        ${ship.id}_switch_graphics;

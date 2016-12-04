@@ -405,20 +405,9 @@ class Trawler(Ship):
         self.class_refit_groups = ['pax_mail','express_freight']
         self.label_refits_allowed = ['BDMT','FISH', 'FRUT','LVST','VEHI','WATR']
         self.label_refits_disallowed = []
-        self.capacity_deck_cargo = kwargs.get('capacity_deck_cargo', None)
-        self.capacity_freight = self.capacity_deck_cargo
-        self.capacity_fish_holds = kwargs.get('capacity_fish_holds', None)
+        self.capacity_freight = kwargs.get('capacity_freight', None)
         self.default_cargo = 'FISH'
-        self.default_cargo_capacity = self.capacity_fish_holds
-
-    def get_buy_menu_string(self):
-        # set buy menu text, with various variations
-        buy_menu_template = Template(
-                "string(STR_BUY_MENU_TEXT, string(${str_type_info}), string(STR_BUY_MENU_REFIT_CAPACITIES_TRAWLER,${capacity_pax},${capacity_mail},${capacity_fish_holds},${capacity_deck_cargo}))"
-        )
-        return buy_menu_template.substitute(str_type_info=self.get_str_type_info(), capacity_pax=self.capacity_pax,
-                                            capacity_mail=self.capacity_mail, capacity_deck_cargo=self.capacity_deck_cargo,
-                                            capacity_fish_holds=self.capacity_fish_holds)
+        self.default_cargo_capacity = self.capacity_freight
 
 
 class Tanker(Ship):
