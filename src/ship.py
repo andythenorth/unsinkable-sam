@@ -44,10 +44,12 @@ class Ship(object):
         # speed_unladen left in place for possible use by log tugs, but might be better removed
         self.speed_unladen = self.speed
         utils.echo_message("speed_unladen property set; might be better removed")
-        # declare capacities for pax, mail and freight, as they are needed later for nml switches
+        # declare default capacities for pax, mail and freight, as they are needed later for nml switches
         self.capacity_pax = kwargs.get('capacity_pax', 0)
         self.capacity_mail = kwargs.get('capacity_mail', 0)
-        self.capacity_freight = kwargs.get('capacity_freight', 0) # over-ride in subclass as needed
+        self.capacity_freight = kwargs.get('capacity_freight', 0)
+        # by default ships have multiple capacity options, refittable in depot
+        self.capacity_is_refittable_by_cargo_subtype = kwargs.get('capacity_is_refittable_by_cargo_subtype', True)
         # most ships use steam effect_spawn_model so set default, over-ride in ships as needed
         self.effect_spawn_model = kwargs.get('effect_spawn_model', 'EFFECT_SPAWN_MODEL_STEAM')
         self.effects = kwargs.get('effects', [])
@@ -116,6 +118,27 @@ class Ship(object):
         fuel_run_cost =  self.fuel_run_cost_factor * self.gross_tonnage * global_constants.FUEL_RUN_COST
         calculated_run_cost = int((fixed_run_cost + fuel_run_cost) / 98) # divide by magic constant to get costs as factor in 0-255 range
         return min(calculated_run_cost, 255) # cost factor is a byte, can't exceed 255
+
+    @property
+    def refittable_capacity_factors(self):
+        # default refittable capacities are [base capacity, 25% underload, 25% overload]
+        # over-ride this in the subclass if necessary
+        return [1, 0.75, 1.25]
+
+    @property
+    def capacities_refittable(self):
+        capacities_pax = [int(self.capacity_pax * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
+        capacities_mail = [int(self.capacity_mail * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
+        capacities_freight = [int(self.capacity_freight * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
+        result = {'pax': capacities_pax, 'mail': capacities_mail, 'freight': capacities_freight}
+        print(result)
+        return(result)
+
+    @property
+    def cargo_units_refit_menu(self):
+        # !!! hax while rewriting templating + making all ship capacity refittable
+        # !!! just make it compile eh?
+        return 'STR_UNIT_ITEMS'
 
     @property
     def refittable_classes(self):
@@ -193,10 +216,7 @@ class Ship(object):
         return template(ship=self)
 
     def render_cargo_capacity(self):
-        if hasattr(self, 'capacity_is_refittable_by_cargo_subtype'):
-            template = templates["capacity_refittable.pynml"]
-        else:
-            template = templates["capacity_not_refittable.pynml"]
+        template = templates["capacity_switches.pynml"]
         return template(ship=self)
 
     def render(self):
@@ -205,17 +225,17 @@ class Ship(object):
 
 
 class MixinRefittableCapacity(object):
-    def capacity_is_refittable_by_cargo_subtype(self):
-        return True
-
     def get_buy_menu_string(self):
+        """
         buy_menu_template = Template(
             "string(STR_BUY_MENU_TEXT, string(${str_type_info}), string(STR_GENERIC_REFIT_SUBTYPE_BUY_MENU_INFO,${capacity_0},${capacity_1},${capacity_2},string(${cargo_units})))"
         )
         return buy_menu_template.substitute(str_type_info=self.get_str_type_info(), capacity_0=self.capacities_refittable[0],
                                         capacity_1=self.capacities_refittable[1], capacity_2=self.capacities_refittable[2],
                                         cargo_units=self.cargo_units_buy_menu)
-
+        """
+        utils.echo_message('get_buy_menu_string is hobbled')
+        return ''
 
 class ModelVariant(object):
     # simple class to hold model variants

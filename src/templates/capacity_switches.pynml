@@ -1,0 +1,36 @@
+// -- assumes exactly 3 subtype refits, which is a sane amount; convert to repeat if more are ever needed -- //
+<tal:capacity repeat="cargo_type ship.capacities_refittable">
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_cargo_capacity_${cargo_type}, cargo_subtype) {
+        0: return ${ship.capacities_refittable[cargo_type][0]};
+        1: return ${ship.capacities_refittable[cargo_type][1]};
+        2: return ${ship.capacities_refittable[cargo_type][2]};
+        return ${ship.capacities_refittable[cargo_type][0]};
+    }
+</tal:capacity>
+
+// -- capacity determined according to specific labels that might need to be handled, and otherwise cargo class -- //
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_cargo_capacity_classes, cargo_classes) {
+    bitmask(CC_PASSENGERS): ${ship.id}_switch_cargo_capacity_pax;
+    bitmask(CC_MAIL): ${ship.id}_switch_cargo_capacity_mail;
+    ${ship.id}_switch_cargo_capacity_freight;
+}
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_cargo_capacity, cargo_type_in_veh) {
+    <tal:trawlers condition="ship.str_type_info.lower()=='trawler'">FISH: return ${ship.capacity_fish_holds};</tal:trawlers>
+    ${ship.id}_switch_cargo_capacity_classes;
+}
+
+// -- handle subtype strings, used to aid players understand auto-refitting -- //
+<tal:capacity_text repeat="cargo_type ship.capacities_refittable">
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_cargo_subtype_text_${cargo_type}, cargo_subtype) {
+        0: return string(STR_GENERIC_REFIT_SUBTYPE, ${ship.capacities_refittable[cargo_type][0]}, ${ship.get_cargo_suffix()});
+        1: return string(STR_GENERIC_REFIT_SUBTYPE, ${ship.capacities_refittable[cargo_type][1]}, ${ship.get_cargo_suffix()});
+        2: return string(STR_GENERIC_REFIT_SUBTYPE, ${ship.capacities_refittable[cargo_type][2]}, ${ship.get_cargo_suffix()});
+        return CB_RESULT_NO_TEXT;
+    }
+</tal:capacity_text>
+
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_cargo_subtype_text, cargo_classes) {
+    bitmask(CC_PASSENGERS): ${ship.id}_switch_cargo_subtype_text_pax;
+    bitmask(CC_MAIL): ${ship.id}_switch_cargo_subtype_text_mail;
+    ${ship.id}_switch_cargo_subtype_text_freight;
+}

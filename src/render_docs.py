@@ -97,10 +97,6 @@ class DocHelper(object):
             result = self.fetch_prop(result, 'Capacity Pax', ship.capacity_pax)
             result = self.fetch_prop(result, 'Capacity Mail', ship.capacity_mail)
             result = self.fetch_prop(result, 'Capacity Freight', ship.capacity_freight)
-            if isinstance(ship, Trawler):
-                result = self.fetch_prop(result, 'Capacity Fish Holds', ship.capacity_fish_holds)
-            if isinstance(ship, MixinRefittableCapacity):
-                result = self.fetch_prop(result, 'Capacities Refittable', ', '.join(str(i) for i in ship.capacities_refittable))
             result = self.fetch_prop(result, 'Buy Cost', ship.buy_cost)
             result = self.fetch_prop(result, 'Running Cost', ship.running_cost)
             result = self.fetch_prop(result, 'Loading Speed', ship.loading_speed)
