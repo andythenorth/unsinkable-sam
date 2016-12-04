@@ -48,7 +48,6 @@ repo_vars = utils.get_repo_vars(sys)
 base_lang_strings = utils.parse_base_lang()
 
 import unsinkable_sam
-from ship import Trawler, MixinRefittableCapacity
 
 ships = unsinkable_sam.get_ships_in_buy_menu_order()
 # default sort for docs is by ship intro date

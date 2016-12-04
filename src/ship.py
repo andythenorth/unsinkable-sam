@@ -137,6 +137,7 @@ class Ship(object):
     def cargo_units_refit_menu(self):
         # !!! hax while rewriting templating + making all ship capacity refittable
         # !!! just make it compile eh?
+        utils.echo_message('refit menu uses STR_UNIT_ITEMS hax for all cargos - needs fixed')
         return 'STR_UNIT_ITEMS'
 
     @property
@@ -222,19 +223,6 @@ class Ship(object):
         template = templates[self.template]
         return template(ship=self, global_constants=global_constants)
 
-
-class MixinRefittableCapacity(object):
-    def get_buy_menu_string(self):
-        """
-        buy_menu_template = Template(
-            "string(STR_BUY_MENU_TEXT, string(${str_type_info}), string(STR_GENERIC_REFIT_SUBTYPE_BUY_MENU_INFO,${capacity_0},${capacity_1},${capacity_2},string(${cargo_units})))"
-        )
-        return buy_menu_template.substitute(str_type_info=self.get_str_type_info(), capacity_0=self.capacities_refittable[0],
-                                        capacity_1=self.capacities_refittable[1], capacity_2=self.capacities_refittable[2],
-                                        cargo_units=self.cargo_units_buy_menu)
-        """
-        utils.echo_message('get_buy_menu_string is hobbled')
-        return ''
 
 class ModelVariant(object):
     # simple class to hold model variants
@@ -324,7 +312,7 @@ class UtilityVessel(Ship):
                                             capacity_mail=self.capacity_mail, capacity_cargo_holds=self.capacity_cargo_holds)
 
 
-class LivestockCarrier(MixinRefittableCapacity, Ship):
+class LivestockCarrier(Ship):
     """
     Special type for livestock (as you might guess).
     """
@@ -334,16 +322,15 @@ class LivestockCarrier(MixinRefittableCapacity, Ship):
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['LVST'] # set to livestock by default, don't need to make it refit
         self.label_refits_disallowed = []
-        self.capacities_refittable = kwargs.get('capacities_refittable', None)
-        self.capacity_freight = self.capacities_refittable[0]
+        self.capacity_freight = self.capacity_cargo_holds
         self.cargo_units_buy_menu = 'STR_QUANTITY_LIVESTOCK'
         self.cargo_units_refit_menu = 'STR_UNIT_ITEMS'
         self.default_cargo = 'LVST'
-        self.default_cargo_capacity = self.capacities_refittable[0]
+        self.default_cargo_capacity = self.capacity_freight
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
 
 
-class LogTug(MixinRefittableCapacity, Ship):
+class LogTug(Ship):
     """
     Specialist type for hauling logs only, has some specialist refit and speed behaviours.
     """
@@ -353,12 +340,11 @@ class LogTug(MixinRefittableCapacity, Ship):
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['WOOD']
         self.label_refits_disallowed = []
-        self.capacities_refittable = kwargs.get('capacities_refittable', None)
-        self.capacity_freight = self.capacities_refittable[0]
+        self.capacity_freight = self.capacity_cargo_holds
         self.cargo_units_buy_menu = 'STR_QUANTITY_WOOD'
         self.cargo_units_refit_menu = 'STR_UNIT_TONNES'
         self.default_cargo = 'WOOD'
-        self.default_cargo_capacity = self.capacities_refittable[0]
+        self.default_cargo_capacity = self.capacity_freight
 
 
 class PacketBoat(Ship):
