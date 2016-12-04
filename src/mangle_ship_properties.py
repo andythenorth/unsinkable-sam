@@ -10,7 +10,7 @@ line_to_insert = "            vehicle_groups = ['sea'], \n"
 
 import unsinkable_sam
 
-filenames = [ship.id + '.py' for ship in fish.get_ships_in_buy_menu_order()]
+filenames = [ship.id + '.py' for ship in unsinkable_sam.get_ships_in_buy_menu_order()]
 
 def move_property(filename):
     file = open(os.path.join('src','ships',filename),'r')
