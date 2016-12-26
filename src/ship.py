@@ -444,6 +444,7 @@ class Reefer(Ship):
         self.default_cargo = 'GOOD'
         self.default_cargo_capacity = self.capacity_freight
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
+        self.gross_tonnage = self.default_cargo_capacity * 1.25
 
 
 class ContainerCarrier(Ship):
