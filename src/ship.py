@@ -383,17 +383,18 @@ class Hydrofoil(PacketBoat):
 
 class Trawler(Ship):
     """
-    Similar type to a packet boat, but needs to go fishing, so has special fish holds for that.
+    Dedicated to fishing
     """
     def __init__(self, id, **kwargs):
         super(Trawler, self).__init__(id, **kwargs)
         self.template = 'ship.pynml'
-        self.class_refit_groups = ['pax_mail','express_freight']
-        self.label_refits_allowed = ['BDMT','FISH', 'FRUT','LVST','VEHI','WATR']
+        self.class_refit_groups = []
+        self.label_refits_allowed = []
         self.label_refits_disallowed = []
-        self.capacity_freight = kwargs.get('capacity_freight', None)
+        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'FISH'
         self.default_cargo_capacity = self.capacity_freight
+        self.gross_tonnage = self.default_cargo_capacity * 1.25
 
 
 class Tanker(Ship):
