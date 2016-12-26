@@ -14,16 +14,16 @@ template spriteset_template_${ship.id}(y, y_offs_adjust) {
     [762,       y,          113,        66,          ${ship.offsets[7][0]}, ${ship.offsets[7][1]} + y_offs_adjust, ANIM]
 }
 
-spriteset(${ship.id}_ss_speed_1, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_speed_1, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(10, 0)
 }
-spriteset(${ship.id}_ss_speed_2, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_speed_2, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(110, -1)
 }
-spriteset(${ship.id}_ss_speed_3, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_speed_3, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(210, -2)
 }
-spriteset(${ship.id}_ss_speed_4, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_speed_4, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(310, -3)
 }
 
@@ -41,7 +41,7 @@ template spriteset_template_purchase_${ship.id}() {
     [${ship.buy_menu_bb_xy[0]}, ${ship.buy_menu_bb_xy[1]}, ${ship.buy_menu_width}, 22, -${int(ship.buy_menu_width / 2)}, -10]
 }
 
-spriteset(${ship.id}_ss_purchase, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_purchase, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_purchase_${ship.id}()
 }
 

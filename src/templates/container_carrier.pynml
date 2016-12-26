@@ -13,37 +13,37 @@ template spriteset_template_${ship.id}(y) {
     [762,       y,          113,        71,          ${ship.offsets[7][0]}, ${ship.offsets[7][1]}, ANIM]
 }
 
-spriteset(${ship.id}_ss_empty_not_moving, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_empty_not_moving, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(10)
 }
-spriteset(${ship.id}_ss_empty_moving, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_empty_moving, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(110)
 }
-spriteset(${ship.id}_ss_loading_0_not_moving, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_loading_0_not_moving, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(210)
 }
-spriteset(${ship.id}_ss_loaded_1_not_moving, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_loaded_1_not_moving, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(310)
 }
-spriteset(${ship.id}_ss_loaded_1_moving, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_loaded_1_moving, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(410)
 }
-spriteset(${ship.id}_ss_loaded_2_not_moving, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_loaded_2_not_moving, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(510)
 }
-spriteset(${ship.id}_ss_loaded_2_moving, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_loaded_2_moving, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(610)
 }
-spriteset(${ship.id}_ss_loaded_3_not_moving, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_loaded_3_not_moving, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(710)
 }
-spriteset(${ship.id}_ss_loaded_3_moving, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_loaded_3_moving, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(810)
 }
-spriteset(${ship.id}_ss_loaded_4_not_moving, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_loaded_4_not_moving, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(910)
 }
-spriteset(${ship.id}_ss_loaded_4_moving, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_loaded_4_moving, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_${ship.id}(1010)
 }
 
@@ -89,7 +89,7 @@ template spriteset_template_purchase_${ship.id}() {
     [${ship.buy_menu_bb_xy[0]}, ${ship.buy_menu_bb_xy[1]}, ${ship.buy_menu_width}, 22, -${int(ship.buy_menu_width / 2)}, -10]
 }
 
-spriteset(${ship.id}_ss_purchase, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_purchase, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_purchase_${ship.id}()
 }
 

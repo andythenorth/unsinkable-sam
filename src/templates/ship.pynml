@@ -18,16 +18,16 @@ ${ship.render_debug_info()}
 </tal:regrettable_template_jank>
 
 <tal:sprites_random_variations repeat="variation_num python:range(ship.get_num_spritesets())">
-    spriteset(${ship.id}_ss_not_loaded_not_moving_${variation_num}, "src/graphics/${ship.id}_${variation_num}.png") {
+    spriteset(${ship.id}_ss_not_loaded_not_moving_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
       spriteset_template_${ship.id}(10)
     }
-    spriteset(${ship.id}_ss_not_loaded_moving_${variation_num}, "src/graphics/${ship.id}_${variation_num}.png") {
+    spriteset(${ship.id}_ss_not_loaded_moving_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
       spriteset_template_${ship.id}(110)
     }
-    spriteset(${ship.id}_ss_loaded_not_moving_${variation_num}, "src/graphics/${ship.id}_${variation_num}.png") {
+    spriteset(${ship.id}_ss_loaded_not_moving_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
       spriteset_template_${ship.id}(510)
     }
-    spriteset(${ship.id}_ss_loaded_moving_${variation_num}, "src/graphics/${ship.id}_${variation_num}.png") {
+    spriteset(${ship.id}_ss_loaded_moving_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
       spriteset_template_${ship.id}(610)
     }
 
@@ -68,7 +68,7 @@ template spriteset_template_purchase_${ship.id}() {
     [${ship.buy_menu_bb_xy[0]}, ${ship.buy_menu_bb_xy[1]}, ${int(ship.buy_menu_width)}, 22, -${int(ship.buy_menu_width / 2)}, -10, ANIM]
 }
 
-spriteset(${ship.id}_ss_purchase, "src/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_purchase, "src/graphics/ships/${ship.id}_0.png") {
   spriteset_template_purchase_${ship.id}()
 }
 
