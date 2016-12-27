@@ -31,7 +31,6 @@ class Ship(object):
         self.buy_cost = kwargs.get('buy_cost', None)
         self.fixed_run_cost_factor = kwargs.get('fixed_run_cost_factor', None)
         self.fuel_run_cost_factor = kwargs.get('fuel_run_cost_factor', None)
-        self.gross_tonnage = kwargs.get('gross_tonnage', None)
         self.loading_speed = 20
         utils.echo_message("loading_speed forced to 20; needs refactored to calculated get_loading_speed() method as per Road Hog")
         self.cargo_age_period = kwargs.get('cargo_age_period', global_constants.CARGO_AGE_PERIOD)
@@ -114,8 +113,9 @@ class Ship(object):
     @property
     def running_cost(self):
         # calculate a running cost
+        gross_tonnage = self.default_cargo_capacity * 1.25 # no real need to vary this by ship type
         fixed_run_cost = self.fixed_run_cost_factor * global_constants.FIXED_RUN_COST
-        fuel_run_cost =  self.fuel_run_cost_factor * self.gross_tonnage * global_constants.FUEL_RUN_COST
+        fuel_run_cost =  self.fuel_run_cost_factor * gross_tonnage * global_constants.FUEL_RUN_COST
         calculated_run_cost = int((fixed_run_cost + fuel_run_cost) / 98) # divide by magic constant to get costs as factor in 0-255 range
         return min(calculated_run_cost, 255) # cost factor is a byte, can't exceed 255
 
@@ -250,7 +250,6 @@ class UniversalFreighter(Ship):
         self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'COAL'
         self.default_cargo_capacity = self.capacity_freight
-        self.gross_tonnage = self.default_cargo_capacity * 1.25
 
 
 class PieceGoodsCarrier(Ship):
@@ -268,7 +267,6 @@ class PieceGoodsCarrier(Ship):
         self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'GOOD'
         self.default_cargo_capacity = self.capacity_freight
-        self.gross_tonnage = self.default_cargo_capacity * 1.25
 
 
 class BulkCarrier(Ship):
@@ -284,7 +282,6 @@ class BulkCarrier(Ship):
         self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'COAL'
         self.default_cargo_capacity = self.capacity_freight
-        self.gross_tonnage = self.default_cargo_capacity * 1.25
         self.loading_speed_multiplier = 2
 
 
@@ -394,7 +391,6 @@ class Trawler(Ship):
         self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'FISH'
         self.default_cargo_capacity = self.capacity_freight
-        self.gross_tonnage = self.default_cargo_capacity * 1.25
 
 
 class Tanker(Ship):
@@ -411,7 +407,6 @@ class Tanker(Ship):
         self.capacity_freight = self.capacity_tanks
         self.default_cargo = 'OIL_'
         self.default_cargo_capacity = self.capacity_freight
-        self.gross_tonnage = self.default_cargo_capacity * 1.25
 
 
 class EdiblesTanker(Ship):
@@ -444,7 +439,6 @@ class Reefer(Ship):
         self.default_cargo = 'GOOD'
         self.default_cargo_capacity = self.capacity_freight
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
-        self.gross_tonnage = self.default_cargo_capacity * 1.25
 
 
 class ContainerCarrier(Ship):
