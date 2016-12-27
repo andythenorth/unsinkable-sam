@@ -40,9 +40,6 @@ class Ship(object):
         self.offsets = kwargs.get('offsets', None)
         self.speed = 20
         utils.echo_message("speed forced to 20; needs refactored to use speed by intro date and vehicle class, as per Iron Horse")
-        # speed_unladen left in place for possible use by log tugs, but might be better removed
-        self.speed_unladen = self.speed
-        utils.echo_message("speed_unladen property set; might be better removed")
         # declare default capacities for pax, mail and freight, as they are needed later for nml switches
         self.capacity_pax = kwargs.get('capacity_pax', 0)
         self.capacity_mail = kwargs.get('capacity_mail', 0)
@@ -93,18 +90,11 @@ class Ship(object):
     def get_num_spritesets(self):
         return len(set([i.spritesheet_suffix for i in self.model_variants]))
 
-    def get_speeds_adjusted_for_load_amount(self, speed_index):
-        # ships may travel faster or slower than 'speed' depending on cargo amount
-        speeds_adjusted = (
-            ((self.speed_unladen * 100 + self.speed * 0) * 32 + 9) / 1000,
-            ((self.speed_unladen * 75 + self.speed * 25) * 32 + 9) / 1000,
-            ((self.speed_unladen * 50 + self.speed * 50) * 32 + 9) / 1000,
-            ((self.speed_unladen * 25 + self.speed * 75) * 32 + 9) / 1000,
-            ((self.speed_unladen * 0 + self.speed * 100) * 32 + 9) / 1000,
-        )
-        speed_factors = [0.67, 1, 1.33] # there is a speed adjustment parameter, use that to look up a speed factor
-        speeds_adjusted_rounded = [int(min(math.ceil(i * speed_factors[speed_index]), 79 * 3.2)) for i in speeds_adjusted] # allow that integer maths is needed for newgrf cb results; rounding up for safety
-        return speeds_adjusted_rounded
+    def get_speed_adjusted_for_param(self, speed_index):
+        # there is a speed adjustment parameter, use that to look up a speed factor
+        speed_factors = [0.67, 1, 1.33]
+         # allow that integer maths is needed for newgrf cb results; rounding up for safety, capped at max ship speed
+        return int(min(math.ceil(self.speed * speed_factors[speed_index]), 79 * 3.2))
 
     @property
     def adjusted_model_life(self):
