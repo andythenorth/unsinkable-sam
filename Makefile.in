@@ -1,5 +1,7 @@
 # Here also go all build targets specific to this very newgrf
 
+NML_FILE := generated/unsinkable-sam.nml
+
 GENERATE_NML := unsinkable-sam-nml
 GENERATE_LNG := unsinkable-sam-nml
 GENERATE_DOC := unsinkable-sam-nml
@@ -16,7 +18,6 @@ unsinkable-sam-nml:
 	$(_V) python3 src/build_unsinkable_sam.py '${REPO_TITLE}' '${REPO_REVISION}' '${pw}' '${roster}'
 
 clean::
-	$(_V)-rm unsinkable-sam.nml
 	$(_V)-rm -r docs
 	$(_V)-rm -r chameleon_cache
 	$(_V)-rm -r generated

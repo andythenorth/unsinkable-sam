@@ -20,6 +20,8 @@ from chameleon import PageTemplateLoader # chameleon used in most template cases
 # setup the places we look for templates
 templates = PageTemplateLoader(os.path.join(currentdir, 'src', 'templates'))
 
+generated_files_path = unsinkable_sam.generated_files_path
+
 def render_header_item_nml(header_item, consists):
     template = templates[header_item + '.pynml']
     return utils.unescape_chameleon_output(template(consists=consists,
@@ -31,17 +33,17 @@ def render_header_item_nml(header_item, consists):
 def render_consist_nml(consist):
     result = utils.unescape_chameleon_output(consist.render())
     # write the nml per vehicle to disk, it aids debugging
-    consist_nml = codecs.open(os.path.join('generated', 'nml', consist.id + '.nml'),'w','utf8')
+    consist_nml = codecs.open(os.path.join(generated_files_path, 'nml', consist.id + '.nml'),'w','utf8')
     consist_nml.write(result)
     consist_nml.close()
     # also return the nml directly for writing to the concatenated nml, don't faff around opening the generated nml files from disk
     return result
 
 def main():
-    generated_nml_path = os.path.join(unsinkable_sam.generated_files_path, 'nml')
+    generated_nml_path = os.path.join(generated_files_path, 'nml')
     if not os.path.exists(generated_nml_path):
         os.mkdir(generated_nml_path) # reminder to self: inside main() to avoid modifying filesystem simply by importing module
-    grf_nml = codecs.open(os.path.join('unsinkable-sam.nml'),'w','utf8')
+    grf_nml = codecs.open(os.path.join(generated_files_path, 'unsinkable-sam.nml'),'w','utf8')
 
     # 'consists' not 'ships', it makes it easier to cross-maintain this script with scripts in IH and RH
     consists = unsinkable_sam.get_ships_in_buy_menu_order()
