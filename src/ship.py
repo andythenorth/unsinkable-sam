@@ -134,13 +134,6 @@ class Ship(object):
         return(result)
 
     @property
-    def cargo_units_refit_menu(self):
-        # !!! hax while rewriting templating + making all ship capacity refittable
-        # !!! just make it compile eh?
-        utils.echo_message('refit menu uses STR_UNIT_ITEMS hax for all cargos - needs fixed')
-        return 'STR_UNIT_ITEMS'
-
-    @property
     def refittable_classes(self):
         cargo_classes = []
         # maps lists of allowed classes.  No equivalent for disallowed classes, that's overly restrictive and damages the viability of class-based refitting
@@ -179,9 +172,6 @@ class Ship(object):
             "string(STR_BUY_MENU_TEXT, string(${str_type_info}), string(STR_EMPTY))"
         )
         return buy_menu_template.substitute(str_type_info=self.get_str_type_info())
-
-    def get_cargo_suffix(self):
-        return 'string(' + self.cargo_units_refit_menu + ')'
 
     def get_roster(self, roster_id):
         for roster in registered_rosters:
@@ -320,8 +310,6 @@ class LivestockCarrier(Ship):
         self.label_refits_allowed = ['LVST'] # set to livestock by default, don't need to make it refit
         self.label_refits_disallowed = []
         self.capacity_freight = self.capacity_cargo_holds
-        self.cargo_units_buy_menu = 'STR_QUANTITY_LIVESTOCK'
-        self.cargo_units_refit_menu = 'STR_UNIT_ITEMS'
         self.default_cargo = 'LVST'
         self.default_cargo_capacity = self.capacity_freight
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
@@ -338,8 +326,6 @@ class LogTug(Ship):
         self.label_refits_allowed = ['WOOD']
         self.label_refits_disallowed = []
         self.capacity_freight = self.capacity_cargo_holds
-        self.cargo_units_buy_menu = 'STR_QUANTITY_WOOD'
-        self.cargo_units_refit_menu = 'STR_UNIT_TONNES'
         self.default_cargo = 'WOOD'
         self.default_cargo_capacity = self.capacity_freight
 

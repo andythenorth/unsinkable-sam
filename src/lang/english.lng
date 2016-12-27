@@ -41,9 +41,5 @@ STR_LIVESTOCK_SHIP                                              :Livestock ship
 STR_REEFER                                                      :Refrigerated ship (improved payment rate for perishable cargos)
 
 
-STR_GENERIC_REFIT_SUBTYPE                                       : ({COMMA}{STRING})
+STR_GENERIC_REFIT_SUBTYPE                                       : ({COMMA} units)
 STR_GENERIC_REFIT_SUBTYPE_BUY_MENU_INFO                         :{}{BLACK}Refittable capacities: {GOLD}{COMMA}, {COMMA} or {COMMA}{STRING}
-STR_QUANTITY_WOOD                                               : tonnes of wood
-STR_QUANTITY_LIVESTOCK                                          : items of livestock
-STR_UNIT_TONNES                                                 : tonnes
-STR_UNIT_ITEMS                                                  : items

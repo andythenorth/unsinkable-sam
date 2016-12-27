@@ -16,14 +16,21 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_switch_cargo_capacity, cargo_classes) {
 }
 
 // -- handle subtype strings, used to aid players understand auto-refitting -- //
-<tal:capacity_text repeat="cargo_type ship.capacities_refittable">
+<tal:text_type_capacity repeat="cargo_type ship.capacities_refittable">
+    // !! this doesn't show accurate units per cargo, I tested that Dec 2016, but CB 19 doesn't have the cycled cargo in scope afaict
+    // !! also text stack handling during cb 19 seems...unreliable or unsupported
+    // 0 as parameter is just to make it compile, there's probably a better way eh :P
+    <tal:text_subtype_capacity repeat="subtype_num range(3)">
+        switch (FEAT_SHIPS, SELF, ${ship.id}_switch_cargo_subtype_text_${cargo_type}_${subtype_num}, 0) {
+            0: string(STR_GENERIC_REFIT_SUBTYPE, ${ship.capacities_refittable[cargo_type][subtype_num]});
+        }
+    </tal:text_subtype_capacity>
     switch (FEAT_SHIPS, SELF, ${ship.id}_switch_cargo_subtype_text_${cargo_type}, cargo_subtype) {
-        0: return string(STR_GENERIC_REFIT_SUBTYPE, ${ship.capacities_refittable[cargo_type][0]}, ${ship.get_cargo_suffix()});
-        1: return string(STR_GENERIC_REFIT_SUBTYPE, ${ship.capacities_refittable[cargo_type][1]}, ${ship.get_cargo_suffix()});
-        2: return string(STR_GENERIC_REFIT_SUBTYPE, ${ship.capacities_refittable[cargo_type][2]}, ${ship.get_cargo_suffix()});
-        return CB_RESULT_NO_TEXT;
+        0: ${ship.id}_switch_cargo_subtype_text_${cargo_type}_0;
+        1: ${ship.id}_switch_cargo_subtype_text_${cargo_type}_1;
+        2: ${ship.id}_switch_cargo_subtype_text_${cargo_type}_2;
     }
-</tal:capacity_text>
+</tal:text_type_capacity>
 
 switch (FEAT_SHIPS, SELF, ${ship.id}_switch_cargo_subtype_text, cargo_classes) {
     bitmask(CC_PASSENGERS): ${ship.id}_switch_cargo_subtype_text_pax;
