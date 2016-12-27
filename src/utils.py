@@ -2,8 +2,7 @@ def get_repo_vars(sys):
     # get args passed by makefile
     if len(sys.argv) > 1:
         repo_vars = {'repo_title': sys.argv[1], 'repo_version': sys.argv[2],
-                     'incremental_compile': sys.argv[3], 'num_pool_workers': int(sys.argv[4]),
-                     'roster': sys.argv[5]}
+                    'num_pool_workers': int(sys.argv[3]), 'roster': sys.argv[4]}
     else: # provide some defaults so templates don't explode when testing python script without command line args
         repo_vars = {'repo_title' : 'Unsinkable Sam - compiled without makefile', 'repo_version' : 1}
     return repo_vars
@@ -17,8 +16,7 @@ def unescape_chameleon_output(escaped_nml):
     return escaped_nml
 
 def parse_base_lang():
-    print("[PARSE BASE LANG] utils.py")
-
+    # expose base lang strings to python - for reuse in docs
     import os.path
 
     import codecs # used for writing files - more unicode friendly than standard open() module
