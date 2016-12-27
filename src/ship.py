@@ -91,16 +91,10 @@ class Ship(object):
 
     @property
     def speed(self):
+        # speed determined automatically by intro date, or can be over-ridden per vehicle with _speed in constructor kwargs
         if self._speed is None:
-            speed = 20
-            utils.echo_message("speed forced to 20; needs refactored to use speed by intro date and vehicle class, as per Iron Horse")
-            """
-            if self.roadveh_flag_tram is True:
-                speeds = self.get_roster(self.roster_id).default_tram_speeds
-            else:
-                speeds = self.get_roster(self.roster_id).default_truck_speeds
+            speeds = {0: 20, 1960: 30} # possibly move to roster if more rosters are added
             speed = speeds[max([year for year in speeds if self.intro_date >= year])]
-            """
         else:
             speed = self._speed
         return speed
