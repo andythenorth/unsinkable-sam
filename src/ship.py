@@ -109,6 +109,17 @@ class Ship(object):
     def adjusted_model_life(self):
         return 'VEHICLE_NEVER_EXPIRES'
 
+    def get_loading_speed(self, cargo_type, capacity_param):
+        # ottd vehicles load at different rates depending on type,
+        # normalise default loading time for this set to 240 ticks, regardless of capacity
+        # openttd loading rates vary by transport type, look them up in wiki to find value to use here to normalise loading time to 240 ticks
+        transport_type_rate = 24 # this is (240 / loading frequency in ticks for transport type) from wiki
+        capacity = self.capacities[capacity_param]
+        if cargo_type == 'mail':
+            capacity = int(global_constants.mail_multiplier * capacity)
+        result = int(self.consist.loading_speed_multiplier * math.ceil(capacity / transport_type_rate))
+        return max(result, 1)
+
     @property
     def running_cost(self):
         # calculate a running cost
