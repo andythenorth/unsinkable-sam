@@ -35,11 +35,5 @@ STR_NAME_SUFFIX_TRAWLER                                         :Trawler
 STR_BUY_MENU_TEXT                                               :{}Type: {GOLD}{STRING}{}{STRING}
 STR_BUY_MENU_REFIT_CAPACITIES_PACKET                            :{}{BLACK}Capacity when refitted: {GOLD}{COMMA} bags of mail or {COMMA}t of express freight
 
-
-STR_COASTER                                                     :Coastal freighter
-STR_LIVESTOCK_SHIP                                              :Livestock ship
-STR_REEFER                                                      :Refrigerated ship (improved payment rate for perishable cargos)
-
-
 STR_GENERIC_REFIT_SUBTYPE                                       : ({COMMA} units)
 STR_GENERIC_REFIT_SUBTYPE_BUY_MENU_INFO                         :{}{BLACK}Refittable capacities: {GOLD}{COMMA}, {COMMA} or {COMMA}{STRING}
