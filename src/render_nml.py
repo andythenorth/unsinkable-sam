@@ -45,8 +45,7 @@ def main():
         os.mkdir(generated_nml_path) # reminder to self: inside main() to avoid modifying filesystem simply by importing module
     grf_nml = codecs.open(os.path.join(generated_files_path, 'unsinkable-sam.nml'),'w','utf8')
 
-    # 'consists' not 'ships', it makes it easier to cross-maintain this script with scripts in IH and RH
-    consists = unsinkable_sam.get_ships_in_buy_menu_order()
+    consists = unsinkable_sam.get_ships_in_buy_menu_order() # 'consists' not 'ships', it makes it easier to cross-maintain this script with scripts in IH and RH
 
     header_items = ['header', 'cargo_table', 'disable_default_vehicles']
     for header_item in header_items:
