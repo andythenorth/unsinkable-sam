@@ -255,7 +255,7 @@ class UniversalFreighter(Ship):
 class PieceGoodsCarrier(Ship):
     """
     Piece goods cargos, other selected cargos.  Equivalent of Road Hog box hauler and Iron Horse box wagon.
-    IRL: "GCV", "Break-bulk", "Pallete carrier".
+    IRL: "GCV", "Break-bulk", "Pallet carrier".
     Not "box ship" because IRL they are container carriers (yair).
     """
     def __init__(self, **kwargs):
