@@ -61,4 +61,4 @@ if (param_reset_construction_costs) {
 }
 
 // sort order
-sort(FEAT_SHIPS, ${[ship.numeric_id for ship in ships]});
+sort(FEAT_SHIPS, ${[consist.numeric_id for consist in consists]});
