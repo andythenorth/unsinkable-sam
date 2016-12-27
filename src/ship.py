@@ -38,8 +38,7 @@ class Ship(object):
         self.buy_menu_width = kwargs.get('buy_menu_width', None)
         self.use_legacy_template = kwargs.get('use_legacy_template', True)
         self.offsets = kwargs.get('offsets', None)
-        self.speed = 20
-        utils.echo_message("speed forced to 20; needs refactored to use speed by intro date and vehicle class, as per Iron Horse")
+        self._speed = kwargs.get('speed', None)
         # declare default capacities for pax, mail and freight, as they are needed later for nml switches
         self.capacity_pax = kwargs.get('capacity_pax', 0)
         self.capacity_mail = kwargs.get('capacity_mail', 0)
@@ -90,11 +89,28 @@ class Ship(object):
     def get_num_spritesets(self):
         return len(set([i.spritesheet_suffix for i in self.model_variants]))
 
+    @property
+    def speed(self):
+        if self._speed is None:
+            speed = 20
+            utils.echo_message("speed forced to 20; needs refactored to use speed by intro date and vehicle class, as per Iron Horse")
+            """
+            if self.roadveh_flag_tram is True:
+                speeds = self.get_roster(self.roster_id).default_tram_speeds
+            else:
+                speeds = self.get_roster(self.roster_id).default_truck_speeds
+            speed = speeds[max([year for year in speeds if self.intro_date >= year])]
+            """
+        else:
+            speed = self._speed
+        return speed
+
     def get_speed_adjusted_for_param(self, speed_index):
         # there is a speed adjustment parameter, use that to look up a speed factor
         speed_factors = [0.67, 1, 1.33]
          # allow that integer maths is needed for newgrf cb results; rounding up for safety, capped at max ship speed
-        return int(min(math.ceil(self.speed * speed_factors[speed_index]), 79 * 3.2))
+        result = int(min(math.ceil(3.2 * self.speed * speed_factors[speed_index]), 79 * 3.2))
+        return result
 
     @property
     def adjusted_model_life(self):

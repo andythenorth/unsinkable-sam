@@ -20,6 +20,7 @@ from ships import (bulk_carrier_large,
 
 roster = Roster(id = 'default',
                 numeric_id = 1,
+                freighter_speeds = {0: 20, 1950: 30},
                 # ships in buy menu order
                 ships = [universal_freighter_micro,
                          universal_freighter_mini,
