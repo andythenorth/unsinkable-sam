@@ -6,8 +6,9 @@ GENERATE_DOC := unsinkable-sam-nml
 
 GENERATE=src/build_unsinkable_sam.py
 
- # default num. pool workers for python compile, default is 1 to avoid accidental DoS of people's system
-pw = 1
+ # default num. pool workers for python compile,
+ # default is 0 to disable multiprocessing (also avoids multiprocessing pickle failures masking genuine python errors)
+pw = 0
 roster = *
 
 unsinkable-sam-nml:
