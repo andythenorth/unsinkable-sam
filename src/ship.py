@@ -30,8 +30,7 @@ class Ship(object):
         self.buy_cost = kwargs.get('buy_cost', None)
         self.fixed_run_cost_factor = kwargs.get('fixed_run_cost_factor', None)
         self.fuel_run_cost_factor = kwargs.get('fuel_run_cost_factor', None)
-        self.loading_speed = 20
-        utils.echo_message("loading_speed forced to 20; needs refactored to calculated get_loading_speed() method as per Road Hog")
+        self.loading_speed = 10 # default OTTD value for ships; loading speed is not normalised per capacity for ships, unlike vehicles in Road Hog / Iron Horse
         self.cargo_age_period = kwargs.get('cargo_age_period', global_constants.CARGO_AGE_PERIOD)
         self.buy_menu_bb_xy = kwargs.get('buy_menu_bb_xy', None)
         self.buy_menu_width = kwargs.get('buy_menu_width', None)
@@ -108,17 +107,6 @@ class Ship(object):
     @property
     def adjusted_model_life(self):
         return 'VEHICLE_NEVER_EXPIRES'
-
-    def get_loading_speed(self, cargo_type, capacity_param):
-        # ottd vehicles load at different rates depending on type,
-        # normalise default loading time for this set to 240 ticks, regardless of capacity
-        # openttd loading rates vary by transport type, look them up in wiki to find value to use here to normalise loading time to 240 ticks
-        transport_type_rate = 24 # this is (240 / loading frequency in ticks for transport type) from wiki
-        capacity = self.capacities[capacity_param]
-        if cargo_type == 'mail':
-            capacity = int(global_constants.mail_multiplier * capacity)
-        result = int(self.consist.loading_speed_multiplier * math.ceil(capacity / transport_type_rate))
-        return max(result, 1)
 
     @property
     def running_cost(self):
