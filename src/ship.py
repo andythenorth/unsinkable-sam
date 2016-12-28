@@ -30,7 +30,7 @@ class Ship(object):
         self.buy_cost = kwargs.get('buy_cost', None)
         self.fixed_run_cost_factor = kwargs.get('fixed_run_cost_factor', None)
         self.fuel_run_cost_factor = kwargs.get('fuel_run_cost_factor', None)
-        self.loading_speed = 10 # default OTTD value for ships; loading speed is not normalised per capacity for ships, unlike vehicles in Road Hog / Iron Horse
+        self.loading_speed_multiplier = 1 # over-ride in subclass as needed (suggested values are 0.5 for slower loading and 2 for faster loading)
         self.cargo_age_period = kwargs.get('cargo_age_period', global_constants.CARGO_AGE_PERIOD)
         self.buy_menu_bb_xy = kwargs.get('buy_menu_bb_xy', None)
         self.buy_menu_width = kwargs.get('buy_menu_width', None)
@@ -146,6 +146,12 @@ class Ship(object):
     def get_label_refits_disallowed(self):
         # disallowed labels, for fine-grained control, knocking out cargos that are allowed by classes, but don't fit for gameplay reasons
         return ','.join(self.label_refits_disallowed)
+
+    @property
+    def loading_speed(self):
+        # loading speed is *not* normalised per capacity for ships, unlike vehicles in Road Hog / Iron Horse
+        # 10 is default OTTD value for ships, seems fine to me
+        return 10 * self.loading_speed_multiplier
 
     def get_name_substr(self):
         # relies on name being in format "Foo [Bar]" for Name [Type Suffix]
