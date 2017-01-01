@@ -313,7 +313,7 @@ class LivestockCarrier(Ship):
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['LVST'] # set to livestock by default, don't need to make it refit
         self.label_refits_disallowed = []
-        self.capacity_freight = self.capacity_cargo_holds
+        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'LVST'
         self.default_cargo_capacity = self.capacity_freight
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
