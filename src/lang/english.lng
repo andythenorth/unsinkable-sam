@@ -18,8 +18,9 @@ STR_PARAM_ROSTER_OPTION_0                                       :This Sceptered 
 
 STR_NAME_SUFFIX_BULK_CARRIER                                    :Bulk Carrier
 STR_NAME_SUFFIX_CONTAINER_FEEDER                                :Container Feeder
-STR_NAME_SUFFIX_FERRY                                           :Ferry
 STR_NAME_SUFFIX_FAST_FERRY                                      :Fast Ferry
+STR_NAME_SUFFIX_FERRY                                           :Ferry
+STR_NAME_SUFFIX_FLATDECK_BARGE                                  :Flat Deck Barge
 STR_NAME_SUFFIX_FREIGHTER                                       :Freighter
 STR_NAME_SUFFIX_HOVERCRAFT                                      :Hovercraft
 STR_NAME_SUFFIX_HYDROFOIL                                       :Hydrofoil

@@ -263,6 +263,21 @@ class PieceGoodsCarrier(Ship):
         self.default_cargo_capacity = self.capacity_freight
 
 
+class FlatDeckBarge(Ship):
+    """
+    Flat deck, no holds - refits most cargos, not bulk.
+    """
+    def __init__(self, **kwargs):
+        super(FlatDeckBarge, self).__init__(**kwargs)
+        self.template = 'general_cargo_vessel.pynml'
+        self.class_refit_groups = ['flatbed_freight']
+        self.label_refits_allowed = ['GOOD']
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
+        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
+        self.default_cargo = 'STEL'
+        self.default_cargo_capacity = self.capacity_freight
+
+
 class BulkCarrier(Ship):
     """
     Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse hopper wagon.
