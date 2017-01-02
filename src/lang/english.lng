@@ -18,6 +18,7 @@ STR_PARAM_ROSTER_OPTION_0                                       :This Sceptered 
 
 STR_NAME_SUFFIX_BULK_CARRIER                                    :Bulk Carrier
 STR_NAME_SUFFIX_CONTAINER_FEEDER                                :Container Feeder
+STR_NAME_SUFFIX_EDIBLES_TANKER                                  :Edibles Tanker
 STR_NAME_SUFFIX_FAST_FERRY                                      :Fast Ferry
 STR_NAME_SUFFIX_FERRY                                           :Ferry
 STR_NAME_SUFFIX_FLATDECK_BARGE                                  :Flat Deck Barge

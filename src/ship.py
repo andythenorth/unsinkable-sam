@@ -408,8 +408,7 @@ class Tanker(Ship):
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
-        self.capacity_tanks = kwargs.get('capacity_tanks', None)
-        self.capacity_freight = self.capacity_tanks
+        self.capacity_freight = kwargs.get('capacity_tanks', None)
         self.default_cargo = 'OIL_'
         self.default_cargo_capacity = self.capacity_freight
 
@@ -424,8 +423,7 @@ class EdiblesTanker(Ship):
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
-        self.capacity_tanks = kwargs.get('capacity_tanks', None)
-        self.capacity_freight = self.capacity_tanks
+        self.capacity_freight = kwargs.get('capacity_tanks', None)
         self.default_cargo = 'WATR'
         self.default_cargo_capacity = self.capacity_freight
 

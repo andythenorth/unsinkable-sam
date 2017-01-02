@@ -3,6 +3,7 @@ from roster import Roster
 # ships in alphabetical order
 from ships import (bulk_carrier_large,
                    bulk_carrier_small,
+                   edibles_tanker_large,
                    flatdeck_barge_large,
                    livestock_carrier_large,
                    piece_goods_carrier_large,
@@ -38,6 +39,7 @@ roster = Roster(id = 'default',
                          livestock_carrier_large,
                          reefer_small,
                          reefer_large,
+                         edibles_tanker_large,
                          trawler_micro,
                          trawler_mini,
                          trawler_small])
