@@ -37,10 +37,6 @@ class Ship(object):
         self.use_legacy_template = kwargs.get('use_legacy_template', True)
         self.offsets = kwargs.get('offsets', None)
         self._speed = kwargs.get('speed', None)
-        # declare default capacities for pax, mail and freight, as they are needed later for nml switches
-        self.capacity_pax = kwargs.get('capacity_pax', 0)
-        self.capacity_mail = kwargs.get('capacity_mail', 0)
-        self.capacity_freight = kwargs.get('capacity_freight', 0)
         # by default ships have multiple capacity options, refittable in depot
         self.capacity_is_refittable_by_cargo_subtype = kwargs.get('capacity_is_refittable_by_cargo_subtype', True)
         # most ships use steam effect_spawn_model so set default, over-ride in ships as needed
@@ -130,6 +126,27 @@ class Ship(object):
         capacities_freight = [int(self.capacity_freight * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
         result = {'pax': capacities_pax, 'mail': capacities_mail, 'freight': capacities_freight}
         return(result)
+
+    @property
+    def capacity_pax(self):
+        # currently contains no provision for custom widths
+        # but if needed, add _capacity_pax from constructor kwargs, and check existence of that here
+        capacities = {'micro': 40, 'mini': 100, 'small': 240, 'large': 576}
+        return capacities[self.size_class]
+
+    @property
+    def capacity_mail(self):
+        # currently contains no provision for custom widths
+        # but if needed, add _capacity_mail from constructor kwargs, and check existence of that here
+        capacities = {'micro': 40, 'mini': 100, 'small': 240, 'large': 576}
+        return capacities[self.size_class]
+
+    @property
+    def capacity_freight(self):
+        # currently contains no provision for custom widths
+        # but if needed, add _capacity_freight from constructor kwargs, and check existence of that here
+        capacities = {'micro': 40, 'mini': 100, 'small': 240, 'large': 576}
+        return capacities[self.size_class]
 
     @property
     def refittable_classes(self):
@@ -249,7 +266,6 @@ class UniversalFreighter(Ship):
         self.class_refit_groups = ['all_freight']
         self.label_refits_allowed = [] # no specific labels needed, refits all freight
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
-        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'COAL'
         self.default_cargo_capacity = self.capacity_freight
 
@@ -266,7 +282,6 @@ class PieceGoodsCarrier(Ship):
         self.class_refit_groups = ['packaged_freight']
         self.label_refits_allowed = ['MAIL', 'GRAI', 'WHEA', 'MAIZ', 'FRUT', 'BEAN', 'NITR'] # Iron Horse compatibility
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
-        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'GOOD'
         self.default_cargo_capacity = self.capacity_freight
 
@@ -281,7 +296,6 @@ class FlatDeckBarge(Ship):
         self.class_refit_groups = ['flatbed_freight']
         self.label_refits_allowed = ['GOOD']
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
-        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'STEL'
         self.default_cargo_capacity = self.capacity_freight
 
@@ -296,7 +310,6 @@ class BulkCarrier(Ship):
         self.class_refit_groups = ['dump_freight']
         self.label_refits_allowed = [] # no specific labels needed
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_dump_bulk']
-        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'COAL'
         self.default_cargo_capacity = self.capacity_freight
         self.loading_speed_multiplier = 2
@@ -312,8 +325,6 @@ class UtilityVessel(Ship):
         self.class_refit_groups = ['pax_mail','all_freight']
         self.label_refits_allowed = [] # no specific labels needed, GCV refits all cargo
         self.label_refits_disallowed = []
-        self.capacity_cargo_holds = kwargs.get('capacity_cargo_holds', 0)
-        self.capacity_freight = self.capacity_cargo_holds
         self.default_cargo = 'PASS'
         self.default_cargo_capacity = self.capacity_pax
 
@@ -336,7 +347,6 @@ class LivestockCarrier(Ship):
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['LVST'] # set to livestock by default, don't need to make it refit
         self.label_refits_disallowed = []
-        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'LVST'
         self.default_cargo_capacity = self.capacity_freight
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
@@ -352,7 +362,6 @@ class LogTug(Ship):
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['WOOD']
         self.label_refits_disallowed = []
-        self.capacity_freight = self.capacity_cargo_holds
         self.default_cargo = 'WOOD'
         self.default_cargo_capacity = self.capacity_freight
 
@@ -368,7 +377,6 @@ class PacketBoat(Ship):
         self.label_refits_allowed = ['BDMT','FRUT','LVST','VEHI','WATR']
         self.label_refits_disallowed = ['FISH'] # don't go fishing with packet boats, use a trawler instead :P
         self.capacity_cargo_holds = kwargs.get('capacity_cargo_holds', 0)
-        self.capacity_freight = self.capacity_cargo_holds
         self.default_cargo = 'PASS'
         self.default_cargo_capacity = self.capacity_pax
 
@@ -401,7 +409,6 @@ class Trawler(Ship):
         self.class_refit_groups = []
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
-        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'FISH'
         self.default_cargo_capacity = self.capacity_freight
 
@@ -416,7 +423,6 @@ class Tanker(Ship):
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
-        self.capacity_freight = kwargs.get('capacity_tanks', None)
         self.default_cargo = 'OIL_'
         self.default_cargo_capacity = self.capacity_freight
 
@@ -431,7 +437,6 @@ class EdiblesTanker(Ship):
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
-        self.capacity_freight = kwargs.get('capacity_tanks', None)
         self.default_cargo = 'WATR'
         self.default_cargo_capacity = self.capacity_freight
 
@@ -446,7 +451,6 @@ class Reefer(Ship):
         self.class_refit_groups = ['refrigerated_freight']
         self.label_refits_allowed = [] # no specific labels needed, refits all cargos that have refrigerated class
         self.label_refits_disallowed = []
-        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'GOOD'
         self.default_cargo_capacity = self.capacity_freight
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
@@ -463,6 +467,5 @@ class ContainerCarrier(Ship):
         self.class_refit_groups = ['express_freight','packaged_freight']
         self.label_refits_allowed = ['FRUT','WATR']
         self.label_refits_disallowed = ['FISH','LVST','OIL_','TOUR','WOOD']
-        self.capacity_freight = kwargs.get('capacity_cargo_holds', None)
         self.default_cargo = 'GOOD'
         self.default_cargo_capacity = self.capacity_freight
