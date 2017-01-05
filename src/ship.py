@@ -33,7 +33,6 @@ class Ship(object):
         self.fuel_run_cost_factor = kwargs.get('fuel_run_cost_factor', None)
         self.loading_speed_multiplier = 1 # over-ride in subclass as needed (suggested values are 0.5 for slower loading and 2 for faster loading)
         self.cargo_age_period = kwargs.get('cargo_age_period', global_constants.CARGO_AGE_PERIOD)
-        self.buy_menu_bb_xy = kwargs.get('buy_menu_bb_xy', None)
         self.use_legacy_template = kwargs.get('use_legacy_template', True)
         self.offsets = kwargs.get('offsets', None)
         self._speed = kwargs.get('speed', None)
@@ -211,6 +210,12 @@ class Ship(object):
         # standard sizes are multiples of 32, except first size, where 32 is just too small to make a nice sprite
         widths = {'micro': 40, 'mini': 64, 'small': 96, 'large': 128}
         return widths[self.size_class]
+
+    @property
+    def buy_menu_bb_xy(self):
+        #buy_menu_bb_xy = [645, 21]
+        bb_y = 34 if self.size_class == 'large' else 36
+        return [620, bb_y]
 
     def get_expression_for_effects(self):
         # provides part of nml switch for effects (smoke), or none if no effects defined
