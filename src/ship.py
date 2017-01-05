@@ -24,6 +24,7 @@ class Ship(object):
         # setup properties for this ship
         self.title = kwargs.get('title', None)
         self.numeric_id = kwargs.get('numeric_id', None)
+        self.size_class = kwargs.get('size_class', None) # used to determine capacity, offsets etc
         self.str_type_info = 'EMPTY'
         self.intro_date = kwargs.get('intro_date', None)
         self.vehicle_life = kwargs.get('vehicle_life', 100) # default 100 years, assumes 2 generations of ships 1850-2050
@@ -33,7 +34,6 @@ class Ship(object):
         self.loading_speed_multiplier = 1 # over-ride in subclass as needed (suggested values are 0.5 for slower loading and 2 for faster loading)
         self.cargo_age_period = kwargs.get('cargo_age_period', global_constants.CARGO_AGE_PERIOD)
         self.buy_menu_bb_xy = kwargs.get('buy_menu_bb_xy', None)
-        self.buy_menu_width = kwargs.get('buy_menu_width', None)
         self.use_legacy_template = kwargs.get('use_legacy_template', True)
         self.offsets = kwargs.get('offsets', None)
         self._speed = kwargs.get('speed', None)
@@ -186,6 +186,14 @@ class Ship(object):
         # the working definition is one and only one roster per vehicle
         roster = self.get_roster(self.roster_id)
         return 'param[2]==' + str(roster.numeric_id - 1)
+
+    @property
+    def buy_menu_width(self):
+        # currently contains no provision for custom widths
+        # but if needed, add _buy_menu_width from constructor kwargs, and check existence of that here
+        # standard sizes are multiples of 32, except first size, where 32 is just too small to make a nice sprite
+        widths = {'micro': 40, 'mini': 64, 'small': 96, 'large': 128}
+        return widths[self.size_class]
 
     def get_expression_for_effects(self):
         # provides part of nml switch for effects (smoke), or none if no effects defined
