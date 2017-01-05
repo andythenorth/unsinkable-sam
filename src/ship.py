@@ -33,8 +33,6 @@ class Ship(object):
         self.fuel_run_cost_factor = kwargs.get('fuel_run_cost_factor', None)
         self.loading_speed_multiplier = 1 # over-ride in subclass as needed (suggested values are 0.5 for slower loading and 2 for faster loading)
         self.cargo_age_period = kwargs.get('cargo_age_period', global_constants.CARGO_AGE_PERIOD)
-        self.use_legacy_template = kwargs.get('use_legacy_template', True)
-        self.offsets = kwargs.get('offsets', None)
         self._speed = kwargs.get('speed', None)
         # by default ships have multiple capacity options, refittable in depot
         self.capacity_is_refittable_by_cargo_subtype = kwargs.get('capacity_is_refittable_by_cargo_subtype', True)
@@ -213,9 +211,18 @@ class Ship(object):
 
     @property
     def buy_menu_bb_xy(self):
-        #buy_menu_bb_xy = [645, 21]
+        # this is a bit janky as it was added when migrating to standard size_class stuff
+        # might need cleaning up in future, or eh, maybe not also
         bb_y = 34 if self.size_class == 'large' else 36
         return [620, bb_y]
+
+    @property
+    def offsets(self):
+        # currently contains no provision for custom offsets
+        # but if needed, add _offsets from constructor kwargs, and check existence of that here
+        # !! this will need extending to provide offsets per size_class
+        return [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]]
+
 
     def get_expression_for_effects(self):
         # provides part of nml switch for effects (smoke), or none if no effects defined

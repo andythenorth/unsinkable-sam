@@ -8,7 +8,6 @@ ship = FlatDeckBarge(id = 'flatdeck_barge_small',
             buy_cost = 28,
             fixed_run_cost_factor = 3.5,
             fuel_run_cost_factor = 1.0,
-            offsets = [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]],
             intro_date = 1870,
             effects = ['EFFECT_SPRITE_STEAM, 8, 0, 24'])
 

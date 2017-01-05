@@ -8,8 +8,6 @@ ship = Tanker(id = 'tanker_large',
             buy_cost = 64,
             fixed_run_cost_factor = 12.0,
             fuel_run_cost_factor = 1.1,
-            offsets = [[-14, -42], [-68, -26], [-55, -30], [-16, -26], [-14, -54], [-66, -27], [-55, -30], [-14, -26]],
-            loading_speed = 40,
             intro_date = 1870,
             str_type_info = 'COASTAL_TANKER',
             effects = ['EFFECT_SPRITE_DIESEL, 12, 0, 18'])
