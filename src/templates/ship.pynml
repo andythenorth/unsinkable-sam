@@ -3,19 +3,17 @@
 ${ship.render_debug_info()}
 
 // graphics
-<tal:regrettable_template_jank>
-    template spriteset_template_${ship.id}(y) {
-        //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
-        [20,        y,          28,   89,          ${ship.offsets[0][0]}, ${ship.offsets[0][1]}, ANIM]
-        [60,        y,          113,        66,          ${ship.offsets[1][0]}, ${ship.offsets[1][1]}, ANIM]
-        [186,       y,          138,        48,          ${ship.offsets[2][0]}, ${ship.offsets[2][1]}, ANIM]
-        [328,       y,          113,        66,          ${ship.offsets[3][0]}, ${ship.offsets[3][1]}, ANIM]
-        [454,       y,          28,   89,          ${ship.offsets[4][0]}, ${ship.offsets[4][1]}, ANIM]
-        [494,       y,          113,        66,          ${ship.offsets[5][0]}, ${ship.offsets[5][1]}, ANIM]
-        [620,       y,          138,        48,          ${ship.offsets[6][0]}, ${ship.offsets[6][1]}, ANIM]
-        [762,       y,          113,        66,          ${ship.offsets[7][0]}, ${ship.offsets[7][1]}, ANIM]
-    }
-</tal:regrettable_template_jank>
+template spriteset_template_${ship.id}(y) {
+    //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
+    [20,        y,          28,   89,          ${ship.offsets[0][0]}, ${ship.offsets[0][1]}, ANIM]
+    [60,        y,          113,        66,          ${ship.offsets[1][0]}, ${ship.offsets[1][1]}, ANIM]
+    [186,       y,          138,        48,          ${ship.offsets[2][0]}, ${ship.offsets[2][1]}, ANIM]
+    [328,       y,          113,        66,          ${ship.offsets[3][0]}, ${ship.offsets[3][1]}, ANIM]
+    [454,       y,          28,   89,          ${ship.offsets[4][0]}, ${ship.offsets[4][1]}, ANIM]
+    [494,       y,          113,        66,          ${ship.offsets[5][0]}, ${ship.offsets[5][1]}, ANIM]
+    [620,       y,          138,        48,          ${ship.offsets[6][0]}, ${ship.offsets[6][1]}, ANIM]
+    [762,       y,          113,        66,          ${ship.offsets[7][0]}, ${ship.offsets[7][1]}, ANIM]
+}
 
 <tal:sprites_random_variations repeat="variation_num python:range(ship.get_num_spritesets())">
     spriteset(${ship.id}_ss_not_loaded_not_moving_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
