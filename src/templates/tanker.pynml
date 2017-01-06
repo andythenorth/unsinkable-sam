@@ -17,13 +17,16 @@ spriteset(${ship.id}_ss_not_loaded_not_moving, "src/graphics/ships/${ship.id}_0.
   spriteset_template_${ship.id}(10)
 }
 spriteset(${ship.id}_ss_not_loaded_moving, "src/graphics/ships/${ship.id}_0.png") {
-  spriteset_template_${ship.id}(110)
+  spriteset_template_${ship.id}(10)
+  <!--! spriteset_template_${ship.id}(110) -->
 }
 spriteset(${ship.id}_ss_loaded_not_moving, "src/graphics/ships/${ship.id}_0.png") {
-  spriteset_template_${ship.id}(210)
+  spriteset_template_${ship.id}(10)
+  <!--! spriteset_template_${ship.id}(210) -->
 }
 spriteset(${ship.id}_ss_loaded_moving, "src/graphics/ships/${ship.id}_0.png") {
-  spriteset_template_${ship.id}(310)
+  spriteset_template_${ship.id}(10)
+  <!--! spriteset_template_${ship.id}(310) -->
 }
 
 spritegroup ${ship.id}_sg_moving {
