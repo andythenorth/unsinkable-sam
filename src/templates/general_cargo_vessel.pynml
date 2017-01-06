@@ -18,25 +18,32 @@ template spriteset_template_${ship.id}(y) {
       spriteset_template_${ship.id}(10)
     }
     spriteset(${ship.id}_ss_not_loaded_moving_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
-      spriteset_template_${ship.id}(110)
+      spriteset_template_${ship.id}(10)
+      <!--! spriteset_template_${ship.id}(110) -->
     }
     spriteset(${ship.id}_ss_loading_0_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
-      spriteset_template_${ship.id}(210)
+      spriteset_template_${ship.id}(10)
+      <!--! spriteset_template_${ship.id}(210) -->
     }
     spriteset(${ship.id}_ss_loading_1_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
-      spriteset_template_${ship.id}(310)
+      spriteset_template_${ship.id}(10)
+      <!--! spriteset_template_${ship.id}(310) -->
     }
     spriteset(${ship.id}_ss_loading_2_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
-      spriteset_template_${ship.id}(410)
+      spriteset_template_${ship.id}(10)
+      <!--! spriteset_template_${ship.id}(410) -->
     }
     spriteset(${ship.id}_ss_loading_3_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
-      spriteset_template_${ship.id}(510)
+      spriteset_template_${ship.id}(10)
+      <!--! spriteset_template_${ship.id}(510) -->
     }
     spriteset(${ship.id}_ss_loaded_not_moving_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
-      spriteset_template_${ship.id}(610)
+      spriteset_template_${ship.id}(10)
+      <!--! spriteset_template_${ship.id}(610) -->
     }
     spriteset(${ship.id}_ss_loaded_moving_${variation_num}, "src/graphics/ships/${ship.id}_${variation_num}.png") {
-      spriteset_template_${ship.id}(710)
+      spriteset_template_${ship.id}(10)
+      <!--! spriteset_template_${ship.id}(710) -->
     }
 
     spritegroup ${ship.id}_sg_moving_${variation_num} {
