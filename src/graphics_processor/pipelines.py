@@ -100,31 +100,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         # initing things here is proven to have unexpected results, as the processor will be shared across multiple vehicles
         super(ExtendSpriterowsForCompositedCargosPipeline, self).__init__("extend_spriterows_for_composited_cargos_pipeline")
 
-    def add_generic_spriterow(self):
-        crop_box_source = (0,
-                           self.base_offset,
-                           graphics_constants.spritesheet_width,
-                            self.base_offset + graphics_constants.spriterow_height)
-        vehicle_generic_spriterow_input_image = Image.open(self.input_path).crop(crop_box_source)
-        # vehicle_generic_spriterow_input_image.show() # comment in to see the image when debugging
-        vehicle_generic_spriterow_input_as_spritesheet = self.make_spritesheet_from_image(vehicle_generic_spriterow_input_image)
-        crop_box_dest = (0,
-                         0,
-                         graphics_constants.spritesheet_width,
-                         graphics_constants.spriterow_height)
-        self.units.append(AppendToSpritesheet(vehicle_generic_spriterow_input_as_spritesheet, crop_box_dest))
-
-    def add_livery_only_spriterows(self, recolour_map):
-        # this might be extensible for containers when needed, using simple conditionals
-        # or because containers include random options it might need reworking,
-        # to be more similar to piece cargo handling, but using recolour not actual sprites
-        crop_box_source = (0,
-                           self.base_offset,
-                           graphics_constants.spritesheet_width,
-                           self.base_offset + graphics_constants.spriterow_height)
-        vehicle_base_image = Image.open(self.input_path).crop(crop_box_source)
-        #vehicle_livery_row_1_image.show() # comment in to see the image when debugging
-
+    def extend_base_image_to_3_rows_with_hull_masked_per_load_state(self, base_image):
         crop_box_mask_1 = (0,
                            self.base_offset,
                            graphics_constants.spritesheet_width,
@@ -151,12 +127,40 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                                 graphics_constants.spritesheet_width,
                                 3 * graphics_constants.spriterow_height)
 
-        vehicle_livery_rows_image = Image.new("P", (graphics_constants.spritesheet_width, 3 * graphics_constants.spriterow_height))
-        vehicle_livery_rows_image.putpalette(DOS_PALETTE)
-        vehicle_livery_rows_image.paste(vehicle_base_image, crop_box_comp_dest_1)
-        vehicle_livery_rows_image.paste(vehicle_base_image, crop_box_comp_dest_2, hull_mask_row_2)
-        vehicle_livery_rows_image.paste(vehicle_base_image, crop_box_comp_dest_3, hull_mask_row_3)
-        vehicle_livery_rows_image.show()
+        result_image = Image.new("P", (graphics_constants.spritesheet_width, 3 * graphics_constants.spriterow_height))
+        result_image.putpalette(DOS_PALETTE)
+        result_image.paste(base_image, crop_box_comp_dest_1)
+        result_image.paste(base_image, crop_box_comp_dest_2, hull_mask_row_2)
+        result_image.paste(base_image, crop_box_comp_dest_3, hull_mask_row_3)
+        #result_image.show()
+        return result_image
+
+    def add_generic_spriterow(self):
+        crop_box_source = (0,
+                           self.base_offset,
+                           graphics_constants.spritesheet_width,
+                            self.base_offset + graphics_constants.spriterow_height)
+        vehicle_generic_spriterow_input_image = Image.open(self.input_path).crop(crop_box_source)
+        # vehicle_generic_spriterow_input_image.show() # comment in to see the image when debugging
+        vehicle_generic_spriterow_input_as_spritesheet = self.make_spritesheet_from_image(vehicle_generic_spriterow_input_image)
+        crop_box_dest = (0,
+                         0,
+                         graphics_constants.spritesheet_width,
+                         graphics_constants.spriterow_height)
+        self.units.append(AppendToSpritesheet(vehicle_generic_spriterow_input_as_spritesheet, crop_box_dest))
+
+    def add_livery_only_spriterows(self, recolour_map):
+        # this might be extensible for containers when needed, using simple conditionals
+        # or because containers include random options it might need reworking,
+        # to be more similar to piece cargo handling, but using recolour not actual sprites
+        crop_box_source = (0,
+                           self.base_offset,
+                           graphics_constants.spritesheet_width,
+                           self.base_offset + graphics_constants.spriterow_height)
+        vehicle_base_image = Image.open(self.input_path).crop(crop_box_source)
+        #vehicle_livery_row_1_image.show() # comment in to see the image when debugging
+
+        vehicle_livery_rows_image = self.extend_base_image_to_3_rows_with_hull_masked_per_load_state(vehicle_base_image)
 
         vehicle_livery_row_image_as_spritesheet = self.make_spritesheet_from_image(vehicle_livery_rows_image)
 
