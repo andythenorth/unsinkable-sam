@@ -232,6 +232,7 @@ class Ship(object):
 
     @property
     def buy_menu_bb_xy(self):
+        # !! deprecated, isn't needed when using rebuilt spritesheets/spriteset templates
         # this is a bit janky as it was added when migrating to standard size_class stuff
         # might need cleaning up in future, or eh, maybe not also
         bb_y = 34 if self.size_class == 'large' else 36
@@ -244,6 +245,12 @@ class Ship(object):
         # !! this will need extending to provide offsets per size_class
         return [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]]
 
+    @property
+    def vehicle_nml_template(self):
+        if self.visible_cargo.nml_template:
+            return self.visible_cargo.nml_template
+        # default case
+        return 'ship.pynml'
 
     def get_expression_for_effects(self):
         # provides part of nml switch for effects (smoke), or none if no effects defined
@@ -255,9 +262,20 @@ class Ship(object):
         else:
             return 0
 
+    def assert_cargo_labels(self, cargo_labels):
+        for i in cargo_labels:
+            if i not in global_constants.cargo_labels:
+                utils.echo_message("Warning: ship " + self.id + " references cargo label " + i + " which is not defined in the cargo table")
+
     def render(self):
-        template = templates[self.template]
-        return template(ship=self, global_constants=global_constants)
+        # integrity tests
+        self.assert_cargo_labels(self.label_refits_allowed)
+        self.assert_cargo_labels(self.label_refits_disallowed)
+        # templating
+        template_name = self.vehicle_nml_template
+        template = templates[template_name]
+        nml_result = template(ship=self, global_constants=global_constants)
+        return nml_result
 
 
 class ModelVariant(object):
@@ -439,7 +457,7 @@ class Tanker(Ship):
     """
     def __init__(self, id, **kwargs):
         super(Tanker, self).__init__(id, **kwargs)
-        self.template = 'tanker.pynml'
+        self.template = 'vehicle_with_visible_cargo.pynml'
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
