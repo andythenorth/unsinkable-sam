@@ -28,7 +28,7 @@ item(FEAT_SHIPS, ${ship.id}, ${ship.numeric_id}) {
         default_cargo_type:             ${ship.default_cargo};
         loading_speed:                  ${ship.loading_speed};
         cargo_age_period:               ${ship.cargo_age_period};
-        misc_flags:                     bitmask(SHIP_FLAG_2CC, SHIP_FLAG_AUTOREFIT); // nml constants
+        misc_flags:                     bitmask(SHIP_FLAG_2CC, SHIP_FLAG_AUTOREFIT, SHIP_FLAG_SPRITE_STACK); // nml constants
         model_life:                     ${ship.adjusted_model_life};
         retire_early:                   ${ship.vehicle_life - 4}; // magic from Eddi
         reliability_decay:              20; // default value

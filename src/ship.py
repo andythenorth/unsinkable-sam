@@ -255,10 +255,6 @@ class Ship(object):
         else:
             return 0
 
-    def render_debug_info(self):
-        template = templates["debug_info.pynml"]
-        return template(ship=self)
-
     def render_properties(self):
         template = templates["ship_properties.pynml"]
         return template(ship=self)

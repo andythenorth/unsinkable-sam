@@ -1,5 +1,3 @@
-${ship.render_debug_info()}
-
 // graphics
 template spriteset_template_${ship.id}(y) {
     //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
