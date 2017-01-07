@@ -91,7 +91,8 @@ class VisibleCargoLiveryOnly(VisibleCargo):
 
     def get_output_row_counts_by_type(self):
         # the template for visible livery requires the count of _all_ the liveries, *no calculating later*
-        return [('livery_only', self.num_cargo_sprite_variants)]
+        # 3 rows per livery (empty, 50% load, 100% load)
+        return [('livery_only', 3 * self.num_cargo_sprite_variants)]
 
     @property
     def cargo_row_map(self):

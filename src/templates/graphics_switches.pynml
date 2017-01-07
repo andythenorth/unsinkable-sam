@@ -1,0 +1,40 @@
+<tal:graphics_variation_random_switches repeat="year ship.get_reduced_set_of_variant_dates()[:-1]">
+    random_switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_random_${year}) {
+        <tal:random_graphics_variations repeat="variation_num ship.get_variants_available_for_specific_year(year)">
+            1: return ${ship.id}_switch_graphics_${variation_num};
+        </tal:random_graphics_variations>
+    }
+</tal:graphics_variation_random_switches>
+
+
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship, build_year) {
+    <tal:choose_random_switch_by_date repeat="nml_fragment ship.get_nml_random_switch_fragments_for_model_variants()">
+        ${nml_fragment};
+    </tal:choose_random_switch_by_date>
+    return ${ship.id}_switch_graphics_random_0;
+}
+
+<!--! !! wake will need templating according to ship length -->
+spriteset(${ship.id}_ss_wake, "src/graphics/wakes/ship_128px.png") {
+  spriteset_template_${ship.id}(10)
+}
+
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship_not_moving, STORE_TEMP(PALETTE_USE_DEFAULT, 0x100)) {
+    0: return ${ship.id}_switch_graphics_ship;
+}
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship_moving, STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100)) {
+    return ${ship.id}_switch_graphics_ship;
+}
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_wake, STORE_TEMP(PALETTE_USE_DEFAULT, 0x100)) {
+    return ${ship.id}_ss_wake;
+}
+
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_moving, getbits(extra_callback_info1, 8, 8)) {
+    0: return ${ship.id}_switch_graphics_ship_moving;
+    return ${ship.id}_switch_graphics_wake;
+}
+
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics, current_speed) {
+    0: return ${ship.id}_switch_graphics_ship_not_moving;
+    return ${ship.id}_switch_graphics_moving;
+}

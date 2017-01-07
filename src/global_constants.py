@@ -106,5 +106,7 @@ max_game_date = 5000001
 
 # spritesheet bounding boxes, each defined by a 3 tuple (left x, width, height);
 # upper y is determined by spritesheet row position, so isn't defined as a constant
-spritesheet_bounding_boxes = ((60, 12, 24), (92, 26, 20), (124, 36, 16), (172, 26, 20),
-                              (204, 12, 24), (236, 26, 20), (268, 36, 16), (316, 26, 20))
+spritesheet_bounding_boxes = ((20, 28, 89), (60, 113, 66), (186, 138, 48), (328, 113, 66),
+                              (454, 28, 89), (494, 113, 66), (620, 138, 48), (762, 113, 66))
+
+buy_menu_sprite_height = 24

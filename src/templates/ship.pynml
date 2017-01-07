@@ -58,7 +58,7 @@ template spriteset_template_${ship.id}(y) {
     }
 </tal:sprites_random_variations>
 
-<tal:include define="graphics_random_switches load: graphics_random_switches.pynml" metal:use-macro="graphics_random_switches" />
+<tal:include define="graphics_random_switches load: graphics_switches.pynml" metal:use-macro="graphics_random_switches" />
 
 // buy menu graphics
 

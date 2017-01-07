@@ -1,82 +1,54 @@
-// graphics
-template spriteset_template_${ship.id}(y) {
-    //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
-    [20,        y,          28,         89,          ${ship.offsets[0][0]}, ${ship.offsets[0][1]}, ANIM]
-    [60,        y,          113,        66,          ${ship.offsets[1][0]}, ${ship.offsets[1][1]}, ANIM]
-    [186,       y,          138,        48,          ${ship.offsets[2][0]}, ${ship.offsets[2][1]}, ANIM]
-    [328,       y,          113,        66,          ${ship.offsets[3][0]}, ${ship.offsets[3][1]}, ANIM]
-    [454,       y,          28,         89,          ${ship.offsets[4][0]}, ${ship.offsets[4][1]}, ANIM]
-    [494,       y,          113,        66,          ${ship.offsets[5][0]}, ${ship.offsets[5][1]}, ANIM]
-    [620,       y,          138,        48,          ${ship.offsets[6][0]}, ${ship.offsets[6][1]}, ANIM]
-    [762,       y,          113,        66,          ${ship.offsets[7][0]}, ${ship.offsets[7][1]}, ANIM]
-}
+<!--!
+    liveries mapped to cargos, but no support here for load states, just one sprite per cargo
+    e.g. tankers with black for oil, cc for chemicals, grey for petrol etc.
+-->
 
-spriteset(${ship.id}_ss_not_loaded_not_moving, "generated/graphics/${ship.id}_0.png") {
-  spriteset_template_${ship.id}(10)
-}
-spriteset(${ship.id}_ss_not_loaded_moving, "generated/graphics/${ship.id}_0.png") {
-  spriteset_template_${ship.id}(110)
-}
-spriteset(${ship.id}_ss_loaded_not_moving, "generated/graphics/${ship.id}_0.png") {
-  spriteset_template_${ship.id}(210)
-}
-spriteset(${ship.id}_ss_loaded_moving, "generated/graphics/${ship.id}_0.png") {
-  spriteset_template_${ship.id}(310)
-}
-spriteset(${ship.id}_ss_wake, "src/graphics/wakes/ship_128px.png") {
-  spriteset_template_${ship.id}(10)
-}
+<tal:include metal:use-macro="load: spriteset_templates.pynml" />
 
-spritegroup ${ship.id}_sg_moving {
-    loaded:  [
-        ${ship.id}_ss_not_loaded_moving,
-        ${ship.id}_ss_loaded_moving,
-    ];
-    loading: [ // can't be loading when moving, but we'll overlook that, it's required by nml ;)
-        ${ship.id}_ss_loaded_moving,
-    ];
-}
+<tal:sprites_random_variations repeat="variation_num python:range(ship.get_num_spritesets())">
+    <tal:cargo_variants repeat="cargo_variant_num python:range(ship.visible_cargo.num_cargo_sprite_variants)">
+        spriteset(${ship.id}_ss_${variation_num}_${cargo_variant_num}, "${global_constants.graphics_path}${ship.id}_${variation_num}.png") {
+          spriteset_template_${ship.id}(${cargo_variant_num * 100} + 10)
+        }
 
-spritegroup ${ship.id}_sg_not_moving {
-    loaded:  [
-        ${ship.id}_ss_not_loaded_not_moving,
-        ${ship.id}_ss_loaded_not_moving,
-    ];
-    loading: [
-        ${ship.id}_ss_not_loaded_not_moving,
-        ${ship.id}_ss_loaded_not_moving,
-    ];
-}
+        spritegroup ${ship.id}_sg_${variation_num}_${cargo_variant_num} {
+            loaded:  [
+                ${ship.id}_ss_${variation_num}_${cargo_variant_num},
+            ];
+            loading: [
+                ${ship.id}_ss_${variation_num}_${cargo_variant_num},
+            ];
+        }
+    </tal:cargo_variants>
 
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship_not_moving, STORE_TEMP(PALETTE_USE_DEFAULT, 0x100)) {
-    0: return ${ship.id}_sg_not_moving;
-}
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship_moving, STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100)) {
-    return ${ship.id}_sg_moving;
-}
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_wake, STORE_TEMP(PALETTE_USE_DEFAULT, 0x100)) {
-    return ${ship.id}_ss_wake;
-}
+    <!--! this triggers random on a new load, which was designed for use specifically with containers where colours are randomised on load
+          it's not necessary for e.g. tankers, which only have livery one option per cargo -->
+    <tal:cargo_random_switches repeat="mapping ship.visible_cargo.cargo_row_map.items()">
+        random_switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_${variation_num}_${mapping[0]}, bitmask(TRIGGER_VEHICLE_NEW_LOAD)) {
+            <tal:random_graphics_variations repeat="spriterow_num mapping[1]">
+                1: return ${ship.id}_sg_${variation_num}_${spriterow_num};
+            </tal:random_graphics_variations>
+        }
+    </tal:cargo_random_switches>
 
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_moving, getbits(extra_callback_info1, 8, 8)) {
-    0: return ${ship.id}_switch_graphics_ship_moving;
-    return ${ship.id}_switch_graphics_wake;
-}
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_${variation_num}, cargo_type_in_veh) {
+        <tal:cargos repeat="mapping ship.visible_cargo.cargo_row_map.items()">
+            <tal:exclude_default_cargo condition="mapping[0] != 'DFLT'">
+                ${mapping[0]}: return ${ship.id}_switch_graphics_${variation_num}_${mapping[0]};
+            </tal:exclude_default_cargo>
+        </tal:cargos>
+        <tal:default_cargo repeat="mapping ship.visible_cargo.cargo_row_map.items()">
+            <tal:block condition="mapping[0] == 'DFLT'">
+                return ${ship.id}_switch_graphics_${variation_num}_${mapping[0]};
+            </tal:block>
+        </tal:default_cargo>
+    }
+</tal:sprites_random_variations>
 
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics, current_speed) {
-    0: return ${ship.id}_switch_graphics_ship_not_moving;
-    return ${ship.id}_switch_graphics_moving;
-}
-
+<tal:include metal:use-macro="load: graphics_switches.pynml" />
 
 // buy menu graphics
-
-template spriteset_template_purchase_${ship.id}() {
-    //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
-    [${ship.buy_menu_bb_xy[0]}, ${ship.buy_menu_bb_xy[1]}, ${ship.buy_menu_width}, 22, -${int(ship.buy_menu_width / 2)}, -10]
-}
-
-spriteset(${ship.id}_ss_purchase, "generated/graphics/${ship.id}_0.png") {
+spriteset(${ship.id}_ss_purchase, "${global_constants.graphics_path}${ship.id}_0.png") {
   spriteset_template_purchase_${ship.id}()
 }
 

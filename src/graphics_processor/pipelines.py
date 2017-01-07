@@ -131,8 +131,11 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                              0,
                              graphics_constants.spritesheet_width,
                              graphics_constants.spriterow_height)
-            self.units.append(AppendToSpritesheet(vehicle_livery_only_spriterow_input_as_spritesheet, crop_box_dest))
-            self.units.append(SimpleRecolour(recolour_map))
+            for i in range(3):
+                # !! temporary measure to get 3 rows per livery, 1 per load state
+                # !! this will need to use hull mask for loaded states, so loop over (mask=none, mask=50% load, mask=100% load)
+                self.units.append(AppendToSpritesheet(vehicle_livery_only_spriterow_input_as_spritesheet, crop_box_dest))
+                self.units.append(SimpleRecolour(recolour_map))
 
     def add_bulk_cargo_spriterows(self):
         cargo_group_row_height = 2 * graphics_constants.spriterow_height
