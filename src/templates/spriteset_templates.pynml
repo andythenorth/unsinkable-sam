@@ -1,12 +1,14 @@
 // STANDARD GRAPHICS
 // -----------------
 
-template spriteset_template_${ship.id}(y) {
-    <tal:sprite repeat="bounding_box global_constants.spritesheet_bounding_boxes">
-        //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
-        [${bounding_box[0]}, y, ${bounding_box[1]}, ${bounding_box[2]}, ${ship.offsets[repeat.bounding_box.index][0]}, ${ship.offsets[repeat.bounding_box.index][1]}, ANIM]
-    </tal:sprite>
-}
+<tal:load_state repeat="load_state [('empty', 0), ('part_load', 2), ('full_load', 4)]">
+    template spriteset_template_${load_state[0]}_${ship.id}(y) {
+        <tal:sprite repeat="bounding_box global_constants.spritesheet_bounding_boxes">
+            //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
+            [${bounding_box[0]}, y, ${bounding_box[1]}, ${bounding_box[2]}, ${ship.offsets[repeat.bounding_box.index][0]}, ${ship.offsets[repeat.bounding_box.index][1] + load_state[1]}, ANIM]
+        </tal:sprite>
+    }
+</tal:load_state>
 
 // PURCHASE MENU
 // -------------
@@ -37,3 +39,15 @@ template spriteset_template_purchase_${ship.id}() {
     [620,   y, ${ship.depot_width}, 15, -${int(ship.depot_width / 2)}, -6, ANIM]
     [620,  10, 1, 1, 0, 0, ANIM]
 }-->
+
+// WAKES
+// -----
+
+template spriteset_template_wake_${ship.id}(y) {
+    <tal:sprite repeat="bounding_box global_constants.spritesheet_bounding_boxes">
+        //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
+        [${bounding_box[0]}, y, ${bounding_box[1]}, ${bounding_box[2]}, ${ship.offsets[repeat.bounding_box.index][0]}, ${ship.offsets[repeat.bounding_box.index][1]}, ANIM]
+    </tal:sprite>
+}
+
+

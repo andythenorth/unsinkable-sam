@@ -16,7 +16,7 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship, build_year) {
 
 <!--! !! wake will need templating according to ship length -->
 spriteset(${ship.id}_ss_wake, "src/graphics/wakes/ship_128px.png") {
-  spriteset_template_${ship.id}(10)
+  spriteset_template_wake_${ship.id}(10)
 }
 
 switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship_not_moving, STORE_TEMP(PALETTE_USE_DEFAULT, 0x100)) {
