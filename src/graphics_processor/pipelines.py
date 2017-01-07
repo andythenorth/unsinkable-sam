@@ -266,7 +266,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 
         # the cumulative_input_spriterow_count updates per processed group of spriterows, and is key to making this work
         cumulative_input_spriterow_count = 0
-        for vehicle_counter, vehicle_rows in enumerate(consist.get_spriterows_for_consist_or_subpart(consist.unique_units)):
+        for vehicle_counter, vehicle_rows in enumerate(consist.get_spriterows_for_consist_or_subpart()):
             self.cur_vehicle_empty_row_offset = 10 + cumulative_input_spriterow_count * graphics_constants.spriterow_height
             for spriterow_data in vehicle_rows:
                 spriterow_type = spriterow_data[0]

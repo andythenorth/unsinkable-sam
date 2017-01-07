@@ -103,3 +103,8 @@ CARGO_AGE_PERIOD = 740
 
 # OpenTTD's max date
 max_game_date = 5000001
+
+# spritesheet bounding boxes, each defined by a 3 tuple (left x, width, height);
+# upper y is determined by spritesheet row position, so isn't defined as a constant
+spritesheet_bounding_boxes = ((60, 12, 24), (92, 26, 20), (124, 36, 16), (172, 26, 20),
+                              (204, 12, 24), (236, 26, 20), (268, 36, 16), (316, 26, 20))

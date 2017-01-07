@@ -48,8 +48,8 @@ class Ship(object):
         # roster is set when the vehicle is registered to a roster, only one roster per vehicle
         self.roster_id = None
 
-    def add_model_variant(self, intro_date, end_date, spritesheet_suffix):
-        self.model_variants.append(ModelVariant(intro_date, end_date, spritesheet_suffix, graphics_processor=None))
+    def add_model_variant(self, intro_date, end_date, spritesheet_suffix, graphics_processor=None):
+        self.model_variants.append(ModelVariant(intro_date, end_date, spritesheet_suffix, graphics_processor))
 
     def get_reduced_set_of_variant_dates(self):
         # find all the unique dates that will need a switch constructing
@@ -205,8 +205,19 @@ class Ship(object):
         roster = self.get_roster(self.roster_id)
         return 'param[2]==' + str(roster.numeric_id - 1)
 
+    def get_spriterows_for_consist_or_subpart(self):
+        print('get_spriterows_for_consist_or_subpart called')
+        # !! overly nested as assumes that there would be multiple units, doesn't apply to ships
+        result = []
+        unit_rows = []
+        # assumes visible_cargo is used to handle any other rows, no other cases at time of writing, could be changed eh?
+        unit_rows.extend(self.visible_cargo.get_output_row_counts_by_type())
+        result.append(unit_rows)
+        return result
+
     @property
     def graphics_processors(self):
+        print('graphics_processors called')
         # wrapper to get the graphics processors
         template = self.id + '_template.png'
         return graphics_utils.get_composited_cargo_processors(template = template)
@@ -461,7 +472,7 @@ class EdiblesTanker(Ship):
     """
     def __init__(self, id, **kwargs):
         super(EdiblesTanker, self).__init__(id, **kwargs)
-        self.template = 'tanker.pynml'
+        self.template = 'ship.pynml'
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles

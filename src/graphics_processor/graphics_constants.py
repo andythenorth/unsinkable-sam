@@ -9,11 +9,11 @@ for i in range(8):
     CC1_CC2_SWAP_MAP[CC2 + i] = CC1 + i
 
 # facts about 'standard' spritesheets, spritesheets varying from this will be painful
-spriterow_height = 30
+spriterow_height = 100
 spritesheet_top_margin = 10
-spritesheet_width = 455
+spritesheet_width = 876
 
-vehicles_dir_name = 'ships'
+vehicles_input_dir = 'ships'
 
 # --- Cargo Maps ---- #
 # label order matters, so tuples are used not dicts
