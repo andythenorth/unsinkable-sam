@@ -1,6 +1,6 @@
 import global_constants # expose all constants for easy passing to templates
 import utils
-from graphics_processor.visible_cargo import VisibleCargo, VisibleCargoCustom, VisibleCargoLiveryOnly
+from graphics_processor.visible_cargo import VisibleCargo, VisibleCargoLiveryOnly
 import graphics_processor.utils as graphics_utils
 
 import os.path
@@ -43,6 +43,8 @@ class Ship(object):
         self.effects = kwargs.get('effects', [])
         # create a structure to hold model variants
         self.model_variants = []
+        # cargo /livery graphics options
+        self.visible_cargo = VisibleCargo()
         # roster is set when the vehicle is registered to a roster, only one roster per vehicle
         self.roster_id = None
 
@@ -202,6 +204,12 @@ class Ship(object):
         # the working definition is one and only one roster per vehicle
         roster = self.get_roster(self.roster_id)
         return 'param[2]==' + str(roster.numeric_id - 1)
+
+    @property
+    def graphics_processors(self):
+        # wrapper to get the graphics processors
+        template = self.id + '_template.png'
+        return graphics_utils.get_composited_cargo_processors(template = template)
 
     @property
     def buy_menu_width(self):
@@ -442,6 +450,9 @@ class Tanker(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
         self.default_cargo = 'OIL_'
         self.default_cargo_capacity = self.capacity_freight
+        # Cargo graphics
+        self.visible_cargo = VisibleCargoLiveryOnly()
+        self.visible_cargo.tanker = True
 
 
 class EdiblesTanker(Ship):
