@@ -45,7 +45,7 @@ class Ship(object):
         self.roster_id = None
 
     def add_model_variant(self, intro_date, end_date, spritesheet_suffix):
-        self.model_variants.append(ModelVariant(intro_date, end_date, spritesheet_suffix))
+        self.model_variants.append(ModelVariant(intro_date, end_date, spritesheet_suffix, graphics_processor=None))
 
     def get_reduced_set_of_variant_dates(self):
         # find all the unique dates that will need a switch constructing
@@ -260,11 +260,14 @@ class ModelVariant(object):
     # variants are mostly randomised or date-sensitive graphics
     # must be a minimum of one variant per ship
     # at least one variant must have intro date 0 (for nml switch defaults to work)
-    def __init__(self, intro_date, end_date, spritesheet_suffix):
+    def __init__(self, intro_date, end_date, spritesheet_suffix, graphics_processor):
         self.intro_date = intro_date
         self.end_date = end_date
         self.spritesheet_suffix = spritesheet_suffix # use digits for these - to match spritesheet filenames
+        self.graphics_processor = graphics_processor
 
+    def get_spritesheet_name(self, ship):
+        return ship.id + '_' + str(self.spritesheet_suffix) + '.png'
 
 class UniversalFreighter(Ship):
     """
