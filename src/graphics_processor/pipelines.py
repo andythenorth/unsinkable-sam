@@ -101,6 +101,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         super(ExtendSpriterowsForCompositedCargosPipeline, self).__init__("extend_spriterows_for_composited_cargos_pipeline")
 
     def extend_base_image_to_3_rows_with_hull_masked_per_load_state(self, base_image):
+
         crop_box_mask_1 = (0,
                            self.base_offset,
                            graphics_constants.spritesheet_width,
@@ -109,6 +110,20 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                            self.base_offset + graphics_constants.spriterow_height,
                            graphics_constants.spritesheet_width,
                            self.base_offset + (2 * graphics_constants.spriterow_height))
+
+        crop_box_foo_dest_1 = (0,
+                                0,
+                                graphics_constants.spritesheet_width,
+                                graphics_constants.spriterow_height)
+
+        foo = Image.open(os.path.join('src','graphics','hulls','test_large_rear_house.png')).crop(crop_box_mask_1)
+        #foo.show()
+        bar = base_image.point(lambda i: 255 if (i in range(96, 104) or i == 0) else i)
+        #bar.show()
+        bar_mask = bar.copy()
+        bar_mask = bar_mask.point(lambda i: 0 if i == 255 else 255).convert("1")
+        foo.paste(bar, crop_box_foo_dest_1, bar_mask)
+
         # no hull (load state) mask for row 1,
         hull_mask_row_2 = Image.open(os.path.join('src','graphics','hull_masks','ship_128px.png')).crop(crop_box_mask_1).point(lambda i: 0 if i == 226 else 255).convert("1")
         hull_mask_row_3 = Image.open(os.path.join('src','graphics','hull_masks','ship_128px.png')).crop(crop_box_mask_2).point(lambda i: 0 if i == 226 else 255).convert("1")
@@ -129,10 +144,13 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 
         result_image = Image.new("P", (graphics_constants.spritesheet_width, 3 * graphics_constants.spriterow_height))
         result_image.putpalette(DOS_PALETTE)
-        result_image.paste(base_image, crop_box_comp_dest_1)
-        result_image.paste(base_image, crop_box_comp_dest_2, hull_mask_row_2)
-        result_image.paste(base_image, crop_box_comp_dest_3, hull_mask_row_3)
+        result_image.paste(foo, crop_box_comp_dest_1)
+        result_image.paste(foo, crop_box_comp_dest_2, hull_mask_row_2)
+        result_image.paste(foo, crop_box_comp_dest_3, hull_mask_row_3)
         #result_image.show()
+
+        #foo.show()
+
         return result_image
 
     def add_generic_spriterow(self):
