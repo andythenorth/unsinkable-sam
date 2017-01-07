@@ -109,4 +109,4 @@ max_game_date = 5000001
 spritesheet_bounding_boxes = ((20, 28, 89), (60, 113, 66), (186, 138, 48), (328, 113, 66),
                               (454, 28, 89), (494, 113, 66), (620, 138, 48), (762, 113, 66))
 
-buy_menu_sprite_height = 24
+buy_menu_sprite_height = 32

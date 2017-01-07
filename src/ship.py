@@ -240,6 +240,12 @@ class Ship(object):
         return [620, bb_y]
 
     @property
+    def buy_menu_bb_y_offset(self):
+        # !! scaffolding for variable height ships that need offsets on their bounding box for buy menu
+        # !! returns a fixed value currently, more wasn't needed yet :P Possibly delete?
+        return 16
+
+    @property
     def offsets(self):
         # currently contains no provision for custom offsets
         # but if needed, add _offsets from constructor kwargs, and check existence of that here
