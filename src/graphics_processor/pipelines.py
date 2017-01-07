@@ -121,21 +121,52 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         crop_box_source = (0,
                            self.base_offset,
                            graphics_constants.spritesheet_width,
-                            self.base_offset + graphics_constants.spriterow_height)
-        vehicle_livery_only_spriterow_input_image = Image.open(self.input_path).crop(crop_box_source)
-        # vehicle_generic_spriterow_input_image.show() # comment in to see the image when debugging
-        vehicle_livery_only_spriterow_input_as_spritesheet = self.make_spritesheet_from_image(vehicle_livery_only_spriterow_input_image)
+                           self.base_offset + graphics_constants.spriterow_height)
+        vehicle_base_image = Image.open(self.input_path).crop(crop_box_source)
+        #vehicle_livery_row_1_image.show() # comment in to see the image when debugging
+
+        crop_box_mask_1 = (0,
+                           self.base_offset,
+                           graphics_constants.spritesheet_width,
+                           self.base_offset + graphics_constants.spriterow_height)
+        crop_box_mask_2 = (0,
+                           self.base_offset + graphics_constants.spriterow_height,
+                           graphics_constants.spritesheet_width,
+                           self.base_offset + (2 * graphics_constants.spriterow_height))
+        # no hull (load state) mask for row 1,
+        hull_mask_row_2 = Image.open(os.path.join('src','graphics','hull_masks','ship_128px.png')).crop(crop_box_mask_1).point(lambda i: 0 if i == 226 else 255).convert("1")
+        hull_mask_row_3 = Image.open(os.path.join('src','graphics','hull_masks','ship_128px.png')).crop(crop_box_mask_2).point(lambda i: 0 if i == 226 else 255).convert("1")
+
+        # 3 livery rows to paste so 3 comp masks
+        crop_box_comp_dest_1 = (0,
+                                0,
+                                graphics_constants.spritesheet_width,
+                                graphics_constants.spriterow_height)
+        crop_box_comp_dest_2 = (0,
+                                graphics_constants.spriterow_height,
+                                graphics_constants.spritesheet_width,
+                                2 * graphics_constants.spriterow_height)
+        crop_box_comp_dest_3 = (0,
+                                2 * graphics_constants.spriterow_height,
+                                graphics_constants.spritesheet_width,
+                                3 * graphics_constants.spriterow_height)
+
+        vehicle_livery_rows_image = Image.new("P", (graphics_constants.spritesheet_width, 3 * graphics_constants.spriterow_height))
+        vehicle_livery_rows_image.putpalette(DOS_PALETTE)
+        vehicle_livery_rows_image.paste(vehicle_base_image, crop_box_comp_dest_1)
+        vehicle_livery_rows_image.paste(vehicle_base_image, crop_box_comp_dest_2, hull_mask_row_2)
+        vehicle_livery_rows_image.paste(vehicle_base_image, crop_box_comp_dest_3, hull_mask_row_3)
+        vehicle_livery_rows_image.show()
+
+        vehicle_livery_row_image_as_spritesheet = self.make_spritesheet_from_image(vehicle_livery_rows_image)
 
         for label, recolour_map in recolour_map:
             crop_box_dest = (0,
                              0,
                              graphics_constants.spritesheet_width,
-                             graphics_constants.spriterow_height)
-            for i in range(3):
-                # !! temporary measure to get 3 rows per livery, 1 per load state
-                # !! this will need to use hull mask for loaded states, so loop over (mask=none, mask=50% load, mask=100% load)
-                self.units.append(AppendToSpritesheet(vehicle_livery_only_spriterow_input_as_spritesheet, crop_box_dest))
-                self.units.append(SimpleRecolour(recolour_map))
+                             3 * graphics_constants.spriterow_height)
+            self.units.append(AppendToSpritesheet(vehicle_livery_row_image_as_spritesheet, crop_box_dest))
+            self.units.append(SimpleRecolour(recolour_map))
 
     def add_bulk_cargo_spriterows(self):
         cargo_group_row_height = 2 * graphics_constants.spriterow_height
