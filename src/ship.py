@@ -207,7 +207,6 @@ class Ship(object):
         return 'param[2]==' + str(roster.numeric_id - 1)
 
     def get_spriterows_for_consist_or_subpart(self):
-        print('get_spriterows_for_consist_or_subpart called')
         # !! overly nested as assumes that there would be multiple units, doesn't apply to ships
         result = []
         unit_rows = []
