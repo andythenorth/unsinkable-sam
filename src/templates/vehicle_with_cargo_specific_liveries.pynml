@@ -5,18 +5,28 @@
 
 <tal:include metal:use-macro="load: spriteset_templates.pynml" />
 
-<tal:sprites_random_variations repeat="variation_num python:range(ship.get_num_spritesets())">
+<tal:sprites_random_variations repeat="variation_num python:range(ship.num_unique_spritesheet_suffixes)">
     <tal:cargo_variants repeat="cargo_variant_num python:range(ship.visible_cargo.num_cargo_sprite_variants)">
-        spriteset(${ship.id}_ss_${variation_num}_${cargo_variant_num}, "${global_constants.graphics_path}${ship.id}_${variation_num}.png") {
-          spriteset_template_${ship.id}(${cargo_variant_num * 100} + 10)
+        spriteset(${ship.id}_ss_${variation_num}_${cargo_variant_num}_empty, "${global_constants.graphics_path}${ship.id}_${variation_num}.png") {
+          spriteset_template_${ship.id}(${cargo_variant_num * 300} + 10)
+        }
+        spriteset(${ship.id}_ss_${variation_num}_${cargo_variant_num}_part_load, "${global_constants.graphics_path}${ship.id}_${variation_num}.png") {
+          spriteset_template_${ship.id}(${cargo_variant_num * 300} + 110)
+        }
+        spriteset(${ship.id}_ss_${variation_num}_${cargo_variant_num}_full_load, "${global_constants.graphics_path}${ship.id}_${variation_num}.png") {
+          spriteset_template_${ship.id}(${cargo_variant_num * 300} + 210)
         }
 
         spritegroup ${ship.id}_sg_${variation_num}_${cargo_variant_num} {
             loaded:  [
-                ${ship.id}_ss_${variation_num}_${cargo_variant_num},
+                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_empty,
+                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_part_load,
+                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_full_load,
             ];
             loading: [
-                ${ship.id}_ss_${variation_num}_${cargo_variant_num},
+                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_empty,
+                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_part_load,
+                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_full_load,
             ];
         }
     </tal:cargo_variants>

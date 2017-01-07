@@ -81,7 +81,8 @@ class Ship(object):
                 result.append(str(from_date) + '..' + str(until_date) + ':' + self.id + '_switch_graphics_random_' + str(from_date))
         return result
 
-    def get_num_spritesets(self):
+    @property
+    def num_unique_spritesheet_suffixes(self):
         return len(set([i.spritesheet_suffix for i in self.model_variants]))
 
     @property
