@@ -80,8 +80,8 @@ spritegroup ${ship.id}_sg_purchase {
     ];
 }
 
-${ship.render_speed_switches()}
+<tal:include metal:use-macro="load: speed_switches.pynml" />
 
-${ship.render_cargo_capacity()}
+<tal:include metal:use-macro="load: capacity_switches.pynml" />
 
-${ship.render_properties()}
+<tal:include metal:use-macro="load: ship_properties.pynml" />

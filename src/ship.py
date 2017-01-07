@@ -255,18 +255,6 @@ class Ship(object):
         else:
             return 0
 
-    def render_properties(self):
-        template = templates["ship_properties.pynml"]
-        return template(ship=self)
-
-    def render_speed_switches(self):
-        template = templates["speed_switches.pynml"]
-        return template(ship=self)
-
-    def render_cargo_capacity(self):
-        template = templates["capacity_switches.pynml"]
-        return template(ship=self)
-
     def render(self):
         template = templates[self.template]
         return template(ship=self, global_constants=global_constants)
