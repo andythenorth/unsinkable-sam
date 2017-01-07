@@ -1,5 +1,7 @@
 import global_constants # expose all constants for easy passing to templates
 import utils
+from graphics_processor.visible_cargo import VisibleCargo, VisibleCargoCustom, VisibleCargoLiveryOnly
+import graphics_processor.utils as graphics_utils
 
 import os.path
 currentdir = os.curdir
