@@ -25,7 +25,7 @@ class Roster(object):
                 pickle.dumps(ship)
             except:
                 print("Pickling failed for ship:", ship.id)
-                raise
+                #raise
         return self.ships
 
     def register(roster):
