@@ -19,9 +19,7 @@ class Roster(object):
 
     @property
     def ships_in_buy_menu_order(self):
-        result = []
-        result.extend(self.ships)
-        for ship in result:
+        for ship in self.ships:
             # if ship won't pickle, then multiprocessing blows up, catching it here is faster and easier
             try:
                 pickle.dumps(ship)
