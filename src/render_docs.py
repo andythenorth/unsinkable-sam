@@ -12,9 +12,14 @@ import codecs # used for writing files - more unicode friendly than standard ope
 
 import shutil
 import sys
-import global_constants
 import os
 currentdir = os.curdir
+
+from PIL import Image
+
+import global_constants
+import utils as utils
+import unsinkable_sam
 
 # setting up a cache for compiled chameleon templates can significantly speed up template rendering
 chameleon_cache_path = os.path.join(currentdir, global_constants.chameleon_cache_dir)
@@ -34,12 +39,13 @@ static_dir_src = os.path.join(docs_src, 'html', 'static')
 static_dir_dst = os.path.join(docs_output_path, 'html', 'static')
 shutil.copytree(static_dir_src, static_dir_dst)
 
+# we'll be processing some extra images and saving them into the img dir
+images_dir_dst = os.path.join(static_dir_dst, 'img')
+
+import markdown
 from chameleon import PageTemplateLoader # chameleon used in most template cases
 # setup the places we look for templates
 docs_templates = PageTemplateLoader(docs_src, format='text')
-
-import utils as utils
-import markdown
 
 # get args passed by makefile
 repo_vars = utils.get_repo_vars(sys)
@@ -47,7 +53,7 @@ repo_vars = utils.get_repo_vars(sys)
 # get the strings from base lang file so they can be used in docs
 base_lang_strings = utils.parse_base_lang()
 
-import unsinkable_sam
+
 
 ships = unsinkable_sam.get_ships_in_buy_menu_order()
 # default sort for docs is by ship intro date
@@ -106,8 +112,8 @@ class DocHelper(object):
 
         return props_to_print
 
-    def get_base_numeric_id(self, consist):
-        return consist.numeric_id
+    def get_base_numeric_id(self, vehicle):
+        return vehicle.numeric_id
 
     def get_active_nav(self, doc_name, nav_link):
         return ('','active')[doc_name == nav_link]
@@ -115,7 +121,8 @@ class DocHelper(object):
 def render_docs(doc_list, file_type, use_markdown=False):
     for doc_name in doc_list:
         template = docs_templates[doc_name + '.pt'] # .pt is the conventional extension for chameleon page templates
-        doc = template(ships=ships, registered_rosters=registered_rosters, repo_vars=repo_vars, base_lang_strings=base_lang_strings, metadata=metadata,
+        doc = template(ships=ships, registered_rosters=registered_rosters, global_constants=global_constants,
+                       repo_vars=repo_vars, base_lang_strings=base_lang_strings, metadata=metadata,
                        utils=utils, doc_helper=DocHelper(), doc_name=doc_name)
         if use_markdown:
             # the doc might be in markdown format, if so we need to render markdown to html, and wrap the result in some boilerplate html
@@ -131,6 +138,26 @@ def render_docs(doc_list, file_type, use_markdown=False):
         doc_file.write(doc)
         doc_file.close()
 
+def render_docs_images():
+    # process vehicle buy menu sprites for reuse in docs
+    # extend this similar to render_docs if other image types need processing in future
+
+    # vehicles: assumes render_graphics has been run and generated dir has correct content
+    # I'm not going to try and handle that in python, makefile will handle it in production
+    # for development, just run render_graphics manually before running render_docs
+    vehicle_graphics_src = os.path.join(currentdir, 'generated', 'graphics')
+    for ship in ships:
+        vehicle_spritesheet = Image.open(os.path.join(vehicle_graphics_src, ship.id + '_0.png'))
+        processed_vehicle_image = vehicle_spritesheet.crop(box=(620,
+                                                                10 + ship.buy_menu_bb_y_offset,
+                                                                620 + global_constants.buy_menu_sprite_width,
+                                                                10 + ship.buy_menu_bb_y_offset + global_constants.buy_menu_sprite_height))
+        # oversize the images to account for how browsers interpolate the images on retina / HDPI screens
+        processed_vehicle_image = processed_vehicle_image.resize((4 * global_constants.buy_menu_sprite_width, 4 * global_constants.buy_menu_sprite_height),
+                                                                  resample=Image.NEAREST)
+        output_path = os.path.join(images_dir_dst, ship.id + '.png')
+        processed_vehicle_image.save(output_path, optimize=True, transparency=0)
+
 def main():
     # render standard docs from a list
     html_docs = ['ships', 'code_reference', 'get_started', 'translations']
@@ -142,6 +169,8 @@ def main():
     # just render the markdown docs twice to get txt and html versions, simples no?
     render_docs(markdown_docs, 'txt')
     render_docs(markdown_docs, 'html', use_markdown=True)
+    # process images for use in docs
+    render_docs_images()
 
 if __name__ == '__main__':
     main()

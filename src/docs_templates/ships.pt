@@ -10,20 +10,26 @@
             <table class="table table-striped tablesorter">
                 <thead>
                     <tr>
+                        <td><!--! empty cell --></td>
                         <th>Ship Name</th>
                         <th class="number">Intro Date</th>
-                        <th>Extra Info</th>
-                        <th>Speed</th>
+                        <th>Special Features</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tal:build_ships_list repeat="ship ships">
                         <tal:ship_in_roster condition="ship.id in roster.buy_menu_sort_order">
                             <tr>
-                                <td>${ship.get_name_substr()} ${base_lang_strings[ship.get_str_name_suffix()]}</td>
-                                <td class="number">${ship.intro_date}</td>
-                                <td>${base_lang_strings[ship.get_str_type_info()]}</td>
-                                <td>${int(ship.speed)} mph</td>
+                                <td style="vertical-align:middle;">
+                                    <img src="static/img/${ship.id}.png"
+                                         width="${2 * global_constants.buy_menu_sprite_width}"
+                                         height="${2 * global_constants.buy_menu_sprite_height}" />
+                                </td>
+                                <td style="vertical-align:middle;">${ship.get_name_substr()} ${base_lang_strings[ship.get_str_name_suffix()]}</td>
+                                <td class="number" style="vertical-align:middle;">${ship.intro_date}</td>
+                                <td style="vertical-align:middle;">
+                                    <!--!${', '.join(doc_helper.get_special_features_for_vehicle(consist)).capitalize()}-->
+                                </td>
                             </tr>
                         </tal:ship_in_roster>
                     </tal:build_ships_list>
