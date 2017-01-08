@@ -217,7 +217,6 @@ class Ship(object):
 
     @property
     def graphics_processors(self):
-        print('graphics_processors called')
         # wrapper to get the graphics processors
         template = self.id + '_template.png'
         return graphics_utils.get_composited_cargo_processors(template = template)
