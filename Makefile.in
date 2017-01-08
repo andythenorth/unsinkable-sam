@@ -15,6 +15,7 @@ roster = *
 
 unsinkable-sam-nml:
 	$(_E) [GENERATE]
+	$(_V) python3 --version
 	$(_V) python3 src/build_unsinkable_sam.py '${REPO_TITLE}' '${REPO_REVISION}' '${pw}' '${roster}'
 
 clean::
