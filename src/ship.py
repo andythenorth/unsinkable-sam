@@ -88,11 +88,6 @@ class Ship(object):
         return len(set([i.spritesheet_suffix for i in self.model_variants]))
 
     @property
-    def size_class(self):
-        # intermediate thing during migration, interface can probably be moved entirely into hull object
-        return self.hull.size_class
-
-    @property
     def speed(self):
         # speed determined automatically by intro date, or can be over-ridden per vehicle with _speed in constructor kwargs
         if self._speed is None:
@@ -141,21 +136,21 @@ class Ship(object):
         # currently contains no provision for custom widths
         # but if needed, add _capacity_pax from constructor kwargs, and check existence of that here
         capacities = {'micro': 40, 'mini': 100, 'small': 240, 'large': 576}
-        return capacities[self.size_class]
+        return capacities[self.hull.size_class]
 
     @property
     def capacity_mail(self):
         # currently contains no provision for custom widths
         # but if needed, add _capacity_mail from constructor kwargs, and check existence of that here
         capacities = {'micro': 40, 'mini': 100, 'small': 240, 'large': 576}
-        return capacities[self.size_class]
+        return capacities[self.hull.size_class]
 
     @property
     def capacity_freight(self):
         # currently contains no provision for custom widths
         # but if needed, add _capacity_freight from constructor kwargs, and check existence of that here
         capacities = {'micro': 40, 'mini': 100, 'small': 240, 'large': 576}
-        return capacities[self.size_class]
+        return capacities[self.hull.size_class]
 
     @property
     def refittable_classes(self):
@@ -234,14 +229,14 @@ class Ship(object):
         # but if needed, add _buy_menu_width from constructor kwargs, and check existence of that here
         # standard sizes are multiples of 32, except first size, where 32 is just too small to make a nice sprite
         widths = {'micro': 40, 'mini': 64, 'small': 96, 'large': 128}
-        return widths[self.size_class]
+        return widths[self.hull.size_class]
 
     @property
     def buy_menu_bb_xy(self):
         # !! deprecated, isn't needed when using rebuilt spritesheets/spriteset templates
         # this is a bit janky as it was added when migrating to standard size_class stuff
         # might need cleaning up in future, or eh, maybe not also
-        bb_y = 34 if self.size_class == 'large' else 36
+        bb_y = 34 if self.hull.size_class == 'large' else 36
         return [620, bb_y]
 
     @property
@@ -259,7 +254,7 @@ class Ship(object):
                    'small': [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]],
                    'mini':  [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]],
                    'micro': [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]]}
-        return offsets[self.size_class]
+        return offsets[self.hull.size_class]
 
     @property
     def vehicle_nml_template(self):
