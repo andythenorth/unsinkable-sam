@@ -43,8 +43,6 @@ class Ship(object):
         self.effects = kwargs.get('effects', [])
         # create a structure to hold model variants
         self.model_variants = []
-        self._size_class = kwargs.get('size_class', None) # !! will be deprecated when all ships moved to hull class
-        print(self._size_class + ' - size_class needs removed for ' + self.id if self._size_class is not None else None)
         # base hull (defines length, wake graphics, hull graphics if composited etc)
         self.hull = registered_hulls.get(kwargs.get('hull', None), None)
         # cargo /livery graphics options
@@ -92,10 +90,7 @@ class Ship(object):
     @property
     def size_class(self):
         # intermediate thing during migration, interface can probably be moved entirely into hull object
-        if self._size_class is not None:
-            return self._size_class
-        else:
-            return self.hull.size_class
+        return self.hull.size_class
 
     @property
     def speed(self):

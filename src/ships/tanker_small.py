@@ -4,7 +4,7 @@ from ship import Tanker
 ship = Tanker(id = 'tanker_small',
             numeric_id = 1,
             title = 'Small [Tanker]',
-            size_class = 'small',
+            hull = 'SmallRiverboatHouseRear',
             buy_cost = 28,
             fixed_run_cost_factor = 2.0,
             fuel_run_cost_factor = 1.8,

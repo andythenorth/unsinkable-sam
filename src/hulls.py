@@ -31,13 +31,34 @@ class LargeRiverboatHouseRear(Hull):
         self.size_class = 'large'
 
 
+class SmallRiverboatHouseRear(Hull):
+    def __init__(self):
+        super(SmallRiverboatHouseRear, self).__init__()
+        self.size_class = 'small'
+
+
 class SmallShipHouseRear(Hull):
     def __init__(self):
         super(SmallShipHouseRear, self).__init__()
         self.size_class = 'small'
 
 
+class TempMini(Hull):
+    def __init__(self):
+        super(TempMini, self).__init__()
+        self.size_class = 'mini'
+
+
+class TempMicro(Hull):
+    def __init__(self):
+        super(TempMicro, self).__init__()
+        self.size_class = 'micro'
+
+
 registered_hulls = {'LargeRiverboatHouseRear': LargeRiverboatHouseRear(),
                     'LargeShipHouseForward': LargeShipHouseForward(),
                     'LargeShipHouseRear': LargeShipHouseRear(),
-                    'SmallShipHouseRear': SmallShipHouseRear()}
+                    'SmallRiverboatHouseRear': SmallRiverboatHouseRear(),
+                    'SmallShipHouseRear': SmallShipHouseRear(),
+                    'TempMini': TempMini(),
+                    'TempMicro': TempMicro()}

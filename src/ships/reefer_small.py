@@ -4,7 +4,7 @@ from ship import Reefer
 ship = Reefer(id = 'reefer_small',
             numeric_id = 14,
             title = 'Small [Reefer]',
-            size_class = 'small',
+            hull = 'SmallRiverboatHouseRear',
             buy_cost = 28,
             fixed_run_cost_factor = 3.5,
             fuel_run_cost_factor = 1.0,

@@ -4,7 +4,7 @@ from ship import Trawler
 ship = Trawler(id = 'trawler_micro',
             numeric_id = 11,
             title = 'Micro [Trawler]',
-            size_class = 'micro',
+            hull = 'TempMicro',
             buy_cost = 28,
             fixed_run_cost_factor = 3.5,
             fuel_run_cost_factor = 1.0,
