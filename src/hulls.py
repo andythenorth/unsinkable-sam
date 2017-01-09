@@ -2,57 +2,43 @@
 # tried them as a module in their own dir, but that's overkill
 
 class Hull(object):
-    # simple class to hold the base hull properties for a ship
-    def __init__(self):
-        self.size_class = '' # !! probably redundant when this is done
-        # length
-        # wake spritesheet file?
-        # hull spritesheet file
-        # vertical offset if needed, accounting for buy menu especially
-        # effects position
-        # fatter / thinner ships might need offset adjustments
+    # base for rudimentary classes to hold hull properties for a ship
+    # there's only instance of each, so I just used class properties...boilerplate reduced to minimum eh :)
+    size_class = 'Define in subclass'
+    # length
+    # wake spritesheet file?
+    # hull spritesheet file
+    # vertical offset if needed, accounting for buy menu especially
+    # effects position
+    # fatter / thinner ships might need offset adjustments
 
 
 class LargeShipHouseRear(Hull):
-    def __init__(self):
-        super(LargeShipHouseRear, self).__init__()
-        self.size_class = 'large'
+    size_class = 'large'
 
 
 class LargeShipHouseForward(Hull):
-    def __init__(self):
-        super(LargeShipHouseForward, self).__init__()
-        self.size_class = 'large'
+    size_class = 'large'
 
 
 class LargeRiverboatHouseRear(Hull):
-    def __init__(self):
-        super(LargeRiverboatHouseRear, self).__init__()
-        self.size_class = 'large'
+    size_class = 'large'
 
 
 class SmallRiverboatHouseRear(Hull):
-    def __init__(self):
-        super(SmallRiverboatHouseRear, self).__init__()
-        self.size_class = 'small'
+    size_class = 'small'
 
 
 class SmallShipHouseRear(Hull):
-    def __init__(self):
-        super(SmallShipHouseRear, self).__init__()
-        self.size_class = 'small'
+    size_class = 'small'
 
 
 class TempMini(Hull):
-    def __init__(self):
-        super(TempMini, self).__init__()
-        self.size_class = 'mini'
+    size_class = 'mini'
 
 
 class TempMicro(Hull):
-    def __init__(self):
-        super(TempMicro, self).__init__()
-        self.size_class = 'micro'
+    size_class = 'micro'
 
 
 registered_hulls = {'LargeRiverboatHouseRear': LargeRiverboatHouseRear(),

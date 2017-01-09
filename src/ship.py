@@ -1,9 +1,3 @@
-import global_constants # expose all constants for easy passing to templates
-import utils
-from hulls import registered_hulls
-from graphics_processor.visible_cargo import VisibleCargo, VisibleCargoLiveryOnly
-import graphics_processor.utils as graphics_utils
-
 import os.path
 currentdir = os.curdir
 
@@ -17,7 +11,12 @@ from chameleon import PageTemplateLoader # chameleon used in most template cases
 # setup the places we look for templates
 templates = PageTemplateLoader(os.path.join(currentdir, 'src', 'templates'))
 
+import global_constants # expose all constants for easy passing to templates
+import utils
+from graphics_processor.visible_cargo import VisibleCargo, VisibleCargoLiveryOnly
+import graphics_processor.utils as graphics_utils
 from rosters import registered_rosters
+from hulls import registered_hulls
 
 class Ship(object):
     """Base class for all types of ships"""
