@@ -6,7 +6,7 @@ class Hull(object):
     # there's only instance of each, so I just used class properties...boilerplate reduced to minimum eh :)
     size_class = 'Define in subclass'
     # length
-    # wake spritesheet file?
+    wake_spritesheet_name = 'ship_128px'
     # hull spritesheet file
     # vertical offset if needed, accounting for buy menu especially
     # effects position
