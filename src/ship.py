@@ -1,5 +1,6 @@
 import global_constants # expose all constants for easy passing to templates
 import utils
+from hulls import registered_hulls
 from graphics_processor.visible_cargo import VisibleCargo, VisibleCargoLiveryOnly
 import graphics_processor.utils as graphics_utils
 
@@ -26,7 +27,6 @@ class Ship(object):
         # setup properties for this ship
         self.title = kwargs.get('title', None)
         self.numeric_id = kwargs.get('numeric_id', None)
-        self.size_class = kwargs.get('size_class', None) # used to determine capacity, offsets etc
         self.str_type_info = 'EMPTY'
         self.intro_date = kwargs.get('intro_date', None)
         self.vehicle_life = kwargs.get('vehicle_life', 100) # default 100 years, assumes 2 generations of ships 1850-2050
@@ -43,6 +43,10 @@ class Ship(object):
         self.effects = kwargs.get('effects', [])
         # create a structure to hold model variants
         self.model_variants = []
+        self._size_class = kwargs.get('size_class', None) # !! will be deprecated when all ships moved to hull class
+        print(self._size_class + ' - size_class needs removed for ' + self.id if self._size_class is not None else None)
+        # base hull (defines length, wake graphics, hull graphics if composited etc)
+        self.hull = registered_hulls.get(kwargs.get('hull', None), None)
         # cargo /livery graphics options
         self.visible_cargo = VisibleCargo()
         # roster is set when the vehicle is registered to a roster, only one roster per vehicle
@@ -84,6 +88,14 @@ class Ship(object):
     @property
     def num_unique_spritesheet_suffixes(self):
         return len(set([i.spritesheet_suffix for i in self.model_variants]))
+
+    @property
+    def size_class(self):
+        # intermediate thing during migration, interface can probably be moved entirely into hull object
+        if self._size_class is not None:
+            return self._size_class
+        else:
+            return self.hull.size_class
 
     @property
     def speed(self):
@@ -300,6 +312,7 @@ class ModelVariant(object):
 
     def get_spritesheet_name(self, ship):
         return ship.id + '_' + str(self.spritesheet_suffix) + '.png'
+
 
 class UniversalFreighter(Ship):
     """
