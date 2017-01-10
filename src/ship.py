@@ -310,7 +310,7 @@ class UniversalFreighter(Ship):
     Not "general cargo vessel", IRL they carry only piece goods (confusing much?).
     """
     def __init__(self, id, **kwargs):
-        super(UniversalFreighter, self).__init__(id, **kwargs)
+        super().__init__(id, **kwargs)
         self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['all_freight']
         self.label_refits_allowed = [] # no specific labels needed, refits all freight
@@ -326,7 +326,7 @@ class PieceGoodsCarrier(Ship):
     Not "box ship" because IRL they are container carriers (yair).
     """
     def __init__(self, **kwargs):
-        super(PieceGoodsCarrier, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['packaged_freight']
         self.label_refits_allowed = ['MAIL', 'GRAI', 'WHEA', 'MAIZ', 'FRUT', 'BEAN', 'NITR'] # Iron Horse compatibility
@@ -340,7 +340,7 @@ class FlatDeckBarge(Ship):
     Flat deck, no holds - refits most cargos, not bulk.
     """
     def __init__(self, **kwargs):
-        super(FlatDeckBarge, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['flatbed_freight']
         self.label_refits_allowed = ['GOOD']
@@ -354,7 +354,7 @@ class BulkCarrier(Ship):
     Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse hopper wagon.
     """
     def __init__(self, **kwargs):
-        super(BulkCarrier, self).__init__(**kwargs)
+        super().__init__(**kwargs)
         self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['dump_freight']
         self.label_refits_allowed = [] # no specific labels needed
@@ -369,7 +369,7 @@ class UtilityVessel(Ship):
     Refits everything.
     """
     def __init__(self, id, **kwargs):
-        super(UtilityVessel, self).__init__(id, **kwargs)
+        super().__init__(id, **kwargs)
         self.template = 'ship.pynml'
         self.class_refit_groups = ['pax_mail','all_freight']
         self.label_refits_allowed = [] # no specific labels needed, GCV refits all cargo
@@ -391,7 +391,7 @@ class LivestockCarrier(Ship):
     Special type for livestock (as you might guess).
     """
     def __init__(self, id, **kwargs):
-        super(LivestockCarrier, self).__init__(id, **kwargs)
+        super().__init__(id, **kwargs)
         self.template = 'ship.pynml'
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['LVST'] # set to livestock by default, don't need to make it refit
@@ -406,7 +406,7 @@ class LogTug(Ship):
     Specialist type for hauling logs only, has some specialist refit and speed behaviours.
     """
     def __init__(self, id, **kwargs):
-        super(LogTug, self).__init__(id, **kwargs)
+        super().__init__(id, **kwargs)
         self.template = 'log_tug.pynml'
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['WOOD']
@@ -420,7 +420,7 @@ class PacketBoat(Ship):
     A relatively fast vessel type for passengers, mail, and express freight.
     """
     def __init__(self, id, **kwargs):
-        super(PacketBoat, self).__init__(id, **kwargs)
+        super().__init__(id, **kwargs)
         self.template = 'ship.pynml'
         self.class_refit_groups = ['pax_mail','express_freight']
         self.label_refits_allowed = ['BDMT','FRUT','LVST','VEHI','WATR']
@@ -444,7 +444,7 @@ class Hydrofoil(PacketBoat):
     """
     def __init__(self, id, **kwargs):
         # beware - subclasses PacketBoat (more subclassing here than is ideal)
-        super(Hydrofoil, self).__init__(id, **kwargs)
+        super().__init__(id, **kwargs)
         self.template = 'hydrofoil.pynml'
 
 
@@ -453,7 +453,7 @@ class Trawler(Ship):
     Dedicated to fishing
     """
     def __init__(self, id, **kwargs):
-        super(Trawler, self).__init__(id, **kwargs)
+        super().__init__(id, **kwargs)
         self.template = 'ship.pynml'
         self.class_refit_groups = []
         self.label_refits_allowed = []
@@ -467,7 +467,7 @@ class Tanker(Ship):
     Ronseal ("does what it says on the tin", for those without extensive knowledge of UK advertising).
     """
     def __init__(self, id, **kwargs):
-        super(Tanker, self).__init__(id, **kwargs)
+        super().__init__(id, **kwargs)
         self.template = 'vehicle_with_visible_cargo.pynml'
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
@@ -484,7 +484,7 @@ class EdiblesTanker(Ship):
     Gallons and gallons and gallons of wine, milk or water.  Except in metric systems, where it's litres.
     """
     def __init__(self, id, **kwargs):
-        super(EdiblesTanker, self).__init__(id, **kwargs)
+        super().__init__(id, **kwargs)
         self.template = 'ship.pynml'
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
@@ -498,7 +498,7 @@ class Reefer(Ship):
     Refits to limited range of refrigerated cargos, with 'improved' cargo decay rate.
     """
     def __init__(self, id, **kwargs):
-        super(Reefer, self).__init__(id, **kwargs)
+        super().__init__(id, **kwargs)
         self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['refrigerated_freight']
         self.label_refits_allowed = [] # no specific labels needed, refits all cargos that have refrigerated class
@@ -513,7 +513,7 @@ class ContainerCarrier(Ship):
     Refits to limited range of freight cargos, shows container graphics according to load state.
     """
     def __init__(self, id, **kwargs):
-        super(ContainerCarrier, self).__init__(id, **kwargs)
+        super().__init__(id, **kwargs)
         self.template = 'container_carrier.pynml'
         # maintain other sets (e.g. IH etc) when changing container refits
         self.class_refit_groups = ['express_freight','packaged_freight']
