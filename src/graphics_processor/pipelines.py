@@ -118,7 +118,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 
         foo = Image.open(self.hull_input_path).crop(crop_box_mask_1)
         #foo.show()
-        bar = base_image.point(lambda i: 255 if (i in range(96, 104) or i == 0) else i)
+        bar = base_image.point(lambda i: 255 if (i in range(178, 192) or i == 0) else i)
         #bar.show()
         bar_mask = bar.copy()
         bar_mask = bar_mask.point(lambda i: 0 if i == 255 else 255).convert("1")
