@@ -233,7 +233,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         # get the loc points
         loc_points = [pixel for pixel in pixascan(vehicle_cargo_loc_image) if pixel[2] == 226]
         # two cargo rows needed, so extend the loc points list
-        loc_points.extend([(pixel[0], pixel[1] + 30, pixel[2]) for pixel in loc_points])
+        loc_points.extend([(pixel[0], pixel[1] + graphics_constants.spriterow_height, pixel[2]) for pixel in loc_points])
         # sort them in y order, this causes sprites to overlap correctly when there are multiple loc points for an angle
         loc_points = sorted(loc_points, key=lambda x: x[1])
         crop_box_vehicle_base = (0,
@@ -323,7 +323,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 
         # the cumulative_input_spriterow_count updates per processed group of spriterows, and is key to making this work
         cumulative_input_spriterow_count = 0
-        for vehicle_counter, vehicle_rows in enumerate(ship.get_spriterows_for_consist_or_subpart()):
+        for vehicle_counter, vehicle_rows in enumerate(ship.get_spriterow_counts()):
             self.cur_vehicle_empty_row_offset = 10 + cumulative_input_spriterow_count * graphics_constants.spriterow_height
             for spriterow_data in vehicle_rows:
                 spriterow_type = spriterow_data[0]
@@ -340,7 +340,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     self.add_bulk_cargo_spriterows()
                 elif spriterow_type == 'piece_cargo':
                     input_spriterow_count = 2
-                    self.add_piece_cargo_spriterows(ship.unique_units[vehicle_counter], global_constants)
+                    self.add_piece_cargo_spriterows(ship, global_constants)
                 cumulative_input_spriterow_count += input_spriterow_count
 
         if self.options.get('swap_company_colours', False):

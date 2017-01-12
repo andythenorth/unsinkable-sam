@@ -207,7 +207,7 @@ class Ship(object):
         roster = self.get_roster(self.roster_id)
         return 'param[2]==' + str(roster.numeric_id - 1)
 
-    def get_spriterows_for_consist_or_subpart(self):
+    def get_spriterow_counts(self):
         # !! overly nested as assumes that there would be multiple units, doesn't apply to ships
         result = []
         unit_rows = []
@@ -261,6 +261,10 @@ class Ship(object):
             return self.visible_cargo.nml_template
         # default case
         return 'ship.pynml'
+
+    def get_nml_expression_for_cargo_variant_random_switch(self, variation_num, cargo_id=None):
+        switch_id = self.id + "_switch_graphics_" + str(variation_num) + ('_' + str(cargo_id) if cargo_id is not None else '')
+        return "SELF," + switch_id + ", bitmask(TRIGGER_VEHICLE_ANY_LOAD)"
 
     def get_expression_for_effects(self):
         # provides part of nml switch for effects (smoke), or none if no effects defined
@@ -317,6 +321,10 @@ class UniversalFreighter(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'COAL'
         self.default_cargo_capacity = self.capacity_freight
+        # Cargo Graphics
+        self.visible_cargo.bulk = True
+        self.visible_cargo.piece = True
+        self.cargo_length = 4 # !! temp hax to make graphics compile work
 
 
 class PieceGoodsCarrier(Ship):
