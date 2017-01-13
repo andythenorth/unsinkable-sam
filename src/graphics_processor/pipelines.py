@@ -151,18 +151,14 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         return result_image
 
     def add_generic_spriterow(self):
-        crop_box_source = (0,
-                           self.base_offset,
-                           graphics_constants.spritesheet_width,
-                            self.base_offset + graphics_constants.spriterow_height)
-        vehicle_generic_spriterow_input_image = self.vehicle_base_image.crop(crop_box_source)
+        crop_box = (0,
+                    0,
+                    graphics_constants.spritesheet_width,
+                    graphics_constants.spriterow_height)
+        vehicle_generic_spriterow_input_image = self.vehicle_base_image.crop(crop_box)
         # vehicle_generic_spriterow_input_image.show() # comment in to see the image when debugging
         vehicle_generic_spriterow_input_as_spritesheet = self.make_spritesheet_from_image(vehicle_generic_spriterow_input_image)
-        crop_box_dest = (0,
-                         0,
-                         graphics_constants.spritesheet_width,
-                         graphics_constants.spriterow_height)
-        self.units.append(AppendToSpritesheet(vehicle_generic_spriterow_input_as_spritesheet, crop_box_dest))
+        self.units.append(AppendToSpritesheet(vehicle_generic_spriterow_input_as_spritesheet, crop_box))
 
     def add_livery_only_spriterows(self, recolour_map):
         # this might be extensible for containers when needed, using simple conditionals
@@ -198,7 +194,8 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
     def add_piece_cargo_spriterows(self, vehicle, global_constants):
         # hax
         print('add_piece_cargo_spriterows: hax to crop out self.vehicle_base_image')
-        self.vehicle_base_image = self.vehicle_base_image.crop((0, 10, graphics_constants.spritesheet_width, 110))
+        self.vehicle_base_image = self.vehicle_base_image.crop((0, 100, graphics_constants.spritesheet_width, 300))
+        #self.vehicle_base_image.show()
         # !! this could possibly be optimised by slicing all the cargos once, globally, instead of per-unit
         cargo_group_output_row_height = 2 * graphics_constants.spriterow_height
         # Cargo spritesheets provide multiple lengths, using a specific format of rows
@@ -228,25 +225,31 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         # sort them in y order, this causes sprites to overlap correctly when there are multiple loc points for an angle
         loc_points = sorted(loc_points, key=lambda x: x[1])
         crop_box_mask = (0,
-                         self.base_offset + graphics_constants.spriterow_height,
+                         10 + (4 * graphics_constants.spriterow_height),
                          graphics_constants.spritesheet_width,
-                         self.base_offset + (2 * graphics_constants.spriterow_height))
-        vehicle_mask = Image.open(self.input_path).crop(crop_box_mask).point(lambda i: 255 if i == 226 else 0).convert("1")
+                         10 + (5 * graphics_constants.spriterow_height))
+        vehicle_mask_base_image = Image.open(self.input_path).crop(crop_box_mask).point(lambda i: 255 if i == 226 else 0).convert("1")
+        vehicle_mask = Image.new("1", (graphics_constants.spritesheet_width, cargo_group_output_row_height))
+        crop_box_mask_1 = (0,
+                           0,
+                           graphics_constants.spritesheet_width,
+                           0 + graphics_constants.spriterow_height)
+        crop_box_mask_2 = (0,
+                           0 + graphics_constants.spriterow_height,
+                           graphics_constants.spritesheet_width,
+                           0 + (2 * graphics_constants.spriterow_height))
+
+        vehicle_mask.paste(vehicle_mask_base_image, crop_box_mask_1)
+        vehicle_mask.paste(vehicle_mask_base_image, crop_box_mask_2)
         #vehicle_mask.show()
-        #mask and empty state will need pasting once for each of two cargo rows, so two crop boxes needed
         crop_box_comp_dest_1 = (0,
                                 0,
-                                graphics_constants.spritesheet_width,
-                                graphics_constants.spriterow_height)
-        crop_box_comp_dest_2 = (0,
-                                graphics_constants.spriterow_height,
                                 graphics_constants.spritesheet_width,
                                 2 * graphics_constants.spriterow_height)
         vehicle_cargo_rows_image = Image.new("P", (graphics_constants.spritesheet_width, cargo_group_output_row_height))
         vehicle_cargo_rows_image.putpalette(DOS_PALETTE)
         # paste empty states in for the cargo rows (base image = empty state)
         vehicle_cargo_rows_image.paste(self.vehicle_base_image, crop_box_comp_dest_1)
-        vehicle_cargo_rows_image.paste(self.vehicle_base_image, crop_box_comp_dest_2)
         #vehicle_cargo_rows_image.show()
         crop_box_dest = (0,
                          0,
@@ -294,10 +297,10 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     vehicle_comped_image.paste(cargo_sprites[cargo_sprite_num][0], cargo_bounding_box, cargo_sprites[cargo_sprite_num][1])
                 # vehicle overlay with mask - overlays any areas where cargo shouldn't show
                 vehicle_comped_image.paste(self.vehicle_base_image, crop_box_comp_dest_1, vehicle_mask)
-                vehicle_comped_image.paste(self.vehicle_base_image, crop_box_comp_dest_2, vehicle_mask)
                 #vehicle_comped_image.show()
                 vehicle_comped_image_as_spritesheet = self.make_spritesheet_from_image(vehicle_comped_image)
                 self.units.append(AppendToSpritesheet(vehicle_comped_image_as_spritesheet, crop_box_dest))
+                self.units.append(SimpleRecolour(recolour_map=graphics_constants.hull_recolor_CC2))
 
     def render(self, variant, ship, global_constants):
         # there are various options for controlling the crop box, I haven't documented them - read example uses to figure them out
