@@ -90,10 +90,7 @@ class SwapCompanyColoursPipeline(Pipeline):
 class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
     """"
         Extends a cargo carrier spritesheet with variations on cargo colours.
-        Became convoluted - was copied from Iron Horse where the case is simple, always just 1 wagon.
-        In Road Hog, has to handle variations on single-unit trucks, wagon+drags, and trucks where some units don't show cargo (artics).
-        There are various options that have to be set per truck to achieve the flexibility.
-        Those are as minimal as possible, but unavoidable.
+        Quite convoluted as it handles multiple classes of cargo (bulk, piece etc)
     """
     def __init__(self):
         # this should be sparse, don't store any ship or variant info in Pipelines, pass them at render time
@@ -111,9 +108,9 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                            10 + (2 * graphics_constants.spriterow_height))
 
         crop_box_foo_dest_1 = (0,
-                                0,
-                                graphics_constants.spritesheet_width,
-                                graphics_constants.spriterow_height)
+                               0,
+                               graphics_constants.spritesheet_width,
+                               graphics_constants.spriterow_height)
 
         foo = Image.open(self.hull_input_path).crop(crop_box_mask_1)
         bar = base_image.point(lambda i: 255 if (i in range(178, 192) or i == 0) else i)
@@ -180,9 +177,16 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                            self.base_offset,
                            graphics_constants.spritesheet_width,
                            self.base_offset + cargo_group_row_height)
-        vehicle_bulk_cargo_input_image = Image.open(self.input_path).crop(crop_box_source)
-        #vehicle_bulk_cargo_input_image.show() # comment in to see the image when debugging
-        vehicle_bulk_cargo_input_as_spritesheet = self.make_spritesheet_from_image(vehicle_bulk_cargo_input_image)
+        vehicle_bulk_cargo_image = Image.open(self.input_path).crop(crop_box_source)
+        vehicle_bulk_cargo_image = vehicle_bulk_cargo_image.point(lambda i: 255 if (i in range(178, 192) or i == 0) else i)
+        vehicle_bulk_cargo_mask = vehicle_bulk_cargo_image.copy().point(lambda i: 255 if i == 255 else 0).convert("1")
+
+        vehicle_base_image = self.vehicle_base_image.copy().crop((0, 100, graphics_constants.spritesheet_width, 300))
+
+        vehicle_bulk_cargo_image.paste(vehicle_base_image, None, vehicle_bulk_cargo_mask)
+        vehicle_bulk_cargo_image.show()
+
+        vehicle_bulk_cargo_input_as_spritesheet = self.make_spritesheet_from_image(vehicle_bulk_cargo_image)
         crop_box_dest = (0,
                          0,
                          graphics_constants.spritesheet_width,
@@ -194,7 +198,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
     def add_piece_cargo_spriterows(self, vehicle, global_constants):
         # hax
         print('add_piece_cargo_spriterows: hax to crop out self.vehicle_base_image')
-        self.vehicle_base_image = self.vehicle_base_image.crop((0, 100, graphics_constants.spritesheet_width, 300))
+        self.vehicle_base_image = self.vehicle_base_image.copy().crop((0, 100, graphics_constants.spritesheet_width, 300))
         #self.vehicle_base_image.show()
         # !! this could possibly be optimised by slicing all the cargos once, globally, instead of per-unit
         cargo_group_output_row_height = 2 * graphics_constants.spriterow_height
