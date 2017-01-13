@@ -7,10 +7,10 @@
 
     <tal:cargo_variants repeat="cargo_variant_num python:range(ship.visible_cargo.num_cargo_sprite_variants)">
         spriteset(${ship.id}_ss_${variation_num}_${cargo_variant_num}_part_load, "${global_constants.graphics_path}${ship.id}_${variation_num}.png") {
-          spriteset_template_part_load_${ship.id}(${cargo_variant_num * 200} + 10)
+          spriteset_template_part_load_${ship.id}(${cargo_variant_num * 200} + 110)
         }
         spriteset(${ship.id}_ss_${variation_num}_${cargo_variant_num}_full_load, "${global_constants.graphics_path}${ship.id}_${variation_num}.png") {
-          spriteset_template_full_load_${ship.id}(${cargo_variant_num * 200} + 110)
+          spriteset_template_full_load_${ship.id}(${cargo_variant_num * 200} + 210)
         }
 
         spritegroup ${ship.id}_sg_loading_${variation_num}_${cargo_variant_num} {
