@@ -184,7 +184,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         vehicle_base_image = self.vehicle_base_image.copy().crop((0, 100, graphics_constants.spritesheet_width, 300))
 
         vehicle_bulk_cargo_image.paste(vehicle_base_image, None, vehicle_bulk_cargo_mask)
-        vehicle_bulk_cargo_image.show()
+        #vehicle_bulk_cargo_image.show()
 
         vehicle_bulk_cargo_input_as_spritesheet = self.make_spritesheet_from_image(vehicle_bulk_cargo_image)
         crop_box_dest = (0,

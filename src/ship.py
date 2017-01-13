@@ -324,7 +324,7 @@ class UniversalFreighter(Ship):
         # Cargo Graphics
         self.visible_cargo.bulk = True
         self.visible_cargo.piece = True
-        self.cargo_length = 4 # !! temp hax to make graphics compile work
+        self.cargo_length = 3 # !! temp hax to make graphics compile work
 
 
 class PieceGoodsCarrier(Ship):
