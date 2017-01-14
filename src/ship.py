@@ -370,6 +370,8 @@ class BulkCarrier(Ship):
         self.default_cargo = 'COAL'
         self.default_cargo_capacity = self.capacity_freight
         self.loading_speed_multiplier = 2
+        # Cargo Graphics
+        self.visible_cargo.bulk = True
 
 
 class UtilityVessel(Ship):

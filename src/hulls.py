@@ -20,17 +20,17 @@ class LargeShipHouseRear(Hull):
 
 class LargeShipHouseForward(Hull):
     size_class = 'large'
-    spritesheet_name = 'test_large_rear_house'
+    spritesheet_name = 'test_large_house_rear'
 
 
 class LargeRiverboatHouseRear(Hull):
     size_class = 'large'
-    spritesheet_name = 'test_large_rear_house'
+    spritesheet_name = 'large_riverboat_house_rear'
 
 
 class SmallRiverboatHouseRear(Hull):
     size_class = 'small'
-    spritesheet_name = 'small_riverboat_rear_house'
+    spritesheet_name = 'small_riverboat_house_rear'
 
 
 class SmallShipHouseRear(Hull):
