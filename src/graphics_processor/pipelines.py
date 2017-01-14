@@ -120,8 +120,8 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         foo.paste(bar, crop_box_foo_dest_1, bar_mask)
 
         # no hull (load state) mask for row 1,
-        hull_mask_row_2 = Image.open(os.path.join('src','graphics','hull_masks','ship_128px.png')).crop(crop_box_mask_1).point(lambda i: 0 if i == 226 else 255).convert("1")
-        hull_mask_row_3 = Image.open(os.path.join('src','graphics','hull_masks','ship_128px.png')).crop(crop_box_mask_2).point(lambda i: 0 if i == 226 else 255).convert("1")
+        hull_mask_row_2 = Image.open(self.hull_mask_input_path).crop(crop_box_mask_1).point(lambda i: 0 if i == 226 else 255).convert("1")
+        hull_mask_row_3 = Image.open(self.hull_mask_input_path).crop(crop_box_mask_2).point(lambda i: 0 if i == 226 else 255).convert("1")
 
         # 3 livery rows to paste so 3 comp masks
         crop_box_comp_dest_1 = (0,
@@ -311,6 +311,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         self.options = variant.graphics_processor.options
         self.input_path = os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, self.options['template'])
         self.hull_input_path = os.path.join(currentdir, 'src', 'graphics', 'hulls', ship.hull.spritesheet_name + '.png')
+        self.hull_mask_input_path = os.path.join(currentdir, 'src', 'graphics', 'hull_masks', ship.hull.mask_name + '.png')
         self.units = []
 
         crop_box_source = (0,
