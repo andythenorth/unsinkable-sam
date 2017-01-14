@@ -15,32 +15,37 @@ class Hull(object):
 
 class LargeShipHouseRear(Hull):
     size_class = 'large'
-    spritesheet_name = 'test_large_rear_house'
+    spritesheet_name = 'large_ship_house_rear'
 
 
 class LargeShipHouseForward(Hull):
     size_class = 'large'
+    spritesheet_name = 'test_large_rear_house'
 
 
 class LargeRiverboatHouseRear(Hull):
     size_class = 'large'
+    spritesheet_name = 'test_large_rear_house'
 
 
 class SmallRiverboatHouseRear(Hull):
     size_class = 'small'
-    spritesheet_name = 'test_small_rear_house_riverboat'
+    spritesheet_name = 'small_riverboat_rear_house'
 
 
 class SmallShipHouseRear(Hull):
     size_class = 'small'
+    spritesheet_name = 'small_ship_house_rear'
 
 
 class TempMini(Hull):
     size_class = 'mini'
+    spritesheet_name = 'mini_ship_house_rear'
 
 
 class TempMicro(Hull):
     size_class = 'micro'
+    spritesheet_name = 'micro_ship_house_rear'
 
 
 registered_hulls = {'LargeRiverboatHouseRear': LargeRiverboatHouseRear(),
