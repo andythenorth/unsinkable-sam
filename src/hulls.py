@@ -11,61 +11,80 @@ class Hull(object):
     # mask_name
     # effects position
     # fatter / thinner ships might need offset adjustments
+    print("HULL")
+
+    def __init__(self):
+        print("__init__")
+
+    @property
+    def spritesheet_name(self):
+        return self.size_class +  '_' + self.hull_type + '_house_' + self.house_position
+
+    @property
+    def mask_name(self):
+        return self.hull_type + '_' + self.size_class + '_hull_mask'
+
+    @property
+    def wake_name(self):
+        return self.hull_type + '_' + self.size_class + '_wake'
+
+    @property
+    def load_state_y_offsets(self):
+        # !! obviously incomplete.  _might_ need to also check hull_type for truly accurate y_offsets
+        # !! e.g. riverboat hull height doesn't always vary by length; whereas ships do
+        if self.size_class == 'small':
+            return [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        else:
+            return [('empty', -1), ('part_load', 1), ('full_load', 3)]
 
 
 class LargeShipHouseRear(Hull):
-    size_class = 'large'
-    spritesheet_name = 'large_ship_house_rear'
-    mask_name = 'ship_128px'
-    wake_name = 'ship_128px'
-    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
+    def __init__(self):
+        self.size_class = 'large'
+        self.hull_type = 'ship'
+        self.house_position = 'rear'
+
 
 class LargeShipHouseForward(Hull):
-    size_class = 'large'
-    spritesheet_name = 'test_large_house_rear'
-    mask_name = 'ship_128px'
-    wake_name = 'ship_128px'
-    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
+    def __init__(self):
+        self.size_class = 'large'
+        self.hull_type = 'ship'
+        self.house_position = 'rear'
 
 
 class LargeRiverboatHouseRear(Hull):
-    size_class = 'large'
-    spritesheet_name = 'large_riverboat_house_rear'
-    mask_name = 'ship_128px'
-    wake_name = 'ship_128px'
-    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
+    def __init__(self):
+        self.size_class = 'large'
+        self.hull_type = 'ship'
+        self.house_position = 'rear'
 
 
 class SmallRiverboatHouseRear(Hull):
-    size_class = 'small'
-    spritesheet_name = 'small_riverboat_house_rear'
-    mask_name = 'ship_128px'
-    wake_name = 'ship_128px'
-    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
+    def __init__(self):
+        self.size_class = 'small'
+        self.hull_type = 'ship'
+        self.house_position = 'rear'
 
 
 class SmallShipHouseRear(Hull):
-    size_class = 'small'
-    spritesheet_name = 'small_ship_house_rear'
-    mask_name = 'ship_64px'
-    wake_name = 'ship_64px'
-    load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+    def __init__(self):
+        self.size_class = 'small'
+        self.hull_type = 'ship'
+        self.house_position = 'rear'
 
 
 class TempMini(Hull):
-    size_class = 'mini'
-    spritesheet_name = 'mini_ship_house_rear'
-    mask_name = 'ship_128px'
-    wake_name = 'ship_128px'
-    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
+    def __init__(self):
+        self.size_class = 'mini'
+        self.hull_type = 'ship'
+        self.house_position = 'rear'
 
 
 class TempMicro(Hull):
-    size_class = 'micro'
-    spritesheet_name = 'micro_ship_house_rear'
-    mask_name = 'ship_128px'
-    wake_name = 'ship_128px'
-    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
+    def __init__(self):
+        self.size_class = 'micro'
+        self.hull_type = 'ship'
+        self.house_position = 'rear'
 
 
 registered_hulls = {'LargeRiverboatHouseRear': LargeRiverboatHouseRear(),
