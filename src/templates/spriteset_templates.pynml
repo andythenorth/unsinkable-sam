@@ -1,7 +1,7 @@
 // STANDARD GRAPHICS
 // -----------------
 
-<tal:load_state repeat="load_state [('empty', 0), ('part_load', 2), ('full_load', 4)]">
+<tal:load_state repeat="load_state ship.hull.load_state_y_offsets">
     template spriteset_template_${load_state[0]}_${ship.id}(y) {
         <tal:sprite repeat="bounding_box global_constants.spritesheet_bounding_boxes">
             //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
@@ -45,10 +45,8 @@ template spriteset_template_purchase_${ship.id}() {
 
 template spriteset_template_wake_${ship.id}(y) {
     <tal:sprite repeat="bounding_box global_constants.spritesheet_bounding_boxes">
-        // take the base offsets for this ship and adjust the y offset as needed, putting the wake in the waterline position
-        // !! unfinished, only – view done
         //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
-        [${bounding_box[0]}, y, ${bounding_box[1]}, ${bounding_box[2]}, ${ship.offsets[repeat.bounding_box.index][0]}, ${ship.offsets[repeat.bounding_box.index][1]} + 2, ANIM]
+        [${bounding_box[0]}, y, ${bounding_box[1]}, ${bounding_box[2]}, ${ship.offsets[repeat.bounding_box.index][0]}, ${ship.offsets[repeat.bounding_box.index][1]}, ANIM]
     </tal:sprite>
 }
 

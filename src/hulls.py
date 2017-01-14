@@ -18,13 +18,14 @@ class LargeShipHouseRear(Hull):
     spritesheet_name = 'large_ship_house_rear'
     mask_name = 'ship_128px'
     wake_name = 'ship_128px'
-
+    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
 
 class LargeShipHouseForward(Hull):
     size_class = 'large'
     spritesheet_name = 'test_large_house_rear'
     mask_name = 'ship_128px'
     wake_name = 'ship_128px'
+    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
 
 
 class LargeRiverboatHouseRear(Hull):
@@ -32,6 +33,7 @@ class LargeRiverboatHouseRear(Hull):
     spritesheet_name = 'large_riverboat_house_rear'
     mask_name = 'ship_128px'
     wake_name = 'ship_128px'
+    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
 
 
 class SmallRiverboatHouseRear(Hull):
@@ -39,6 +41,7 @@ class SmallRiverboatHouseRear(Hull):
     spritesheet_name = 'small_riverboat_house_rear'
     mask_name = 'ship_128px'
     wake_name = 'ship_128px'
+    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
 
 
 class SmallShipHouseRear(Hull):
@@ -46,6 +49,7 @@ class SmallShipHouseRear(Hull):
     spritesheet_name = 'small_ship_house_rear'
     mask_name = 'ship_64px'
     wake_name = 'ship_64px'
+    load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
 
 
 class TempMini(Hull):
@@ -53,6 +57,7 @@ class TempMini(Hull):
     spritesheet_name = 'mini_ship_house_rear'
     mask_name = 'ship_128px'
     wake_name = 'ship_128px'
+    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
 
 
 class TempMicro(Hull):
@@ -60,6 +65,7 @@ class TempMicro(Hull):
     spritesheet_name = 'micro_ship_house_rear'
     mask_name = 'ship_128px'
     wake_name = 'ship_128px'
+    load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
 
 
 registered_hulls = {'LargeRiverboatHouseRear': LargeRiverboatHouseRear(),

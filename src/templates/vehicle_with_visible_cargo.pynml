@@ -31,6 +31,7 @@
             ];
         }
 
+        <!--! this switch needs to be kept at parity with the equivalent switches in other vehicle templates -->
         switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_percent_loaded_${variation_num}_${cargo_variant_num}, cargo_count*100/cargo_capacity) {
                 0: return ${ship.id}_ss_${variation_num}_empty;
                 1..99: return ${ship.id}_sg_loading_${variation_num}_${cargo_variant_num};

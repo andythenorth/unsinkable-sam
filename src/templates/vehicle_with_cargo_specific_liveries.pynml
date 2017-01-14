@@ -16,18 +16,11 @@
         spriteset(${ship.id}_ss_${variation_num}_${cargo_variant_num}_full_load, "${global_constants.graphics_path}${ship.id}_${variation_num}.png") {
           spriteset_template_full_load_${ship.id}(${cargo_variant_num * 300} + 210)
         }
-
-        spritegroup ${ship.id}_sg_${variation_num}_${cargo_variant_num} {
-            loaded:  [
-                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_empty,
-                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_part_load,
-                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_full_load,
-            ];
-            loading: [
-                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_empty,
-                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_part_load,
-                ${ship.id}_ss_${variation_num}_${cargo_variant_num}_full_load,
-            ];
+        <!--! this switch needs to be kept at parity with the equivalent switches in other vehicle templates -->
+        switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_percent_loaded_${variation_num}_${cargo_variant_num}, cargo_count*100/cargo_capacity) {
+                0: return ${ship.id}_ss_${variation_num}_${cargo_variant_num}_empty;
+                1..99: return ${ship.id}_ss_${variation_num}_${cargo_variant_num}_part_load;
+            return ${ship.id}_ss_${variation_num}_${cargo_variant_num}_full_load;
         }
     </tal:cargo_variants>
 
@@ -36,7 +29,7 @@
     <tal:cargo_random_switches repeat="mapping ship.visible_cargo.cargo_row_map.items()">
         random_switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_${variation_num}_${mapping[0]}, bitmask(TRIGGER_VEHICLE_NEW_LOAD)) {
             <tal:random_graphics_variations repeat="spriterow_num mapping[1]">
-                1: return ${ship.id}_sg_${variation_num}_${spriterow_num};
+                1: return ${ship.id}_switch_graphics_percent_loaded_${variation_num}_${spriterow_num};
             </tal:random_graphics_variations>
         }
     </tal:cargo_random_switches>
