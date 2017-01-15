@@ -195,7 +195,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             self.units.append(AppendToSpritesheet(vehicle_bulk_cargo_input_as_spritesheet, crop_box_dest))
             self.units.append(SimpleRecolour(recolour_map))
 
-    def add_piece_cargo_spriterows(self, vehicle, global_constants):
+    def add_piece_cargo_spriterows(self, global_constants):
         # hax
         print('add_piece_cargo_spriterows: hax to crop out self.vehicle_base_image')
         self.vehicle_base_image = self.vehicle_base_image.copy().crop((0, 100, graphics_constants.spritesheet_width, 300))
@@ -268,7 +268,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 # cargo sprites are assumed to be symmetrical, only 4 angles are needed
                 # for cargos with 8 angles (e.g. bulldozers), provide those manually as custom cargos?
                 # loading states are first 4 sprites, loaded are second 4, all in one list
-                for bboxes in cargo_spritesheet_bounding_boxes[vehicle.cargo_length]:
+                for bboxes in cargo_spritesheet_bounding_boxes[self.ship.cargo_length]:
                     for i in bboxes:
                         cargo_sprite = cargo_sprites_input_image.copy()
                         cargo_sprite = cargo_sprite.crop(i)
@@ -313,6 +313,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         self.hull_input_path = os.path.join(currentdir, 'src', 'graphics', 'hulls', ship.hull.spritesheet_name + '.png')
         self.hull_mask_input_path = os.path.join(currentdir, 'src', 'graphics', 'hull_masks', ship.hull.mask_name + '.png')
         self.units = []
+        self.ship = ship
 
         crop_box_source = (0,
                            10,
@@ -339,7 +340,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     self.add_bulk_cargo_spriterows()
                 elif spriterow_type == 'piece_cargo':
                     input_spriterow_count = 2
-                    self.add_piece_cargo_spriterows(ship, global_constants)
+                    self.add_piece_cargo_spriterows(global_constants)
                 cumulative_input_spriterow_count += input_spriterow_count
 
         if self.options.get('swap_company_colours', False):
