@@ -194,6 +194,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         for label, recolour_map in graphics_constants.bulk_cargo_recolour_maps:
             self.units.append(AppendToSpritesheet(vehicle_bulk_cargo_input_as_spritesheet, crop_box_dest))
             self.units.append(SimpleRecolour(recolour_map))
+            self.units.append(SimpleRecolour(recolour_map=graphics_constants.hull_recolor_CC2))
 
     def add_piece_cargo_spriterows(self, global_constants):
         # hax
