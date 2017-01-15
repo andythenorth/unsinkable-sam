@@ -55,14 +55,14 @@ class LargeShipHouseForward(Hull):
 class LargeRiverboatHouseRear(Hull):
     def __init__(self):
         self.size_class = 'large'
-        self.hull_type = 'ship'
+        self.hull_type = 'riverboat'
         self.house_position = 'rear'
 
 
 class SmallRiverboatHouseRear(Hull):
     def __init__(self):
         self.size_class = 'small'
-        self.hull_type = 'ship'
+        self.hull_type = 'riverboat'
         self.house_position = 'rear'
 
 
