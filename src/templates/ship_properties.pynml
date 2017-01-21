@@ -16,7 +16,7 @@ item(FEAT_SHIPS, ${ship.id}, ${ship.numeric_id}) {
         introduction_date:              date(${ship.intro_date},01,01); // ship just supplies intro year - openttd randomises intro dates a bit anyway
         cargo_capacity:                 ${ship.default_cargo_capacity};
         sprite_id:                      SPRITE_ID_NEW_SHIP; //enable new graphics - nml constant
-        speed:                          ${ship.get_speed_adjusted_for_param(1)}mph;
+        // speed is not set, handled by cb
         cost_factor:                    ${ship.buy_cost};
         running_cost_factor:            ${ship.running_cost};
         refit_cost:                     0; // leave at 0 for refitting without defining cb

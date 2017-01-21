@@ -30,7 +30,8 @@ from ships import (bulk_carrier_large,
 
 roster = Roster(id = 'default',
                 numeric_id = 1,
-                freighter_speeds = {0: 20, 1950: 30},
+                express_speeds = {0: 35, 1950: 45},
+                freighter_speeds = {0: 25, 1950: 35},
                 # ships in buy menu order
                 ships = [pax_fast_loading_large,
                          pax_luxury_large,

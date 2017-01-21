@@ -8,6 +8,8 @@ class Roster(object):
     def __init__(self, **kwargs):
         self.id = kwargs.get('id')
         self.numeric_id = kwargs.get('numeric_id')
+        self.freighter_speeds = kwargs.get('freighter_speeds')
+        self.express_speeds = kwargs.get('express_speeds')
         self.ships = []
         for ship in [ship.ship for ship in kwargs.get('ships')]:
             self.ships.append(ship)
