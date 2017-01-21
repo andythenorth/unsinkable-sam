@@ -1,18 +1,23 @@
-
 # shared lists of allowed classes, shared across multiple vehicle types
 # these lists are similar but not identical across Iron Horse, Squid, Road Hog etc
 base_refits_by_class = {'empty': [],
-                       'all_freight': ['CC_BULK', 'CC_PIECE_GOODS', 'CC_EXPRESS', 'CC_LIQUID', 'CC_ARMOURED', 'CC_REFRIGERATED', 'CC_COVERED', 'CC_NON_POURABLE'],
-                       'pax_mail': ['CC_PASSENGERS','CC_MAIL'],
-                       'liquids': ['CC_LIQUID'],
-                       'packaged_freight': ['CC_PIECE_GOODS', 'CC_EXPRESS', 'CC_ARMOURED', 'CC_LIQUID'],
-                       'dump_freight': ['CC_BULK'],
-                       'flatbed_freight': ['CC_PIECE_GOODS'],
-                       'refrigerated_freight': ['CC_REFRIGERATED'],
-                       'express_freight': ['CC_EXPRESS','CC_ARMOURED']}
+                        'all_freight': ['CC_BULK', 'CC_PIECE_GOODS', 'CC_EXPRESS', 'CC_LIQUID', 'CC_ARMOURED', 'CC_REFRIGERATED', 'CC_COVERED', 'CC_NON_POURABLE'],
+                        'pax': ['CC_PASSENGERS'],
+                        'mail': ['CC_MAIL'],
+                        'liquids': ['CC_LIQUID'],
+                        'packaged_freight': ['CC_PIECE_GOODS', 'CC_EXPRESS', 'CC_ARMOURED', 'CC_LIQUID'],
+                        'flatbed_freight': ['CC_PIECE_GOODS'],
+                        'dump_freight': ['CC_BULK'],
+                        'covered_hopper_freight': [], # explicit allowal by label instead
+                        'refrigerated_freight': ['CC_REFRIGERATED'],
+                        'express_freight': ['CC_EXPRESS','CC_ARMOURED']}
 
+# rather than using disallowed classes (can cause breakage), specific labels are disallowed
+# this is done per vehicle type, or added to global_constants for ease of reuse and updating
+# these lists are similar but not identical across Iron Horse, Unsinkable Sam, Road Hog etc
 disallowed_refits_by_label = {'non_dump_bulk': ['WOOD', 'SGCN', 'FICR', 'BDMT', 'WDPR', 'GRAI', 'WHEA', 'CERE', 'MAIZ', 'FRUT', 'BEAN', 'CMNT', 'CTCD', 'FERT', 'OLSD', 'SUGR', 'SULP', 'TOFF', 'URAN'],
                               'edible_liquids': ['MILK', 'WATR', 'BEER', 'FOOD', 'EOIL'],
+                              'non_flatbed_freight': ['FOOD', 'FISH', 'LVST', 'FRUT', 'BEER', 'MILK', 'JAVA', 'SUGR', 'NUTS', 'EOIL'],
                               'non_edible_liquids': ['RFPR', 'OIL_', 'FMSP', 'PETR', 'RUBR'],
                               'non_freight_special_cases': ['TOUR']}
 

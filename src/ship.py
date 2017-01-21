@@ -322,9 +322,9 @@ class CourierShip(Ship):
         self.default_cargo_capacity = self.capacity_mail
 
 
-class PaxShip(Ship):
+class PaxFastLoadingShip(Ship):
     """
-    Fast-loading passenger vessel - better suited to short routes
+    Fast-loading passenger vessel - better suited to short routes; keep same speed as luxury pax ship for balancing reasons.
     """
     def __init__(self, id, **kwargs):
         super().__init__(id, **kwargs)
@@ -337,9 +337,9 @@ class PaxShip(Ship):
         self.loading_speed_multiplier = 3
 
 
-class PaxExpressShip(Ship):
+class PaxLuxuryShip(Ship):
     """
-    Luxury passenger vessel - better suited to long routes
+    Luxury passenger vessel - better suited to long routes; keep same speed as fast-loading pax ship for balancing reasons.
     """
     def __init__(self, id, **kwargs):
         super().__init__(id, **kwargs)
