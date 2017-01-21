@@ -307,6 +307,51 @@ class ModelVariant(object):
         return ship.id + '_' + str(self.spritesheet_suffix) + '.png'
 
 
+class CourierShip(Ship):
+    """
+    A relatively fast vessel type for mail, and express freight.
+    """
+    def __init__(self, id, **kwargs):
+        super().__init__(id, **kwargs)
+        self.template = 'ship.pynml'
+        self.class_refit_groups = ['mail','express_freight']
+        self.label_refits_allowed = []
+        self.label_refits_disallowed = ['TOUR']
+        self.capacity_cargo_holds = kwargs.get('capacity_cargo_holds', 0)
+        self.default_cargo = 'MAIL'
+        self.default_cargo_capacity = self.capacity_mail
+
+
+class PaxShip(Ship):
+    """
+    Fast-loading passenger vessel - better suited to short routes
+    """
+    def __init__(self, id, **kwargs):
+        super().__init__(id, **kwargs)
+        self.template = 'ship.pynml'
+        self.class_refit_groups = ['pax']
+        self.label_refits_allowed = []
+        self.label_refits_disallowed = []
+        self.default_cargo = 'PASS'
+        self.default_cargo_capacity = self.capacity_pax
+        self.loading_speed_multiplier = 3
+
+
+class PaxExpressShip(Ship):
+    """
+    Luxury passenger vessel - better suited to long routes
+    """
+    def __init__(self, id, **kwargs):
+        super().__init__(id, **kwargs)
+        self.template = 'ship.pynml'
+        self.class_refit_groups = ['pax']
+        self.label_refits_allowed = []
+        self.label_refits_disallowed = []
+        self.default_cargo = 'PASS'
+        self.default_cargo_capacity = self.capacity_pax
+        self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
+
+
 class UniversalFreighter(Ship):
     """
     General purpose freight vessel type. No pax or mail cargos, refits any other cargo including liquids (in barrels or containers).
@@ -423,39 +468,6 @@ class LogTug(Ship):
         self.label_refits_disallowed = []
         self.default_cargo = 'WOOD'
         self.default_cargo_capacity = self.capacity_freight
-
-
-class PacketBoat(Ship):
-    """
-    A relatively fast vessel type for passengers, mail, and express freight.
-    """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
-        self.template = 'ship.pynml'
-        self.class_refit_groups = ['pax_mail','express_freight']
-        self.label_refits_allowed = ['BDMT','FRUT','LVST','VEHI','WATR']
-        self.label_refits_disallowed = ['FISH'] # don't go fishing with packet boats, use a trawler instead :P
-        self.capacity_cargo_holds = kwargs.get('capacity_cargo_holds', 0)
-        self.default_cargo = 'PASS'
-        self.default_cargo_capacity = self.capacity_pax
-
-    def get_buy_menu_string(self):
-        # set buy menu text, with various variations
-        buy_menu_template = Template(
-            "string(STR_BUY_MENU_TEXT, string(${str_type_info}), string(STR_BUY_MENU_REFIT_CAPACITIES_PACKET,${capacity_mail},${capacity_cargo_holds}))"
-        )
-        return buy_menu_template.substitute(str_type_info=self.get_str_type_info(), capacity_pax=self.capacity_pax,
-                                            capacity_mail=self.capacity_mail, capacity_cargo_holds=self.capacity_cargo_holds)
-
-
-class Hydrofoil(PacketBoat):
-    """
-    Fast vessel type for passengers and mail only, graphics vary by speed (to show hydrofoil in / out of water).
-    """
-    def __init__(self, id, **kwargs):
-        # beware - subclasses PacketBoat (more subclassing here than is ideal)
-        super().__init__(id, **kwargs)
-        self.template = 'hydrofoil.pynml'
 
 
 class Trawler(Ship):
