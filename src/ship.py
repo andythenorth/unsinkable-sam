@@ -138,14 +138,14 @@ class Ship(object):
     def capacity_pax(self):
         # currently contains no provision for custom widths
         # but if needed, add _capacity_pax from constructor kwargs, and check existence of that here
-        capacities = {'micro': 40, 'mini': 100, 'small': 240, 'large': 576}
+        capacities = {'micro': 40, 'mini': 125, 'small': 300, 'large': 720}
         return capacities[self.hull.size_class]
 
     @property
     def capacity_mail(self):
         # currently contains no provision for custom widths
         # but if needed, add _capacity_mail from constructor kwargs, and check existence of that here
-        capacities = {'micro': 40, 'mini': 100, 'small': 240, 'large': 576}
+        capacities = {'micro': 40, 'mini': 125, 'small': 300, 'large': 720}
         return capacities[self.hull.size_class]
 
     @property
