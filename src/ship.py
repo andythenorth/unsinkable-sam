@@ -104,7 +104,6 @@ class Ship(object):
         speed_factors = [0.67, 1, 1.33]
          # allow that integer maths is needed for newgrf cb results; rounding up for safety, capped at max ship speed
         result = int(min(math.ceil(3.2 * self.speed * speed_factors[speed_index]), 79 * 3.2))
-        print(result)
         return result
 
     @property
