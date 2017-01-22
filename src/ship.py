@@ -113,7 +113,7 @@ class Ship(object):
     @property
     def running_cost(self):
         # calculate a running cost
-        gross_tonnage = self.default_cargo_capacity * 1.25 # no real need to vary this by ship type
+        gross_tonnage = self.default_capacity * 1.25 # no real need to vary this by ship type
         fixed_run_cost = self.fixed_run_cost_factor * global_constants.FIXED_RUN_COST
         fuel_run_cost =  self.fuel_run_cost_factor * gross_tonnage * global_constants.FUEL_RUN_COST
         calculated_run_cost = int((fixed_run_cost + fuel_run_cost) / 98) # divide by magic constant to get costs as factor in 0-255 range
@@ -322,7 +322,7 @@ class MailShip(Ship):
         self.label_refits_disallowed = ['TOUR']
         self.capacity_cargo_holds = kwargs.get('capacity_cargo_holds', 0)
         self.default_cargo = 'MAIL'
-        self.default_cargo_capacity = self.capacity_mail
+        self.default_capacity = self.capacity_mail
 
 
 class PaxFastLoadingShip(Ship):
@@ -336,7 +336,7 @@ class PaxFastLoadingShip(Ship):
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
         self.default_cargo = 'PASS'
-        self.default_cargo_capacity = self.capacity_pax
+        self.default_capacity = self.capacity_pax
         self.loading_speed_multiplier = 3
 
 
@@ -351,7 +351,7 @@ class PaxLuxuryShip(Ship):
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
         self.default_cargo = 'PASS'
-        self.default_cargo_capacity = self.capacity_pax
+        self.default_capacity = self.capacity_pax
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
 
 
@@ -368,7 +368,7 @@ class UniversalFreighter(Ship):
         self.label_refits_allowed = [] # no specific labels needed, refits all freight
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'COAL'
-        self.default_cargo_capacity = self.capacity_freight
+        self.default_capacity = self.capacity_freight
         # Cargo Graphics
         self.visible_cargo.bulk = True
         self.visible_cargo.piece = True
@@ -388,7 +388,7 @@ class PieceGoodsCarrier(Ship):
         self.label_refits_allowed = ['MAIL', 'GRAI', 'WHEA', 'MAIZ', 'FRUT', 'BEAN', 'NITR'] # Iron Horse compatibility
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'GOOD'
-        self.default_cargo_capacity = self.capacity_freight
+        self.default_capacity = self.capacity_freight
 
 
 class FlatDeckBarge(Ship):
@@ -402,7 +402,7 @@ class FlatDeckBarge(Ship):
         self.label_refits_allowed = ['GOOD']
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'STEL'
-        self.default_cargo_capacity = self.capacity_freight
+        self.default_capacity = self.capacity_freight
 
 
 class BulkCarrier(Ship):
@@ -416,7 +416,7 @@ class BulkCarrier(Ship):
         self.label_refits_allowed = [] # no specific labels needed
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_dump_bulk']
         self.default_cargo = 'COAL'
-        self.default_cargo_capacity = self.capacity_freight
+        self.default_capacity = self.capacity_freight
         self.loading_speed_multiplier = 2
         # Cargo Graphics
         self.visible_cargo.bulk = True
@@ -433,7 +433,7 @@ class UtilityVessel(Ship):
         self.label_refits_allowed = [] # no specific labels needed, GCV refits all cargo
         self.label_refits_disallowed = []
         self.default_cargo = 'PASS'
-        self.default_cargo_capacity = self.capacity_pax
+        self.default_capacity = self.capacity_pax
 
     def get_buy_menu_string(self):
         # set buy menu text, with various variations
@@ -455,7 +455,7 @@ class LivestockCarrier(Ship):
         self.label_refits_allowed = ['LVST'] # set to livestock by default, don't need to make it refit
         self.label_refits_disallowed = []
         self.default_cargo = 'LVST'
-        self.default_cargo_capacity = self.capacity_freight
+        self.default_capacity = self.capacity_freight
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
 
 
@@ -470,7 +470,7 @@ class LogTug(Ship):
         self.label_refits_allowed = ['WOOD']
         self.label_refits_disallowed = []
         self.default_cargo = 'WOOD'
-        self.default_cargo_capacity = self.capacity_freight
+        self.default_capacity = self.capacity_freight
 
 
 class Trawler(Ship):
@@ -484,7 +484,7 @@ class Trawler(Ship):
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
         self.default_cargo = 'FISH'
-        self.default_cargo_capacity = self.capacity_freight
+        self.default_capacity = self.capacity_freight
 
 
 class Tanker(Ship):
@@ -498,7 +498,7 @@ class Tanker(Ship):
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
         self.default_cargo = 'OIL_'
-        self.default_cargo_capacity = self.capacity_freight
+        self.default_capacity = self.capacity_freight
         # Cargo graphics
         self.visible_cargo = VisibleCargoLiveryOnly()
         self.visible_cargo.tanker = True
@@ -515,7 +515,7 @@ class EdiblesTanker(Ship):
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
         self.default_cargo = 'WATR'
-        self.default_cargo_capacity = self.capacity_freight
+        self.default_capacity = self.capacity_freight
 
 
 class Reefer(Ship):
@@ -529,7 +529,7 @@ class Reefer(Ship):
         self.label_refits_allowed = [] # no specific labels needed, refits all cargos that have refrigerated class
         self.label_refits_disallowed = []
         self.default_cargo = 'GOOD'
-        self.default_cargo_capacity = self.capacity_freight
+        self.default_capacity = self.capacity_freight
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
 
 
@@ -545,4 +545,4 @@ class ContainerCarrier(Ship):
         self.label_refits_allowed = ['FRUT','WATR']
         self.label_refits_disallowed = ['FISH','LVST','OIL_','TOUR','WOOD']
         self.default_cargo = 'GOOD'
-        self.default_cargo_capacity = self.capacity_freight
+        self.default_capacity = self.capacity_freight
