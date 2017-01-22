@@ -127,8 +127,8 @@ class Ship(object):
 
     @property
     def capacities_refittable(self):
+        capacities_mail = [int(self.capacity_freight * global_constants.mail_multiplier * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
         capacities_pax = [int(self.capacity_pax * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
-        capacities_mail = [int(self.capacity_mail * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
         capacities_freight = [int(self.capacity_freight * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
         result = {'pax': capacities_pax, 'mail': capacities_mail, 'freight': capacities_freight}
         return(result)
