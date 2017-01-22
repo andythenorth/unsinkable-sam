@@ -88,7 +88,13 @@ cargo_labels = ('PASS', # pax first
                 'CTCD',
                 'TOFF',
                 'SULP',
-                'URAN')
+                'URAN',
+                'NICK',
+                'SLAG',
+                'QLME',
+                'BOOM',
+                'METL',
+                'ALUM')
 
 # chameleon templating goes faster if a cache dir is used; this specifies which dir is cache dir
 chameleon_cache_dir = 'chameleon_cache'

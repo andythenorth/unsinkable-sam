@@ -78,7 +78,7 @@ piece_cargo_maps = ((['DFLT'], ['tarps_2cc_1']), # see note on DFLT above
                     (['GOOD'], ['crates_1']),
                     (['NUTS'], ['nuts']),
                     (['PAPR'], ['paper_coils']),
-                    (['STEL'], ['steel_coils']),
+                    (['STEL', 'NICK', 'ALUM', 'METL'], ['steel_coils']),
                     (['WDPR'], ['lumber_planks']),
                     (['WOOD'], ['logs']))
 
