@@ -127,10 +127,19 @@ class Ship(object):
 
     @property
     def capacities_refittable(self):
-        capacities_mail = [int(self.default_capacity * global_constants.mail_multiplier * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
-        capacities_pax = [int(self.default_capacity * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
-        capacities_freight = [int(self.default_capacity * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
-        result = {'pax': capacities_pax, 'mail': capacities_mail, 'freight': capacities_freight}
+        # ships can refit multiple capacities
+        # faff: mail ships need to divide default capacity for freight; freight ships multiply default capacity for mail
+        # this is theoretically extensible to other cargos/classes, but will get ugly fast eh?
+        if self.default_cargo == 'MAIL':
+            default_base = self.default_capacity / global_constants.mail_multiplier
+            mail_base = self.default_capacity
+        else:
+            default_base = self.default_capacity
+            mail_base = self.default_capacity * global_constants.mail_multiplier
+
+        capacities_default = [int(default_base * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
+        capacities_mail = [int(mail_base * capacity_factor) for capacity_factor in self.refittable_capacity_factors]
+        result = {'default': capacities_default, 'mail': capacities_mail}
         return(result)
 
     @property
@@ -138,8 +147,8 @@ class Ship(object):
         if self.default_cargo == 'PASS':
             capacities = {'micro': 40, 'mini': 125, 'small': 300, 'large': 720}
         elif self.default_cargo == 'MAIL':
-            # !! not sure these are good values yet; also freight ships will refit mail using global_constants.mail_multiplier
-            capacities = {'micro': 40, 'mini': 125, 'small': 300, 'large': 720}
+            # these are the mail capacities for ships that have MAIL as default; freight capacity will be divided by global_constants.mail_multipler
+            capacities = {'micro': 40, 'mini': 120, 'small': 360} # no large mail ships, by design
         else:
             # assume freight
             capacities = {'micro': 40, 'mini': 100, 'small': 240, 'large': 576}
