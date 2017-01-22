@@ -103,8 +103,11 @@ graphics_path = generated_files_dir + '/graphics/'
 FIXED_RUN_COST = 500.0
 FUEL_RUN_COST = 10.0
 
-# cargo aging constant - OTTD default is 185
-CARGO_AGE_PERIOD = 740
+# mailbags are < 1t, multiply capacity appropriately
+mail_multiplier = 2
+
+# cargo aging constant - OTTD default is 185 - dibble this up in favour of ships, as they are relatively slow
+CARGO_AGE_PERIOD = 370
 
 # OpenTTD's max date
 max_game_date = 5000001
