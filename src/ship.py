@@ -144,7 +144,7 @@ class Ship(object):
     def capacity_mail(self):
         # currently contains no provision for custom widths
         # but if needed, add _capacity_mail from constructor kwargs, and check existence of that here
-        capacities = {'micro': 40, 'mini': 125, 'small': 300, 'large': 720}
+        capacities = {'micro': 40, 'mini': 100, 'small': 240, 'large': 576}
         return capacities[self.hull.size_class]
 
     @property
@@ -310,9 +310,9 @@ class ModelVariant(object):
         return ship.id + '_' + str(self.spritesheet_suffix) + '.png'
 
 
-class CourierShip(Ship):
+class MailShip(Ship):
     """
-    A relatively fast vessel type for mail, and express freight.
+    A relatively fast vessel type for mail and express freight.
     """
     def __init__(self, id, **kwargs):
         super().__init__(id, **kwargs)
