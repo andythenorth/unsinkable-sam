@@ -399,6 +399,9 @@ class FlatDeckBarge(Ship):
         self.label_refits_allowed = ['GOOD']
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'STEL'
+        # Cargo Graphics
+        self.visible_cargo.piece = True
+        self.cargo_length = 3 # !! temp hax to make graphics compile work
 
 
 class BulkCarrier(Ship):
