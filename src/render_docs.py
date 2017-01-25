@@ -144,11 +144,12 @@ def render_docs_images():
     # I'm not going to try and handle that in python, makefile will handle it in production
     # for development, just run render_graphics manually before running render_docs
     vehicle_graphics_src = os.path.join(currentdir, 'generated', 'graphics')
+    buy_menu_bb = global_constants.spritesheet_bounding_boxes[6]
     for ship in ships:
         vehicle_spritesheet = Image.open(os.path.join(vehicle_graphics_src, ship.id + '_0.png'))
-        processed_vehicle_image = vehicle_spritesheet.crop(box=(620,
+        processed_vehicle_image = vehicle_spritesheet.crop(box=(buy_menu_bb[0],
                                                                 10 + ship.buy_menu_bb_y_offset,
-                                                                620 + global_constants.buy_menu_sprite_width,
+                                                                buy_menu_bb[0] + global_constants.buy_menu_sprite_width,
                                                                 10 + ship.buy_menu_bb_y_offset + global_constants.buy_menu_sprite_height))
         # oversize the images to account for how browsers interpolate the images on retina / HDPI screens
         processed_vehicle_image = processed_vehicle_image.resize((4 * global_constants.buy_menu_sprite_width, 4 * global_constants.buy_menu_sprite_height),
