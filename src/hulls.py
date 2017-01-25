@@ -28,21 +28,13 @@ class Hull(object):
     def wake_name(self):
         return self.hull_type + '_' + self.size_class + '_wake'
 
-    @property
-    def load_state_y_offsets(self):
-        # !! obviously incomplete.  _might_ need to also check hull_type for truly accurate y_offsets
-        # !! e.g. riverboat hull height doesn't always vary by length; whereas ships do
-        if self.size_class == 'small':
-            return [('empty', -1), ('part_load', 0), ('full_load', 1)]
-        else:
-            return [('empty', -1), ('part_load', 1), ('full_load', 3)]
-
 
 class LargeShipHouseRear(Hull):
     def __init__(self):
         self.size_class = 'large'
         self.hull_type = 'ship'
         self.house_position = 'rear'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
 
 
 class LargeShipHouseForward(Hull):
@@ -50,6 +42,7 @@ class LargeShipHouseForward(Hull):
         self.size_class = 'large'
         self.hull_type = 'ship'
         self.house_position = 'rear'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
 
 
 class LargeRiverboatHouseRear(Hull):
@@ -57,6 +50,7 @@ class LargeRiverboatHouseRear(Hull):
         self.size_class = 'large'
         self.hull_type = 'riverboat'
         self.house_position = 'rear'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
 
 
 class SmallRiverboatHouseRear(Hull):
@@ -64,6 +58,7 @@ class SmallRiverboatHouseRear(Hull):
         self.size_class = 'small'
         self.hull_type = 'riverboat'
         self.house_position = 'rear'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
 
 
 class SmallShipHouseRear(Hull):
@@ -71,6 +66,7 @@ class SmallShipHouseRear(Hull):
         self.size_class = 'small'
         self.hull_type = 'ship'
         self.house_position = 'rear'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
 
 
 class TempMini(Hull):
@@ -78,6 +74,7 @@ class TempMini(Hull):
         self.size_class = 'mini'
         self.hull_type = 'ship'
         self.house_position = 'rear'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
 
 
 class TempMicro(Hull):
@@ -85,6 +82,7 @@ class TempMicro(Hull):
         self.size_class = 'micro'
         self.hull_type = 'ship'
         self.house_position = 'rear'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
 
 
 registered_hulls = {'LargeRiverboatHouseRear': LargeRiverboatHouseRear(),
