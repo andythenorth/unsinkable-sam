@@ -252,13 +252,8 @@ class Ship(object):
     @property
     def offsets(self):
         # currently contains no provision for custom offsets
-        # but if needed, add _offsets from constructor kwargs, and check existence of that here
-        # !! this will need extending to provide offsets per size_class
-        offsets = {'large': [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]],
-                   'small': [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]],
-                   'mini':  [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]],
-                   'micro': [[-15, -38], [-79, -21], [-66, -25], [-38, -22], [-14, -36], [-78, -22], [-68, -25], [-38, -20]]}
-        return offsets[self.hull.size_class]
+        # but if needed, add _offsets prop from constructor kwargs, and check existence of that here (otherwise returning defaults)
+        return global_constants.vehicle_offsets[self.hull.size_class]
 
     @property
     def vehicle_nml_template(self):
