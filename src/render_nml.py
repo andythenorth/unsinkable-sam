@@ -47,7 +47,7 @@ def main():
 
     consists = unsinkable_sam.get_ships_in_buy_menu_order() # 'consists' not 'ships', it makes it easier to cross-maintain this script with scripts in IH and RH
 
-    header_items = ['header', 'cargo_table', 'disable_default_vehicles']
+    header_items = ['header', 'cargo_table']
     for header_item in header_items:
         grf_nml.write(render_header_item_nml(header_item, consists))
 

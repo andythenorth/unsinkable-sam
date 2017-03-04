@@ -60,5 +60,8 @@ if (param_reset_construction_costs) {
     }
 }
 
+// disable default ships
+disable_item(FEAT_SHIPS, 00, 10);
+
 // sort order
 sort(FEAT_SHIPS, ${[consist.numeric_id for consist in consists]});
