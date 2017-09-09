@@ -5,6 +5,7 @@ class Hull(object):
     # base for rudimentary classes to hold hull properties for a ship
     # there's only instance of each, so I just used class properties...boilerplate reduced to minimum eh :)
     size_class = 'Define in subclass'
+    house_position = None # optional, only used when ship is combined from parts by graphics_processor
     # length
     # hull spritesheet file
     # vertical offset if needed, accounting for buy menu especially
@@ -69,6 +70,13 @@ class SmallShipHouseRear(Hull):
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
 
 
+class TwoWayFerryMini(Hull):
+    def __init__(self):
+        self.size_class = 'mini'
+        self.hull_type = 'two_way_ferry'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+
+
 class TempMini(Hull):
     def __init__(self):
         self.size_class = 'mini'
@@ -90,5 +98,6 @@ registered_hulls = {'LargeRiverboatHouseRear': LargeRiverboatHouseRear(),
                     'LargeShipHouseRear': LargeShipHouseRear(),
                     'SmallRiverboatHouseRear': SmallRiverboatHouseRear(),
                     'SmallShipHouseRear': SmallShipHouseRear(),
+                    'TwoWayFerryMini': TwoWayFerryMini(),
                     'TempMini': TempMini(),
                     'TempMicro': TempMicro()}
