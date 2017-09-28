@@ -13,8 +13,10 @@ templates = PageTemplateLoader(os.path.join(currentdir, 'src', 'templates'))
 
 import global_constants # expose all constants for easy passing to templates
 import utils
+
 from graphics_processor.visible_cargo import VisibleCargo, VisibleCargoLiveryOnly
 import graphics_processor.utils as graphics_utils
+
 from rosters import registered_rosters
 from hulls import registered_hulls
 
