@@ -68,5 +68,5 @@ spritegroup ${ship.id}_sg_purchase {
 
 <tal:include metal:use-macro="load: capacity_switches.pynml" />
 
-<tal:include metal:use-macro="load: ship_properties.pynml" />
+<tal:include metal:use-macro="load: properties.pynml" />
 
