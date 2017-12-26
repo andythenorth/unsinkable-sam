@@ -1,4 +1,4 @@
-STR_GRF_NAME                                                    :${repo_vars.repo_title}
+STR_GRF_NAME                                                    :${makefile_args.repo_version}
 
 <!--! ship names -->
 <tal:build_vehicle_names repeat="ship ships">

@@ -22,7 +22,7 @@ if not os.path.exists(generated_files_path):
     os.mkdir(generated_files_path)
 
 # get args passed by makefile
-repo_vars = utils.get_repo_vars(sys)
+makefile_args = utils.get_makefile_args(sys)
 
 from rosters import registered_rosters
 
@@ -33,10 +33,10 @@ def get_ships_in_buy_menu_order():
     ships = []
     # first compose the buy menu order list
     buy_menu_sort_order = []
-    if repo_vars.get('roster', '*') == '*':
+    if makefile_args.get('roster', '*') == '*':
         active_rosters = [roster.id for roster in registered_rosters]
     else:
-        active_rosters = [repo_vars['roster']] # make sure it's iterable
+        active_rosters = [makefile_args['roster']] # make sure it's iterable
     for roster in registered_rosters:
         if roster.id in active_rosters:
             buy_menu_sort_order.extend(roster.buy_menu_sort_order)
