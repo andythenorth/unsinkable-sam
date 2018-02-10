@@ -98,6 +98,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         super(ExtendSpriterowsForCompositedCargosPipeline, self).__init__("extend_spriterows_for_composited_cargos_pipeline")
 
     def extend_base_image_to_3_rows_with_hull_masked_per_load_state(self, base_image):
+        # take a single hull, and return an image with 3 hulls, masked at the waterline for each of 3 load states
         crop_box_mask_1 = (0,
                            10,
                            graphics_constants.spritesheet_width,
@@ -112,18 +113,18 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                                graphics_constants.spritesheet_width,
                                graphics_constants.spriterow_height)
 
-        foo = Image.open(self.hull_input_path).crop(crop_box_mask_1)
+        hull_base = Image.open(self.hull_input_path).crop(crop_box_mask_1)
         bar = base_image.point(lambda i: 255 if (i in range(178, 192) or i == 0) else i)
         #bar.show()
         bar_mask = bar.copy()
         bar_mask = bar_mask.point(lambda i: 0 if i == 255 else 255).convert("1")
-        foo.paste(bar, crop_box_foo_dest_1, bar_mask)
+        hull_base.paste(bar, crop_box_foo_dest_1, bar_mask)
 
-        # no hull (load state) mask for row 1,
+        # no hull mask used for first load state (row 1), so only need to create 2 hull mask images
         hull_mask_row_2 = Image.open(self.hull_mask_input_path).crop(crop_box_mask_1).point(lambda i: 0 if i == 226 else 255).convert("1")
         hull_mask_row_3 = Image.open(self.hull_mask_input_path).crop(crop_box_mask_2).point(lambda i: 0 if i == 226 else 255).convert("1")
 
-        # 3 livery rows to paste so 3 comp masks
+        # 3 different load states to composite into result image so 3 different crop boxes to make the rows
         crop_box_comp_dest_1 = (0,
                                 0,
                                 graphics_constants.spritesheet_width,
@@ -139,12 +140,9 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 
         result_image = Image.new("P", (graphics_constants.spritesheet_width, 3 * graphics_constants.spriterow_height))
         result_image.putpalette(DOS_PALETTE)
-        result_image.paste(foo, crop_box_comp_dest_1)
-        result_image.paste(foo, crop_box_comp_dest_2, hull_mask_row_2)
-        result_image.paste(foo, crop_box_comp_dest_3, hull_mask_row_3)
-        #result_image.show()
-
-        #foo.show()
+        result_image.paste(hull_base, crop_box_comp_dest_1) # by design, no mask needed for first load state
+        result_image.paste(hull_base, crop_box_comp_dest_2, hull_mask_row_2)
+        result_image.paste(hull_base, crop_box_comp_dest_3, hull_mask_row_3)
         return result_image
 
     def add_generic_spriterow(self):
