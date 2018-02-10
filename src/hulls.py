@@ -23,7 +23,7 @@ class Hull(object):
 
     @property
     def mask_name(self):
-        return self.hull_type + '_' + self.size_class + '_hull_mask'
+        return self.hull_type + '_' + self.size_class + '_waterline_mask'
 
     @property
     def wake_name(self):
