@@ -99,7 +99,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 
     def extend_base_image_to_3_rows_with_waterline_masked_per_load_state(self, base_image):
         # This composites the ship from:
-        # - the ship base image
+        # - the ship base image (this contains the detail for the specific ship such as wheelhouse, holds etc)
         # - a standard hull image
         # - a waterline mask for each of 'loading' and 'loaded' states
         # And returns 3 rows, masked at the waterline for each of 3 load states
@@ -112,18 +112,22 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                            graphics_constants.spritesheet_width,
                            10 + (2 * graphics_constants.spriterow_height))
 
-        crop_box_foo_dest_1 = (0,
+        crop_box_ship_base = (0,
                                0,
                                graphics_constants.spritesheet_width,
                                graphics_constants.spriterow_height)
 
         hull_base = Image.open(self.hull_input_path).crop(crop_box_mask_1)
+        # hull_base uses false colour pixels for establishing correct dimensions; make these blue
+        hull_base = hull_base.point(lambda i: 0 if (i in range(215, 227) or i == 244) else i)
+
+        # the ship image has false colour pixels for the hull, to aid drawing; remove these by converting to white, also convert any blue to white
         ship_base = base_image.point(lambda i: 255 if (i in range(178, 192) or i == 0) else i)
-        #ship_base.show()
-        # the ship image has false colour pixels for the hull, to aid drawing; remove these
+        # create a mask so that we paste only the ship pixels over the hull (no blue pixels)
         ship_mask = ship_base.copy()
-        ship_mask = ship_mask.point(lambda i: 0 if i == 255 else 255).convert("1")
-        hull_base.paste(ship_base, crop_box_foo_dest_1, ship_mask)
+        ship_mask = ship_mask.point(lambda i: 0 if i == 255 else 255).convert("1") # the inversion here of blue and white looks a bit odd, but potato / potato
+
+        hull_base.paste(ship_base, crop_box_ship_base, ship_mask)
 
         # no hull mask used for first load state (row 1), so only need to create 2 hull mask images
         waterline_mask_row_2 = Image.open(self.waterline_mask_input_path).crop(crop_box_mask_1).point(lambda i: 0 if i == 226 else 255).convert("1")
