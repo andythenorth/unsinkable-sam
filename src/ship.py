@@ -14,7 +14,7 @@ templates = PageTemplateLoader(os.path.join(currentdir, 'src', 'templates'))
 import global_constants # expose all constants for easy passing to templates
 import utils
 
-from graphics_processor.gestalt_graphics import GestaltGraphics, GestaltGraphicsLiveryOnly
+from graphics_processor.gestalt_graphics import GestaltGraphics, GestaltGraphicsVisibleCargo, GestaltGraphicsLiveryOnly
 import graphics_processor.graphics_constants as graphics_constants
 
 from rosters import registered_rosters
@@ -252,13 +252,6 @@ class Ship(object):
         # but if needed, add _offsets prop from constructor kwargs, and check existence of that here (otherwise returning defaults)
         return global_constants.vehicle_offsets[self.hull.size_class]
 
-    @property
-    def vehicle_nml_template(self):
-        if self.gestalt_graphics.nml_template:
-            return self.gestalt_graphics.nml_template
-        # default case
-        return 'vehicle_default.pynml'
-
     def get_nml_expression_for_cargo_variant_random_switch(self, variation_num, cargo_id=None):
         switch_id = self.id + "_switch_graphics_" + str(variation_num) + ('_' + str(cargo_id) if cargo_id is not None else '')
         return "SELF," + switch_id + ", bitmask(TRIGGER_VEHICLE_ANY_LOAD)"
@@ -284,8 +277,7 @@ class Ship(object):
         self.assert_cargo_labels(self.label_refits_allowed)
         self.assert_cargo_labels(self.label_refits_disallowed)
         # templating
-        template_name = self.vehicle_nml_template
-        template = templates[template_name]
+        template = templates[self.gestalt_graphics.nml_template]
         nml_result = template(ship=self, global_constants=global_constants)
         return nml_result
 
@@ -316,8 +308,6 @@ class MailShip(Ship):
         self.label_refits_disallowed = ['TOUR']
         self.capacity_cargo_holds = kwargs.get('capacity_cargo_holds', 0)
         self.default_cargo = 'MAIL'
-        # no graphics processing needed, set gestalt_graphics to None to skip processing
-        self.gestalt_graphics.disabled = True
 
 
 class PaxFastLoadingShip(Ship):
@@ -332,8 +322,6 @@ class PaxFastLoadingShip(Ship):
         self.label_refits_disallowed = []
         self.default_cargo = 'PASS'
         self.loading_speed_multiplier = 3
-        # no graphics processing needed, set gestalt_graphics to None to skip processing
-        self.gestalt_graphics.disabled = True
 
 
 class PaxLuxuryShip(Ship):
@@ -348,8 +336,6 @@ class PaxLuxuryShip(Ship):
         self.label_refits_disallowed = []
         self.default_cargo = 'PASS'
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
-        # no graphics processing needed, set gestalt_graphics to None to skip processing
-        self.gestalt_graphics.disabled = True
 
 
 class UniversalFreighter(Ship):
@@ -366,6 +352,7 @@ class UniversalFreighter(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'COAL'
         # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo()
         self.gestalt_graphics.bulk = True
         self.gestalt_graphics.piece = True
         self.cargo_length = 3 # !! temp hax to make graphics compile work
@@ -384,8 +371,6 @@ class PieceGoodsCarrier(Ship):
         self.label_refits_allowed = ['MAIL', 'GRAI', 'WHEA', 'MAIZ', 'FRUT', 'BEAN', 'NITR'] # Iron Horse compatibility
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'GOOD'
-        # no graphics processing needed, set gestalt_graphics to None to skip processing
-        self.gestalt_graphics.disabled = True
 
 
 class FlatDeckBarge(Ship):
@@ -400,6 +385,7 @@ class FlatDeckBarge(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'STEL'
         # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo()
         self.gestalt_graphics.piece = True
         self.cargo_length = 3 # !! temp hax to make graphics compile work
 
@@ -417,6 +403,7 @@ class BulkCarrier(Ship):
         self.default_cargo = 'COAL'
         self.loading_speed_multiplier = 2
         # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo()
         self.gestalt_graphics.bulk = True
         self.gestalt_graphics.hull_recolour_map = graphics_constants.hull_recolour_CC2 # bulk ships use 2CC for hull
 
@@ -432,8 +419,6 @@ class UtilityVessel(Ship):
         self.label_refits_allowed = [] # no specific labels needed, GCV refits all cargo
         self.label_refits_disallowed = []
         self.default_cargo = 'PASS'
-        # no graphics processing needed, set gestalt_graphics to None to skip processing
-        self.gestalt_graphics.disabled = True
 
     def get_buy_menu_string(self):
         # set buy menu text, with various variations
@@ -456,8 +441,6 @@ class LivestockCarrier(Ship):
         self.label_refits_disallowed = []
         self.default_cargo = 'LVST'
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
-        # no graphics processing needed, set gestalt_graphics to None to skip processing
-        self.gestalt_graphics.disabled = True
 
 
 class LogTug(Ship):
@@ -484,8 +467,6 @@ class Trawler(Ship):
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
         self.default_cargo = 'FISH'
-        # no graphics processing needed, set gestalt_graphics to None to skip processing
-        self.gestalt_graphics.disabled = True
 
 
 class Tanker(Ship):
@@ -531,8 +512,6 @@ class Reefer(Ship):
         self.label_refits_disallowed = []
         self.default_cargo = 'GOOD'
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
-        # no graphics processing needed, set gestalt_graphics to None to skip processing
-        self.gestalt_graphics.disabled = True
 
 
 class ContainerCarrier(Ship):

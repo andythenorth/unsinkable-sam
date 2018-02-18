@@ -2,17 +2,49 @@ import graphics_processor.graphics_constants as graphics_constants
 from graphics_processor import pipelines
 
 class GestaltGraphics(object):
-    # simple class to hold configuration of the ship's
+    # simple stub class, which is extended in sub-classes to configure:
     # - hull
     # - cargo graphics (if any)
-    # base class assumes *only* pixa-generated cargos are used; subclass for all other cases
     def __init__(self):
-        # option to skip graphics processing by setting disabled = True in ship class
-        self.disabled = False
-        # as of Jan 2018 only one pipeline is used, but it could be over-ridden in GestaltGraphics sub-classes, support is in place for alternative pipelines
-        self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
+        self.pipeline = None
         # default hull recolour to CC1, adjust in ship classes as needed
         self.hull_recolour_map = graphics_constants.hull_recolour_CC1
+
+    @property
+    def nml_template(self):
+        # over-ride in sub-classes as needed
+        return 'vehicle_default.pynml'
+
+    def _get_output_row_counts_by_type(self):
+        # private method because I want to reuse it in subclasses which over-ride the public method
+        # provide the number of output rows per cargo group, total row count for the group is calculated later as needed
+        # uses a list of 2-tuples, not a dict as order must be preserved
+        result = []
+        # assume an empty state spriterow - there was an optional bool flag for this per consist but it was unused so I removed it
+        result.append(('empty', 1))
+        if self.bulk:
+            result.append(('bulk_cargo', 2 * len(graphics_constants.bulk_cargo_recolour_maps)))
+        if self.piece:
+            result.append(('piece_cargo', 2 * sum([len(cargo_map[1]) for cargo_map in graphics_constants.piece_cargo_maps])))
+        return result
+
+    @property
+    def num_cargo_sprite_variants(self, cargo_type=None):
+        # rows can be reused across multiple cargo labels, so find uniques (assumes row nums are identical when reused across labels)
+        unique_row_nums = []
+        for row_nums in self.cargo_row_map.values():
+            if row_nums not in unique_row_nums:
+                unique_row_nums.append(row_nums)
+        return sum([len(i) for i in unique_row_nums])
+
+
+class GestaltGraphicsVisibleCargo(GestaltGraphics):
+    # used for ship with visible cargos
+    # assumes *only* pixa-generated cargos are used; subclass for all other cases
+    def __init__(self):
+        super().__init__()
+        # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
+        self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
         # cargo flags
         self.bulk = False
         self.piece = False
@@ -32,35 +64,10 @@ class GestaltGraphics(object):
 
     @property
     def nml_template(self):
-        if self.bulk or self.piece:
-            return 'vehicle_with_visible_cargo.pynml'
-        else:
-            return None
-
-    def _get_output_row_counts_by_type(self):
-        # private method because I want to reuse it in subclasses which over-ride the public method
-        # provide the number of output rows per cargo group, total row count for the group is calculated later as needed
-        # uses a list of 2-tuples, not a dict as order must be preserved
-        result = []
-        # assume an empty state spriterow - there was an optional bool flag for this per consist but it was unused so I removed it
-        result.append(('empty', 1))
-        if self.bulk:
-            result.append(('bulk_cargo', 2 * len(graphics_constants.bulk_cargo_recolour_maps)))
-        if self.piece:
-            result.append(('piece_cargo', 2 * sum([len(cargo_map[1]) for cargo_map in graphics_constants.piece_cargo_maps])))
-        return result
+        return 'vehicle_with_visible_cargo.pynml'
 
     def get_output_row_counts_by_type(self):
         return self._get_output_row_counts_by_type()
-
-    @property
-    def num_cargo_sprite_variants(self, cargo_type=None):
-        # rows can be reused across multiple cargo labels, so find uniques (assumes row nums are identical when reused across labels)
-        unique_row_nums = []
-        for row_nums in self.cargo_row_map.values():
-            if row_nums not in unique_row_nums:
-                unique_row_nums.append(row_nums)
-        return sum([len(i) for i in unique_row_nums])
 
     @property
     def cargo_row_map(self):
@@ -85,6 +92,9 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
     # this can also be used for recolouring hulls in the case of just a *single* livery with no visible cargo
     def __init__(self):
         super().__init__()
+        # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
+        self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
+        # options
         self.livery_only = True
         self.tanker = False
         # self.container = False # !! add support for containers here when needed
@@ -121,6 +131,9 @@ class GestaltGraphicsCustom(GestaltGraphics):
     # - pixa cargo pipeline has no support for compositing custom rows, that looked like TMWFTLB
     def __init__(self, _cargo_row_map, _nml_template, generic_rows):
         super().__init__()
+        # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
+        self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
+        # options
         self.custom = True
         self._nml_template = _nml_template
         self._cargo_row_map = _cargo_row_map

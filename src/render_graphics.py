@@ -38,7 +38,7 @@ hint_file.close()
 def run_pipeline(items):
     variant = items[0]
     ship = items[1]
-    if ship.gestalt_graphics.disabled:
+    if ship.gestalt_graphics.pipeline == None:
         shutil.copy(os.path.join(graphics_input, variant.get_spritesheet_name(ship)), graphics_output_path)
     else:
         result = ship.gestalt_graphics.pipeline.render(variant, ship, global_constants)
