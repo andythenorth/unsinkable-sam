@@ -25,9 +25,8 @@ class Pipeline(object):
         spritesheet.sprites.paste(input_image)
         return spritesheet
 
-    def render_common(self, variant, ship, input_image, units, options):
+    def render_common(self, variant, ship, input_image, units):
         # expects to be passed a PIL Image object
-        # options is a dict and can be used abitrarily to pass options wherever needed in the pipeline
         # units is a list of objects, with their config data already baked in (don't have to pass anything to units except the spritesheet)
         # each unit is then called in order, passing in and returning a pixa SpriteSheet
         # finally the spritesheet is saved
@@ -53,7 +52,7 @@ class PassThroughPipeline(Pipeline):
         input_path = os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, options['template'])
         input_image = Image.open(input_path)
         units = []
-        result = self.render_common(variant, ship, input_image, units, options)
+        result = self.render_common(variant, ship, input_image, units)
         return result
 
 
@@ -68,7 +67,7 @@ class SimpleRecolourPipeline(Pipeline):
         input_path = os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, options['template'])
         input_image = Image.open(input_path)
         units = [SimpleRecolour(options['recolour_map'])]
-        result = self.render_common(variant, ship, input_image, units, options)
+        result = self.render_common(variant, ship, input_image, units)
         return result
 
 
@@ -337,7 +336,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 cumulative_input_spriterow_count += input_spriterow_count
 
         input_image = Image.open(self.input_path).crop((0, 0, graphics_constants.spritesheet_width, 10))
-        result = self.render_common(variant, ship, input_image, self.units, self.options)
+        result = self.render_common(variant, ship, input_image, self.units)
         return result
 
 def get_pipeline(pipeline_name):
