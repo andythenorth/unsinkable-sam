@@ -12,8 +12,7 @@ class GraphicsProcessor(object):
 
 
 def get_composited_cargo_processors(template):
-    # returns two cargo-compositing graphics processors, one of which flips company colours
-    # also provides optional 2CC recolour
+    # returns a cargo-compositing graphics processors
     graphics_options_1 = {'template': template, 'swap_company_colours': False}
     graphics_processor_1 = GraphicsProcessor('extend_spriterows_for_composited_cargos_pipeline', graphics_options_1)
     return [graphics_processor_1]
