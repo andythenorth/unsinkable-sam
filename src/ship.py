@@ -229,7 +229,7 @@ class Ship(object):
     def graphics_processors(self):
         # !! this is legacy, needs refactored out
         # wrapper to get the graphics processors
-        return graphics_utils.get_composited_cargo_processors()
+        return [graphics_utils.GraphicsProcessor('extend_spriterows_for_composited_cargos_pipeline')]
 
     @property
     def buy_menu_width(self):

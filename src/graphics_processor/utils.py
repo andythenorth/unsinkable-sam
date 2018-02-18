@@ -8,9 +8,3 @@ class GraphicsProcessor(object):
     def __init__(self, pipeline_name):
         self.pipeline_name = pipeline_name
         self.pipeline = pipelines.get_pipeline(pipeline_name)
-
-
-def get_composited_cargo_processors():
-    # returns a cargo-compositing graphics processor
-    graphics_processor = GraphicsProcessor('extend_spriterows_for_composited_cargos_pipeline')
-    return [graphics_processor]
