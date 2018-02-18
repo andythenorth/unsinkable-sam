@@ -98,6 +98,7 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
         # options
         self.livery_only = True
         self.tanker = False
+        self.edibles_tanker = False
         # self.container = False # !! add support for containers here when needed
 
     @property
@@ -130,6 +131,8 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
         # !! needs extending for alternative types, e.g. tankers, etc
         if self.tanker:
             return graphics_constants.tanker_livery_recolour_maps
+        if self.edibles_tanker:
+            return graphics_constants.edibles_tanker_livery_recolour_maps
         else:
             return {}
 

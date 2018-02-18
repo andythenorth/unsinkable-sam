@@ -22,9 +22,10 @@ vehicles_input_dir = 'ships'
 # label order matters, so tuples are used not dicts
 # could probably have used orderedict or named tuple, but...blah
 
-# Livery Only
 # keep cargos in alphabetical order for ease of reading
 # DFLT label is a hack to provide specific livery for unknown cargos and should not be added to cargo translation table
+
+# Tankers
 # OIL_ is in first position as the buy menu sprites should be the Oil sprites, and this is the easiest way to do it
 # in principle that's wrong, because in a map without oil, the buy menu won't match the sprites of the vehicle when built
 # try it and see what happens eh?
@@ -44,6 +45,11 @@ tanker_livery_recolour_maps = (("OIL_", {136: 1, 137: 2, 138: 3, 139: 4,
                                          140: 44, 141: 45, 142: 46, 143: 47}),
                                ("PETR", {136: 16, 137: 17, 138: 18, 139: 19,
                                          140: 20, 141: 21, 142: 22, 143: 23}))
+# Edibles tankers, only DFLT is used as of Jan 2018
+edibles_tanker_livery_recolour_maps = (# see note on DFLT above
+                                      ("DFLT", {136: 5, 137: 7, 138: 8, 139: 9,
+                                                140: 10, 141: 11, 142: 12, 143: 13,
+                                                60: 1, 72: 3, 123: 4, 74: 5, 75: 4}),)
 # Containers
 # !! simple recolouring, not cargo specific.  May need work ??  Could be cargo-specific??
 container_recolour_maps = ({170 + i: CC1 + i for i in range(8)},

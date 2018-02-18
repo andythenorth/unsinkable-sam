@@ -498,7 +498,7 @@ class EdiblesTanker(Ship):
         self.default_cargo = 'WATR'
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly()
-        self.gestalt_graphics.tanker = True
+        self.gestalt_graphics.edibles_tanker = True
 
 
 class Reefer(Ship):
