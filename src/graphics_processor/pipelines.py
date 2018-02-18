@@ -201,7 +201,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         for label, recolour_map in graphics_constants.bulk_cargo_recolour_maps:
             self.units.append(AppendToSpritesheet(vehicle_bulk_cargo_input_as_spritesheet, crop_box_dest))
             self.units.append(SimpleRecolour(recolour_map))
-            self.units.append(SimpleRecolour(recolour_map=self.ship.visible_cargo.hull_recolour_map))
+            self.units.append(SimpleRecolour(recolour_map=self.ship.ship_compositor.hull_recolour_map))
 
     def add_piece_cargo_spriterows(self, global_constants):
         # hax
@@ -312,7 +312,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 #vehicle_comped_image.show()
                 vehicle_comped_image_as_spritesheet = self.make_spritesheet_from_image(vehicle_comped_image)
                 self.units.append(AppendToSpritesheet(vehicle_comped_image_as_spritesheet, crop_box_dest))
-                self.units.append(SimpleRecolour(recolour_map=self.ship.visible_cargo.hull_recolour_map))
+                self.units.append(SimpleRecolour(recolour_map=self.ship.ship_compositor.hull_recolour_map))
 
     def render(self, variant, ship, global_constants):
         # there are various options for controlling the crop box, I haven't documented them - read example uses to figure them out

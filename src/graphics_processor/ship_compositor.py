@@ -1,13 +1,17 @@
 import graphics_processor.graphics_constants as graphics_constants
 import graphics_processor.utils as utils
 
-class VisibleCargo(object):
-    # simple class to hold configuration of the consist's cargo graphics (if any)
+class ShipCompositor(object):
+    # simple class to hold configuration of the ship's
+    # - hull
+    # - cargo graphics (if any)
     # base class assumes *only* pixa-generated cargos are used; subclass for all other cases
     def __init__(self):
+        # default hull recolour to CC1, adjust in ship classes as needed
+        self.hull_recolour_map = graphics_constants.hull_recolour_CC1
+        # cargo flags
         self.bulk = False
         self.piece = False
-        self.hull_recolour_map = graphics_constants.hull_recolour_CC1
 
     @property
     def generic_rows(self):
@@ -19,7 +23,7 @@ class VisibleCargo(object):
             return self.cargo_row_map['GRVL']
         else:
             # shouldn't reach here, but eh,
-            utils.echo_message('generic_rows hit an unknown result in VisibleCargo')
+            utils.echo_message('generic_rows hit an unknown result in ShipCompositor')
             return [0]
 
     @property
@@ -72,18 +76,18 @@ class VisibleCargo(object):
         return result
 
 
-class VisibleCargoLiveryOnly(VisibleCargo):
-    # subclass of VisibleCargo to handle the specific case of cargos shown only by vehicle livery
+class ShipCompositorLiveryOnly(ShipCompositor):
+    # subclass of ShipCompositor to handle the specific case of cargos shown only by vehicle livery
     # this is effectively a change of mode, and subclass the object seemed the cleanest way to enforce that
     def __init__(self):
-        super(VisibleCargoLiveryOnly, self).__init__()
+        super(ShipCompositorLiveryOnly, self).__init__()
         self.livery_only = True
         self.tanker = False
         # self.container = False # !! add support for containers here when needed
 
     @property
     def generic_rows(self):
-        utils.echo_message ('generic_rows not implemented in VisibleCargoLiveryOnly')
+        utils.echo_message ('generic_rows not implemented in ShipCompositorLiveryOnly')
         return None
 
     @property
@@ -107,12 +111,12 @@ class VisibleCargoLiveryOnly(VisibleCargo):
                 counter += 1
         return result
 
-class VisibleCargoCustom(VisibleCargo):
-    # Subclass of VisibleCargo to handle cases like vehicles with hand-drawn cargo (no generation).
+class ShipCompositorCustom(ShipCompositor):
+    # Subclass of ShipCompositor to handle cases like vehicles with hand-drawn cargo (no generation).
     # this cannot currently also use pixa-generated cargos
     # - pixa cargo pipeline has no support for compositing custom rows, that looked like TMWFTLB
     def __init__(self, _cargo_row_map, _nml_template, generic_rows):
-        super(VisibleCargoCustom, self).__init__()
+        super(ShipCompositorCustom, self).__init__()
         self.custom = True
         self._nml_template = _nml_template
         self._cargo_row_map = _cargo_row_map

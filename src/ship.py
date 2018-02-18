@@ -14,7 +14,7 @@ templates = PageTemplateLoader(os.path.join(currentdir, 'src', 'templates'))
 import global_constants # expose all constants for easy passing to templates
 import utils
 
-from graphics_processor.visible_cargo import VisibleCargo, VisibleCargoLiveryOnly
+from graphics_processor.ship_compositor import ShipCompositor, ShipCompositorLiveryOnly
 import graphics_processor.utils as graphics_utils
 import graphics_processor.graphics_constants as graphics_constants
 
@@ -48,7 +48,7 @@ class Ship(object):
         # base hull (defines length, wake graphics, hull graphics if composited etc)
         self.hull = registered_hulls.get(kwargs.get('hull', None), None)
         # cargo /livery graphics options
-        self.visible_cargo = VisibleCargo()
+        self.ship_compositor = ShipCompositor()
         # roster is set when the vehicle is registered to a roster, only one roster per vehicle
         self.roster_id = None
 
@@ -219,8 +219,8 @@ class Ship(object):
         # !! overly nested as assumes that there would be multiple units, doesn't apply to ships
         result = []
         unit_rows = []
-        # assumes visible_cargo is used to handle any other rows, no other cases at time of writing, could be changed eh?
-        unit_rows.extend(self.visible_cargo.get_output_row_counts_by_type())
+        # assumes ship_compositor is used to handle any other rows, no other cases at time of writing, could be changed eh?
+        unit_rows.extend(self.ship_compositor.get_output_row_counts_by_type())
         result.append(unit_rows)
         return result
 
@@ -260,8 +260,8 @@ class Ship(object):
 
     @property
     def vehicle_nml_template(self):
-        if self.visible_cargo.nml_template:
-            return self.visible_cargo.nml_template
+        if self.ship_compositor.nml_template:
+            return self.ship_compositor.nml_template
         # default case
         return 'vehicle_default.pynml'
 
@@ -367,8 +367,8 @@ class UniversalFreighter(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'COAL'
         # Cargo Graphics
-        self.visible_cargo.bulk = True
-        self.visible_cargo.piece = True
+        self.ship_compositor.bulk = True
+        self.ship_compositor.piece = True
         self.cargo_length = 3 # !! temp hax to make graphics compile work
 
 
@@ -399,7 +399,7 @@ class FlatDeckBarge(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'STEL'
         # Cargo Graphics
-        self.visible_cargo.piece = True
+        self.ship_compositor.piece = True
         self.cargo_length = 3 # !! temp hax to make graphics compile work
 
 
@@ -416,8 +416,8 @@ class BulkCarrier(Ship):
         self.default_cargo = 'COAL'
         self.loading_speed_multiplier = 2
         # Cargo Graphics
-        self.visible_cargo.bulk = True
-        self.visible_cargo.hull_recolour_map = graphics_constants.hull_recolour_CC2 # bulk ships use 2CC for hull
+        self.ship_compositor.bulk = True
+        self.ship_compositor.hull_recolour_map = graphics_constants.hull_recolour_CC2 # bulk ships use 2CC for hull
 
 
 class UtilityVessel(Ship):
@@ -493,8 +493,8 @@ class Tanker(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
         self.default_cargo = 'OIL_'
         # Cargo graphics
-        self.visible_cargo = VisibleCargoLiveryOnly()
-        self.visible_cargo.tanker = True
+        self.ship_compositor = ShipCompositorLiveryOnly()
+        self.ship_compositor.tanker = True
 
 
 class EdiblesTanker(Ship):
@@ -509,7 +509,7 @@ class EdiblesTanker(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
         self.default_cargo = 'WATR'
         # Cargo graphics
-        self.visible_cargo = VisibleCargoLiveryOnly()
+        self.ship_compositor = ShipCompositorLiveryOnly()
 
 
 class Reefer(Ship):
