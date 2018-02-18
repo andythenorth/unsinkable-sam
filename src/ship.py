@@ -46,6 +46,8 @@ class Ship(object):
         self.model_variants = []
         # base hull (defines length, wake graphics, hull graphics if composited etc)
         self.hull = registered_hulls.get(kwargs.get('hull', None), None)
+        # hull might be recoloured, default this to CC1, set it to CC2 as needed
+        self.hull_company_colour = 'CC1'
         # cargo /livery graphics options
         self.visible_cargo = VisibleCargo()
         # roster is set when the vehicle is registered to a roster, only one roster per vehicle
@@ -414,6 +416,7 @@ class BulkCarrier(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_dump_bulk']
         self.default_cargo = 'COAL'
         self.loading_speed_multiplier = 2
+        self.hull_company_colour = 'CC2' # bulk ships use 2CC for hull
         # Cargo Graphics
         self.visible_cargo.bulk = True
 

@@ -1,6 +1,6 @@
 # colour defaults
-CC1 = 80
-CC2 = 198
+CC1 = 198
+CC2 = 80
 
 # a convenience constant that holds a mapping for swapping CC1 and CC2 around
 CC1_CC2_SWAP_MAP = {}
