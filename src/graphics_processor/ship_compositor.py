@@ -1,5 +1,4 @@
 import graphics_processor.graphics_constants as graphics_constants
-import graphics_processor.utils as utils
 
 class ShipCompositor(object):
     # simple class to hold configuration of the ship's

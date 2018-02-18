@@ -15,7 +15,7 @@ import global_constants # expose all constants for easy passing to templates
 import utils
 
 from graphics_processor.ship_compositor import ShipCompositor, ShipCompositorLiveryOnly
-import graphics_processor.utils as graphics_utils
+from graphics_processor import pipelines as graphics_pipelines
 import graphics_processor.graphics_constants as graphics_constants
 
 from rosters import registered_rosters
@@ -229,7 +229,7 @@ class Ship(object):
     def graphics_processors(self):
         # !! this is legacy, needs refactored out
         # wrapper to get the graphics processors
-        return [graphics_utils.GraphicsProcessor('extend_spriterows_for_composited_cargos_pipeline')]
+        return [graphics_pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')]
 
     @property
     def buy_menu_width(self):
