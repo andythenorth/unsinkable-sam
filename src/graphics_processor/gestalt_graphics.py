@@ -6,9 +6,8 @@ class GestaltGraphics(object):
     # - hull
     # - cargo graphics (if any)
     def __init__(self):
+        # no graphics processing by default
         self.pipeline = None
-        # default hull recolour to CC1, adjust in ship classes as needed
-        self.hull_recolour_map = graphics_constants.hull_recolour_CC1
 
     @property
     def nml_template(self):
@@ -45,6 +44,8 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
         super().__init__()
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
         self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
+        # default hull recolour to CC1, adjust in ship classes as needed
+        self.hull_recolour_map = graphics_constants.hull_recolour_CC1
         # cargo flags
         self.bulk = False
         self.piece = False

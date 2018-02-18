@@ -139,13 +139,13 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         vehicle_generic_spriterow_input_as_spritesheet = self.make_spritesheet_from_image(vehicle_generic_spriterow_input_image)
         self.units.append(AppendToSpritesheet(vehicle_generic_spriterow_input_as_spritesheet, crop_box))
 
-    def add_livery_only_spriterows(self, recolour_map):
+    def add_livery_only_spriterows(self, recolour_maps):
         # this might be extensible for containers when needed, using simple conditionals
         # or because containers include random options it might need reworking,
         # to be more similar to piece cargo handling, but using recolour not actual sprites
         vehicle_livery_row_image_as_spritesheet = self.make_spritesheet_from_image(self.vehicle_base_image)
 
-        for label, recolour_map in recolour_map:
+        for label, recolour_map in recolour_maps:
             crop_box_dest = (0,
                              0,
                              graphics_constants.spritesheet_width,
