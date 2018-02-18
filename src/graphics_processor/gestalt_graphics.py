@@ -84,7 +84,7 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
     # subclass of GestaltGraphics to handle the specific case of cargos shown only by vehicle livery
     # this can also be used for recolouring hulls in the case of just a *single* livery with no visible cargo
     def __init__(self):
-        super(GestaltGraphicsLiveryOnly, self).__init__()
+        super().__init__()
         self.livery_only = True
         self.tanker = False
         # self.container = False # !! add support for containers here when needed
@@ -120,7 +120,7 @@ class GestaltGraphicsCustom(GestaltGraphics):
     # this cannot currently also use pixa-generated cargos
     # - pixa cargo pipeline has no support for compositing custom rows, that looked like TMWFTLB
     def __init__(self, _cargo_row_map, _nml_template, generic_rows):
-        super(GestaltGraphicsCustom, self).__init__()
+        super().__init__()
         self.custom = True
         self._nml_template = _nml_template
         self._cargo_row_map = _cargo_row_map
