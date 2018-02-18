@@ -72,21 +72,6 @@ class SimpleRecolourPipeline(Pipeline):
         return result
 
 
-class SwapCompanyColoursPipeline(Pipeline):
-    """ Swaps 1CC and 2CC colours """
-    def __init__(self):
-        # this should be sparse, don't store any ship or variant info in Pipelines, pass them at render time
-        super(SwapCompanyColoursPipeline, self).__init__("swap_company_colours_pipeline")
-
-    def render(self, variant, ship, global_constants):
-        options = variant.graphics_processor.options
-        input_path = os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, options['template'])
-        input_image = Image.open(input_path)
-        units = [SwapCompanyColours()]
-        result = self.render_common(variant, ship, input_image, units, options)
-        return result
-
-
 class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
     """"
         Extends a cargo carrier spritesheet with variations on cargo colours.
@@ -351,8 +336,6 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     self.add_piece_cargo_spriterows(global_constants)
                 cumulative_input_spriterow_count += input_spriterow_count
 
-        if self.options.get('swap_company_colours', False):
-            self.units.append(SwapCompanyColours())
         input_image = Image.open(self.input_path).crop((0, 0, graphics_constants.spritesheet_width, 10))
         result = self.render_common(variant, ship, input_image, self.units, self.options)
         return result
@@ -362,8 +345,7 @@ def get_pipeline(pipeline_name):
     # add pipelines here when creating new ones
     for pipeline in [SimpleRecolourPipeline(),
                      PassThroughPipeline(),
-                     ExtendSpriterowsForCompositedCargosPipeline(),
-                     SwapCompanyColoursPipeline()]:
+                     ExtendSpriterowsForCompositedCargosPipeline()]:
         if pipeline_name == pipeline.name:
             return pipeline
     raise Exception("Pipeline not found: " + pipeline_name) # should never get to here
