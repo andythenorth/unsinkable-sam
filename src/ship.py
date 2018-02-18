@@ -229,8 +229,7 @@ class Ship(object):
     def graphics_processors(self):
         # !! this is legacy, needs refactored out
         # wrapper to get the graphics processors
-        template = self.id + '_template.png'
-        return graphics_utils.get_composited_cargo_processors(template = template)
+        return graphics_utils.get_composited_cargo_processors()
 
     @property
     def buy_menu_width(self):

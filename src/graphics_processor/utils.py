@@ -11,8 +11,8 @@ class GraphicsProcessor(object):
         self.pipeline = pipelines.get_pipeline(pipeline_name)
 
 
-def get_composited_cargo_processors(template):
+def get_composited_cargo_processors():
     # returns a cargo-compositing graphics processor
-    options = {'template': template}
+    options = {}
     graphics_processor = GraphicsProcessor('extend_spriterows_for_composited_cargos_pipeline', options)
     return [graphics_processor]

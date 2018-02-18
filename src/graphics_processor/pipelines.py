@@ -25,6 +25,12 @@ class Pipeline(object):
         spritesheet.sprites.paste(input_image)
         return spritesheet
 
+    @property
+    def ship_template_input_path(self):
+        # convenience method to get the ship template
+        # I considered having this return the Image, not just the path, but it's not saving much, and is less obvious what it does when used
+        return os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, self.ship.id + '_template.png')
+
     def render_common(self, variant, ship, input_image, units):
         # expects to be passed a PIL Image object
         # units is a list of objects, with their config data already baked in (don't have to pass anything to units except the spritesheet)
@@ -49,8 +55,7 @@ class PassThroughPipeline(Pipeline):
 
     def render(self, variant, ship, global_constants):
         options = ship.graphics_processor.options
-        input_path = os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, options['template'])
-        input_image = Image.open(input_path)
+        input_image = Image.open(self.ship_template_input_path)
         units = []
         result = self.render_common(variant, ship, input_image, units)
         return result
@@ -64,8 +69,7 @@ class SimpleRecolourPipeline(Pipeline):
 
     def render(self, variant, ship, global_constants):
         options = ship.graphics_processor.options
-        input_path = os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, options['template'])
-        input_image = Image.open(input_path)
+        input_image = Image.open(self.ship_template_input_path)
         units = [SimpleRecolour(options['recolour_map'])]
         result = self.render_common(variant, ship, input_image, units)
         return result
@@ -168,7 +172,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                            self.base_offset,
                            graphics_constants.spritesheet_width,
                            self.base_offset + cargo_group_row_height)
-        vehicle_bulk_cargo_image = Image.open(self.input_path).crop(crop_box_source)
+        vehicle_bulk_cargo_image = Image.open(self.ship_template_input_path).crop(crop_box_source)
         vehicle_bulk_cargo_image = vehicle_bulk_cargo_image.point(lambda i: 255 if (i in range(178, 192) or i == 0) else i)
         vehicle_bulk_cargo_mask = vehicle_bulk_cargo_image.copy().point(lambda i: 255 if i == 255 else 0).convert("1")
 
@@ -213,7 +217,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                            self.base_offset,
                            graphics_constants.spritesheet_width,
                            self.base_offset + graphics_constants.spriterow_height)
-        vehicle_cargo_loc_image = Image.open(self.input_path).crop(crop_box_vehicle_cargo_loc_row)
+        vehicle_cargo_loc_image = Image.open(self.ship_template_input_path).crop(crop_box_vehicle_cargo_loc_row)
         # get the loc points
         loc_points = [pixel for pixel in pixascan(vehicle_cargo_loc_image) if pixel[2] == 226]
         # two cargo rows needed, so extend the loc points list
@@ -224,7 +228,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                          10 + (4 * graphics_constants.spriterow_height),
                          graphics_constants.spritesheet_width,
                          10 + (5 * graphics_constants.spriterow_height))
-        vehicle_mask_base_image = Image.open(self.input_path).crop(crop_box_mask).point(lambda i: 255 if i == 226 else 0).convert("1")
+        vehicle_mask_base_image = Image.open(self.ship_template_input_path).crop(crop_box_mask).point(lambda i: 255 if i == 226 else 0).convert("1")
         vehicle_mask = Image.new("1", (graphics_constants.spritesheet_width, cargo_group_output_row_height))
         crop_box_mask_1 = (0,
                            0,
@@ -299,9 +303,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 self.units.append(SimpleRecolour(recolour_map=self.ship.ship_compositor.hull_recolour_map))
 
     def render(self, variant, ship, global_constants):
-        # there are various options for controlling the crop box, I haven't documented them - read example uses to figure them out
         self.options = ship.graphics_processor.options
-        self.input_path = os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, self.options['template'])
         self.hull_input_path = os.path.join(currentdir, 'src', 'graphics', 'hulls', ship.hull.spritesheet_name + '.png')
         self.waterline_mask_input_path = os.path.join(currentdir, 'src', 'graphics', 'waterline_masks', ship.hull.mask_name + '.png')
         self.units = []
@@ -312,7 +314,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                            graphics_constants.spritesheet_width,
                            10 + graphics_constants.spriterow_height)
         # create a base vehicle image by comping in hull, with empty / loading / loaded hull states
-        self.vehicle_base_image = self.extend_base_image_to_3_rows_with_waterline_masked_per_load_state(Image.open(self.input_path).crop(crop_box_source))
+        self.vehicle_base_image = self.extend_base_image_to_3_rows_with_waterline_masked_per_load_state(Image.open(self.ship_template_input_path).crop(crop_box_source))
         # the cumulative_input_spriterow_count updates per processed group of spriterows, and is key to making this work
         cumulative_input_spriterow_count = 0
         for vehicle_counter, vehicle_rows in enumerate(ship.get_spriterow_counts()):
@@ -335,7 +337,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     self.add_piece_cargo_spriterows(global_constants)
                 cumulative_input_spriterow_count += input_spriterow_count
 
-        input_image = Image.open(self.input_path).crop((0, 0, graphics_constants.spritesheet_width, 10))
+        input_image = Image.open(self.ship_template_input_path).crop((0, 0, graphics_constants.spritesheet_width, 10))
         result = self.render_common(variant, ship, input_image, self.units)
         return result
 
