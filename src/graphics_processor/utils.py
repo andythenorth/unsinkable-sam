@@ -12,7 +12,7 @@ class GraphicsProcessor(object):
 
 
 def get_composited_cargo_processors(template):
-    # returns a cargo-compositing graphics processors
+    # returns a cargo-compositing graphics processor
     options = {'template': template}
     graphics_processor = GraphicsProcessor('extend_spriterows_for_composited_cargos_pipeline', options)
     return [graphics_processor]
