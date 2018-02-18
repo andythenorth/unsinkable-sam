@@ -120,11 +120,18 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
         # !! the order of cargo types here must be kept in sync with the order in the cargo graphics processor
         result = {}
         counter = 0
-        if self.tanker:
-            for cargo_map in graphics_constants.tanker_livery_recolour_maps:
-                result[cargo_map[0]] = [counter] # list because multiple spriterows can map to a cargo label
-                counter += 1
+        for cargo_map in self.recolour_maps:
+            result[cargo_map[0]] = [counter] # list because multiple spriterows can map to a cargo label
+            counter += 1
         return result
+
+    @property
+    def recolour_maps(self):
+        # !! needs extending for alternative types, e.g. tankers, etc
+        if self.tanker:
+            return graphics_constants.tanker_livery_recolour_maps
+        else:
+            return {}
 
 class GestaltGraphicsCustom(GestaltGraphics):
     # Subclass of GestaltGraphics to handle cases like vehicles with hand-drawn cargo (no generation).

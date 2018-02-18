@@ -139,13 +139,13 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         vehicle_generic_spriterow_input_as_spritesheet = self.make_spritesheet_from_image(vehicle_generic_spriterow_input_image)
         self.units.append(AppendToSpritesheet(vehicle_generic_spriterow_input_as_spritesheet, crop_box))
 
-    def add_livery_only_spriterows(self, recolour_maps):
+    def add_livery_only_spriterows(self):
         # this might be extensible for containers when needed, using simple conditionals
         # or because containers include random options it might need reworking,
         # to be more similar to piece cargo handling, but using recolour not actual sprites
         vehicle_livery_row_image_as_spritesheet = self.make_spritesheet_from_image(self.vehicle_base_image)
 
-        for label, recolour_map in recolour_maps:
+        for label, recolour_map in self.ship.gestalt_graphics.recolour_maps:
             crop_box_dest = (0,
                              0,
                              graphics_constants.spritesheet_width,
@@ -314,7 +314,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 elif spriterow_type == 'livery_only':
                     input_spriterow_count = 1
                      # specific to tankers, see notes in method about container support in future
-                    self.add_livery_only_spriterows(graphics_constants.tanker_livery_recolour_maps)
+                    self.add_livery_only_spriterows()
                 elif spriterow_type == 'bulk_cargo':
                     input_spriterow_count = 2
                     self.add_bulk_cargo_spriterows()
