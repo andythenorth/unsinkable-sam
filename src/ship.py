@@ -14,7 +14,7 @@ templates = PageTemplateLoader(os.path.join(currentdir, 'src', 'templates'))
 import global_constants # expose all constants for easy passing to templates
 import utils
 
-from graphics_processor.gestalt_graphics import GestaltGraphics, ShipCompositorLiveryOnly
+from graphics_processor.gestalt_graphics import GestaltGraphics, GestaltGraphicsLiveryOnly
 import graphics_processor.graphics_constants as graphics_constants
 
 from rosters import registered_rosters
@@ -500,7 +500,7 @@ class Tanker(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
         self.default_cargo = 'OIL_'
         # Graphics configuration
-        self.gestalt_graphics = ShipCompositorLiveryOnly()
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
         self.gestalt_graphics.tanker = True
 
 
@@ -516,7 +516,7 @@ class EdiblesTanker(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
         self.default_cargo = 'WATR'
         # Graphics configuration
-        self.gestalt_graphics = ShipCompositorLiveryOnly()
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
 
 
 class Reefer(Ship):
