@@ -82,7 +82,7 @@ class GestaltGraphics(object):
 
 class GestaltGraphicsLiveryOnly(GestaltGraphics):
     # subclass of GestaltGraphics to handle the specific case of cargos shown only by vehicle livery
-    # this is effectively a change of mode, and subclass the object seemed the cleanest way to enforce that
+    # this can also be used for recolouring hulls in the case of just a *single* livery with no visible cargo
     def __init__(self):
         super(GestaltGraphicsLiveryOnly, self).__init__()
         self.livery_only = True
