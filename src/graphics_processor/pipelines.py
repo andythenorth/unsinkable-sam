@@ -10,7 +10,7 @@ from graphics_processor.units import SimpleRecolour, SwapCompanyColours, AppendT
 DOS_PALETTE = Image.open('palette_key.png').palette
 
 """
-Pipelines can be dedicated to a single task such as SimpleRecolourPipeline
+Pipelines can be dedicated to a single task such as simple recolouring
 Or they can compose units for more complicated tasks, such as colouring and loading a specific vehicle type
 """
 
@@ -54,23 +54,8 @@ class PassThroughPipeline(Pipeline):
         super(PassThroughPipeline, self).__init__("pass_through_pipeline")
 
     def render(self, variant, ship, global_constants):
-        options = ship.graphics_processor.options
         input_image = Image.open(self.ship_template_input_path)
         units = []
-        result = self.render_common(variant, ship, input_image, units)
-        return result
-
-
-class SimpleRecolourPipeline(Pipeline):
-    """ Swaps colours using the recolour map (dict {colour index: replacement colour}) """
-    def __init__(self):
-        # this should be sparse, don't store any ship or variant info in Pipelines, pass them at render time
-        super(SimpleRecolourPipeline, self).__init__("simple_recolour_pipeline")
-
-    def render(self, variant, ship, global_constants):
-        options = ship.graphics_processor.options
-        input_image = Image.open(self.ship_template_input_path)
-        units = [SimpleRecolour(options['recolour_map'])]
         result = self.render_common(variant, ship, input_image, units)
         return result
 
@@ -303,7 +288,6 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 self.units.append(SimpleRecolour(recolour_map=self.ship.ship_compositor.hull_recolour_map))
 
     def render(self, variant, ship, global_constants):
-        self.options = ship.graphics_processor.options
         self.hull_input_path = os.path.join(currentdir, 'src', 'graphics', 'hulls', ship.hull.spritesheet_name + '.png')
         self.waterline_mask_input_path = os.path.join(currentdir, 'src', 'graphics', 'waterline_masks', ship.hull.mask_name + '.png')
         self.units = []
@@ -344,8 +328,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 def get_pipeline(pipeline_name):
     # return a pipeline by name;
     # add pipelines here when creating new ones
-    for pipeline in [SimpleRecolourPipeline(),
-                     PassThroughPipeline(),
+    for pipeline in [PassThroughPipeline(),
                      ExtendSpriterowsForCompositedCargosPipeline()]:
         if pipeline_name == pipeline.name:
             return pipeline
