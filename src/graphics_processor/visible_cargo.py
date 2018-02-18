@@ -7,6 +7,7 @@ class VisibleCargo(object):
     def __init__(self):
         self.bulk = False
         self.piece = False
+        self.hull_recolour_map = graphics_constants.hull_recolour_CC1
 
     @property
     def generic_rows(self):

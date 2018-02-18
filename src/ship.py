@@ -16,6 +16,7 @@ import utils
 
 from graphics_processor.visible_cargo import VisibleCargo, VisibleCargoLiveryOnly
 import graphics_processor.utils as graphics_utils
+import graphics_processor.graphics_constants as graphics_constants
 
 from rosters import registered_rosters
 from hulls import registered_hulls
@@ -46,8 +47,6 @@ class Ship(object):
         self.model_variants = []
         # base hull (defines length, wake graphics, hull graphics if composited etc)
         self.hull = registered_hulls.get(kwargs.get('hull', None), None)
-        # hull might be recoloured, default this to CC1, set it to CC2 as needed
-        self.hull_company_colour = 'CC1'
         # cargo /livery graphics options
         self.visible_cargo = VisibleCargo()
         # roster is set when the vehicle is registered to a roster, only one roster per vehicle
@@ -416,9 +415,9 @@ class BulkCarrier(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_dump_bulk']
         self.default_cargo = 'COAL'
         self.loading_speed_multiplier = 2
-        self.hull_company_colour = 'CC2' # bulk ships use 2CC for hull
         # Cargo Graphics
         self.visible_cargo.bulk = True
+        self.visible_cargo.hull_recolour_map = graphics_constants.hull_recolour_CC2 # bulk ships use 2CC for hull
 
 
 class UtilityVessel(Ship):
@@ -509,6 +508,8 @@ class EdiblesTanker(Ship):
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
         self.default_cargo = 'WATR'
+        # Cargo graphics
+        self.visible_cargo = VisibleCargoLiveryOnly()
 
 
 class Reefer(Ship):

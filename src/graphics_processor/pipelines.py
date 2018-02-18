@@ -97,13 +97,6 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         # initing things here is proven to have unexpected results, as the processor will be shared across multiple vehicles
         super(ExtendSpriterowsForCompositedCargosPipeline, self).__init__("extend_spriterows_for_composited_cargos_pipeline")
 
-    @property
-    def hull_color_remap(self):
-        # generic hulls can be recoloured as needed, covers CC1 and CC2 case, more can be added if needed;
-        # cargo-specific livery recolors handled separately as dedicated pipeline
-        hull_color_remaps = {'CC1': graphics_constants.hull_recolor_CC1, 'CC2': graphics_constants.hull_recolor_CC2}
-        return hull_color_remaps[self.ship.hull_company_colour]
-
     def extend_base_image_to_3_rows_with_waterline_masked_per_load_state(self, base_image):
         # This composites the ship from:
         # - the ship base image (this contains the detail for the specific ship such as wheelhouse, holds etc)
@@ -208,7 +201,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         for label, recolour_map in graphics_constants.bulk_cargo_recolour_maps:
             self.units.append(AppendToSpritesheet(vehicle_bulk_cargo_input_as_spritesheet, crop_box_dest))
             self.units.append(SimpleRecolour(recolour_map))
-            self.units.append(SimpleRecolour(recolour_map=self.hull_color_remap))
+            self.units.append(SimpleRecolour(recolour_map=self.ship.visible_cargo.hull_recolour_map))
 
     def add_piece_cargo_spriterows(self, global_constants):
         # hax
@@ -319,7 +312,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 #vehicle_comped_image.show()
                 vehicle_comped_image_as_spritesheet = self.make_spritesheet_from_image(vehicle_comped_image)
                 self.units.append(AppendToSpritesheet(vehicle_comped_image_as_spritesheet, crop_box_dest))
-                self.units.append(SimpleRecolour(recolour_map=self.hull_color_remap))
+                self.units.append(SimpleRecolour(recolour_map=self.ship.visible_cargo.hull_recolour_map))
 
     def render(self, variant, ship, global_constants):
         # there are various options for controlling the crop box, I haven't documented them - read example uses to figure them out
