@@ -38,10 +38,10 @@ hint_file.close()
 def run_pipeline(items):
     variant = items[0]
     ship = items[1]
-    if ship.graphics_processor is None:
+    if ship.gestalt_graphics.disabled:
         shutil.copy(os.path.join(graphics_input, variant.get_spritesheet_name(ship)), graphics_output_path)
     else:
-        result = ship.graphics_processor.render(variant, ship, global_constants)
+        result = ship.gestalt_graphics.pipeline.render(variant, ship, global_constants)
         return result
 
 # wrapped in a main() function so this can be called explicitly, because unexpected multiprocessing fork bombs are bad

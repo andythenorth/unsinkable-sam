@@ -1,4 +1,5 @@
 import graphics_processor.graphics_constants as graphics_constants
+from graphics_processor import pipelines
 
 class GestaltGraphics(object):
     # simple class to hold configuration of the ship's
@@ -6,6 +7,10 @@ class GestaltGraphics(object):
     # - cargo graphics (if any)
     # base class assumes *only* pixa-generated cargos are used; subclass for all other cases
     def __init__(self):
+        # option to skip graphics processing by setting disabled = True in ship class
+        self.disabled = False
+        # as of Jan 2018 only one pipeline is used, but it could be over-ridden in GestaltGraphics sub-classes, support is in place for alternative pipelines
+        self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
         # default hull recolour to CC1, adjust in ship classes as needed
         self.hull_recolour_map = graphics_constants.hull_recolour_CC1
         # cargo flags
