@@ -14,5 +14,4 @@ ship = Tanker(id = 'tanker_small',
 
 ship.add_model_variant(intro_date=0,
                        end_date=global_constants.max_game_date,
-                       spritesheet_suffix=0,
-                       graphics_processor=ship.graphics_processors[0])
+                       spritesheet_suffix=0)

@@ -48,12 +48,13 @@ class Ship(object):
         # base hull (defines length, wake graphics, hull graphics if composited etc)
         self.hull = registered_hulls.get(kwargs.get('hull', None), None)
         # cargo /livery graphics options
+        self.graphics_processor = None # temp
         self.ship_compositor = ShipCompositor()
         # roster is set when the vehicle is registered to a roster, only one roster per vehicle
         self.roster_id = None
 
-    def add_model_variant(self, intro_date, end_date, spritesheet_suffix, graphics_processor=None):
-        self.model_variants.append(ModelVariant(intro_date, end_date, spritesheet_suffix, graphics_processor))
+    def add_model_variant(self, intro_date, end_date, spritesheet_suffix):
+        self.model_variants.append(ModelVariant(intro_date, end_date, spritesheet_suffix))
 
     def get_reduced_set_of_variant_dates(self):
         # find all the unique dates that will need a switch constructing
@@ -226,6 +227,7 @@ class Ship(object):
 
     @property
     def graphics_processors(self):
+        # !! this is legacy, needs refactored out
         # wrapper to get the graphics processors
         template = self.id + '_template.png'
         return graphics_utils.get_composited_cargo_processors(template = template)
@@ -301,11 +303,10 @@ class ModelVariant(object):
     # variants are mostly randomised or date-sensitive graphics
     # must be a minimum of one variant per ship
     # at least one variant must have intro date 0 (for nml switch defaults to work)
-    def __init__(self, intro_date, end_date, spritesheet_suffix, graphics_processor):
+    def __init__(self, intro_date, end_date, spritesheet_suffix):
         self.intro_date = intro_date
         self.end_date = end_date
         self.spritesheet_suffix = spritesheet_suffix # use digits for these - to match spritesheet filenames
-        self.graphics_processor = graphics_processor
 
     def get_spritesheet_name(self, ship):
         return ship.id + '_' + str(self.spritesheet_suffix) + '.png'
@@ -366,7 +367,8 @@ class UniversalFreighter(Ship):
         self.label_refits_allowed = [] # no specific labels needed, refits all freight
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'COAL'
-        # Cargo Graphics
+        # Graphics configuration
+        self.graphics_processor = self.graphics_processors[0]
         self.ship_compositor.bulk = True
         self.ship_compositor.piece = True
         self.cargo_length = 3 # !! temp hax to make graphics compile work
@@ -398,7 +400,8 @@ class FlatDeckBarge(Ship):
         self.label_refits_allowed = ['GOOD']
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'STEL'
-        # Cargo Graphics
+        # Graphics configuration
+        self.graphics_processor = self.graphics_processors[0]
         self.ship_compositor.piece = True
         self.cargo_length = 3 # !! temp hax to make graphics compile work
 
@@ -415,7 +418,8 @@ class BulkCarrier(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_dump_bulk']
         self.default_cargo = 'COAL'
         self.loading_speed_multiplier = 2
-        # Cargo Graphics
+        # Graphics configuration
+        self.graphics_processor = self.graphics_processors[0]
         self.ship_compositor.bulk = True
         self.ship_compositor.hull_recolour_map = graphics_constants.hull_recolour_CC2 # bulk ships use 2CC for hull
 
@@ -492,7 +496,8 @@ class Tanker(Ship):
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
         self.default_cargo = 'OIL_'
-        # Cargo graphics
+        # Graphics configuration
+        self.graphics_processor = self.graphics_processors[0]
         self.ship_compositor = ShipCompositorLiveryOnly()
         self.ship_compositor.tanker = True
 
@@ -508,7 +513,8 @@ class EdiblesTanker(Ship):
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
         self.default_cargo = 'WATR'
-        # Cargo graphics
+        # Graphics configuration
+        self.graphics_processor = self.graphics_processors[0]
         self.ship_compositor = ShipCompositorLiveryOnly()
 
 

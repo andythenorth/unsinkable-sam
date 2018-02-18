@@ -49,7 +49,7 @@ class PassThroughPipeline(Pipeline):
         super(PassThroughPipeline, self).__init__("pass_through_pipeline")
 
     def render(self, variant, ship, global_constants):
-        options = variant.graphics_processor.options
+        options = ship.graphics_processor.options
         input_path = os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, options['template'])
         input_image = Image.open(input_path)
         units = []
@@ -64,7 +64,7 @@ class SimpleRecolourPipeline(Pipeline):
         super(SimpleRecolourPipeline, self).__init__("simple_recolour_pipeline")
 
     def render(self, variant, ship, global_constants):
-        options = variant.graphics_processor.options
+        options = ship.graphics_processor.options
         input_path = os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, options['template'])
         input_image = Image.open(input_path)
         units = [SimpleRecolour(options['recolour_map'])]
@@ -301,7 +301,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 
     def render(self, variant, ship, global_constants):
         # there are various options for controlling the crop box, I haven't documented them - read example uses to figure them out
-        self.options = variant.graphics_processor.options
+        self.options = ship.graphics_processor.options
         self.input_path = os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, self.options['template'])
         self.hull_input_path = os.path.join(currentdir, 'src', 'graphics', 'hulls', ship.hull.spritesheet_name + '.png')
         self.waterline_mask_input_path = os.path.join(currentdir, 'src', 'graphics', 'waterline_masks', ship.hull.mask_name + '.png')
