@@ -41,7 +41,7 @@ class Ship(object):
         self.capacity_is_refittable_by_cargo_subtype = kwargs.get('capacity_is_refittable_by_cargo_subtype', True)
         # most ships use steam effect_spawn_model so set default, over-ride in ships as needed
         self.effect_spawn_model = kwargs.get('effect_spawn_model', 'EFFECT_SPAWN_MODEL_STEAM')
-        self.effects = kwargs.get('effects', [])
+        self.effect_type = kwargs.get('effect_type', None)
         # create a structure to hold model variants
         self.model_variants = []
         # base hull (defines length, wake graphics, hull graphics if composited etc)
@@ -270,10 +270,11 @@ class Ship(object):
 
     def get_expression_for_effects(self):
         # provides part of nml switch for effects (smoke), or none if no effects defined
-        if len(self.effects) > 0:
+        if self.effect_type is not None:
             result = []
-            for index, effect in enumerate(self.effects):
-                 result.append('STORE_TEMP(create_effect(' + effect + '), 0x10' + str(index) + ')')
+            for index, effect_position in enumerate(self.hull.effects_positions):
+                formatted_position = ','.join(str(i) for i in effect_position)
+                result.append('STORE_TEMP(create_effect(' + self.effect_type + ',' + formatted_position + '), 0x10' + str(index) + ')')
             return '[' + ','.join(result) + ']'
         else:
             return 0

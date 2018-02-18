@@ -2,7 +2,7 @@
 
 // -- smoke -- //
 switch (FEAT_SHIPS, SELF, ${ship.id}_create_visual_effect, ${ship.get_expression_for_effects()}) {
-    return ${len(ship.effects)};
+    return ${len(ship.hull.effects_positions)};
 }
 
 

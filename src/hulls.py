@@ -10,7 +10,7 @@ class Hull(object):
     # hull spritesheet file
     # vertical offset if needed, accounting for buy menu especially
     # mask_name
-    # effects position
+    # effects position (list of 3-tuples for x, y, z positions of effects)
     # fatter / thinner ships might need offset adjustments
     print("HULL")
 
@@ -36,6 +36,7 @@ class LargeShipHouseRear(Hull):
         self.hull_type = 'ship'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
+        self.effects_positions = [(11, 0, 24)]
 
 
 class LargeShipHouseForward(Hull):
@@ -44,6 +45,7 @@ class LargeShipHouseForward(Hull):
         self.hull_type = 'ship'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
+        self.effects_positions = [(11, 0, 24)]
 
 
 class LargeRiverboatHouseRear(Hull):
@@ -52,6 +54,7 @@ class LargeRiverboatHouseRear(Hull):
         self.hull_type = 'riverboat'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(11, 0, 24)]
 
 
 class SmallRiverboatHouseRear(Hull):
@@ -60,6 +63,7 @@ class SmallRiverboatHouseRear(Hull):
         self.hull_type = 'riverboat'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(11, 0, 24)]
 
 
 class SmallShipHouseRear(Hull):
@@ -68,6 +72,7 @@ class SmallShipHouseRear(Hull):
         self.hull_type = 'ship'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(11, 0, 24)]
 
 
 class TwoWayFerryMini(Hull):
@@ -75,6 +80,7 @@ class TwoWayFerryMini(Hull):
         self.size_class = 'mini'
         self.hull_type = 'two_way_ferry'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(11, 0, 24)]
 
 
 class TempMini(Hull):
@@ -83,6 +89,7 @@ class TempMini(Hull):
         self.hull_type = 'ship'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(11, 0, 24)]
 
 
 class TempMicro(Hull):
@@ -91,6 +98,7 @@ class TempMicro(Hull):
         self.hull_type = 'ship'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(11, 0, 24)]
 
 
 registered_hulls = {'LargeRiverboatHouseRear': LargeRiverboatHouseRear(),
