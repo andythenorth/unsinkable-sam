@@ -1,6 +1,6 @@
 import graphics_processor.graphics_constants as graphics_constants
 
-class ShipCompositor(object):
+class GestaltGraphics(object):
     # simple class to hold configuration of the ship's
     # - hull
     # - cargo graphics (if any)
@@ -22,7 +22,7 @@ class ShipCompositor(object):
             return self.cargo_row_map['GRVL']
         else:
             # shouldn't reach here, but eh,
-            utils.echo_message('generic_rows hit an unknown result in ShipCompositor')
+            utils.echo_message('generic_rows hit an unknown result in GestaltGraphics')
             return [0]
 
     @property
@@ -75,8 +75,8 @@ class ShipCompositor(object):
         return result
 
 
-class ShipCompositorLiveryOnly(ShipCompositor):
-    # subclass of ShipCompositor to handle the specific case of cargos shown only by vehicle livery
+class ShipCompositorLiveryOnly(GestaltGraphics):
+    # subclass of GestaltGraphics to handle the specific case of cargos shown only by vehicle livery
     # this is effectively a change of mode, and subclass the object seemed the cleanest way to enforce that
     def __init__(self):
         super(ShipCompositorLiveryOnly, self).__init__()
@@ -110,8 +110,8 @@ class ShipCompositorLiveryOnly(ShipCompositor):
                 counter += 1
         return result
 
-class ShipCompositorCustom(ShipCompositor):
-    # Subclass of ShipCompositor to handle cases like vehicles with hand-drawn cargo (no generation).
+class ShipCompositorCustom(GestaltGraphics):
+    # Subclass of GestaltGraphics to handle cases like vehicles with hand-drawn cargo (no generation).
     # this cannot currently also use pixa-generated cargos
     # - pixa cargo pipeline has no support for compositing custom rows, that looked like TMWFTLB
     def __init__(self, _cargo_row_map, _nml_template, generic_rows):
