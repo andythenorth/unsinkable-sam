@@ -12,6 +12,7 @@ DOS_PALETTE = Image.open('palette_key.png').palette
 """
 Pipelines can be dedicated to a single task such as simple recolouring
 Or they can compose units for more complicated tasks, such as colouring and loading a specific vehicle type
+As of Jan 2018 there is just one complex pipeline for ships, which handles hull compositing + optional cargo provision
 """
 
 
@@ -48,10 +49,11 @@ class Pipeline(object):
     def render(self, variant, ship):
         raise NotImplementedError("Implement me in %s" % repr(self))
 
-class PassThroughPipeline(Pipeline):
+class ExamplePassThroughPipeline(Pipeline):
+    # example sparse pipeline, does nothing, left in place as example
     def __init__(self):
         # this should be sparse, don't store any ship or variant info in Pipelines, pass them at render time
-        super(PassThroughPipeline, self).__init__("pass_through_pipeline")
+        super().__init__("pass_through_pipeline")
 
     def render(self, variant, ship, global_constants):
         input_image = Image.open(self.ship_template_input_path)
@@ -68,7 +70,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
     def __init__(self):
         # this should be sparse, don't store any ship or variant info in Pipelines, pass them at render time
         # initing things here is proven to have unexpected results, as the processor will be shared across multiple vehicles
-        super(ExtendSpriterowsForCompositedCargosPipeline, self).__init__("extend_spriterows_for_composited_cargos_pipeline")
+        super().__init__("extend_spriterows_for_composited_cargos_pipeline")
 
     def extend_base_image_to_3_rows_with_waterline_masked_per_load_state(self, base_image):
         # This composites the ship from:
@@ -328,7 +330,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 def get_pipeline(pipeline_name):
     # return a pipeline by name;
     # add pipelines here when creating new ones
-    for pipeline in [PassThroughPipeline(),
+    for pipeline in [ExamplePassThroughPipeline(),
                      ExtendSpriterowsForCompositedCargosPipeline()]:
         if pipeline_name == pipeline.name:
             return pipeline
