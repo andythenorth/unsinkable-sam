@@ -43,7 +43,7 @@ class LargeShipHouseForward(Hull):
     def __init__(self):
         self.size_class = 'large'
         self.hull_type = 'ship'
-        self.house_position = 'rear'
+        self.house_position = 'forward'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
         self.effects_positions = [(11, 0, 24)]
 

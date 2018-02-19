@@ -50,6 +50,12 @@ edibles_tanker_livery_recolour_maps = (# see note on DFLT above
                                       ("DFLT", {136: 5, 137: 7, 138: 8, 139: 9,
                                                 140: 10, 141: 11, 142: 12, 143: 13,
                                                 60: 1, 72: 3, 123: 4, 74: 5, 75: 4}),)
+# Refrigerated ships, only DFLT is used as of Jan 2018
+# !! possibly this is the same as edibles_tanker map, and could be consolidated ??
+reefer_livery_recolour_maps = (# see note on DFLT above
+                                      ("DFLT", {136: 5, 137: 7, 138: 8, 139: 9,
+                                                140: 10, 141: 11, 142: 12, 143: 13,
+                                                60: 1, 72: 3, 123: 4, 74: 5, 75: 4}),)
 # Containers
 # !! simple recolouring, not cargo specific.  May need work ??  Could be cargo-specific??
 container_recolour_maps = ({170 + i: CC1 + i for i in range(8)},

@@ -97,6 +97,7 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
         self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
         # options
         self.livery_only = True
+        # these bools might be better done as a 'type' property, they only seem to be used for selecting recolour maps?
         self.tanker = False
         self.edibles_tanker = False
         # self.container = False # !! add support for containers here when needed
@@ -133,6 +134,8 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
             return graphics_constants.tanker_livery_recolour_maps
         if self.edibles_tanker:
             return graphics_constants.edibles_tanker_livery_recolour_maps
+        if self.reefer:
+            return graphics_constants.reefer_livery_recolour_maps
         else:
             return {}
 
