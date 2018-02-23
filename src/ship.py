@@ -445,7 +445,7 @@ class PieceGoodsCarrier(Ship):
         self.default_cargo = 'GOOD'
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly()
-        self.gestalt_graphics.reefer = True
+        self.gestalt_graphics.piece_goods_carrier = True
 
 
 class Reefer(Ship):

@@ -100,6 +100,8 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
         # these bools might be better done as a 'type' property, they only seem to be used for selecting recolour maps?
         self.tanker = False
         self.edibles_tanker = False
+        self.reefer = False
+        self.piece_goods_carrier = False
         # self.container = False # !! add support for containers here when needed
 
     @property
@@ -130,12 +132,15 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
     @property
     def recolour_maps(self):
         # !! needs extending for alternative types, e.g. tankers, etc
+        # !! should just check a 'subtype' string as a dict key, not silly bool vars
         if self.tanker:
             return graphics_constants.tanker_livery_recolour_maps
         if self.edibles_tanker:
             return graphics_constants.edibles_tanker_livery_recolour_maps
         if self.reefer:
             return graphics_constants.reefer_livery_recolour_maps
+        if self.piece_goods_carrier:
+            return graphics_constants.piece_goods_carrier_livery_recolour_maps
         else:
             return {}
 
