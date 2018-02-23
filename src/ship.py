@@ -296,6 +296,98 @@ class ModelVariant(object):
         return ship.id + '_' + str(self.spritesheet_suffix) + '.png'
 
 
+class BulkCarrier(Ship):
+    """
+    Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse hopper wagon.
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.template = 'general_cargo_vessel.pynml'
+        self.class_refit_groups = ['dump_freight']
+        self.label_refits_allowed = [] # no specific labels needed
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_dump_bulk']
+        self.default_cargo = 'COAL'
+        self.loading_speed_multiplier = 2
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo()
+        self.gestalt_graphics.bulk = True
+        self.gestalt_graphics.hull_recolour_map = graphics_constants.hull_recolour_CC2 # bulk ships use 2CC for hull
+
+
+class ContainerCarrier(Ship):
+    """
+    Refits to limited range of freight cargos, shows container graphics according to load state.
+    """
+    def __init__(self, id, **kwargs):
+        super().__init__(id, **kwargs)
+        self.template = 'container_carrier.pynml'
+        # maintain other sets (e.g. IH etc) when changing container refits
+        self.class_refit_groups = ['express_freight','packaged_freight']
+        self.label_refits_allowed = ['FRUT','WATR']
+        self.label_refits_disallowed = ['FISH','LVST','OIL_','TOUR','WOOD']
+        self.default_cargo = 'GOOD'
+
+
+class EdiblesTanker(Ship):
+    """
+    Gallons and gallons and gallons of wine, milk or water.  Except in metric systems, where it's litres.
+    """
+    def __init__(self, id, **kwargs):
+        super().__init__(id, **kwargs)
+        self.template = 'vehicle_default.pynml'
+        self.class_refit_groups = ['liquids']
+        self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
+        self.default_cargo = 'WATR'
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
+        self.gestalt_graphics.edibles_tanker = True
+
+
+class FlatDeckBarge(Ship):
+    """
+    Flat deck, no holds - refits most cargos, not bulk.
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.template = 'general_cargo_vessel.pynml'
+        self.class_refit_groups = ['flatbed_freight']
+        self.label_refits_allowed = ['GOOD']
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
+        self.default_cargo = 'STEL'
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo()
+        self.gestalt_graphics.piece = True
+        self.cargo_length = 3 # !! temp hax to make graphics compile work
+
+
+class LivestockCarrier(Ship):
+    """
+    Special type for livestock (as you might guess).
+    """
+    def __init__(self, id, **kwargs):
+        super().__init__(id, **kwargs)
+        self.template = 'vehicle_default.pynml'
+        self.class_refit_groups = ['empty']
+        self.label_refits_allowed = ['LVST'] # set to livestock by default, don't need to make it refit
+        self.label_refits_disallowed = []
+        self.default_cargo = 'LVST'
+        self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
+
+
+class LogTug(Ship):
+    """
+    Specialist type for hauling logs only, has some specialist refit and speed behaviours.
+    """
+    def __init__(self, id, **kwargs):
+        super().__init__(id, **kwargs)
+        self.template = 'log_tug.pynml'
+        self.class_refit_groups = ['empty']
+        self.label_refits_allowed = ['WOOD']
+        self.label_refits_disallowed = []
+        self.default_cargo = 'WOOD'
+
+
 class MailShip(Ship):
     """
     A relatively fast vessel type for mail and express freight.
@@ -338,6 +430,70 @@ class PaxLuxuryShip(Ship):
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
 
 
+class PieceGoodsCarrier(Ship):
+    """
+    Piece goods cargos, other selected cargos.  Equivalent of Road Hog box hauler and Iron Horse box wagon.
+    IRL: "GCV", "Break-bulk", "Pallet carrier".
+    Not "box ship" because IRL they are container carriers (yair).
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.template = 'general_cargo_vessel.pynml'
+        self.class_refit_groups = ['packaged_freight']
+        self.label_refits_allowed = ['MAIL', 'GRAI', 'WHEA', 'MAIZ', 'FRUT', 'BEAN', 'NITR'] # Iron Horse compatibility
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
+        self.default_cargo = 'GOOD'
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
+        self.gestalt_graphics.reefer = True
+
+
+class Reefer(Ship):
+    """
+    Refits to limited range of refrigerated cargos, with 'improved' cargo decay rate.
+    """
+    def __init__(self, id, **kwargs):
+        super().__init__(id, **kwargs)
+        self.template = 'general_cargo_vessel.pynml'
+        self.class_refit_groups = ['refrigerated_freight']
+        self.label_refits_allowed = [] # no specific labels needed, refits all cargos that have refrigerated class
+        self.label_refits_disallowed = []
+        self.default_cargo = 'GOOD'
+        self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
+        self.gestalt_graphics.reefer = True
+
+
+class Tanker(Ship):
+    """
+    Ronseal ("does what it says on the tin", for those without extensive knowledge of UK advertising).
+    """
+    def __init__(self, id, **kwargs):
+        super().__init__(id, **kwargs)
+        self.template = 'vehicle_with_visible_cargo.pynml'
+        self.class_refit_groups = ['liquids']
+        self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
+        self.default_cargo = 'OIL_'
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
+        self.gestalt_graphics.tanker = True
+
+
+class Trawler(Ship):
+    """
+    Dedicated to fishing
+    """
+    def __init__(self, id, **kwargs):
+        super().__init__(id, **kwargs)
+        self.template = 'vehicle_default.pynml'
+        self.class_refit_groups = []
+        self.label_refits_allowed = []
+        self.label_refits_disallowed = []
+        self.default_cargo = 'FISH'
+
+
 class UniversalFreighter(Ship):
     """
     General purpose freight vessel type. No pax or mail cargos, refits any other cargo including liquids (in barrels or containers).
@@ -356,56 +512,6 @@ class UniversalFreighter(Ship):
         self.gestalt_graphics.bulk = True
         self.gestalt_graphics.piece = True
         self.cargo_length = 3 # !! temp hax to make graphics compile work
-
-
-class PieceGoodsCarrier(Ship):
-    """
-    Piece goods cargos, other selected cargos.  Equivalent of Road Hog box hauler and Iron Horse box wagon.
-    IRL: "GCV", "Break-bulk", "Pallet carrier".
-    Not "box ship" because IRL they are container carriers (yair).
-    """
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.template = 'general_cargo_vessel.pynml'
-        self.class_refit_groups = ['packaged_freight']
-        self.label_refits_allowed = ['MAIL', 'GRAI', 'WHEA', 'MAIZ', 'FRUT', 'BEAN', 'NITR'] # Iron Horse compatibility
-        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
-        self.default_cargo = 'GOOD'
-
-
-class FlatDeckBarge(Ship):
-    """
-    Flat deck, no holds - refits most cargos, not bulk.
-    """
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.template = 'general_cargo_vessel.pynml'
-        self.class_refit_groups = ['flatbed_freight']
-        self.label_refits_allowed = ['GOOD']
-        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
-        self.default_cargo = 'STEL'
-        # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo()
-        self.gestalt_graphics.piece = True
-        self.cargo_length = 3 # !! temp hax to make graphics compile work
-
-
-class BulkCarrier(Ship):
-    """
-    Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse hopper wagon.
-    """
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.template = 'general_cargo_vessel.pynml'
-        self.class_refit_groups = ['dump_freight']
-        self.label_refits_allowed = [] # no specific labels needed
-        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_dump_bulk']
-        self.default_cargo = 'COAL'
-        self.loading_speed_multiplier = 2
-        # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo()
-        self.gestalt_graphics.bulk = True
-        self.gestalt_graphics.hull_recolour_map = graphics_constants.hull_recolour_CC2 # bulk ships use 2CC for hull
 
 
 class UtilityVessel(Ship):
@@ -428,105 +534,3 @@ class UtilityVessel(Ship):
         return buy_menu_template.substitute(str_type_info=self.get_str_type_info(), capacity_pax=self.capacity_pax,
                                             capacity_mail=self.capacity_mail, capacity_cargo_holds=self.capacity_cargo_holds)
 
-
-class LivestockCarrier(Ship):
-    """
-    Special type for livestock (as you might guess).
-    """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
-        self.template = 'vehicle_default.pynml'
-        self.class_refit_groups = ['empty']
-        self.label_refits_allowed = ['LVST'] # set to livestock by default, don't need to make it refit
-        self.label_refits_disallowed = []
-        self.default_cargo = 'LVST'
-        self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
-
-
-class LogTug(Ship):
-    """
-    Specialist type for hauling logs only, has some specialist refit and speed behaviours.
-    """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
-        self.template = 'log_tug.pynml'
-        self.class_refit_groups = ['empty']
-        self.label_refits_allowed = ['WOOD']
-        self.label_refits_disallowed = []
-        self.default_cargo = 'WOOD'
-
-
-class Trawler(Ship):
-    """
-    Dedicated to fishing
-    """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
-        self.template = 'vehicle_default.pynml'
-        self.class_refit_groups = []
-        self.label_refits_allowed = []
-        self.label_refits_disallowed = []
-        self.default_cargo = 'FISH'
-
-
-class Tanker(Ship):
-    """
-    Ronseal ("does what it says on the tin", for those without extensive knowledge of UK advertising).
-    """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
-        self.template = 'vehicle_with_visible_cargo.pynml'
-        self.class_refit_groups = ['liquids']
-        self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
-        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
-        self.default_cargo = 'OIL_'
-        # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
-        self.gestalt_graphics.tanker = True
-
-
-class EdiblesTanker(Ship):
-    """
-    Gallons and gallons and gallons of wine, milk or water.  Except in metric systems, where it's litres.
-    """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
-        self.template = 'vehicle_default.pynml'
-        self.class_refit_groups = ['liquids']
-        self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
-        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
-        self.default_cargo = 'WATR'
-        # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
-        self.gestalt_graphics.edibles_tanker = True
-
-
-class Reefer(Ship):
-    """
-    Refits to limited range of refrigerated cargos, with 'improved' cargo decay rate.
-    """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
-        self.template = 'general_cargo_vessel.pynml'
-        self.class_refit_groups = ['refrigerated_freight']
-        self.label_refits_allowed = [] # no specific labels needed, refits all cargos that have refrigerated class
-        self.label_refits_disallowed = []
-        self.default_cargo = 'GOOD'
-        self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
-        # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
-        self.gestalt_graphics.reefer = True
-
-
-class ContainerCarrier(Ship):
-    """
-    Refits to limited range of freight cargos, shows container graphics according to load state.
-    """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
-        self.template = 'container_carrier.pynml'
-        # maintain other sets (e.g. IH etc) when changing container refits
-        self.class_refit_groups = ['express_freight','packaged_freight']
-        self.label_refits_allowed = ['FRUT','WATR']
-        self.label_refits_disallowed = ['FISH','LVST','OIL_','TOUR','WOOD']
-        self.default_cargo = 'GOOD'
