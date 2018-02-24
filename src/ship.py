@@ -373,6 +373,9 @@ class LivestockCarrier(Ship):
         self.label_refits_disallowed = []
         self.default_cargo = 'LVST'
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
+        self.gestalt_graphics.livestock_carrier = True
 
 
 class LogTug(Ship):

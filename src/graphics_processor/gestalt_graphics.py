@@ -141,6 +141,8 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
             return graphics_constants.reefer_livery_recolour_maps
         if self.piece_goods_carrier:
             return graphics_constants.piece_goods_carrier_livery_recolour_maps
+        if self.livestock_carrier:
+            return graphics_constants.piece_goods_carrier_livery_recolour_maps  # !! (correctly) reused the 2CC remap from piece goods carrier, refactor
         else:
             return {}
 
