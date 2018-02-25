@@ -19,7 +19,7 @@
                 <tbody>
                     <tal:build_ships_list repeat="ship ships">
                         <tal:ship_in_roster condition="ship.id in roster.buy_menu_sort_order">
-                            <tr>
+                            <tr id="${ship.id}">
                                 <td style="vertical-align:middle;">
                                     <img src="static/img/${ship.id}.png"
                                          width="${2 * global_constants.buy_menu_sprite_width}"
