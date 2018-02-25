@@ -99,7 +99,6 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
         self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
         # recolour_maps map cargo labels to liveries, use 'DFLT' as the labe in the case of just one livery
         self.recolour_maps = recolour_maps
-        self.livery_only = True # !! this looks suspect, there is probably a better way to flag this
 
     @property
     def generic_rows(self):
