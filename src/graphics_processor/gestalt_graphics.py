@@ -40,15 +40,17 @@ class GestaltGraphics(object):
 class GestaltGraphicsVisibleCargo(GestaltGraphics):
     # used for ship with visible cargos
     # assumes *only* pixa-generated cargos are used; subclass for all other cases
-    def __init__(self):
+    def __init__(self, **kwargs):
         super().__init__()
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
         self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
         # default hull recolour to CC1, adjust in ship classes as needed
         self.hull_recolour_map = graphics_constants.hull_recolour_CC1
+        # !! cargo_length is noted as hax to get compile working, not sure why right now
+        self.cargo_length = kwargs.get('cargo_length', None)
         # cargo flags
-        self.bulk = False
-        self.piece = False
+        self.bulk = kwargs.get('bulk', False)
+        self.piece = kwargs.get('piece', False)
 
     @property
     def generic_rows(self):
@@ -142,7 +144,7 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
         if self.piece_goods_carrier:
             return graphics_constants.piece_goods_carrier_livery_recolour_maps
         if self.livestock_carrier:
-            return graphics_constants.piece_goods_carrier_livery_recolour_maps  # !! (correctly) reused the 2CC remap from piece goods carrier, refactor
+            return graphics_constants.livestock_carrier_livery_recolour_maps
         else:
             return {}
 

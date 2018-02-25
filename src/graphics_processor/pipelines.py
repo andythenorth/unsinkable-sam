@@ -251,7 +251,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 # cargo sprites are assumed to be symmetrical, only 4 angles are needed
                 # for cargos with 8 angles (e.g. bulldozers), provide those manually as custom cargos?
                 # loading states are first 4 sprites, loaded are second 4, all in one list
-                for bboxes in cargo_spritesheet_bounding_boxes[self.ship.cargo_length]:
+                for bboxes in cargo_spritesheet_bounding_boxes[self.ship.gestalt_graphics.cargo_length]:
                     for i in bboxes:
                         cargo_sprite = cargo_sprites_input_image.copy()
                         cargo_sprite = cargo_sprite.crop(i)

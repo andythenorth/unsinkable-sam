@@ -309,9 +309,8 @@ class BulkCarrier(Ship):
         self.default_cargo = 'COAL'
         self.loading_speed_multiplier = 2
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo()
-        self.gestalt_graphics.bulk = True
-        self.gestalt_graphics.hull_recolour_map = graphics_constants.hull_recolour_CC2 # bulk ships use 2CC for hull
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True,
+                                                            hull_recolour_map=graphics_constants.hull_recolour_CC2)
 
 
 class ContainerCarrier(Ship):
@@ -356,9 +355,8 @@ class FlatDeckBarge(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'STEL'
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo()
-        self.gestalt_graphics.piece = True
-        self.cargo_length = 3 # !! temp hax to make graphics compile work
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(piece=True,
+                                                            cargo_length= 3) # !! temp hax to make graphics compile work
 
 
 class LivestockCarrier(Ship):
@@ -511,10 +509,9 @@ class UniversalFreighter(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'COAL'
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo()
-        self.gestalt_graphics.bulk = True
-        self.gestalt_graphics.piece = True
-        self.cargo_length = 3 # !! temp hax to make graphics compile work
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True,
+                                                            piece=True,
+                                                            cargo_length=3) # !! cargo_length is temp hax to make graphics compile work
 
 
 class UtilityVessel(Ship):

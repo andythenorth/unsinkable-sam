@@ -58,6 +58,9 @@ reefer_livery_recolour_maps = (# see note on DFLT above
                                                 60: 1, 72: 3, 123: 4, 74: 5, 75: 4}),)
 # Piece goods carrier, only DFLT is used as of Jan 2018
 piece_goods_carrier_livery_recolour_maps = (# see note on DFLT above
+                                      ("DFLT", hull_recolour_CC1),)
+# Livestock carrier, only DFLT is used as of Jan 2018
+livestock_carrier_livery_recolour_maps = (# see note on DFLT above
                                       ("DFLT", hull_recolour_CC2),)
 # Containers
 # !! simple recolouring, not cargo specific.  May need work ??  Could be cargo-specific??
