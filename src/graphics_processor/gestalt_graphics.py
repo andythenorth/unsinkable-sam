@@ -46,11 +46,11 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
         self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
         # default hull recolour to CC1, adjust in ship classes as needed
         self.hull_recolour_map = graphics_constants.hull_recolour_CC1
-        # !! cargo_length is noted as hax to get compile working, not sure why right now
-        self.cargo_length = kwargs.get('cargo_length', None)
         # cargo flags
         self.bulk = kwargs.get('bulk', False)
         self.piece = kwargs.get('piece', False)
+        # required if piece is set, cargo sprites are available in multiple lengths, set the most appropriate
+        self.cargo_length = kwargs.get('cargo_length', None)
 
     @property
     def generic_rows(self):
@@ -93,18 +93,13 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
 class GestaltGraphicsLiveryOnly(GestaltGraphics):
     # subclass of GestaltGraphics to handle the specific case of cargos shown only by vehicle livery
     # this can also be used for recolouring hulls in the case of just a *single* livery with no visible cargo
-    def __init__(self):
+    def __init__(self, recolour_maps, **kwargs):
         super().__init__()
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
         self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
-        # options
-        self.livery_only = True
-        # these bools might be better done as a 'type' property, they only seem to be used for selecting recolour maps?
-        self.tanker = False
-        self.edibles_tanker = False
-        self.reefer = False
-        self.piece_goods_carrier = False
-        # self.container = False # !! add support for containers here when needed
+        # recolour_maps map cargo labels to liveries, use 'DFLT' as the labe in the case of just one livery
+        self.recolour_maps = recolour_maps
+        self.livery_only = True # !! this looks suspect, there is probably a better way to flag this
 
     @property
     def generic_rows(self):
@@ -131,22 +126,6 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
             counter += 1
         return result
 
-    @property
-    def recolour_maps(self):
-        # !! needs extending for alternative types, e.g. tankers, etc
-        # !! should just check a 'subtype' string as a dict key, not silly bool vars
-        if self.tanker:
-            return graphics_constants.tanker_livery_recolour_maps
-        if self.edibles_tanker:
-            return graphics_constants.edibles_tanker_livery_recolour_maps
-        if self.reefer:
-            return graphics_constants.reefer_livery_recolour_maps
-        if self.piece_goods_carrier:
-            return graphics_constants.piece_goods_carrier_livery_recolour_maps
-        if self.livestock_carrier:
-            return graphics_constants.livestock_carrier_livery_recolour_maps
-        else:
-            return {}
 
 class GestaltGraphicsCustom(GestaltGraphics):
     # Subclass of GestaltGraphics to handle cases like vehicles with hand-drawn cargo (no generation).

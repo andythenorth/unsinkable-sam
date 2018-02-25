@@ -339,8 +339,7 @@ class EdiblesTanker(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
         self.default_cargo = 'WATR'
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
-        self.gestalt_graphics.edibles_tanker = True
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.edibles_tanker_livery_recolour_maps)
 
 
 class FlatDeckBarge(Ship):
@@ -372,8 +371,7 @@ class LivestockCarrier(Ship):
         self.default_cargo = 'LVST'
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
-        self.gestalt_graphics.livestock_carrier = True
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.livestock_carrier_livery_recolour_maps)
 
 
 class LogTug(Ship):
@@ -445,8 +443,7 @@ class PieceGoodsCarrier(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargo = 'GOOD'
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
-        self.gestalt_graphics.piece_goods_carrier = True
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.piece_goods_carrier_livery_recolour_maps)
 
 
 class Reefer(Ship):
@@ -462,8 +459,7 @@ class Reefer(Ship):
         self.default_cargo = 'GOOD'
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
-        self.gestalt_graphics.reefer = True
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.reefer_livery_recolour_maps)
 
 
 class Tanker(Ship):
@@ -478,8 +474,7 @@ class Tanker(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
         self.default_cargo = 'OIL_'
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly()
-        self.gestalt_graphics.tanker = True
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.tanker_livery_recolour_maps)
 
 
 class Trawler(Ship):
