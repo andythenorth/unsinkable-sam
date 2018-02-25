@@ -358,6 +358,22 @@ class FlatDeckBarge(Ship):
                                                             cargo_length= 3) # !! temp hax to make graphics compile work
 
 
+class FruitVegCarrier(Ship):
+    """
+    Fruit and vegetables, with improved decay rate
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.template = 'general_cargo_vessel.pynml'
+        self.class_refit_groups = []
+        self.label_refits_allowed = ['FRUT', 'BEAN', 'CASS', 'JAVA', 'NUTS'] # Iron Horse compatibility
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
+        self.default_cargo = 'FRUT'
+        self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.fruit_veg_carrier_livery_recolour_maps)
+
+
 class LivestockCarrier(Ship):
     """
     Special type for livestock (as you might guess).
