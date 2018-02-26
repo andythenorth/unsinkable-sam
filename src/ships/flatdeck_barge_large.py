@@ -4,7 +4,7 @@ from ship import FlatDeckBarge
 ship = FlatDeckBarge(id = 'flatdeck_barge_large',
                     numeric_id = 17,
                     title = 'Large [Flatdeck Barge]',
-                    hull = 'LargeRiverboatHouseRear',
+                    hull = 'LargePushBargeHouseRear',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,
                     fuel_run_cost_factor = 1.0,
