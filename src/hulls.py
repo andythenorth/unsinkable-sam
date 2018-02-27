@@ -36,7 +36,7 @@ class LargePushBargeHouseRear(Hull):
         self.hull_type = 'push_barge'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
-        self.effects_positions = [(11, 0, 24)]
+        self.effects_positions = [(11, 2, 16), (11, -2, 16)]
 
 
 class LargeRiverboatHouseRear(Hull):
