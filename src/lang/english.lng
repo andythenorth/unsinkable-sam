@@ -16,6 +16,7 @@ STR_PARAM_ROSTER                                                :Roster
 STR_PARAM_ROSTER_DESC                                           :Choose which set of ships to use.
 STR_PARAM_ROSTER_OPTION_0                                       :This Sceptered Isle
 
+STR_NAME_SUFFIX_BULK_BARGE                                      :Bulk Barge
 STR_NAME_SUFFIX_BULK_CARRIER                                    :Bulk Carrier
 STR_NAME_SUFFIX_CONTAINER_FEEDER                                :Container Feeder
 STR_NAME_SUFFIX_EDIBLES_TANKER                                  :Edibles Tanker

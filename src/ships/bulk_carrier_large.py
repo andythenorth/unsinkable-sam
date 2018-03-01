@@ -3,7 +3,7 @@ from ship import BulkCarrier
 
 ship = BulkCarrier(id = 'bulk_carrier_large',
                     numeric_id = 9,
-                    title = 'Large [Bulk Carrier]',
+                    title = 'Large [Bulk Barge]',
                     hull = 'LargePushBargeHouseRear',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,
