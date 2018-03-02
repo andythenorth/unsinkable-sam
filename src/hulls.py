@@ -90,7 +90,7 @@ class SmallBargeHouseRear(Hull):
         self.hull_type = 'barge'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
-        self.effects_positions = [(11, 0, 24)]
+        self.effects_positions = [(10, 0, 16)]
 
 
 class SmallShipHouseRear(Hull):
