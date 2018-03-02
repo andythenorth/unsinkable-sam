@@ -6,7 +6,7 @@
   Unsinkable Sam is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with Unsinkable Sam. If not, see <http://www.gnu.org/licenses/>.
 """
-print("[PYTHON] render docs")
+print("[RENDER DOCS] render docs")
 
 import codecs # used for writing files - more unicode friendly than standard open() module
 
@@ -14,6 +14,7 @@ import shutil
 import sys
 import os
 currentdir = os.curdir
+from time import time
 
 from PIL import Image
 
@@ -158,6 +159,7 @@ def render_docs_images():
         processed_vehicle_image.save(output_path, optimize=True, transparency=0)
 
 def main():
+    start = time()
     # render standard docs from a list
     html_docs = ['ships', 'code_reference', 'get_started', 'translations']
     txt_docs = ['license', 'readme']
@@ -170,6 +172,8 @@ def main():
     render_docs(markdown_docs, 'html', use_markdown=True)
     # process images for use in docs
     render_docs_images()
+    # eh, how long does this take anyway?
+    print(format((time() - start), '.2f')+'s')
 
 if __name__ == '__main__':
     main()

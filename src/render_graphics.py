@@ -12,6 +12,7 @@ from multiprocessing import Pool
 import multiprocessing
 logger = multiprocessing.log_to_stderr()
 logger.setLevel(25)
+from time import time
 
 import unsinkable_sam
 import utils
@@ -22,8 +23,10 @@ makefile_args = utils.get_makefile_args(sys)
 num_pool_workers = makefile_args.get('num_pool_workers', 0) # default to no mp, makes debugging easier (mp fails to pickle errors correctly)
 if num_pool_workers == 0:
     use_multiprocessing = False
+    print('Multiprocessing disabled: (PW=0)') # just print, no need for a coloured echo_message
 else:
     use_multiprocessing = True
+    print('Multiprocessing enabled: (PW=16)') # just print, no need for a coloured echo_message
 
 graphics_input = os.path.join(currentdir, 'src', 'graphics', 'ships')
 graphics_output_path = os.path.join(unsinkable_sam.generated_files_path, 'graphics')
@@ -46,6 +49,7 @@ def run_pipeline(items):
 
 # wrapped in a main() function so this can be called explicitly, because unexpected multiprocessing fork bombs are bad
 def main():
+    start = time()
     ships = unsinkable_sam.get_ships_in_buy_menu_order()
     variants = []
     for ship in ships:
@@ -59,13 +63,14 @@ def main():
             variants.append((variant, ship))
 
     if use_multiprocessing == False:
-        utils.echo_message('Multiprocessing disabled: (pw=0)')
         for variant in variants:
             run_pipeline(variant)
     else:
         pool = Pool(processes=num_pool_workers)
         pool.map(run_pipeline, variants)
         pool.close()
+    # eh, how long does this take anyway?
+    print(format((time() - start), '.2f')+'s')
 
 if __name__ == '__main__':
     main()

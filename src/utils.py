@@ -5,7 +5,6 @@ def get_makefile_args(sys):
                     'num_pool_workers': int(sys.argv[3]), 'roster': sys.argv[4]}
     else: # provide some defaults so templates don't explode when testing python script without command line args
         makefile_args = {'repo_revision': 0, 'repo_version': 0}
-    print(makefile_args)
     return makefile_args
 
 def unescape_chameleon_output(escaped_nml):

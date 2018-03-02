@@ -7,6 +7,7 @@ import codecs # used for writing files - more unicode friendly than standard ope
 import sys
 import os
 currentdir = os.curdir
+from time import time
 
 import unsinkable_sam
 import utils
@@ -40,6 +41,7 @@ def render_consist_nml(consist):
     return result
 
 def main():
+    start = time()
     generated_nml_path = os.path.join(generated_files_path, 'nml')
     if not os.path.exists(generated_nml_path):
         os.mkdir(generated_nml_path) # reminder to self: inside main() to avoid modifying filesystem simply by importing module
@@ -54,8 +56,9 @@ def main():
     # multiprocessing was tried here and removed as it was empirically slower in testing (due to overhead of starting extra pythons probably)
     for consist in consists:
         grf_nml.write(render_consist_nml(consist))
-
     grf_nml.close()
+    # eh, how long does this take anyway?
+    print(format((time() - start), '.2f')+'s')
 
 if __name__ == '__main__':
     main()

@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 
-print("[PARSE CONFIG] unsinkable_sam.py")
-
 import os.path
 currentdir = os.curdir
 

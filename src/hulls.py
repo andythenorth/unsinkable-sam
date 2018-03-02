@@ -12,7 +12,6 @@ class Hull(object):
     # mask_name
     # effects position (list of 3-tuples for x, y, z positions of effects)
     # fatter / thinner ships might need offset adjustments
-    print("HULL")
 
     def __init__(self):
         print("__init__")
