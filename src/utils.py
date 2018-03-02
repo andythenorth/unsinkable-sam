@@ -1,3 +1,6 @@
+import os.path
+import codecs # used for writing files - more unicode friendly than standard open() module
+
 def get_makefile_args(sys):
     # get args passed by makefile
     if len(sys.argv) > 1:
@@ -17,10 +20,6 @@ def unescape_chameleon_output(escaped_nml):
 
 def parse_base_lang():
     # expose base lang strings to python - for reuse in docs
-    import os.path
-
-    import codecs # used for writing files - more unicode friendly than standard open() module
-
     base_lang_file = codecs.open(os.path.join('src', 'lang', 'english.lng'), 'r','utf8')
     text = base_lang_file.readlines()
     # this is fragile, playing one line python is silly :)
