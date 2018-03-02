@@ -24,7 +24,7 @@ if num_pool_workers == 0:
     print('Multiprocessing disabled: (PW=0)') # just print, no need for a coloured echo_message
 else:
     use_multiprocessing = True
-    print('Multiprocessing enabled: (PW=16)') # just print, no need for a coloured echo_message
+    print('Multiprocessing enabled: (PW=' + str(num_pool_workers) + ')') # just print, no need for a coloured echo_message
 
 graphics_input = os.path.join(currentdir, 'src', 'graphics', 'ships')
 graphics_output_path = os.path.join(unsinkable_sam.generated_files_path, 'graphics')
