@@ -7,6 +7,8 @@ FUEL_RUN_COST = 10.0
 # mailbags are < 1t, multiply capacity appropriately
 mail_multiplier = 2
 
+grfid = r"\55\53\53\33"
+
 # cargo aging constant - OTTD default is 185 - dibble this up in favour of ships, as they are relatively slow
 CARGO_AGE_PERIOD = 370
 

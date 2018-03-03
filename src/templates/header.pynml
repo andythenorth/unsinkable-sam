@@ -1,6 +1,6 @@
 // define the newgrf
 grf {
-	grfid: "\55\53\53\33";
+	grfid: "${global_constants.grfid}";
 	name: string(STR_GRF_NAME);
 	desc: string(STR_GRF_DESCRIPTION);
 	version: ${makefile_args.repo_revision};
