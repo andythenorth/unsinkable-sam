@@ -1,3 +1,33 @@
 Changelog
 =========
 
+Alpha 1
+-------
+
+*Ships*
+
+- Mini Fast-loading Passenger Ship
+- Large Freighter
+- Large Piece Goods Carrier
+- Small Flat Deck Barge
+- Large Flat Deck Barge
+- Small Bulk Barge
+- Large Bulk Barge
+- Small Tanker
+- Large Tanker
+- Large Livestock Carrier
+- Large Edibles Tanker
+- Large Refrigerated Ship
+- Large Fruit & Vegetables Carrier
+
+*Known Issues in Alpha 1*
+
+- missing cargo graphics for some ships
+- smoke position is wrong for Mini Fast-loading Passenger Ship
+- intro dates are wrong
+- running and buy costs are wrong
+- ship lifetime is (probably) wrong
+- 'Type:' info in buy menu is empty
+
+Fin
+---
