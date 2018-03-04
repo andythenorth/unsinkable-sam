@@ -1,11 +1,8 @@
-from polar_fox import base_refits_by_class, cargo_labels, disallowed_refits_by_label, chameleon_cache_dir, generated_files_dir, graphics_path, max_game_date
+from polar_fox import base_refits_by_class, cargo_labels, disallowed_refits_by_label, chameleon_cache_dir, generated_files_dir, graphics_path, mail_multiplier, max_game_date
 
 # cost constants
 FIXED_RUN_COST = 500.0
 FUEL_RUN_COST = 10.0
-
-# mailbags are < 1t, multiply capacity appropriately
-mail_multiplier = 2
 
 grfid = r"\55\53\53\33"
 
