@@ -3,7 +3,7 @@ from ship import Trawler
 
 ship = Trawler(id = 'trawler_mini',
             numeric_id = 12,
-            title = 'Mini [Trawler]',
+            title = '[Trawler]',
             hull = 'TempMini',
             buy_cost = 28,
             fixed_run_cost_factor = 3.5,

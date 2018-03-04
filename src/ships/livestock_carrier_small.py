@@ -3,7 +3,7 @@ from ship import LivestockCarrier
 
 ship = LivestockCarrier(id = 'livestock_carrier_small',
                     numeric_id = 20,
-                    title = 'Small [Livestock Carrier]',
+                    title = '[Livestock Carrier]',
                     hull = 'ShipHouseRearSmall',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,

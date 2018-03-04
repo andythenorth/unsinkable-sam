@@ -3,7 +3,7 @@ from ship import Tanker
 
 ship = Tanker(id = 'tanker_large',
             numeric_id = 2,
-            title = 'Large [Tanker]',
+            title = '[Tanker]',
             hull = 'ShipHouseRearLarge',
             buy_cost = 64,
             fixed_run_cost_factor = 12.0,

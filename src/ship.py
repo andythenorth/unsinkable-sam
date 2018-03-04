@@ -190,14 +190,17 @@ class Ship(object):
         type_suffix = self.title.split('[')[1].split(']')[0]
         type_suffix = type_suffix.upper()
         type_suffix = '_'.join(type_suffix.split(' '))
-        return 'STR_NAME_SUFFIX_' + type_suffix
+        return 'STR_NAME_' + type_suffix
+
+    def get_str_size_suffix(self):
+        return 'STR_HULL_SIZE_' + self.hull.size_class.upper()
 
     def get_str_type_info(self):
         # makes a string id for nml
         return 'STR_' + self.str_type_info
 
     def get_name(self):
-        return "string(STR_NAME_" + self.id +", string(" + self.get_str_name_suffix() + "))"
+        return "string(STR_NAME_" + self.id +", string(" + self.get_str_name_suffix() + "), string(" + self.get_str_size_suffix() + "))"
 
     def get_buy_menu_string(self):
         buy_menu_template = Template(

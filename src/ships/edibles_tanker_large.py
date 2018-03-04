@@ -3,7 +3,7 @@ from ship import EdiblesTanker
 
 ship = EdiblesTanker(id = 'edibles_tanker_large',
                     numeric_id = 18,
-                    title = 'Large [Edibles Tanker]',
+                    title = '[Edibles Tanker]',
                     hull = 'ShipHouseRearLarge',
                     buy_cost = 64,
                     fixed_run_cost_factor = 12.0,

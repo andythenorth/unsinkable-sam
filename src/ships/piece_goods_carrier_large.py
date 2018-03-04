@@ -3,7 +3,7 @@ from ship import PieceGoodsCarrier
 
 ship = PieceGoodsCarrier(id = 'piece_goods_carrier_large',
                     numeric_id = 8,
-                    title = 'Large [Piece Goods Carrier]',
+                    title = '[Piece Goods Carrier]',
                     hull = 'ShipHouseForwardLarge',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,

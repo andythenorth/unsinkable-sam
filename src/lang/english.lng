@@ -16,28 +16,32 @@ STR_PARAM_ROSTER                                                :Roster
 STR_PARAM_ROSTER_DESC                                           :Choose which set of ships to use.
 STR_PARAM_ROSTER_OPTION_0                                       :This Sceptered Isle
 
-STR_NAME_SUFFIX_BULK_BARGE                                      :Bulk Barge
-STR_NAME_SUFFIX_BULK_CARRIER                                    :Bulk Carrier
-STR_NAME_SUFFIX_CONTAINER_FEEDER                                :Container Feeder
-STR_NAME_SUFFIX_EDIBLES_TANKER                                  :Edibles Tanker
-STR_NAME_SUFFIX_FAST_FERRY                                      :Fast Ferry
-STR_NAME_SUFFIX_FERRY                                           :Ferry
-STR_NAME_SUFFIX_FLATDECK_BARGE                                  :Flat Deck Barge
-STR_NAME_SUFFIX_FREIGHTER                                       :Freighter
-STR_NAME_SUFFIX_FRUIT_VEG_CARRIER                               :Fruit & Vegetables Carrier
-STR_NAME_SUFFIX_HOVERCRAFT                                      :Hovercraft
-STR_NAME_SUFFIX_HYDROFOIL                                       :Hydrofoil
-STR_NAME_SUFFIX_LIVESTOCK_CARRIER                               :Livestock Carrier
-STR_NAME_SUFFIX_LOG_TUG                                         :Log Tug
-STR_NAME_SUFFIX_MAIL_SHIP                                       :Mail Ship
-STR_NAME_SUFFIX_PAX_FAST_LOADING                                :Fast-loading Passenger Ship
-STR_NAME_SUFFIX_PAX_LUXURY                                      :Luxury Passenger Ship
-STR_NAME_SUFFIX_PIECE_GOODS_CARRIER                             :Piece Goods Carrier
-STR_NAME_SUFFIX_REEFER                                          :Refrigerated Ship
-STR_NAME_SUFFIX_STEAMER                                         :Steamer
-STR_NAME_SUFFIX_TANKER                                          :Tanker
-STR_NAME_SUFFIX_TRAWLER                                         :Trawler
+STR_NAME_BULK_BARGE                                             :Bulk Barge
+STR_NAME_BULK_CARRIER                                           :Bulk Carrier
+STR_NAME_CONTAINER_FEEDER                                       :Container Feeder
+STR_NAME_EDIBLES_TANKER                                         :Edibles Tanker
+STR_NAME_FAST_FERRY                                             :Fast Ferry
+STR_NAME_FERRY                                                  :Ferry
+STR_NAME_FLATDECK_BARGE                                         :Flat Deck Barge
+STR_NAME_FREIGHTER                                              :Freighter
+STR_NAME_FRUIT_VEG_CARRIER                                      :Fruit & Vegetables Carrier
+STR_NAME_HOVERCRAFT                                             :Hovercraft
+STR_NAME_HYDROFOIL                                              :Hydrofoil
+STR_NAME_LIVESTOCK_CARRIER                                      :Livestock Carrier
+STR_NAME_LOG_TUG                                                :Log Tug
+STR_NAME_MAIL_SHIP                                              :Mail Ship
+STR_NAME_PAX_FAST_LOADING                                       :Fast-loading Passenger Ship
+STR_NAME_PAX_LUXURY                                             :Luxury Passenger Ship
+STR_NAME_PIECE_GOODS_CARRIER                                    :Piece Goods Carrier
+STR_NAME_REEFER                                                 :Refrigerated Ship
+STR_NAME_STEAMER                                                :Steamer
+STR_NAME_TANKER                                                 :Tanker
+STR_NAME_TRAWLER                                                :Trawler
 
+STR_HULL_SIZE_LARGE                                             :Large
+STR_HULL_SIZE_MICRO                                             :Micro
+STR_HULL_SIZE_MINI                                              :Mini
+STR_HULL_SIZE_SMALL                                             :Small
 
 STR_BUY_MENU_TEXT                                               :{}Type: {GOLD}{STRING}{}{STRING}
 STR_BUY_MENU_REFIT_CAPACITIES_PACKET                            :{}{BLACK}Capacity when refitted: {GOLD}{COMMA} bags of mail or {COMMA}t of express freight

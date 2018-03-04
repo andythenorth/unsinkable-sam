@@ -3,7 +3,7 @@ from ship import Reefer
 
 ship = Reefer(id = 'reefer_small',
             numeric_id = 14,
-            title = 'Small [Reefer]',
+            title = '[Reefer]',
             hull = 'RiverboatHouseRearSmall',
             buy_cost = 28,
             fixed_run_cost_factor = 3.5,
