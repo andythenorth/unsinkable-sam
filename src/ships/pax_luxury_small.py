@@ -4,7 +4,7 @@ from ship import PaxLuxuryShip
 ship = PaxLuxuryShip(id = 'pax_luxury_small',
                     numeric_id = 23,
                     title = 'Small [Pax Luxury]',
-                    hull = 'SmallShipHouseRear',
+                    hull = 'ShipHouseRearSmall',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,
                     fuel_run_cost_factor = 1.0,

@@ -29,7 +29,7 @@ class Hull(object):
         return self.hull_type + '_' + self.size_class + '_wake'
 
 
-class LargePushBargeHouseRear(Hull):
+class PushBargeHouseRearLarge(Hull):
     def __init__(self):
         self.size_class = 'large'
         self.hull_type = 'push_barge'
@@ -38,7 +38,7 @@ class LargePushBargeHouseRear(Hull):
         self.effects_positions = [(13, 2, 16), (13, -2, 16)]
 
 
-class LargeRiverboatHouseRear(Hull):
+class RiverboatHouseRearLarge(Hull):
     def __init__(self):
         self.size_class = 'large'
         self.hull_type = 'riverboat'
@@ -47,7 +47,7 @@ class LargeRiverboatHouseRear(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
-class LargeShipHouseRear(Hull):
+class ShipHouseRearLarge(Hull):
     def __init__(self):
         self.size_class = 'large'
         self.hull_type = 'ship'
@@ -56,7 +56,7 @@ class LargeShipHouseRear(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
-class LargeShipHouseForward(Hull):
+class ShipHouseForwardLarge(Hull):
     def __init__(self):
         self.size_class = 'large'
         self.hull_type = 'ship'
@@ -65,7 +65,7 @@ class LargeShipHouseForward(Hull):
         self.effects_positions = [(14, 2, 20), (14, -2, 20)]
 
 
-class SmallRiverboatHouseRear(Hull):
+class RiverboatHouseRearSmall(Hull):
     def __init__(self):
         self.size_class = 'small'
         self.hull_type = 'riverboat'
@@ -74,7 +74,7 @@ class SmallRiverboatHouseRear(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
-class SmallBargeHouseRear(Hull):
+class BargeHouseRearSmall(Hull):
     def __init__(self):
         self.size_class = 'small'
         self.hull_type = 'barge'
@@ -83,7 +83,7 @@ class SmallBargeHouseRear(Hull):
         self.effects_positions = [(10, 0, 16)]
 
 
-class SmallShipHouseRear(Hull):
+class ShipHouseRearSmall(Hull):
     def __init__(self):
         self.size_class = 'small'
         self.hull_type = 'ship'
@@ -118,13 +118,13 @@ class TempMicro(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
-registered_hulls = {'LargePushBargeHouseRear': LargePushBargeHouseRear(),
-                    'LargeRiverboatHouseRear': LargeRiverboatHouseRear(),
-                    'LargeShipHouseForward': LargeShipHouseForward(),
-                    'LargeShipHouseRear': LargeShipHouseRear(),
-                    'SmallBargeHouseRear': SmallBargeHouseRear(),
-                    'SmallRiverboatHouseRear': SmallRiverboatHouseRear(),
-                    'SmallShipHouseRear': SmallShipHouseRear(),
+registered_hulls = {'PushBargeHouseRearLarge': PushBargeHouseRearLarge(),
+                    'RiverboatHouseRearLarge': RiverboatHouseRearLarge(),
+                    'ShipHouseForwardLarge': ShipHouseForwardLarge(),
+                    'ShipHouseRearLarge': ShipHouseRearLarge(),
+                    'BargeHouseRearSmall': BargeHouseRearSmall(),
+                    'RiverboatHouseRearSmall': RiverboatHouseRearSmall(),
+                    'ShipHouseRearSmall': ShipHouseRearSmall(),
                     'TwoWayFerryMini': TwoWayFerryMini(),
                     'TempMini': TempMini(),
                     'TempMicro': TempMicro()}

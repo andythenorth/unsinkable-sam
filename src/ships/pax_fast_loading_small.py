@@ -4,7 +4,7 @@ from ship import PaxFastLoadingShip
 ship = PaxFastLoadingShip(id = 'pax_fast_loading_small',
                     numeric_id = 24,
                     title = 'Small [Pax Fast Loading]',
-                    hull = 'SmallShipHouseRear',
+                    hull = 'ShipHouseRearSmall',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,
                     fuel_run_cost_factor = 1.0,
