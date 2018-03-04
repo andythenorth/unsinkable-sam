@@ -22,6 +22,8 @@ if not os.path.exists(generated_files_path):
 # get args passed by makefile
 makefile_args = utils.get_makefile_args(sys)
 
+from hulls import registered_hulls
+
 from rosters import registered_rosters
 
 from rosters import default
@@ -47,4 +49,9 @@ def get_ships_in_buy_menu_order():
         utils.echo_message("Warning: ship " + id + " in buy_menu_sort_order, but not found in registered ships")
     for id in ship_id_defender.difference(buy_menu_defender):
         utils.echo_message("Warning: ship " + id + " in ships, but not in buy_menu_sort_order - won't show in game")
+    # rarely triggered guard against unused hulls being defined - just a tidy-minds issue
+    used_hulls = set([ship.hull for ship in ships])
+    for hull in registered_hulls.values():
+        if hull not in used_hulls:
+            utils.echo_message("Hull " + str(hull) + " is defined but unused")
     return ships

@@ -17,8 +17,8 @@ import utils
 from graphics_processor.gestalt_graphics import GestaltGraphics, GestaltGraphicsVisibleCargo, GestaltGraphicsLiveryOnly
 import graphics_processor.graphics_constants as graphics_constants
 
-from rosters import registered_rosters
 from hulls import registered_hulls
+from rosters import registered_rosters
 
 class Ship(object):
     """Base class for all types of ships"""
