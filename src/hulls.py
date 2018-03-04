@@ -47,15 +47,6 @@ class PushBargeHouseRearLarge(Hull):
         self.effects_positions = [(13, 2, 16), (13, -2, 16)]
 
 
-class RiverboatHouseRearLarge(Hull):
-    def __init__(self):
-        self.size_class = 'large'
-        self.hull_type = 'riverboat'
-        self.house_position = 'rear'
-        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
-        self.effects_positions = [(11, 0, 24)]
-
-
 class RiverboatHouseRearSmall(Hull):
     def __init__(self):
         self.size_class = 'small'
@@ -119,7 +110,6 @@ class TwoWayFerryMini(Hull):
 
 
 registered_hulls = {'PushBargeHouseRearLarge': PushBargeHouseRearLarge(),
-                    'RiverboatHouseRearLarge': RiverboatHouseRearLarge(),
                     'ShipHouseForwardLarge': ShipHouseForwardLarge(),
                     'ShipHouseRearLarge': ShipHouseRearLarge(),
                     'BargeHouseRearSmall': BargeHouseRearSmall(),
