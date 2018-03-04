@@ -18,7 +18,7 @@ class Hull(object):
 
     @property
     def spritesheet_name(self):
-        return self.size_class +  '_' + self.hull_type + '_house_' + self.house_position
+        return self.hull_type + '_house_' + self.house_position +  '_' + self.size_class
 
     @property
     def mask_name(self):
