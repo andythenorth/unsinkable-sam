@@ -232,7 +232,7 @@ class Ship(object):
         # currently contains no provision for custom widths
         # but if needed, add _buy_menu_width from constructor kwargs, and check existence of that here
         # standard sizes are multiples of 32, except first size, where 32 is just too small to make a nice sprite
-        widths = {'micro': 40, 'mini': 64, 'small': 96, 'large': 128}
+        widths = {'micro': 44, 'mini': 64, 'small': 96, 'large': 128}
         return widths[self.hull.size_class]
 
     @property
