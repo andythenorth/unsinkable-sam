@@ -32,7 +32,7 @@ class Hull(object):
 class BargeHouseRearMicro(Hull):
     def __init__(self):
         self.size_class = 'micro'
-        self.hull_type = 'ship'
+        self.hull_type = 'barge'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
         self.effects_positions = [(11, 0, 24)]
