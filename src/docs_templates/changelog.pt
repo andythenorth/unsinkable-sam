@@ -1,6 +1,26 @@
 Changelog
 =========
 
+Alpha 2
+-------
+
+*Changes*
+
+- add mini Freighter  (100t capacity)
+- tweaks to sprites for large Freighter
+- tweaks to sprites for bulk barges, including cargo sprites
+- ship size class in name as suffix, not prefix
+
+*Known Issues in Alpha 2*
+
+- missing cargo graphics for some ships
+- smoke position is wrong for mini Fast-loading Passenger Ship
+- intro dates are wrong
+- running and buy costs are wrong
+- ship lifetime is (probably) wrong
+- 'Type:' info in buy menu is empty
+
+
 Alpha 1
 -------
 
