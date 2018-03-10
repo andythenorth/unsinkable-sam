@@ -110,6 +110,24 @@ class ShipHouseForwardSmall(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
+class TempMiniHouseForward(Hull):
+    def __init__(self):
+        self.size_class = 'mini'
+        self.hull_type = 'temp'
+        self.house_position = 'rear'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(6, 0, 12)]
+
+
+class TempSmallHouseForward(Hull):
+    def __init__(self):
+        self.size_class = 'small'
+        self.hull_type = 'temp'
+        self.house_position = 'rear'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(6, 0, 12)]
+
+
 class TwoWayFerryMini(Hull):
     def __init__(self):
         self.size_class = 'mini'
@@ -127,4 +145,6 @@ registered_hulls = {'BargeHouseRearMicro': BargeHouseRearMicro(),
                     'ShipHouseForwardSmall': ShipHouseForwardSmall(),
                     'ShipHouseRearLarge': ShipHouseRearLarge(),
                     'ShipHouseRearSmall': ShipHouseRearSmall(),
+                    'TempMiniHouseForward': TempMiniHouseForward(),
+                    'TempSmallHouseForward': TempSmallHouseForward(),
                     'TwoWayFerryMini': TwoWayFerryMini()}
