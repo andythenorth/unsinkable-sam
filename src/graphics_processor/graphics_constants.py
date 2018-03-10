@@ -43,6 +43,9 @@ livestock_carrier_livery_recolour_maps = (# see note on DFLT above
 # Piece goods carrier, only DFLT is used as of Jan 2018
 piece_goods_carrier_livery_recolour_maps = (# see note on DFLT above
                                       ("DFLT", hull_recolour_CC1),)
+# Trawler, only DFLT is used as of Jan 2018
+trawler_livery_recolour_maps = (# see note on DFLT above
+                                      ("DFLT", hull_recolour_CC1),)
 # Refrigerated ships, only DFLT is used as of Jan 2018
 # !! possibly this is the same as edibles_tanker map, and could be consolidated ??
 reefer_livery_recolour_maps = (# see note on DFLT above

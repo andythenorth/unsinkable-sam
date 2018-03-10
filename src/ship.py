@@ -507,6 +507,8 @@ class Trawler(Ship):
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
         self.default_cargo = 'FISH'
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.trawler_livery_recolour_maps)
 
 
 class UniversalFreighter(Ship):
