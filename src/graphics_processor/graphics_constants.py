@@ -40,13 +40,12 @@ fruit_veg_carrier_livery_recolour_maps = (# see note on DFLT above
 # Livestock carrier, only DFLT is used as of Jan 2018
 livestock_carrier_livery_recolour_maps = (# see note on DFLT above
                                       ("DFLT", hull_recolour_CC2),)
+# Pax Luxury, only DFLT is used as of Jan 2018
+pax_luxury_livery_recolour_maps = (# see note on DFLT above
+                                      ("DFLT", hull_recolour_CC1),)
 # Piece goods carrier, only DFLT is used as of Jan 2018
 piece_goods_carrier_livery_recolour_maps = (# see note on DFLT above
                                       ("DFLT", hull_recolour_CC1),)
-# Trawler, only DFLT is used as of Jan 2018
-trawler_livery_recolour_maps = (# see note on DFLT above
-                                      ("DFLT", {136: 146, 137: 147, 138: 148, 139: 149,
-                                                140: 150, 141: 151, 142: 152, 143: 153}),)
 # Refrigerated ships, only DFLT is used as of Jan 2018
 # !! possibly this is the same as edibles_tanker map, and could be consolidated ??
 reefer_livery_recolour_maps = (# see note on DFLT above
@@ -73,6 +72,11 @@ tanker_livery_recolour_maps = (("OIL_", {136: 1, 137: 2, 138: 3, 139: 4,
                                          140: 44, 141: 45, 142: 46, 143: 47}),
                                ("PETR", {136: 16, 137: 17, 138: 18, 139: 19,
                                          140: 20, 141: 21, 142: 22, 143: 23}))
+# Trawler, only DFLT is used as of Jan 2018
+trawler_livery_recolour_maps = (# see note on DFLT above
+                                      ("DFLT", {136: 146, 137: 147, 138: 148, 139: 149,
+                                                140: 150, 141: 151, 142: 152, 143: 153}),)
+
 # --- Cargo Maps ---- #
 # label order matters, so tuples are used not dicts
 # could probably have used orderedict or named tuple, but...blah

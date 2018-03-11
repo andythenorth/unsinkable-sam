@@ -446,6 +446,8 @@ class PaxLuxuryShip(Ship):
         self.label_refits_disallowed = []
         self.default_cargo = 'PASS'
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.pax_luxury_livery_recolour_maps)
 
 
 class PieceGoodsCarrier(Ship):

@@ -110,20 +110,38 @@ class ShipHouseForwardSmall(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
-class TempMiniHouseForward(Hull):
+class TempLargeHouseNone(Hull):
     def __init__(self):
-        self.size_class = 'mini'
+        self.size_class = 'large'
         self.hull_type = 'temp'
-        self.house_position = 'rear'
+        self.house_position = 'none'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
         self.effects_positions = [(6, 0, 12)]
 
 
-class TempSmallHouseForward(Hull):
+class TempMicroHouseNone(Hull):
+    def __init__(self):
+        self.size_class = 'micro'
+        self.hull_type = 'temp'
+        self.house_position = 'none'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(6, 0, 12)]
+
+
+class TempMiniHouseNone(Hull):
+    def __init__(self):
+        self.size_class = 'mini'
+        self.hull_type = 'temp'
+        self.house_position = 'none'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(6, 0, 12)]
+
+
+class TempSmallHouseNone(Hull):
     def __init__(self):
         self.size_class = 'small'
         self.hull_type = 'temp'
-        self.house_position = 'rear'
+        self.house_position = 'none'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
         self.effects_positions = [(6, 0, 12)]
 
@@ -145,6 +163,8 @@ registered_hulls = {'BargeHouseRearMicro': BargeHouseRearMicro(),
                     'ShipHouseForwardSmall': ShipHouseForwardSmall(),
                     'ShipHouseRearLarge': ShipHouseRearLarge(),
                     'ShipHouseRearSmall': ShipHouseRearSmall(),
-                    'TempMiniHouseForward': TempMiniHouseForward(),
-                    'TempSmallHouseForward': TempSmallHouseForward(),
+                    'TempLargeHouseNone': TempLargeHouseNone(),
+                    'TempMicroHouseNone': TempMicroHouseNone(),
+                    'TempMiniHouseNone': TempMiniHouseNone(),
+                    'TempSmallHouseNone': TempSmallHouseNone(),
                     'TwoWayFerryMini': TwoWayFerryMini()}
