@@ -110,7 +110,7 @@ class ShipHouseForwardSmall(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
-class TempLargeHouseNone(Hull):
+class TempHouseNoneLarge(Hull):
     def __init__(self):
         self.size_class = 'large'
         self.hull_type = 'temp'
@@ -119,7 +119,7 @@ class TempLargeHouseNone(Hull):
         self.effects_positions = [(6, 0, 12)]
 
 
-class TempMicroHouseNone(Hull):
+class TempHouseNoneMicro(Hull):
     def __init__(self):
         self.size_class = 'micro'
         self.hull_type = 'temp'
@@ -128,7 +128,7 @@ class TempMicroHouseNone(Hull):
         self.effects_positions = [(6, 0, 12)]
 
 
-class TempMiniHouseNone(Hull):
+class TempHouseNoneMini(Hull):
     def __init__(self):
         self.size_class = 'mini'
         self.hull_type = 'temp'
@@ -137,7 +137,7 @@ class TempMiniHouseNone(Hull):
         self.effects_positions = [(6, 0, 12)]
 
 
-class TempSmallHouseNone(Hull):
+class TempHouseNoneSmall(Hull):
     def __init__(self):
         self.size_class = 'small'
         self.hull_type = 'temp'
@@ -163,8 +163,8 @@ registered_hulls = {'BargeHouseRearMicro': BargeHouseRearMicro(),
                     'ShipHouseForwardSmall': ShipHouseForwardSmall(),
                     'ShipHouseRearLarge': ShipHouseRearLarge(),
                     'ShipHouseRearSmall': ShipHouseRearSmall(),
-                    'TempLargeHouseNone': TempLargeHouseNone(),
-                    'TempMicroHouseNone': TempMicroHouseNone(),
-                    'TempMiniHouseNone': TempMiniHouseNone(),
-                    'TempSmallHouseNone': TempSmallHouseNone(),
+                    'TempHouseNoneLarge': TempHouseNoneLarge(),
+                    'TempHouseNoneMicro': TempHouseNoneMicro(),
+                    'TempHouseNoneMini': TempHouseNoneMini(),
+                    'TempHouseNoneSmall': TempHouseNoneSmall(),
                     'TwoWayFerryMini': TwoWayFerryMini()}

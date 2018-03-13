@@ -418,6 +418,8 @@ class MailShip(Ship):
         self.label_refits_disallowed = ['TOUR']
         self.capacity_cargo_holds = kwargs.get('capacity_cargo_holds', 0)
         self.default_cargo = 'MAIL'
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.mail_livery_recolour_maps)
 
 
 class PaxFastLoadingShip(Ship):
