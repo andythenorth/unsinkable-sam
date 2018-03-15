@@ -536,25 +536,3 @@ class UniversalFreighter(Ship):
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True,
                                                             piece=True,
                                                             cargo_length=3) # !! cargo_length is temp hax to make graphics compile work
-
-
-class UtilityVessel(Ship):
-    """
-    Refits everything.
-    """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
-        self.template = 'vehicle_default.pynml'
-        self.class_refit_groups = ['pax_mail','all_freight']
-        self.label_refits_allowed = [] # no specific labels needed, GCV refits all cargo
-        self.label_refits_disallowed = []
-        self.default_cargo = 'PASS'
-
-    def get_buy_menu_string(self):
-        # set buy menu text, with various variations
-        buy_menu_template = Template(
-            "string(STR_BUY_MENU_TEXT, string(${str_type_info}), string(STR_BUY_MENU_REFIT_CAPACITIES_UTILITY,${capacity_mail},${capacity_cargo_holds}))"
-        )
-        return buy_menu_template.substitute(str_type_info=self.get_str_type_info(), capacity_pax=self.capacity_pax,
-                                            capacity_mail=self.capacity_mail, capacity_cargo_holds=self.capacity_cargo_holds)
-
