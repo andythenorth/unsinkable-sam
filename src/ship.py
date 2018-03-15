@@ -27,10 +27,9 @@ class Ship(object):
         self.title = title
         self.numeric_id = numeric_id
         self.subtype = subtype
-        # !! temp, refactor this, needs to be handled in subclasses
-        hull_mapping = {'A':'Micro', 'B':'Mini', 'C':'Small', 'D':'Large'}
         # base hull (defines length, wake graphics, hull graphics if composited etc)
-        self.hull = registered_hulls.get(hull + hull_mapping[self.subtype]) # required, so no default
+        self.hull = registered_hulls[hull + self.hull_mapping[self.subtype]]
+        print(self.id, self.hull)
         # create a structure for cargo /livery graphics options
         self.graphics_processor = None # temp
         self.gestalt_graphics = GestaltGraphics()
@@ -91,6 +90,11 @@ class Ship(object):
     @property
     def num_unique_spritesheet_suffixes(self):
         return len(set([i.spritesheet_suffix for i in self.model_variants]))
+
+    @property
+    def hull_mapping(self):
+        # default mapping of subtypes to hull lengths; over-ride in subclasses as needed
+        return {'A':'44px', 'B':'64px', 'C':'96px', 'D':'128px'}
 
     @property
     def speed(self):
@@ -427,6 +431,11 @@ class PaxFastLoadingShip(Ship):
         self.label_refits_disallowed = []
         self.default_cargo = 'PASS'
         self.loading_speed_multiplier = 3
+
+    @property
+    def hull_mapping(self):
+        # default mapping of subtypes to hull lengths; over-ride in subclasses as needed
+        return {'A':'44px', 'B':'44px', 'C':'64px', 'D':'96px'}
 
 
 class PaxLuxuryShip(Ship):

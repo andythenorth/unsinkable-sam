@@ -3,7 +3,7 @@
 
 class Hull(object):
     # base for rudimentary classes to hold hull properties for a ship
-    # there's only instance of each, so I just used class properties...boilerplate reduced to minimum eh :)
+    # there's only instance of each, so I just used class properties...boilerplate reduced to 64pxmum eh :)
     house_position = None # optional, only used when ship is combined from parts by graphics_processor
     # length
     # hull spritesheet file
@@ -28,7 +28,7 @@ class Hull(object):
         return self.hull_type + '_wake_' + self.hull_length
 
 
-class BargeHouseRearMicro(Hull):
+class BargeHouseRear44px(Hull):
     def __init__(self):
         self.hull_length = '44px'
         self.hull_type = 'barge'
@@ -37,7 +37,7 @@ class BargeHouseRearMicro(Hull):
         self.effects_positions = [(6, 0, 14)]
 
 
-class BargeHouseRearMini(Hull):
+class BargeHouseRear64px(Hull):
     def __init__(self):
         self.hull_length = '64px'
         self.hull_type = 'barge'
@@ -46,7 +46,7 @@ class BargeHouseRearMini(Hull):
         self.effects_positions = [(6, 0, 12)]
 
 
-class BargeHouseRearSmall(Hull):
+class BargeHouseRear96px(Hull):
     def __init__(self):
         self.hull_length = '96px'
         self.hull_type = 'barge'
@@ -55,7 +55,7 @@ class BargeHouseRearSmall(Hull):
         self.effects_positions = [(10, 0, 16)]
 
 
-class PushBargeHouseRearLarge(Hull):
+class PushBargeHouseRear128px(Hull):
     def __init__(self):
         self.hull_length = '128px'
         self.hull_type = 'push_barge'
@@ -64,7 +64,7 @@ class PushBargeHouseRearLarge(Hull):
         self.effects_positions = [(13, 2, 16), (13, -2, 16)]
 
 
-class RiverboatHouseRearSmall(Hull):
+class RiverboatHouseRear96px(Hull):
     def __init__(self):
         self.hull_length = '96px'
         self.hull_type = 'riverboat'
@@ -73,7 +73,7 @@ class RiverboatHouseRearSmall(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
-class ShipHouseForwardLarge(Hull):
+class ShipHouseForward128px(Hull):
     def __init__(self):
         self.hull_length = '128px'
         self.hull_type = 'ship'
@@ -82,7 +82,7 @@ class ShipHouseForwardLarge(Hull):
         self.effects_positions = [(14, 2, 20), (14, -2, 20)]
 
 
-class ShipHouseRearLarge(Hull):
+class ShipHouseRear128px(Hull):
     def __init__(self):
         self.hull_length = '128px'
         self.hull_type = 'ship'
@@ -91,7 +91,7 @@ class ShipHouseRearLarge(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
-class ShipHouseRearSmall(Hull):
+class ShipHouseRear96px(Hull):
     def __init__(self):
         self.hull_length = '96px'
         self.hull_type = 'ship'
@@ -100,7 +100,7 @@ class ShipHouseRearSmall(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
-class ShipHouseForwardSmall(Hull):
+class ShipHouseForward96px(Hull):
     def __init__(self):
         self.hull_length = '96px'
         self.hull_type = 'ship'
@@ -109,7 +109,7 @@ class ShipHouseForwardSmall(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
-class TempHouseNoneLarge(Hull):
+class TempHouseNone128px(Hull):
     def __init__(self):
         self.hull_length = '128px'
         self.hull_type = 'temp'
@@ -118,7 +118,7 @@ class TempHouseNoneLarge(Hull):
         self.effects_positions = [(6, 0, 12)]
 
 
-class TempHouseNoneMicro(Hull):
+class TempHouseNone44px(Hull):
     def __init__(self):
         self.hull_length = '44px'
         self.hull_type = 'temp'
@@ -127,7 +127,7 @@ class TempHouseNoneMicro(Hull):
         self.effects_positions = [(6, 0, 12)]
 
 
-class TempHouseNoneMini(Hull):
+class TempHouseNone64px(Hull):
     def __init__(self):
         self.hull_length = '64px'
         self.hull_type = 'temp'
@@ -136,7 +136,7 @@ class TempHouseNoneMini(Hull):
         self.effects_positions = [(6, 0, 12)]
 
 
-class TempHouseNoneSmall(Hull):
+class TempHouseNone96px(Hull):
     def __init__(self):
         self.hull_length = '96px'
         self.hull_type = 'temp'
@@ -145,7 +145,7 @@ class TempHouseNoneSmall(Hull):
         self.effects_positions = [(6, 0, 12)]
 
 
-class TwoWayFerryMini(Hull):
+class TwoWayFerry64px(Hull):
     def __init__(self):
         self.hull_length = '64px'
         self.hull_type = 'two_way_ferry'
@@ -153,17 +153,17 @@ class TwoWayFerryMini(Hull):
         self.effects_positions = [(11, 0, 24)]
 
 
-registered_hulls = {'BargeHouseRearMicro': BargeHouseRearMicro(),
-                    'BargeHouseRearMini': BargeHouseRearMini(),
-                    'BargeHouseRearSmall': BargeHouseRearSmall(),
-                    'PushBargeHouseRearLarge': PushBargeHouseRearLarge(),
-                    'RiverboatHouseRearSmall': RiverboatHouseRearSmall(),
-                    'ShipHouseForwardLarge': ShipHouseForwardLarge(),
-                    'ShipHouseForwardSmall': ShipHouseForwardSmall(),
-                    'ShipHouseRearLarge': ShipHouseRearLarge(),
-                    'ShipHouseRearSmall': ShipHouseRearSmall(),
-                    'TempHouseNoneLarge': TempHouseNoneLarge(),
-                    'TempHouseNoneMicro': TempHouseNoneMicro(),
-                    'TempHouseNoneMini': TempHouseNoneMini(),
-                    'TempHouseNoneSmall': TempHouseNoneSmall(),
-                    'TwoWayFerryMini': TwoWayFerryMini()}
+registered_hulls = {'BargeHouseRear44px': BargeHouseRear44px(),
+                    'BargeHouseRear64px': BargeHouseRear64px(),
+                    'BargeHouseRear96px': BargeHouseRear96px(),
+                    'RiverboatHouseRear96px': RiverboatHouseRear96px(),
+                    'PushBargeHouseRear128px': PushBargeHouseRear128px(),
+                    'ShipHouseForward96px': ShipHouseForward96px(),
+                    'ShipHouseForward128px': ShipHouseForward128px(),
+                    'ShipHouseRear96px': ShipHouseRear96px(),
+                    'ShipHouseRear128px': ShipHouseRear128px(),
+                    'TempHouseNone44px': TempHouseNone44px(),
+                    'TempHouseNone64px': TempHouseNone64px(),
+                    'TempHouseNone96px': TempHouseNone96px(),
+                    'TempHouseNone128px': TempHouseNone128px(),
+                    'TwoWayFerry64px': TwoWayFerry64px()}
