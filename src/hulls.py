@@ -20,21 +20,28 @@ class Hull(object):
         print("__init__")
 
     @property
+    def size_class(self):
+        # !! only whilst refactoring
+        for k, v in self.temp_size_mapping.items():
+            if v == self.hull_length:
+                return k
+
+    @property
     def spritesheet_name(self):
-        return self.hull_type + '_house_' + self.house_position +  '_' + self.temp_size_mapping[self.size_class]
+        return self.hull_type + '_house_' + self.house_position +  '_' + self.hull_length
 
     @property
     def mask_name(self):
-        return self.hull_type  + '_waterline_mask_' + self.temp_size_mapping[self.size_class]
+        return self.hull_type  + '_waterline_mask_' + self.hull_length
 
     @property
     def wake_name(self):
-        return self.hull_type + '_wake_' + self.temp_size_mapping[self.size_class]
+        return self.hull_type + '_wake_' + self.hull_length
 
 
 class BargeHouseRearMicro(Hull):
     def __init__(self):
-        self.size_class = 'micro'
+        self.hull_length = '44px'
         self.hull_type = 'barge'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
@@ -43,7 +50,7 @@ class BargeHouseRearMicro(Hull):
 
 class BargeHouseRearMini(Hull):
     def __init__(self):
-        self.size_class = 'mini'
+        self.hull_length = '64px'
         self.hull_type = 'barge'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
@@ -52,7 +59,7 @@ class BargeHouseRearMini(Hull):
 
 class BargeHouseRearSmall(Hull):
     def __init__(self):
-        self.size_class = 'small'
+        self.hull_length = '96px'
         self.hull_type = 'barge'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
@@ -61,7 +68,7 @@ class BargeHouseRearSmall(Hull):
 
 class PushBargeHouseRearLarge(Hull):
     def __init__(self):
-        self.size_class = 'large'
+        self.hull_length = '128px'
         self.hull_type = 'push_barge'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
@@ -70,7 +77,7 @@ class PushBargeHouseRearLarge(Hull):
 
 class RiverboatHouseRearSmall(Hull):
     def __init__(self):
-        self.size_class = 'small'
+        self.hull_length = '96px'
         self.hull_type = 'riverboat'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
@@ -79,7 +86,7 @@ class RiverboatHouseRearSmall(Hull):
 
 class ShipHouseForwardLarge(Hull):
     def __init__(self):
-        self.size_class = 'large'
+        self.hull_length = '128px'
         self.hull_type = 'ship'
         self.house_position = 'forward'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
@@ -88,7 +95,7 @@ class ShipHouseForwardLarge(Hull):
 
 class ShipHouseRearLarge(Hull):
     def __init__(self):
-        self.size_class = 'large'
+        self.hull_length = '128px'
         self.hull_type = 'ship'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 1), ('full_load', 3)]
@@ -97,7 +104,7 @@ class ShipHouseRearLarge(Hull):
 
 class ShipHouseRearSmall(Hull):
     def __init__(self):
-        self.size_class = 'small'
+        self.hull_length = '96px'
         self.hull_type = 'ship'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
@@ -106,7 +113,7 @@ class ShipHouseRearSmall(Hull):
 
 class ShipHouseForwardSmall(Hull):
     def __init__(self):
-        self.size_class = 'small'
+        self.hull_length = '96px'
         self.hull_type = 'ship'
         self.house_position = 'rear'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
@@ -115,7 +122,7 @@ class ShipHouseForwardSmall(Hull):
 
 class TempHouseNoneLarge(Hull):
     def __init__(self):
-        self.size_class = 'large'
+        self.hull_length = '128px'
         self.hull_type = 'temp'
         self.house_position = 'none'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
@@ -124,7 +131,7 @@ class TempHouseNoneLarge(Hull):
 
 class TempHouseNoneMicro(Hull):
     def __init__(self):
-        self.size_class = 'micro'
+        self.hull_length = '44px'
         self.hull_type = 'temp'
         self.house_position = 'none'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
@@ -133,7 +140,7 @@ class TempHouseNoneMicro(Hull):
 
 class TempHouseNoneMini(Hull):
     def __init__(self):
-        self.size_class = 'mini'
+        self.hull_length = '64px'
         self.hull_type = 'temp'
         self.house_position = 'none'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
@@ -142,7 +149,7 @@ class TempHouseNoneMini(Hull):
 
 class TempHouseNoneSmall(Hull):
     def __init__(self):
-        self.size_class = 'small'
+        self.hull_length = '96px'
         self.hull_type = 'temp'
         self.house_position = 'none'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
@@ -151,7 +158,7 @@ class TempHouseNoneSmall(Hull):
 
 class TwoWayFerryMini(Hull):
     def __init__(self):
-        self.size_class = 'mini'
+        self.hull_length = '64px'
         self.hull_type = 'two_way_ferry'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
         self.effects_positions = [(11, 0, 24)]

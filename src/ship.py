@@ -256,7 +256,7 @@ class Ship(object):
     def offsets(self):
         # currently contains no provision for custom offsets
         # but if needed, add _offsets prop from constructor kwargs, and check existence of that here (otherwise returning defaults)
-        return global_constants.vehicle_offsets[self.hull.temp_size_mapping[self.hull.size_class]]
+        return global_constants.vehicle_offsets[self.hull.hull_length]
 
     def get_nml_expression_for_cargo_variant_random_switch(self, variation_num, cargo_id=None):
         switch_id = self.id + "_switch_graphics_" + str(variation_num) + ('_' + str(cargo_id) if cargo_id is not None else '')
