@@ -435,7 +435,7 @@ class PaxFastLoadingShip(Ship):
     @property
     def hull_mapping(self):
         # default mapping of subtypes to hull lengths; over-ride in subclasses as needed
-        return {'A':'44px', 'B':'44px', 'C':'64px', 'D':'96px'}
+        return {'A':'32px', 'B':'44px', 'C':'64px', 'D':'96px'}
 
 
 class PaxLuxuryShip(Ship):
