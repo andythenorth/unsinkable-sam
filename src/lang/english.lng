@@ -38,10 +38,10 @@ STR_NAME_STEAMER                                                :Steamer
 STR_NAME_TANKER                                                 :Tanker
 STR_NAME_TRAWLER                                                :Trawler
 
-STR_HULL_SIZE_LARGE                                             :Large
-STR_HULL_SIZE_MICRO                                             :Micro
-STR_HULL_SIZE_MINI                                              :Mini
-STR_HULL_SIZE_SMALL                                             :Small
+STR_HULL_SIZE_A                                                 :Micro
+STR_HULL_SIZE_B                                                 :Mini
+STR_HULL_SIZE_C                                                 :Small
+STR_HULL_SIZE_D                                                 :Large
 
 STR_BUY_MENU_TEXT                                               :{}Type: {GOLD}{STRING}{}{STRING}
 STR_BUY_MENU_REFIT_CAPACITIES_PACKET                            :{}{BLACK}Capacity when refitted: {GOLD}{COMMA} bags of mail or {COMMA}t of express freight

@@ -150,17 +150,16 @@ class Ship(object):
 
     @property
     def default_capacity(self):
+        # !! refactoring - might need over-ridden in or moved to subclasses
         if self.default_cargo == 'PASS':
-            capacities = {'micro': 40, 'mini': 125, 'small': 300, 'large': 720}
+            capacities = {'A': 40, 'B': 125, 'C': 300, 'D': 720}
         elif self.default_cargo == 'MAIL':
             # these are the mail capacities for ships that have MAIL as default; freight capacity will be divided by global_constants.mail_multipler
-            capacities = {'micro': 40, 'mini': 120, 'small': 360} # no large mail ships, by design
+            capacities = {'A': 40, 'B': 120, 'C': 360} # no large mail ships, by design
         else:
             # assume freight
-            capacities = {'micro': 40, 'mini': 100, 'small': 240, 'large': 576}
-        # currently contains no provision for custom widths
-        # but if needed, add _capacity_pax from constructor kwargs, and check existence of that here
-        return capacities[self.hull.size_class]
+            capacities = {'A': 40, 'B': 100, 'C': 240, 'D': 576}
+        return capacities[self.subtype]
 
     @property
     def refittable_classes(self):
@@ -196,7 +195,7 @@ class Ship(object):
         return 'STR_NAME_' + type_suffix
 
     def get_str_size_suffix(self):
-        return 'STR_HULL_SIZE_' + self.hull.size_class.upper()
+        return 'STR_HULL_SIZE_' + self.subtype
 
     def get_str_type_info(self):
         # makes a string id for nml
@@ -235,16 +234,7 @@ class Ship(object):
         # currently contains no provision for custom widths
         # but if needed, add _buy_menu_width from constructor kwargs, and check existence of that here
         # standard sizes are multiples of 32, except first size, where 32 is just too small to make a nice sprite
-        widths = {'micro': 44, 'mini': 64, 'small': 96, 'large': 128}
-        return widths[self.hull.size_class]
-
-    @property
-    def buy_menu_bb_xy(self):
-        # !! deprecated, isn't needed when using rebuilt spritesheets/spriteset templates
-        # this is a bit janky as it was added when migrating to standard size_class stuff
-        # might need cleaning up in future, or eh, maybe not also
-        bb_y = 34 if self.hull.size_class == 'large' else 36
-        return [620, bb_y]
+        return int(self.hull.hull_length.split('px')[0])
 
     @property
     def buy_menu_bb_y_offset(self):
