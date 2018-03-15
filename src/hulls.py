@@ -29,7 +29,7 @@ class Hull(object):
 
     @property
     def wake_name(self):
-        return self.hull_type + '_' + self.size_class + '_wake'
+        return self.hull_type + '_wake_' + self.temp_size_mapping[self.size_class]
 
 
 class BargeHouseRearMicro(Hull):
