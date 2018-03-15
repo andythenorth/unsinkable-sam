@@ -4,7 +4,6 @@
 class Hull(object):
     # base for rudimentary classes to hold hull properties for a ship
     # there's only instance of each, so I just used class properties...boilerplate reduced to minimum eh :)
-    size_class = 'Define in subclass'
     house_position = None # optional, only used when ship is combined from parts by graphics_processor
     # length
     # hull spritesheet file
@@ -13,18 +12,8 @@ class Hull(object):
     # effects position (list of 3-tuples for x, y, z positions of effects)
     # fatter / thinner ships might need offset adjustments
 
-    # !! only whilst refactoring
-    temp_size_mapping = {'large':'128px', 'small':'96px', 'mini':'64px', 'micro':'44px'}
-
     def __init__(self):
         print("__init__")
-
-    @property
-    def size_class(self):
-        # !! only whilst refactoring
-        for k, v in self.temp_size_mapping.items():
-            if v == self.hull_length:
-                return k
 
     @property
     def spritesheet_name(self):
