@@ -4,6 +4,7 @@ from ship import FruitVegCarrier
 ship = FruitVegCarrier(id = 'fruit_veg_carrier_large',
                     numeric_id = 30,
                     title = '[Fruit Veg Carrier]',
+                    subtype = 'D',
                     hull = 'ShipHouseForwardLarge',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,

@@ -4,6 +4,7 @@ from ship import MailShip
 ship = MailShip(id = 'mail_ship_small',
                     numeric_id = 26,
                     title = '[Mail Ship]',
+                    subtype = 'C',
                     hull = 'TempHouseNoneSmall',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,

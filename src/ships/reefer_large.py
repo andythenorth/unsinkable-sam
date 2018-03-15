@@ -4,6 +4,7 @@ from ship import Reefer
 ship = Reefer(id = 'reefer_large',
                     numeric_id = 15,
                     title = '[Reefer]',
+                    subtype = 'D',
                     hull = 'ShipHouseForwardLarge',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,

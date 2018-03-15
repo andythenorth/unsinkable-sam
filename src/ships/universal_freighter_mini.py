@@ -4,6 +4,7 @@ from ship import UniversalFreighter
 ship = UniversalFreighter(id = 'universal_freighter_mini',
                     numeric_id = 5,
                     title = '[Freighter]',
+                    subtype = 'B',
                     hull = 'BargeHouseRearMini',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,

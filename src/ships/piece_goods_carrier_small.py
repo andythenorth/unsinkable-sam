@@ -4,6 +4,7 @@ from ship import PieceGoodsCarrier
 ship = PieceGoodsCarrier(id = 'piece_goods_carrier_small',
                     numeric_id = 7,
                     title = '[Piece Goods Carrier]',
+                    subtype = 'C',
                     hull = 'ShipHouseForwardSmall',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,

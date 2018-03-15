@@ -4,6 +4,7 @@ from ship import EdiblesTanker
 ship = EdiblesTanker(id = 'edibles_tanker_large',
                     numeric_id = 18,
                     title = '[Edibles Tanker]',
+                    subtype = 'D',
                     hull = 'ShipHouseRearLarge',
                     buy_cost = 64,
                     fixed_run_cost_factor = 12.0,

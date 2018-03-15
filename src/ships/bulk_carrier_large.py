@@ -4,6 +4,7 @@ from ship import BulkCarrier
 ship = BulkCarrier(id = 'bulk_carrier_large',
                     numeric_id = 9,
                     title = '[Bulk Barge]',
+                    subtype = 'D',
                     hull = 'PushBargeHouseRearLarge',
                     buy_cost = 28,
                     fixed_run_cost_factor = 3.5,
