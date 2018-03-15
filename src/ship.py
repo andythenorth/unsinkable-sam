@@ -27,8 +27,10 @@ class Ship(object):
         self.title = title
         self.numeric_id = numeric_id
         self.subtype = subtype
+        # !! temp, refactor this, needs to be handled in subclasses
+        hull_mapping = {'A':'Micro', 'B':'Mini', 'C':'Small', 'D':'Large'}
         # base hull (defines length, wake graphics, hull graphics if composited etc)
-        self.hull = registered_hulls.get(hull) # required, so no default
+        self.hull = registered_hulls.get(hull + hull_mapping[self.subtype]) # required, so no default
         # create a structure for cargo /livery graphics options
         self.graphics_processor = None # temp
         self.gestalt_graphics = GestaltGraphics()
@@ -254,7 +256,7 @@ class Ship(object):
     def offsets(self):
         # currently contains no provision for custom offsets
         # but if needed, add _offsets prop from constructor kwargs, and check existence of that here (otherwise returning defaults)
-        return global_constants.vehicle_offsets[self.hull.size_class]
+        return global_constants.vehicle_offsets[self.hull.temp_size_mapping[self.hull.size_class]]
 
     def get_nml_expression_for_cargo_variant_random_switch(self, variation_num, cargo_id=None):
         switch_id = self.id + "_switch_graphics_" + str(variation_num) + ('_' + str(cargo_id) if cargo_id is not None else '')

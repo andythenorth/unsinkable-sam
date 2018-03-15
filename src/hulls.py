@@ -13,12 +13,15 @@ class Hull(object):
     # effects position (list of 3-tuples for x, y, z positions of effects)
     # fatter / thinner ships might need offset adjustments
 
+    # !! only whilst refactoring
+    temp_size_mapping = {'large':'128px', 'small':'96px', 'mini':'64px', 'micro':'44px'}
+
     def __init__(self):
         print("__init__")
 
     @property
     def spritesheet_name(self):
-        return self.hull_type + '_house_' + self.house_position +  '_' + self.size_class
+        return self.hull_type + '_house_' + self.house_position +  '_' + self.temp_size_mapping[self.size_class]
 
     @property
     def mask_name(self):
