@@ -22,14 +22,23 @@ from rosters import registered_rosters
 
 class Ship(object):
     """Base class for all types of ships"""
-    def __init__(self, id, **kwargs):
+    def __init__(self, id, title, numeric_id, subtype, hull, **kwargs):
         self.id = id
-
-        # setup properties for this ship
-        self.title = kwargs.get('title', None)
-        self.numeric_id = kwargs.get('numeric_id', None)
-        self.str_type_info = 'EMPTY'
-        self.subtype = kwargs.get('subtype') # required, so no default
+        self.title = title
+        self.numeric_id = numeric_id
+        self.subtype = subtype
+        # base hull (defines length, wake graphics, hull graphics if composited etc)
+        self.hull = registered_hulls.get(hull) # required, so no default
+        # create a structure for cargo /livery graphics options
+        self.graphics_processor = None # temp
+        self.gestalt_graphics = GestaltGraphics()
+        # create a structure to hold model variants
+        self.model_variants = []
+        # roster is set when the vehicle is registered to a roster, only one roster per vehicle
+        self.roster_id = None
+        # extra type info, better over-ride in subclass
+        self.str_type_info = 'EMPTY' # unused currently
+        # nml-ish props, mostly optional
         self.intro_date = kwargs.get('intro_date', None)
         self.vehicle_life = kwargs.get('vehicle_life', 100) # default 100 years, assumes 2 generations of ships 1850-2050
         self.buy_cost = kwargs.get('buy_cost', None)
@@ -43,15 +52,6 @@ class Ship(object):
         # most ships use steam effect_spawn_model so set default, over-ride in ships as needed
         self.effect_spawn_model = kwargs.get('effect_spawn_model', 'EFFECT_SPAWN_MODEL_STEAM')
         self.effect_type = kwargs.get('effect_type', None)
-        # create a structure to hold model variants
-        self.model_variants = []
-        # base hull (defines length, wake graphics, hull graphics if composited etc)
-        self.hull = registered_hulls.get(kwargs.get('hull', None), None)
-        # cargo /livery graphics options
-        self.graphics_processor = None # temp
-        self.gestalt_graphics = GestaltGraphics()
-        # roster is set when the vehicle is registered to a roster, only one roster per vehicle
-        self.roster_id = None
 
     def add_model_variant(self, intro_date, end_date, spritesheet_suffix):
         self.model_variants.append(ModelVariant(intro_date, end_date, spritesheet_suffix))
