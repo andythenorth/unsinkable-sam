@@ -431,6 +431,8 @@ class PaxFastLoadingShip(Ship):
         self.label_refits_disallowed = []
         self.default_cargo = 'PASS'
         self.loading_speed_multiplier = 3
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.pax_fast_loading_livery_recolour_maps)
 
     @property
     def hull_mapping(self):

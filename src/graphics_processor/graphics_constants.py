@@ -43,7 +43,10 @@ livestock_carrier_livery_recolour_maps = (# see note on DFLT above
 # Mail, only DFLT is used as of Jan 2018
 mail_livery_recolour_maps = (# see note on DFLT above
                                       ("DFLT", hull_recolour_CC1),)
-# Pax Luxury, only DFLT is used as of Jan 2018
+# Mail, only DFLT is used as of Mar 2018
+pax_fast_loading_livery_recolour_maps = (# see note on DFLT above
+                                      ("DFLT", hull_recolour_CC1),)
+# Pax Luxury, only DFLT is used as of Mar 2018
 pax_luxury_livery_recolour_maps = (# see note on DFLT above
                                       ("DFLT", hull_recolour_CC2),)
 # Piece goods carrier, only DFLT is used as of Jan 2018
