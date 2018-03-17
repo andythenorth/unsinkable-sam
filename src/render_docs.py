@@ -1,4 +1,4 @@
-print("[RENDER DOCS] render docs")
+print("[RENDER DOCS] render_docs.py")
 
 import codecs # used for writing files - more unicode friendly than standard open() module
 
