@@ -125,11 +125,15 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
             counter += 1
         return result
 
-
+"""
 class GestaltGraphicsCustom(GestaltGraphics):
     # Subclass of GestaltGraphics to handle cases like vehicles with hand-drawn cargo (no generation).
     # this cannot currently also use pixa-generated cargos
     # - pixa cargo pipeline has no support for compositing custom rows, that looked like TMWFTLB
+    raise Exception("GestaltGraphicsCustom: Not implemented")
+    # !! ^ Custom graphics wasn't working right as of March 2018, and was unused
+    # get_output_row_counts_by_type() called _get_output_row_counts_by_type() which had assumptions about .bulk etc
+    # see Road Hog where the implementation should work
     def __init__(self, _cargo_row_map, _nml_template, generic_rows):
         super().__init__()
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
@@ -160,3 +164,4 @@ class GestaltGraphicsCustom(GestaltGraphics):
     @property
     def cargo_row_map(self):
         return self._cargo_row_map
+"""
