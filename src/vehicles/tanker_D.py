@@ -13,6 +13,4 @@ ship = Tanker(id='tanker_D',
               str_type_info='COASTAL_TANKER',
               effect_type='EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE')
 
-ship.add_model_variant(intro_date=0,
-                       end_date=global_constants.max_game_date,
-                       spritesheet_suffix=0)
+ship.add_model_variant(spritesheet_suffix=0)

@@ -62,38 +62,8 @@ class Ship(object):
         self.effect_spawn_model = kwargs.get('effect_spawn_model', 'EFFECT_SPAWN_MODEL_STEAM')
         self.effect_type = kwargs.get('effect_type', None)
 
-    def add_model_variant(self, intro_date, end_date, spritesheet_suffix):
-        self.model_variants.append(ModelVariant(intro_date, end_date, spritesheet_suffix))
-
-    def get_reduced_set_of_variant_dates(self):
-        # find all the unique dates that will need a switch constructing
-        years = set()
-        for variant in self.model_variants:
-            years.update((variant.intro_date, variant.end_date))
-        years = sorted(years)
-        # quick integrity check
-        if years[0] != 0:
-            utils.echo_message(self.id + " doesn't have at least one model variant with intro date 0 (required for nml switches to work)")
-        return years
-
-    def get_variants_available_for_specific_year(self, year):
-        # put the data in a format that's easy to render as switches
-        result = []
-        for variant in self.model_variants:
-            if variant.intro_date <= year < variant.end_date:
-                result.append(variant.spritesheet_suffix)
-        return result # could call set() here, but I didn't bother, shouldn't be needed if model variants set up correctly
-
-    def get_nml_random_switch_fragments_for_model_variants(self):
-        # return fragments of nml for use in switches
-        result = []
-        years = self.get_reduced_set_of_variant_dates()
-        for index, year in enumerate(years):
-            if index < len(years) - 1:
-                from_date = year
-                until_date = years[index + 1] - 1
-                result.append(str(from_date) + '..' + str(until_date) + ':' + self.id + '_switch_graphics_random_' + str(from_date))
-        return result
+    def add_model_variant(self, spritesheet_suffix):
+        self.model_variants.append(ModelVariant(spritesheet_suffix))
 
     @property
     def num_unique_spritesheet_suffixes(self):
@@ -296,12 +266,9 @@ class Ship(object):
 
 class ModelVariant(object):
     # simple class to hold model variants
-    # variants are mostly randomised or date-sensitive graphics
+    # variants are for randomised graphics (randomised cargos handled differently)
     # must be a minimum of one variant per ship
-    # at least one variant must have intro date 0 (for nml switch defaults to work)
-    def __init__(self, intro_date, end_date, spritesheet_suffix):
-        self.intro_date = intro_date
-        self.end_date = end_date
+    def __init__(self, spritesheet_suffix):
         self.spritesheet_suffix = spritesheet_suffix # use digits for these - to match spritesheet filenames
 
     def get_spritesheet_name(self, ship):
