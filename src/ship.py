@@ -455,9 +455,9 @@ class MailShip(Ship):
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.mail_livery_recolour_maps)
 
 
-class PaxFastLoadingShip(Ship):
+class PaxShipBase(Ship):
     """
-    Fast-loading passenger vessel - better suited to short routes; keep same speed as luxury pax ship for balancing reasons.
+    Common base class for passenger vessels.
     """
     def __init__(self, id, **kwargs):
         super().__init__(id, **kwargs)
@@ -466,6 +466,14 @@ class PaxFastLoadingShip(Ship):
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos['pax']
+
+
+class PaxFastLoadingShip(PaxShipBase):
+    """
+    Fast-loading passenger vessel - better suited to short routes; keep same speed as luxury pax ship for balancing reasons.
+    """
+    def __init__(self, id, **kwargs):
+        super().__init__(id, **kwargs)
         self.loading_speed_multiplier = 3
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.pax_fast_loading_livery_recolour_maps)
@@ -476,17 +484,12 @@ class PaxFastLoadingShip(Ship):
         return {'A':'44px', 'B':'44px', 'C':'64px', 'D':'96px'}
 
 
-class PaxLuxuryShip(Ship):
+class PaxLuxuryShip(PaxShipBase):
     """
     Luxury passenger vessel - better suited to long routes; keep same speed as fast-loading pax ship for balancing reasons.
     """
     def __init__(self, id, **kwargs):
         super().__init__(id, **kwargs)
-        self.template = 'vehicle_default.pynml'
-        self.class_refit_groups = ['pax']
-        self.label_refits_allowed = []
-        self.label_refits_disallowed = []
-        self.default_cargos = global_constants.default_cargos['pax']
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.pax_luxury_livery_recolour_maps)
