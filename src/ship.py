@@ -31,7 +31,6 @@ class Ship(object):
         # base hull (defines length, wake graphics, hull graphics if composited etc)
         self.hull = registered_hulls[hull + self.hull_mapping[self.subtype]]
         # create a structure for cargo /livery graphics options
-        self.graphics_processor = None # !! temp
         self.gestalt_graphics = GestaltGraphics()
         # create a structure to hold model variants
         self.model_variants = []
