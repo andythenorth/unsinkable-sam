@@ -5,7 +5,7 @@ from PIL import Image
 
 from graphics_processor import graphics_constants
 from graphics_processor.pixa import Spritesheet, pixascan
-from graphics_processor.units import SimpleRecolour, SwapCompanyColours, AppendToSpritesheet
+from graphics_processor.units import SimpleRecolour, AppendToSpritesheet
 
 DOS_PALETTE = Image.open('palette_key.png').palette
 
@@ -49,8 +49,7 @@ class Pipeline(object):
     def render(self, variant, ship):
         raise NotImplementedError("Implement me in %s" % repr(self))
 
-class ExamplePassThroughPipeline(Pipeline):
-    # example sparse pipeline, does nothing, left in place as example
+class PassThroughPipeline(Pipeline):
     def __init__(self):
         # this should be sparse, don't store any ship or variant info in Pipelines, pass them at render time
         super().__init__("pass_through_pipeline")
@@ -330,7 +329,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 def get_pipeline(pipeline_name):
     # return a pipeline by name;
     # add pipelines here when creating new ones
-    for pipeline in [ExamplePassThroughPipeline(),
+    for pipeline in [PassThroughPipeline(),
                      ExtendSpriterowsForCompositedCargosPipeline()]:
         if pipeline_name == pipeline.name:
             return pipeline
