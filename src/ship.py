@@ -29,7 +29,6 @@ class Ship(object):
         self.subtype = subtype
         # base hull (defines length, wake graphics, hull graphics if composited etc)
         self.hull = registered_hulls[hull + self.hull_mapping[self.subtype]]
-        print(self.id, self.hull)
         # create a structure for cargo /livery graphics options
         self.graphics_processor = None # temp
         self.gestalt_graphics = GestaltGraphics()
@@ -37,6 +36,8 @@ class Ship(object):
         self.model_variants = []
         # roster is set when the vehicle is registered to a roster, only one roster per vehicle
         self.roster_id = None
+        # option for multiple default cargos, cascading if first cargo(s) are not available
+        self.default_cargos = []
         # extra type info, better over-ride in subclass
         self.str_type_info = 'EMPTY' # unused currently
         # nml-ish props, mostly optional
@@ -53,6 +54,11 @@ class Ship(object):
         # most ships use steam effect_spawn_model so set default, over-ride in ships as needed
         self.effect_spawn_model = kwargs.get('effect_spawn_model', 'EFFECT_SPAWN_MODEL_STEAM')
         self.effect_type = kwargs.get('effect_type', None)
+
+    @property
+    def default_cargo(self):
+        return self.default_cargos[0] # !! refactoring hax; remove when refactor to multiple cargos is complete
+
 
     def add_model_variant(self, intro_date, end_date, spritesheet_suffix):
         self.model_variants.append(ModelVariant(intro_date, end_date, spritesheet_suffix))
@@ -224,6 +230,19 @@ class Ship(object):
         roster = self.get_roster(self.roster_id)
         return 'param[2]==' + str(roster.numeric_id - 1)
 
+    def get_nml_expression_for_default_cargos(self):
+        # sometimes first default cargo is not available, so we use a list
+        # this avoids unwanted cases like piece cargo ships defaulting to mail when goods cargo not available
+        # if there is only one default cargo, the list just has one entry, that's no problem
+        if len(self.default_cargos) == 1:
+            return self.default_cargos[0]
+        else:
+            # build stacked ternary operators for cargos
+            result = self.default_cargos[-1]
+            for cargo in reversed(self.default_cargos[0:-1]):
+                result = 'cargotype_available("' + cargo + '")?' + cargo + ':' + result
+            return result
+
     def get_spriterow_counts(self):
         # !! overly nested as assumes that there would be multiple units, doesn't apply to ships
         result = []
@@ -306,7 +325,7 @@ class BulkCarrier(Ship):
         self.class_refit_groups = ['dump_freight']
         self.label_refits_allowed = [] # no specific labels needed
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_dump_bulk']
-        self.default_cargo = 'COAL'
+        self.default_cargos = ['COAL']
         self.loading_speed_multiplier = 2
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True,
@@ -324,7 +343,7 @@ class ContainerCarrier(Ship):
         self.class_refit_groups = ['express_freight','packaged_freight']
         self.label_refits_allowed = ['FRUT','WATR']
         self.label_refits_disallowed = ['FISH','LVST','OIL_','TOUR','WOOD']
-        self.default_cargo = 'GOOD'
+        self.default_cargos = ['GOOD']
 
 
 class CoveredHopperCarrier(Ship):
@@ -337,7 +356,7 @@ class CoveredHopperCarrier(Ship):
         self.class_refit_groups = [] # no classes, use explicit labels
         self.label_refits_allowed = ['GRAI', 'WHEA', 'MAIZ', 'SUGR', 'FMSP', 'RFPR', 'CLAY', 'BDMT', 'BEAN', 'NITR', 'RUBR', 'SAND', 'POTA', 'QLME', 'SASH', 'CMNT', 'KAOL', 'FERT', 'SALT', 'CBLK']
         self.label_refits_disallowed = []
-        self.default_cargo = 'GRAI'
+        self.default_cargos = ['GRAI', 'KAOL']
         self.loading_speed_multiplier = 2
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True,
@@ -354,7 +373,7 @@ class EdiblesTanker(Ship):
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
-        self.default_cargo = 'WATR'
+        self.default_cargos = ['WATR']
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.edibles_tanker_livery_recolour_maps)
 
@@ -369,7 +388,7 @@ class FlatDeckBarge(Ship):
         self.class_refit_groups = ['flatbed_freight']
         self.label_refits_allowed = ['GOOD']
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
-        self.default_cargo = 'STEL'
+        self.default_cargos = ['STEL']
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(piece=True,
                                                             cargo_length= 3) # !! temp hax to make graphics compile work
@@ -385,7 +404,7 @@ class FruitVegCarrier(Ship):
         self.class_refit_groups = []
         self.label_refits_allowed = ['FRUT', 'BEAN', 'CASS', 'JAVA', 'NUTS'] # Iron Horse compatibility
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
-        self.default_cargo = 'FRUT'
+        self.default_cargos = ['FRUT']
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.fruit_veg_carrier_livery_recolour_maps)
@@ -401,7 +420,7 @@ class LivestockCarrier(Ship):
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['LVST'] # set to livestock by default, don't need to make it refit
         self.label_refits_disallowed = []
-        self.default_cargo = 'LVST'
+        self.default_cargos = ['LVST']
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.livestock_carrier_livery_recolour_maps)
@@ -417,7 +436,7 @@ class LogTug(Ship):
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['WOOD']
         self.label_refits_disallowed = []
-        self.default_cargo = 'WOOD'
+        self.default_cargos = ['WOOD']
 
 
 class MailShip(Ship):
@@ -431,7 +450,7 @@ class MailShip(Ship):
         self.label_refits_allowed = []
         self.label_refits_disallowed = ['TOUR']
         self.capacity_cargo_holds = kwargs.get('capacity_cargo_holds', 0)
-        self.default_cargo = 'MAIL'
+        self.default_cargos = ['MAIL']
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.mail_livery_recolour_maps)
 
@@ -446,7 +465,7 @@ class PaxFastLoadingShip(Ship):
         self.class_refit_groups = ['pax']
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
-        self.default_cargo = 'PASS'
+        self.default_cargos = ['PASS']
         self.loading_speed_multiplier = 3
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.pax_fast_loading_livery_recolour_maps)
@@ -467,7 +486,7 @@ class PaxLuxuryShip(Ship):
         self.class_refit_groups = ['pax']
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
-        self.default_cargo = 'PASS'
+        self.default_cargos = ['PASS']
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.pax_luxury_livery_recolour_maps)
@@ -485,7 +504,7 @@ class PieceGoodsCarrier(Ship):
         self.class_refit_groups = ['packaged_freight']
         self.label_refits_allowed = ['MAIL', 'GRAI', 'WHEA', 'MAIZ', 'FRUT', 'BEAN', 'NITR'] # Iron Horse compatibility
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
-        self.default_cargo = 'GOOD'
+        self.default_cargos = ['GOOD']
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.piece_goods_carrier_livery_recolour_maps)
 
@@ -500,7 +519,7 @@ class Reefer(Ship):
         self.class_refit_groups = ['refrigerated_freight']
         self.label_refits_allowed = [] # no specific labels needed, refits all cargos that have refrigerated class
         self.label_refits_disallowed = []
-        self.default_cargo = 'GOOD'
+        self.default_cargos = ['GOOD']
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD # improved decay rate
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.reefer_livery_recolour_maps)
@@ -516,7 +535,7 @@ class Tanker(Ship):
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
-        self.default_cargo = 'OIL_'
+        self.default_cargos = ['OIL_']
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.tanker_livery_recolour_maps)
 
@@ -531,7 +550,7 @@ class Trawler(Ship):
         self.class_refit_groups = []
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
-        self.default_cargo = 'FISH'
+        self.default_cargos = ['FISH']
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.trawler_livery_recolour_maps)
 
@@ -548,7 +567,7 @@ class UniversalFreighter(Ship):
         self.class_refit_groups = ['all_freight']
         self.label_refits_allowed = [] # no specific labels needed, refits all freight
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
-        self.default_cargo = 'COAL'
+        self.default_cargos = ['COAL']
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True,
                                                             piece=True,

@@ -25,7 +25,9 @@ item(FEAT_SHIPS, ${ship.id}, ${ship.numeric_id}) {
         non_refittable_cargo_classes:   bitmask(); // don't set non-refittable classes, increases likelihood of breaking cargo support
         cargo_allow_refit:              [${ship.get_label_refits_allowed()}];
         cargo_disallow_refit:           [${ship.get_label_refits_disallowed()}];
-        default_cargo_type:             ${ship.default_cargo};
+        <tal:default_cargo condition="len(ship.default_cargos) > 0">
+            default_cargo_type:             ${ship.get_nml_expression_for_default_cargos()};
+        </tal:default_cargo>
         loading_speed:                  ${ship.loading_speed};
         cargo_age_period:               ${ship.cargo_age_period};
         misc_flags:                     bitmask(SHIP_FLAG_2CC, SHIP_FLAG_AUTOREFIT, SHIP_FLAG_SPRITE_STACK); // nml constants
