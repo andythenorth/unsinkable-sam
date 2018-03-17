@@ -11,7 +11,7 @@ item(FEAT_SHIPS, ${ship.id}, ${ship.numeric_id}) {
     property {
         name:                           ${ship.get_name()};
         climates_available:             NO_CLIMATE; // nml constant
-        sound_effect:                   ${('SOUND_SHIP_HORN','SOUND_FERRY_HORN')[ship.default_cargo=='PASS']};
+        sound_effect:                   ${('SOUND_SHIP_HORN','SOUND_FERRY_HORN')[ship.default_cargos[0]=='PASS']};
         effect_spawn_model:             ${ship.effect_spawn_model};
         introduction_date:              date(${ship.intro_date},01,01); // ship just supplies intro year - openttd randomises intro dates a bit anyway
         cargo_capacity:                 ${ship.default_capacity};

@@ -62,11 +62,6 @@ class Ship(object):
         self.effect_spawn_model = kwargs.get('effect_spawn_model', 'EFFECT_SPAWN_MODEL_STEAM')
         self.effect_type = kwargs.get('effect_type', None)
 
-    @property
-    def default_cargo(self):
-        return self.default_cargos[0] # !! refactoring hax; remove when refactor to multiple cargos is complete
-
-
     def add_model_variant(self, intro_date, end_date, spritesheet_suffix):
         self.model_variants.append(ModelVariant(intro_date, end_date, spritesheet_suffix))
 
@@ -153,7 +148,7 @@ class Ship(object):
         # ships can refit multiple capacities
         # faff: mail ships need to divide default capacity for freight; freight ships multiply default capacity for mail
         # this is theoretically extensible to other cargos/classes, but will get ugly fast eh?
-        if self.default_cargo == 'MAIL':
+        if self.default_cargos[0] == 'MAIL':
             default_base = self.default_capacity / global_constants.mail_multiplier
             mail_base = self.default_capacity
         else:
