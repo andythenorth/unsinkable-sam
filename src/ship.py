@@ -26,11 +26,12 @@ class Ship(object):
         self.id = id
         self.title = title
         self.numeric_id = numeric_id
+        # subtypes determine capacity, and are mapped to hull sizes in subclass
         self.subtype = subtype
         # base hull (defines length, wake graphics, hull graphics if composited etc)
         self.hull = registered_hulls[hull + self.hull_mapping[self.subtype]]
         # create a structure for cargo /livery graphics options
-        self.graphics_processor = None # temp
+        self.graphics_processor = None # !! temp
         self.gestalt_graphics = GestaltGraphics()
         # create a structure to hold model variants
         self.model_variants = []
@@ -38,6 +39,11 @@ class Ship(object):
         self.roster_id = None
         # option for multiple default cargos, cascading if first cargo(s) are not available
         self.default_cargos = []
+        # speed is determined in sub class, or can be over-ridden by individual vehicles
+        # optional per-vehicle speed
+        self._speed = kwargs.get('speed', None)
+        # default to freight speed_class for convenience, over-ride in subclasses as needed
+        self.speed_class = 'freight' # over-ride this for, e.g. fast_freight consists
         # extra type info, better over-ride in subclass
         self.str_type_info = 'EMPTY' # unused currently
         # nml-ish props, mostly optional
@@ -48,7 +54,6 @@ class Ship(object):
         self.fuel_run_cost_factor = kwargs.get('fuel_run_cost_factor', None)
         self.loading_speed_multiplier = 1 # over-ride in subclass as needed (suggested values are 0.5 for slower loading and 2 for faster loading)
         self.cargo_age_period = kwargs.get('cargo_age_period', global_constants.CARGO_AGE_PERIOD)
-        self._speed = kwargs.get('speed', None)
         # by default ships have multiple capacity options, refittable in depot
         self.capacity_is_refittable_by_cargo_subtype = kwargs.get('capacity_is_refittable_by_cargo_subtype', True)
         # most ships use steam effect_spawn_model so set default, over-ride in ships as needed
@@ -104,16 +109,16 @@ class Ship(object):
 
     @property
     def speed(self):
-        # speed determined automatically by intro date, or can be over-ridden per vehicle with _speed in constructor kwargs
-        if self._speed is None:
-            if self.default_cargo == 'PASS' or self.default_cargo == 'MAIL':
-                speeds = self.get_roster(self.roster_id).express_speeds
-            else:
-                speeds = self.get_roster(self.roster_id).freighter_speeds
-            speed = speeds[max([year for year in speeds if self.intro_date >= year])]
+        # automatic speed, but can over-ride by passing in kwargs for consist
+        if self._speed:
+            return self._speed
+        elif self.speed_class:
+            roster_obj = self.get_roster(self.roster_id)
+            speeds = roster_obj.speeds[self.speed_class]
+            return speeds[max([year for year in speeds if self.intro_date >= year])]
         else:
-            speed = self._speed
-        return speed
+            # assume no speed limit
+            return None
 
     def get_speed_adjusted_for_param(self, speed_index):
         # there is a speed adjustment parameter, use that to look up a speed factor
@@ -446,6 +451,7 @@ class MailShip(Ship):
     def __init__(self, id, **kwargs):
         super().__init__(id, **kwargs)
         self.template = 'vehicle_default.pynml'
+        self.speed_class = 'pax_mail'
         self.class_refit_groups = ['mail','express_freight']
         self.label_refits_allowed = []
         self.label_refits_disallowed = ['TOUR']
@@ -474,6 +480,7 @@ class PaxFastLoadingShip(PaxShipBase):
     """
     def __init__(self, id, **kwargs):
         super().__init__(id, **kwargs)
+        self.speed_class = 'pax_mail'
         self.loading_speed_multiplier = 3
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.pax_fast_loading_livery_recolour_maps)
@@ -490,6 +497,7 @@ class PaxLuxuryShip(PaxShipBase):
     """
     def __init__(self, id, **kwargs):
         super().__init__(id, **kwargs)
+        self.speed_class = 'pax_mail'
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.pax_luxury_livery_recolour_maps)
