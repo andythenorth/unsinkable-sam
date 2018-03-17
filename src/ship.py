@@ -49,12 +49,13 @@ class Ship(object):
         # extra type info, better over-ride in subclass
         self.str_type_info = 'EMPTY' # unused currently
         # nml-ish props, mostly optional
+        self.sound_effect = kwargs.get('sound_effect', 'SOUND_SHIP_HORN') # over-ride in subclasses as needed
         self.intro_date = kwargs.get('intro_date', None)
         self.vehicle_life = kwargs.get('vehicle_life', 100) # default 100 years, assumes 2 generations of ships 1850-2050
         self.buy_cost = kwargs.get('buy_cost', None)
         self.fixed_run_cost_factor = kwargs.get('fixed_run_cost_factor', None)
         self.fuel_run_cost_factor = kwargs.get('fuel_run_cost_factor', None)
-        self.loading_speed_multiplier = 1 # over-ride in subclass as needed (suggested values are 0.5 for slower loading and 2 for faster loading)
+        self.loading_speed_multiplier = 1 # over-ride in subclasses as needed (suggested values are 0.5 for slower loading and 2 for faster loading)
         self.cargo_age_period = kwargs.get('cargo_age_period', global_constants.CARGO_AGE_PERIOD)
         # by default ships have multiple capacity options, refittable in depot
         self.capacity_is_refittable_by_cargo_subtype = kwargs.get('capacity_is_refittable_by_cargo_subtype', True)
@@ -462,7 +463,7 @@ class PaxShipBase(Ship):
         self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos['pax']
         self.capacities = {'A': 40, 'B': 125, 'C': 300, 'D': 720}
-
+        self.sound_effect = 'SOUND_FERRY_HORN'
 
 class PaxFastLoadingShip(PaxShipBase):
     """
