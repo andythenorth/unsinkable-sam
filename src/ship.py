@@ -44,6 +44,8 @@ class Ship(object):
         self._speed = kwargs.get('speed', None)
         # default to freight speed_class for convenience, over-ride in subclasses as needed
         self.speed_class = 'freight' # over-ride this for, e.g. fast_freight consists
+        # default standard capacities for freight for convenience, over-ride in subclasses as needed
+        self.capacities = {'A': 40, 'B': 100, 'C': 240, 'D': 576} # over-ride this for, e.g. pax ship capacities
         # extra type info, better over-ride in subclass
         self.str_type_info = 'EMPTY' # unused currently
         # nml-ish props, mostly optional
@@ -165,16 +167,7 @@ class Ship(object):
 
     @property
     def default_capacity(self):
-        # !! refactoring - might need over-ridden in or moved to subclasses
-        if self.default_cargo == 'PASS':
-            capacities = {'A': 40, 'B': 125, 'C': 300, 'D': 720}
-        elif self.default_cargo == 'MAIL':
-            # these are the mail capacities for ships that have MAIL as default; freight capacity will be divided by global_constants.mail_multipler
-            capacities = {'A': 40, 'B': 120, 'C': 360} # no large mail ships, by design
-        else:
-            # assume freight
-            capacities = {'A': 40, 'B': 100, 'C': 240, 'D': 576}
-        return capacities[self.subtype]
+        return self.capacities[self.subtype]
 
     @property
     def refittable_classes(self):
@@ -341,8 +334,8 @@ class ContainerCarrier(Ship):
     """
     Refits to limited range of freight cargos, shows container graphics according to load state.
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.template = 'container_carrier.pynml'
         # maintain other sets (e.g. IH etc) when changing container refits
         self.class_refit_groups = ['express_freight','packaged_freight']
@@ -372,8 +365,8 @@ class EdiblesTanker(Ship):
     """
     Gallons and gallons and gallons of wine, milk or water.  Except in metric systems, where it's litres.
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.template = 'vehicle_default.pynml'
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
@@ -419,8 +412,8 @@ class LivestockCarrier(Ship):
     """
     Special type for livestock (as you might guess).
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.template = 'vehicle_default.pynml'
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['LVST'] # set to livestock by default, don't need to make it refit
@@ -435,8 +428,8 @@ class LogTug(Ship):
     """
     Specialist type for hauling logs only, has some specialist refit and speed behaviours.
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.template = 'log_tug.pynml'
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['WOOD']
@@ -448,15 +441,16 @@ class MailShip(Ship):
     """
     A relatively fast vessel type for mail and express freight.
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.template = 'vehicle_default.pynml'
         self.speed_class = 'pax_mail'
         self.class_refit_groups = ['mail','express_freight']
         self.label_refits_allowed = []
         self.label_refits_disallowed = ['TOUR']
-        self.capacity_cargo_holds = kwargs.get('capacity_cargo_holds', 0)
         self.default_cargos = global_constants.default_cargos['mail']
+        # these are the mail capacities for ships that have MAIL as default; freight capacity will be divided by global_constants.mail_multipler
+        self.capacities = {'A': 40, 'B': 120, 'C': 360} # no large mail ships, by design
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.mail_livery_recolour_maps)
 
@@ -465,21 +459,22 @@ class PaxShipBase(Ship):
     """
     Common base class for passenger vessels.
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.template = 'vehicle_default.pynml'
         self.class_refit_groups = ['pax']
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos['pax']
+        self.capacities = {'A': 40, 'B': 125, 'C': 300, 'D': 720}
 
 
 class PaxFastLoadingShip(PaxShipBase):
     """
     Fast-loading passenger vessel - better suited to short routes; keep same speed as luxury pax ship for balancing reasons.
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.speed_class = 'pax_mail'
         self.loading_speed_multiplier = 3
         # Graphics configuration
@@ -495,8 +490,8 @@ class PaxLuxuryShip(PaxShipBase):
     """
     Luxury passenger vessel - better suited to long routes; keep same speed as fast-loading pax ship for balancing reasons.
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.speed_class = 'pax_mail'
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
@@ -524,8 +519,8 @@ class Reefer(Ship):
     """
     Refits to limited range of refrigerated cargos, with 'improved' cargo decay rate.
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['refrigerated_freight']
         self.label_refits_allowed = [] # no specific labels needed, refits all cargos that have refrigerated class
@@ -540,8 +535,8 @@ class Tanker(Ship):
     """
     Ronseal ("does what it says on the tin", for those without extensive knowledge of UK advertising).
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.template = 'vehicle_with_visible_cargo.pynml'
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
@@ -555,8 +550,8 @@ class Trawler(Ship):
     """
     Dedicated to fishing
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.template = 'vehicle_default.pynml'
         self.class_refit_groups = []
         self.label_refits_allowed = []
@@ -572,8 +567,8 @@ class UniversalFreighter(Ship):
     IRL: "multi-purpose vessel".
     Not "general cargo vessel", IRL they carry only piece goods (confusing much?).
     """
-    def __init__(self, id, **kwargs):
-        super().__init__(id, **kwargs)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['all_freight']
         self.label_refits_allowed = [] # no specific labels needed, refits all freight
