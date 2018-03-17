@@ -1,4 +1,3 @@
-import global_constants
 from ship import PieceGoodsCarrier
 
 ship = PieceGoodsCarrier(id='piece_goods_carrier_D',

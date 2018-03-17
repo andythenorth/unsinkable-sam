@@ -1,5 +1,3 @@
-from polar_fox import base_refits_by_class, cargo_labels, disallowed_refits_by_label, default_cargos, chameleon_cache_dir, generated_files_dir, graphics_path, mail_multiplier, max_game_date
-
 # cost constants
 FIXED_RUN_COST = 500.0
 FUEL_RUN_COST = 10.0
@@ -23,3 +21,16 @@ vehicle_offsets = {'32px': [[-14, -73], [-44, -38], [-22, -36], [8, -38], [-14, 
 
 buy_menu_sprite_width = 128
 buy_menu_sprite_height = 32
+
+# shared global constants via Polar Fox library - import at end to make the this project's constants easier to work with
+# assignments are clunky - they exist to stop pyflakes tripping on 'unused' imports
+import polar_fox
+base_refits_by_class = polar_fox.base_refits_by_class
+cargo_labels = polar_fox.cargo_labels
+chameleon_cache_dir = polar_fox.chameleon_cache_dir
+default_cargos = polar_fox.default_cargos
+disallowed_refits_by_label = polar_fox.disallowed_refits_by_label
+generated_files_dir = polar_fox.generated_files_dir
+graphics_path = polar_fox.graphics_path
+mail_multiplier = polar_fox.mail_multiplier
+max_game_date = polar_fox.max_game_date

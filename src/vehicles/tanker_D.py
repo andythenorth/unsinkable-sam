@@ -1,4 +1,3 @@
-import global_constants
 from ship import Tanker
 
 ship = Tanker(id='tanker_D',

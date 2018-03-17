@@ -1,4 +1,3 @@
-import global_constants
 from ship import BulkCarrier
 
 ship = BulkCarrier(id='bulk_carrier_D',

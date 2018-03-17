@@ -1,4 +1,3 @@
-import global_constants
 from ship import Reefer
 
 ship = Reefer(id='reefer_C',

@@ -62,7 +62,7 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
             return self.cargo_row_map['GRVL']
         else:
             # shouldn't reach here, but eh,
-            utils.echo_message('generic_rows hit an unknown result in GestaltGraphics')
+            raise Exception('generic_rows hit an unknown result in GestaltGraphics')
             return [0]
 
     @property
@@ -102,7 +102,7 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
 
     @property
     def generic_rows(self):
-        utils.echo_message ('generic_rows not implemented in GestaltGraphicsLiveryOnly')
+        print('generic_rows not implemented in GestaltGraphicsLiveryOnly')
         return None
 
     @property

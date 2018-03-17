@@ -1,4 +1,3 @@
-import global_constants
 from ship import FlatDeckBarge
 
 ship = FlatDeckBarge(id='flatdeck_barge_C',

@@ -1,4 +1,3 @@
-import global_constants
 from ship import PaxFastLoadingShip
 
 ship = PaxFastLoadingShip(id='pax_fast_loading_C',

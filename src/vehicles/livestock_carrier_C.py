@@ -1,4 +1,3 @@
-import global_constants
 from ship import LivestockCarrier
 
 ship = LivestockCarrier(id='livestock_carrier_C',

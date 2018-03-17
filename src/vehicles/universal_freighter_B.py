@@ -1,4 +1,3 @@
-import global_constants
 from ship import UniversalFreighter
 
 ship = UniversalFreighter(id='universal_freighter_B',

@@ -1,4 +1,3 @@
-import global_constants
 from ship import FruitVegCarrier
 
 ship = FruitVegCarrier(id='fruit_veg_carrier_C',

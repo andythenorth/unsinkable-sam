@@ -1,4 +1,3 @@
-import global_constants
 from ship import CoveredHopperCarrier
 
 ship = CoveredHopperCarrier(id='covered_hopper_carrier_D',

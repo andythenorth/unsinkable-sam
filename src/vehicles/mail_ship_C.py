@@ -1,4 +1,3 @@
-import global_constants
 from ship import MailShip
 
 ship = MailShip(id='mail_ship_C',
