@@ -19,6 +19,7 @@ STR_PARAM_ROSTER_OPTION_0                                       :This Sceptered 
 STR_NAME_BULK_BARGE                                             :Bulk Barge
 STR_NAME_BULK_CARRIER                                           :Bulk Carrier
 STR_NAME_CONTAINER_FEEDER                                       :Container Feeder
+STR_NAME_COVERED_HOPPER_BARGE                                   :Covered Hopper Barge
 STR_NAME_EDIBLES_TANKER                                         :Edibles Tanker
 STR_NAME_FAST_FERRY                                             :Fast Ferry
 STR_NAME_FERRY                                                  :Ferry

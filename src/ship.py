@@ -327,6 +327,23 @@ class ContainerCarrier(Ship):
         self.default_cargo = 'GOOD'
 
 
+class CoveredHopperCarrier(Ship):
+    """
+    Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse hopper wagon.
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.template = 'vehicle_default.pynml'
+        self.class_refit_groups = [] # no classes, use explicit labels
+        self.label_refits_allowed = ['GRAI', 'WHEA', 'MAIZ', 'SUGR', 'FMSP', 'RFPR', 'CLAY', 'BDMT', 'BEAN', 'NITR', 'RUBR', 'SAND', 'POTA', 'QLME', 'SASH', 'CMNT', 'KAOL', 'FERT', 'SALT', 'CBLK']
+        self.label_refits_disallowed = []
+        self.default_cargo = 'GRAI'
+        self.loading_speed_multiplier = 2
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True,
+                                                            hull_recolour_map=graphics_constants.hull_recolour_CC2)
+
+
 class EdiblesTanker(Ship):
     """
     Gallons and gallons and gallons of wine, milk or water.  Except in metric systems, where it's litres.
@@ -437,7 +454,7 @@ class PaxFastLoadingShip(Ship):
     @property
     def hull_mapping(self):
         # default mapping of subtypes to hull lengths; over-ride in subclasses as needed
-        return {'A':'32px', 'B':'44px', 'C':'64px', 'D':'96px'}
+        return {'A':'44px', 'B':'44px', 'C':'64px', 'D':'96px'}
 
 
 class PaxLuxuryShip(Ship):
