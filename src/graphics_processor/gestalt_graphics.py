@@ -2,9 +2,11 @@ import graphics_processor.graphics_constants as graphics_constants
 from graphics_processor import pipelines
 
 class GestaltGraphics(object):
-    # simple stub class, which is extended in sub-classes to configure:
-    # - hull
-    # - cargo graphics (if any)
+    """
+        Simple stub class, which is extended in sub-classes to configure:
+         - base vehicle recolour (if any)
+         - cargo graphics (if any)
+    """
     def __init__(self):
         # no graphics processing by default
         self.pipeline = None
@@ -38,8 +40,10 @@ class GestaltGraphics(object):
 
 
 class GestaltGraphicsVisibleCargo(GestaltGraphics):
-    # used for ship with visible cargos
-    # assumes *only* pixa-generated cargos are used; subclass for all other cases
+    """
+        Used for vehicle with visible cargos
+        Supports *only* pixa-generated cargos; mixing with custom cargo rows isn't handled, TMWFTLB
+    """
     def __init__(self, **kwargs):
         super().__init__()
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
@@ -91,8 +95,10 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
 
 
 class GestaltGraphicsLiveryOnly(GestaltGraphics):
-    # subclass of GestaltGraphics to handle the specific case of cargos shown only by vehicle livery
-    # this can also be used for recolouring hulls in the case of just a *single* livery with no visible cargo
+    """
+        Used to handle the specific case of cargos shown only by vehicle livery.
+        This can also be used for recolouring vehicles with just a *single* livery which isn't cargo-specific.
+    """
     def __init__(self, recolour_maps, **kwargs):
         super().__init__()
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
@@ -125,11 +131,16 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
             counter += 1
         return result
 
-"""
+
 class GestaltGraphicsCustom(GestaltGraphics):
-    # Subclass of GestaltGraphics to handle cases like vehicles with hand-drawn cargo (no generation).
-    # this cannot currently also use pixa-generated cargos
-    # - pixa cargo pipeline has no support for compositing custom rows, that looked like TMWFTLB
+    """
+        Used to handle (rare) cases with hand-drawn cargo (no pixa-generated cargos).
+        There is currently no graphics processing for this:
+        - just a simple pass-through, and an interface to the nml templates
+        - this could get support for body recolouring if needed
+        - this should not get support for compositing custom rows, TMWFTLB, just draw them in the vehicle spritesheet
+    """
+    """
     raise Exception("GestaltGraphicsCustom: Not implemented")
     # !! ^ Custom graphics wasn't working right as of March 2018, and was unused
     # get_output_row_counts_by_type() called _get_output_row_counts_by_type() which had assumptions about .bulk etc
@@ -164,4 +175,4 @@ class GestaltGraphicsCustom(GestaltGraphics):
     @property
     def cargo_row_map(self):
         return self._cargo_row_map
-"""
+    """
