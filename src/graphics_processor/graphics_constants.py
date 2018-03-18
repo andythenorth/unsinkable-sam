@@ -16,8 +16,6 @@ spriterow_height = 100
 spritesheet_top_margin = 10
 spritesheet_width = 876
 
-vehicles_input_dir = 'ships'
-
 # --- Livery Recolour Maps ---- #
 # label order matters, so tuples are used not dicts
 # could probably have used orderedict or named tuple, but...blah

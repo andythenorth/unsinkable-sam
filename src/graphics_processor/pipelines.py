@@ -30,7 +30,7 @@ class Pipeline(object):
     def ship_template_input_path(self):
         # convenience method to get the ship template
         # I considered having this return the Image, not just the path, but it's not saving much, and is less obvious what it does when used
-        return os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, self.ship.id + '.png')
+        return os.path.join(currentdir, 'src', 'graphics', 'ships', self.ship.id + '.png')
 
     def render_common(self, ship, input_image, units):
         # expects to be passed a PIL Image object
