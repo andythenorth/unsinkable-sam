@@ -11,4 +11,4 @@ ship = PaxFastLoadingShip(id='pax_fast_loading_B',
                           intro_date=1870,
                           effect_type='EFFECT_SPRITE_STEAM')
 
-ship.add_model_variant(spritesheet_suffix=0)
+

@@ -18,7 +18,7 @@ As of Jan 2018 there is just one complex pipeline for ships, which handles hull 
 
 class Pipeline(object):
     def __init__(self, name):
-        # this should be sparse, don't store any ship or variant info in Pipelines, pass them at render time
+        # this should be sparse, don't store any ship info in Pipelines, pass at render time
         self.name = name
 
     def make_spritesheet_from_image(self, input_image):
@@ -32,12 +32,12 @@ class Pipeline(object):
         # I considered having this return the Image, not just the path, but it's not saving much, and is less obvious what it does when used
         return os.path.join(currentdir, 'src', 'graphics', graphics_constants.vehicles_input_dir, self.ship.id + '.png')
 
-    def render_common(self, variant, ship, input_image, units):
+    def render_common(self, ship, input_image, units):
         # expects to be passed a PIL Image object
         # units is a list of objects, with their config data already baked in (don't have to pass anything to units except the spritesheet)
         # each unit is then called in order, passing in and returning a pixa SpriteSheet
         # finally the spritesheet is saved
-        output_path = os.path.join(currentdir, 'generated', 'graphics', variant.get_spritesheet_name(ship))
+        output_path = os.path.join(currentdir, 'generated', 'graphics', ship.id + '.png')
         spritesheet = self.make_spritesheet_from_image(input_image)
 
         for unit in units:
@@ -46,18 +46,18 @@ class Pipeline(object):
         #spritesheet.sprites.show()
         spritesheet.save(output_path)
 
-    def render(self, variant, ship):
+    def render(self, ship):
         raise NotImplementedError("Implement me in %s" % repr(self))
 
 class PassThroughPipeline(Pipeline):
     def __init__(self):
-        # this should be sparse, don't store any ship or variant info in Pipelines, pass them at render time
+        # this should be sparse, don't store any ship info in Pipelines, pass at render time
         super().__init__("pass_through_pipeline")
 
-    def render(self, variant, ship, global_constants):
+    def render(self, ship, global_constants):
         input_image = Image.open(self.ship_template_input_path)
         units = []
-        result = self.render_common(variant, ship, input_image, units)
+        result = self.render_common(ship, input_image, units)
         return result
 
 
@@ -67,7 +67,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         Quite convoluted as it handles multiple classes of cargo (bulk, piece etc)
     """
     def __init__(self):
-        # this should be sparse, don't store any ship or variant info in Pipelines, pass them at render time
+        # this should be sparse, don't store any ship info in Pipelines, pass at render time
         # initing things here is proven to have unexpected results, as the processor will be shared across multiple vehicles
         super().__init__("extend_spriterows_for_composited_cargos_pipeline")
 
@@ -288,7 +288,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 self.units.append(AppendToSpritesheet(vehicle_comped_image_as_spritesheet, crop_box_dest))
                 self.units.append(SimpleRecolour(recolour_map=self.ship.gestalt_graphics.hull_recolour_map))
 
-    def render(self, variant, ship, global_constants):
+    def render(self, ship, global_constants):
         self.hull_input_path = os.path.join(currentdir, 'src', 'graphics', 'hulls', ship.hull.spritesheet_name + '.png')
         self.waterline_mask_input_path = os.path.join(currentdir, 'src', 'graphics', 'waterline_masks', ship.hull.mask_name + '.png')
         self.units = []
@@ -323,7 +323,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 cumulative_input_spriterow_count += input_spriterow_count
 
         input_image = Image.open(self.ship_template_input_path).crop((0, 0, graphics_constants.spritesheet_width, 10))
-        result = self.render_common(variant, ship, input_image, self.units)
+        result = self.render_common(ship, input_image, self.units)
         return result
 
 def get_pipeline(pipeline_name):

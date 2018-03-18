@@ -11,4 +11,4 @@ ship = CoveredHopperCarrier(id='covered_hopper_carrier_D',
                             intro_date=1870,
                             effect_type='EFFECT_SPRITE_DIESEL')
 
-ship.add_model_variant(spritesheet_suffix=0)
+

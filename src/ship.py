@@ -32,8 +32,6 @@ class Ship(object):
         self.hull = registered_hulls[hull + self.hull_mapping[self.subtype]]
         # create a structure for cargo /livery graphics options
         self.gestalt_graphics = GestaltGraphics()
-        # create a structure to hold model variants
-        self.model_variants = []
         # roster is set when the vehicle is registered to a roster, only one roster per vehicle
         self.roster_id = None
         # option for multiple default cargos, cascading if first cargo(s) are not available
@@ -62,12 +60,10 @@ class Ship(object):
         self.effect_spawn_model = kwargs.get('effect_spawn_model', 'EFFECT_SPAWN_MODEL_STEAM')
         self.effect_type = kwargs.get('effect_type', None)
 
-    def add_model_variant(self, spritesheet_suffix):
-        self.model_variants.append(ModelVariant(spritesheet_suffix))
-
     @property
     def num_unique_spritesheet_suffixes(self):
-        return len(set([i.spritesheet_suffix for i in self.model_variants]))
+        print("remove num_unique_spritesheet_suffixes")
+        return 1
 
     @property
     def hull_mapping(self):
@@ -234,8 +230,8 @@ class Ship(object):
         # but if needed, add _offsets prop from constructor kwargs, and check existence of that here (otherwise returning defaults)
         return global_constants.vehicle_offsets[self.hull.hull_length]
 
-    def get_nml_expression_for_cargo_variant_random_switch(self, variation_num, cargo_id=None):
-        switch_id = self.id + "_switch_graphics_" + str(variation_num) + ('_' + str(cargo_id) if cargo_id is not None else '')
+    def get_nml_expression_for_cargo_variant_random_switch(self, cargo_id=None):
+        switch_id = self.id + "_switch_graphics" + ('_' + str(cargo_id) if cargo_id is not None else '')
         return "SELF," + switch_id + ", bitmask(TRIGGER_VEHICLE_ANY_LOAD)"
 
     def get_expression_for_effects(self):
@@ -264,24 +260,12 @@ class Ship(object):
         return nml_result
 
 
-class ModelVariant(object):
-    # simple class to hold model variants
-    # variants are for randomised graphics (randomised cargos handled differently)
-    # must be a minimum of one variant per ship
-    def __init__(self, spritesheet_suffix):
-        self.spritesheet_suffix = spritesheet_suffix # use digits for these - to match spritesheet filenames
-
-    def get_spritesheet_name(self, ship):
-        return ship.id + '_' + str(self.spritesheet_suffix) + '.png'
-
-
 class BulkCarrier(Ship):
     """
     Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse hopper wagon.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['dump_freight']
         self.label_refits_allowed = [] # no specific labels needed
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_dump_bulk']
@@ -312,7 +296,6 @@ class CoveredHopperCarrier(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'vehicle_default.pynml'
         self.class_refit_groups = [] # no classes, use explicit labels
         self.label_refits_allowed = ['GRAI', 'WHEA', 'MAIZ', 'SUGR', 'FMSP', 'RFPR', 'CLAY', 'BDMT', 'BEAN', 'NITR', 'RUBR', 'SAND', 'POTA', 'QLME', 'SASH', 'CMNT', 'KAOL', 'FERT', 'SALT', 'CBLK']
         self.label_refits_disallowed = []
@@ -329,7 +312,6 @@ class EdiblesTanker(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'vehicle_default.pynml'
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
@@ -344,7 +326,6 @@ class FlatDeckBarge(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['flatbed_freight']
         self.label_refits_allowed = ['GOOD']
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
@@ -360,7 +341,6 @@ class FruitVegCarrier(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = []
         self.label_refits_allowed = ['FRUT', 'BEAN', 'CASS', 'JAVA', 'NUTS'] # Iron Horse compatibility
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
@@ -376,7 +356,6 @@ class LivestockCarrier(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'vehicle_default.pynml'
         self.class_refit_groups = ['empty']
         self.label_refits_allowed = ['LVST'] # set to livestock by default, don't need to make it refit
         self.label_refits_disallowed = []
@@ -405,7 +384,6 @@ class MailShip(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'vehicle_default.pynml'
         self.speed_class = 'pax_mail'
         self.class_refit_groups = ['mail','express_freight']
         self.label_refits_allowed = []
@@ -423,7 +401,6 @@ class PaxShipBase(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'vehicle_default.pynml'
         self.class_refit_groups = ['pax']
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
@@ -468,7 +445,6 @@ class PieceGoodsCarrier(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['packaged_freight']
         self.label_refits_allowed = ['MAIL', 'GRAI', 'WHEA', 'MAIZ', 'FRUT', 'BEAN', 'NITR'] # Iron Horse compatibility
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
@@ -483,7 +459,6 @@ class Reefer(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['refrigerated_freight']
         self.label_refits_allowed = [] # no specific labels needed, refits all cargos that have refrigerated class
         self.label_refits_disallowed = []
@@ -514,7 +489,6 @@ class Trawler(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'vehicle_default.pynml'
         self.class_refit_groups = []
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
@@ -531,7 +505,6 @@ class UniversalFreighter(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.template = 'general_cargo_vessel.pynml'
         self.class_refit_groups = ['all_freight']
         self.label_refits_allowed = [] # no specific labels needed, refits all freight
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']

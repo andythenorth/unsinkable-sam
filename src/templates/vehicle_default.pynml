@@ -2,66 +2,50 @@
 
 <tal:include metal:use-macro="load: spriteset_templates.pynml" />
 
-<tal:sprites_random_variations repeat="variation_num python:range(ship.num_unique_spritesheet_suffixes)">
-    spriteset(${ship.id}_ss_not_loaded_not_moving_${variation_num}, "generated/graphics/${ship.id}_${variation_num}.png") {
-      spriteset_template_empty_${ship.id}(10)
-    }
-    spriteset(${ship.id}_ss_not_loaded_moving_${variation_num}, "generated/graphics/${ship.id}_${variation_num}.png") {
-      spriteset_template_empty_${ship.id}(10)
-      <!--! spriteset_template_${ship.id}(110) -->
-    }
-    spriteset(${ship.id}_ss_loaded_not_moving_${variation_num}, "generated/graphics/${ship.id}_${variation_num}.png") {
-      spriteset_template_empty_${ship.id}(10)
-      <!--! spriteset_template_${ship.id}(510) -->
-    }
-    spriteset(${ship.id}_ss_loaded_moving_${variation_num}, "generated/graphics/${ship.id}_${variation_num}.png") {
-      spriteset_template_empty_${ship.id}(10)
-      <!--! spriteset_template_${ship.id}(610) -->
-    }
-
-    spritegroup ${ship.id}_sg_moving_${variation_num} {
-        loaded:  [
-            ${ship.id}_ss_not_loaded_moving_${variation_num},
-            ${ship.id}_ss_loaded_moving_${variation_num},
-        ];
-        loading: [ // can't be loading when moving, but we'll overlook that, it's required by nml ;)
-            ${ship.id}_ss_not_loaded_moving_${variation_num},
-            ${ship.id}_ss_loaded_moving_${variation_num},
-        ];
-    }
-
-    spritegroup ${ship.id}_sg_not_moving_${variation_num} {
-        loaded:  [
-            ${ship.id}_ss_not_loaded_not_moving_${variation_num},
-            ${ship.id}_ss_loaded_not_moving_${variation_num},
-        ];
-        loading: [
-            ${ship.id}_ss_not_loaded_not_moving_${variation_num},
-            ${ship.id}_ss_loaded_not_moving_${variation_num},
-        ];
-    }
-
-    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_${variation_num}, current_speed) {
-        0: return ${ship.id}_sg_not_moving_${variation_num};
-        return ${ship.id}_sg_moving_${variation_num};
-    }
-</tal:sprites_random_variations>
-
-<tal:include define="graphics_random_switches load: graphics_switches.pynml" metal:use-macro="graphics_random_switches" />
-
-// buy menu graphics
-spriteset(${ship.id}_ss_purchase, "generated/graphics/${ship.id}_0.png") {
-  spriteset_template_purchase_${ship.id}()
+spriteset(${ship.id}_ss_not_loaded_not_moving, "generated/graphics/${ship.id}.png") {
+  spriteset_template_empty_${ship.id}(10)
+}
+spriteset(${ship.id}_ss_not_loaded_moving, "generated/graphics/${ship.id}.png") {
+  spriteset_template_empty_${ship.id}(10)
+  <!--! spriteset_template_${ship.id}(110) -->
+}
+spriteset(${ship.id}_ss_loaded_not_moving, "generated/graphics/${ship.id}.png") {
+  spriteset_template_empty_${ship.id}(10)
+  <!--! spriteset_template_${ship.id}(510) -->
+}
+spriteset(${ship.id}_ss_loaded_moving, "generated/graphics/${ship.id}.png") {
+  spriteset_template_empty_${ship.id}(10)
+  <!--! spriteset_template_${ship.id}(610) -->
 }
 
-spritegroup ${ship.id}_sg_purchase {
+spritegroup ${ship.id}_sg_moving {
     loaded:  [
-        ${ship.id}_ss_purchase,
+        ${ship.id}_ss_not_loaded_moving,
+        ${ship.id}_ss_loaded_moving,
+    ];
+    loading: [ // can't be loading when moving, but we'll overlook that, it's required by nml ;)
+        ${ship.id}_ss_not_loaded_moving,
+        ${ship.id}_ss_loaded_moving,
+    ];
+}
+
+spritegroup ${ship.id}_sg_not_moving {
+    loaded:  [
+        ${ship.id}_ss_not_loaded_not_moving,
+        ${ship.id}_ss_loaded_not_moving,
     ];
     loading: [
-        ${ship.id}_ss_purchase,
+        ${ship.id}_ss_not_loaded_not_moving,
+        ${ship.id}_ss_loaded_not_moving,
     ];
 }
+
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship, current_speed) {
+    0: return ${ship.id}_sg_not_moving;
+    return ${ship.id}_sg_moving;
+}
+
+<tal:include metal:use-macro="load: graphics_switches.pynml" />
 
 <tal:include metal:use-macro="load: speed_switches.pynml" />
 

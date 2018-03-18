@@ -11,4 +11,4 @@ ship = UniversalFreighter(id='universal_freighter_B',
                           intro_date=1870,
                           effect_type='EFFECT_SPRITE_DIESEL')
 
-ship.add_model_variant(spritesheet_suffix=0)
+

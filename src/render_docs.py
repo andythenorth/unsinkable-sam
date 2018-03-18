@@ -96,7 +96,6 @@ class DocHelper(object):
             result = self.fetch_prop(result, 'Buy Cost', ship.buy_cost)
             result = self.fetch_prop(result, 'Running Cost', ship.running_cost)
             result = self.fetch_prop(result, 'Loading Speed', ship.loading_speed)
-            result = self.fetch_prop(result, 'Model Variants', len(ship.model_variants))
 
             props_to_print[ship] = result['ship']
             props_to_print[subclass] = result['subclass_props']
@@ -139,7 +138,7 @@ def render_docs_images():
     vehicle_graphics_src = os.path.join(currentdir, 'generated', 'graphics')
     buy_menu_bb = global_constants.spritesheet_bounding_boxes[6]
     for ship in ships:
-        vehicle_spritesheet = Image.open(os.path.join(vehicle_graphics_src, ship.id + '_0.png'))
+        vehicle_spritesheet = Image.open(os.path.join(vehicle_graphics_src, ship.id + '.png'))
         processed_vehicle_image = vehicle_spritesheet.crop(box=(buy_menu_bb[0],
                                                                 10 + ship.buy_menu_bb_y_offset,
                                                                 buy_menu_bb[0] + global_constants.buy_menu_sprite_width,
