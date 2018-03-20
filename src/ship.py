@@ -331,7 +331,7 @@ class FlatDeckBarge(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargos = global_constants.default_cargos['flat']
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo(piece=True,
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(piece='flat',
                                                             cargo_length= 3) # !! temp hax to make graphics compile work
 
 
@@ -511,5 +511,5 @@ class UniversalFreighter(Ship):
         self.default_cargos = global_constants.default_cargos['open']
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True,
-                                                            piece=True,
+                                                            piece='open',
                                                             cargo_length=3) # !! cargo_length is temp hax to make graphics compile work
