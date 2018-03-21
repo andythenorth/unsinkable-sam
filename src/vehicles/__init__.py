@@ -1,1 +1,1 @@
-ship_id_defender = []
+numeric_id_defender = []

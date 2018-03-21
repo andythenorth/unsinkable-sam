@@ -19,6 +19,7 @@ import graphics_processor.graphics_constants as graphics_constants
 
 from hulls import registered_hulls
 from rosters import registered_rosters
+from vehicles import numeric_id_defender
 
 class Ship(object):
     """Base class for all types of ships"""
@@ -26,6 +27,7 @@ class Ship(object):
         self.id = id
         self._name = name # private var because 'name' is accessed via @property method to add subtype string
         self.numeric_id = numeric_id
+        numeric_id_defender.append(numeric_id)
         # subtypes determine capacity, and are mapped to hull sizes in subclass
         self.subtype = subtype
         # base hull (defines length, wake graphics, hull graphics if composited etc)
