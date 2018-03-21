@@ -46,7 +46,7 @@
                     <tr>
                         <td>${vehicle.numeric_id}</td>
                         <td>${vehicle.id}</td>
-                        <td>${vehicle.title}</td>
+                        <td>${vehicle.name}</td>
                     </tr>
                 </tal:vehicles>
             </tbody>

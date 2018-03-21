@@ -2,7 +2,7 @@ from ship import MailShip
 
 ship = MailShip(id='mail_ship_B',
                 numeric_id=27,
-                title='[Mail Ship]',
+                name='[Mail Ship]',
                 subtype='B',
                 hull='TempHouseNone',
                 buy_cost=28,

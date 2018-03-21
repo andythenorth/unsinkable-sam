@@ -2,7 +2,7 @@ from ship import PieceGoodsCarrier
 
 ship = PieceGoodsCarrier(id='piece_goods_carrier_C',
                          numeric_id=7,
-                         title='[Piece Goods Carrier]',
+                         name='[Piece Goods Carrier]',
                          subtype='C',
                          hull='ShipHouseForward',
                          buy_cost=28,

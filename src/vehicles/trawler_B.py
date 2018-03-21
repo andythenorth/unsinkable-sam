@@ -2,7 +2,7 @@ from ship import Trawler
 
 ship = Trawler(id='trawler_B',
                numeric_id=12,
-               title='[Trawler]',
+               name='[Trawler]',
                subtype='B',
                hull='TempHouseNone',
                buy_cost=28,

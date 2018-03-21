@@ -2,7 +2,7 @@ from ship import UniversalFreighter
 
 ship = UniversalFreighter(id='universal_freighter_A',
                           numeric_id=6,
-                          title='[Freighter]',
+                          name='[Freighter]',
                           subtype='A',
                           hull='BargeHouseRear',
                           buy_cost=28,

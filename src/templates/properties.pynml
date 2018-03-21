@@ -9,7 +9,7 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_create_visual_effect, ${ship.get_expression
 // -- props -- //
 item(FEAT_SHIPS, ${ship.id}, ${ship.numeric_id}) {
     property {
-        name:                           ${ship.get_name()};
+        name:                           ${ship.name};
         climates_available:             NO_CLIMATE; // nml constant
         sound_effect:                   ${ship.sound_effect};
         effect_spawn_model:             ${ship.effect_spawn_model};
@@ -56,6 +56,3 @@ if (${ship.get_expression_for_rosters()}) {
         }
     }
 }
-
-// -- end ${ship.title} -- <!--! another comment to aid reading the final nml  -->
-

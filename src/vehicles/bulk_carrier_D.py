@@ -2,7 +2,7 @@ from ship import BulkCarrier
 
 ship = BulkCarrier(id='bulk_carrier_D',
                    numeric_id=9,
-                   title='[Bulk Barge]',
+                   name='[Bulk Barge]',
                    subtype='D',
                    hull='PushBargeHouseRear',
                    buy_cost=28,

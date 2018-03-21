@@ -2,7 +2,7 @@ from ship import Reefer
 
 ship = Reefer(id='reefer_D',
               numeric_id=15,
-              title='[Reefer]',
+              name='[Reefer]',
               subtype='D',
               hull='ShipHouseForward',
               buy_cost=28,

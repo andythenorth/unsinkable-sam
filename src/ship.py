@@ -22,9 +22,9 @@ from rosters import registered_rosters
 
 class Ship(object):
     """Base class for all types of ships"""
-    def __init__(self, id, title, numeric_id, subtype, hull, **kwargs):
+    def __init__(self, id, name, numeric_id, subtype, hull, **kwargs):
         self.id = id
-        self.title = title
+        self._name = name # private var because 'name' is accessed via @property method to add subtype string
         self.numeric_id = numeric_id
         # subtypes determine capacity, and are mapped to hull sizes in subclass
         self.subtype = subtype
@@ -154,11 +154,12 @@ class Ship(object):
 
     def get_name_substr(self):
         # relies on name being in format "Foo [Bar]" for Name [Type Suffix]
-        return self.title.split('[')[0]
+        return self._name.split('[')[0]
 
     def get_str_name_suffix(self):
         # used in ship name string only, relies on name property value being in format "Foo [Bar]" for Name [Type Suffix]
-        type_suffix = self.title.split('[')[1].split(']')[0]
+        # this could be refactored to be simpler, see Iron Horse where [STUFF] is dropped from vehicle name declarations
+        type_suffix = self._name.split('[')[1].split(']')[0]
         type_suffix = type_suffix.upper()
         type_suffix = '_'.join(type_suffix.split(' '))
         return 'STR_NAME_' + type_suffix
@@ -170,7 +171,8 @@ class Ship(object):
         # makes a string id for nml
         return 'STR_' + self.str_type_info
 
-    def get_name(self):
+    @property
+    def name(self):
         return "string(STR_NAME_" + self.id +", string(" + self.get_str_name_suffix() + "), string(" + self.get_str_size_suffix() + "))"
 
     def get_buy_menu_string(self):

@@ -2,7 +2,7 @@ from ship import Tanker
 
 ship = Tanker(id='tanker_D',
               numeric_id=2,
-              title='[Tanker]',
+              name='[Tanker]',
               subtype='D',
               hull='ShipHouseRear',
               buy_cost=64,

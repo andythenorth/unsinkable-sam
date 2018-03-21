@@ -2,7 +2,7 @@ from ship import FruitVegCarrier
 
 ship = FruitVegCarrier(id='fruit_veg_carrier_C',
                        numeric_id=31,
-                       title='[Fruit Veg Carrier]',
+                       name='[Fruit Veg Carrier]',
                        subtype='C',
                        hull='ShipHouseForward',
                        buy_cost=28,
