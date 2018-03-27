@@ -11,6 +11,7 @@ from chameleon import PageTemplateLoader # chameleon used in most template cases
 # setup the places we look for templates
 templates = PageTemplateLoader(os.path.join(currentdir, 'src', 'templates'))
 
+import polar_fox
 import global_constants # expose all constants for easy passing to templates
 import utils
 
@@ -484,7 +485,7 @@ class Tanker(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
         self.default_cargos = global_constants.default_cargos['tank']
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.tanker_livery_recolour_maps)
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=polar_fox.constants.tanker_livery_recolour_maps)
 
 
 class Trawler(Ship):

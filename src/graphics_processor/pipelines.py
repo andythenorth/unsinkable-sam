@@ -173,7 +173,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                          0,
                          graphics_constants.spritesheet_width,
                          cargo_group_row_height)
-        for label, recolour_map in graphics_constants.bulk_cargo_recolour_maps:
+        for label, recolour_map in polar_fox.constants.bulk_cargo_recolour_maps:
             self.units.append(AppendToSpritesheet(vehicle_bulk_cargo_input_as_spritesheet, crop_box_dest))
             self.units.append(SimpleRecolour(recolour_map))
             self.units.append(SimpleRecolour(recolour_map=self.ship.gestalt_graphics.hull_recolour_map))
