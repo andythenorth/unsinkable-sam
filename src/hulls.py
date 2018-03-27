@@ -4,7 +4,7 @@
 class Hull(object):
     # base for rudimentary classes to hold hull properties for a ship
     # there's only instance of each, so I just used class properties...boilerplate reduced to 64pxmum eh :)
-    house_position = None # optional, only used when ship is combined from parts by graphics_processor
+    house_position = None # optional, only used when ship is combined from parts by gestalt_graphics
     # length
     # hull spritesheet file
     # vertical offset if needed, accounting for buy menu especially
