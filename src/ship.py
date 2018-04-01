@@ -307,7 +307,7 @@ class CoveredHopperCarrier(Ship):
         self.default_cargos = global_constants.default_cargos['covered_hopper']
         self.loading_speed_multiplier = 2
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.edibles_tanker_livery_recolour_maps)
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.covered_hopper_carrier_livery_recolour_maps)
 
 
 class EdiblesTanker(Ship):
