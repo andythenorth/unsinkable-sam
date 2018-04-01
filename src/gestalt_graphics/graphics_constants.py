@@ -22,6 +22,9 @@ spritesheet_width = 876
 container_recolour_maps = ({170 + i: CC1 + i for i in range(8)},
                            {170 + i: CC2 + i for i in range(8)},
                            {170 + i: 8 + i for i in range(8)})
+# Livestock carrier, only DFLT is used as of Jan 2018
+covered_hopper_carrier_livery_recolour_maps = (# see note on DFLT above
+                                      ("DFLT", hull_recolour_CC2),)
 # Edibles tankers, only DFLT is used as of Jan 2018
 edibles_tanker_livery_recolour_maps = (# see note on DFLT above
                                       ("DFLT", {136: 5, 137: 7, 138: 8, 139: 9,
