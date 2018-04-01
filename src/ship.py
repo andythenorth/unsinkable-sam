@@ -62,6 +62,8 @@ class Ship(object):
         # most ships use steam effect_spawn_model so set default, over-ride in ships as needed
         self.effect_spawn_model = kwargs.get('effect_spawn_model', 'EFFECT_SPAWN_MODEL_STEAM')
         self.effect_type = kwargs.get('effect_type', None)
+        # aids 'project management'
+        self.sprites_complete = kwargs.get('sprites_complete', False)
 
     @property
     def num_unique_spritesheet_suffixes(self):

@@ -9,6 +9,7 @@ ship = EdiblesTanker(id='edibles_tanker_D',
                      fixed_run_cost_factor=12.0,
                      fuel_run_cost_factor=1.1,
                      intro_date=1870,
-                     effect_type='EFFECT_SPRITE_DIESEL')
+                     effect_type='EFFECT_SPRITE_DIESEL',
+                     sprites_complete=True)
 
 
