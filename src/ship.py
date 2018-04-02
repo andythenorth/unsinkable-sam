@@ -62,6 +62,8 @@ class Ship(object):
         # most ships use steam effect_spawn_model so set default, over-ride in ships as needed
         self.effect_spawn_model = kwargs.get('effect_spawn_model', 'EFFECT_SPAWN_MODEL_STEAM')
         self.effect_type = kwargs.get('effect_type', None)
+        # what length to use for cargo sprites in cargo compositing
+        self.cargo_length = kwargs.get('cargo_length', None)
         # aids 'project management'
         self.sprites_complete = kwargs.get('sprites_complete', False)
 
@@ -337,8 +339,7 @@ class FlatDeckBarge(Ship):
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_freight_special_cases']
         self.default_cargos = global_constants.default_cargos['flat']
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo(piece='flat',
-                                                            cargo_length= 3) # !! temp hax to make graphics compile work
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(piece='flat')
 
 
 class FruitVegCarrier(Ship):
@@ -517,5 +518,4 @@ class UniversalFreighter(Ship):
         self.default_cargos = global_constants.default_cargos['open']
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True,
-                                                            piece='open',
-                                                            cargo_length=3) # !! cargo_length is temp hax to make graphics compile work
+                                                            piece='open')

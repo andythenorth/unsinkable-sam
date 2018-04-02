@@ -187,13 +187,12 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         cargo_group_output_row_height = 2 * graphics_constants.spriterow_height
         # Cargo spritesheets provide multiple lengths, using a specific format of rows
         # given a base set, find the bounding boxes for the rows per length
-        cargo_spritesheet_bounding_boxes_base = ((10, 10, 18, 24), (28, 10, 42, 22), (50, 10, 66, 20), (72, 10, 86, 22))
         cargo_spritesheet_bounding_boxes = {}
-        for counter, length in enumerate([3, 4]):
+        for counter, length in enumerate([3, 4, 5, 6, 7, 8]):
             bb_result = []
             for y_offset in [0, 20]:
                 bb_y_offset = (counter * 40) + y_offset
-                bb_result.append(tuple([(i[0], i[1] + bb_y_offset, i[2], i[3] + bb_y_offset) for i in cargo_spritesheet_bounding_boxes_base]))
+                bb_result.append(tuple([(i[0], i[1] + bb_y_offset, i[2], i[3] + bb_y_offset) for i in polar_fox.constants.cargo_spritesheet_bounding_boxes_base]))
             cargo_spritesheet_bounding_boxes[length] = bb_result
         # Overview
         # 2 spriterows for the vehicle loading / loaded states, with pink loc points for cargo
@@ -251,7 +250,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 # cargo sprites are assumed to be symmetrical, only 4 angles are needed
                 # for cargos with 8 angles (e.g. bulldozers), provide those manually as custom cargos?
                 # loading states are first 4 sprites, loaded are second 4, all in one list
-                for bboxes in cargo_spritesheet_bounding_boxes[self.ship.gestalt_graphics.cargo_length]:
+                for bboxes in cargo_spritesheet_bounding_boxes[self.ship.cargo_length]:
                     for i in bboxes:
                         cargo_sprite = cargo_sprites_input_image.copy()
                         cargo_sprite = cargo_sprite.crop(i)
