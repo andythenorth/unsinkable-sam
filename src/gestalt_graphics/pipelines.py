@@ -211,9 +211,9 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         # sort them in y order, this causes sprites to overlap correctly when there are multiple loc points for an angle
         loc_points = sorted(loc_points, key=lambda x: x[1])
         crop_box_mask = (0,
-                         10 + (4 * graphics_constants.spriterow_height),
+                         self.base_offset + graphics_constants.spriterow_height,
                          graphics_constants.spritesheet_width,
-                         10 + (5 * graphics_constants.spriterow_height))
+                         self.base_offset + (2 * graphics_constants.spriterow_height))
         vehicle_mask_base_image = Image.open(self.ship_template_input_path).crop(crop_box_mask).point(lambda i: 255 if i == 226 else 0).convert("1")
         vehicle_mask = Image.new("1", (graphics_constants.spritesheet_width, cargo_group_output_row_height))
         crop_box_mask_1 = (0,
