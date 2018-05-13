@@ -43,6 +43,12 @@ def run_pipeline(ship):
         result = ship.gestalt_graphics.pipeline.render(ship, global_constants)
         return result
 
+def report_sprites_complete(ships):
+    # project management eh :P
+    complete = len([ship.sprites_complete for ship in ships if ship.sprites_complete])
+    print("Sprites complete for", complete, "ships; incomplete for",
+          len(ships) - complete, "ships;", str(int(100 * (complete / len(ships)))) + '%')
+
 # wrapped in a main() function so this can be called explicitly, because unexpected multiprocessing fork bombs are bad
 def main():
     start = time()
@@ -55,6 +61,9 @@ def main():
         pool = Pool(processes=num_pool_workers)
         pool.map(run_pipeline, ships)
         pool.close()
+
+    report_sprites_complete(ships)
+
     # eh, how long does this take anyway?
     print(format((time() - start), '.2f')+'s')
 
