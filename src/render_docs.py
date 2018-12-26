@@ -88,6 +88,7 @@ class DocHelper(object):
             result = {'ship':{}, 'subclass_props': []}
 
             result = self.fetch_prop(result, 'Ship Name', ship.get_name_substr() + base_lang_strings[ship.get_str_name_suffix()])
+            result = self.fetch_prop(result, 'Subtype', ship.subtype)
             result = self.fetch_prop(result, 'Extra Info', base_lang_strings[ship.get_str_type_info()])
             result = self.fetch_prop(result, 'Speed Laden', int(ship.speed))
             result = self.fetch_prop(result, 'Intro Date', ship.intro_date)
