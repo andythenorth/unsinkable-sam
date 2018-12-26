@@ -1,6 +1,23 @@
 Changelog
 =========
 
+Alpha 3
+-------
+
+*Changes*
+
+- mostly code and docs changes
+
+*Known Issues in Alpha 3*
+
+- missing cargo graphics for some ships
+- smoke position is wrong for mini Fast-loading Passenger Ship
+- intro dates are wrong
+- running and buy costs are wrong
+- ship lifetime is (probably) wrong
+- 'Type:' info in buy menu is empty
+
+
 Alpha 2
 -------
 
