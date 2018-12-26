@@ -97,7 +97,6 @@ class DocHelper(object):
             result = self.fetch_prop(result, 'Buy Cost', ship.buy_cost)
             result = self.fetch_prop(result, 'Running Cost', ship.running_cost)
             result = self.fetch_prop(result, 'Loading Speed', ship.loading_speed)
-            result = self.fetch_prop(result, 'Sprites Complete', ship.sprites_complete)
 
             props_to_print[ship] = result['ship']
             props_to_print[subclass] = result['subclass_props']
