@@ -65,6 +65,7 @@ class DocHelper(object):
     # dirty class to help do some doc formatting
 
     def get_ships_by_subclass(self):
+        # first find all the subclasses + their vehicles
         ships_by_subclass = {}
         for ship in ships:
             subclass = type(ship)
@@ -72,7 +73,9 @@ class DocHelper(object):
                 ships_by_subclass[subclass].append(ship)
             else:
                 ships_by_subclass[subclass] = [ship]
-        return ships_by_subclass
+        # reformat to a list we can then sort so order is consistent
+        result = [{'name': i.__name__, 'doc': i.__doc__, 'class_obj': subclass, 'ships': ships_by_subclass[i]} for i in ships_by_subclass]
+        return sorted(result, key=lambda subclass: subclass['name'])
 
     def get_roster_name(self, index):
         return base_lang_strings.get('STR_PARAM_ROSTER_OPTION_' + str(index), '')
@@ -84,7 +87,7 @@ class DocHelper(object):
 
     def get_props_to_print_in_code_reference(self, subclass):
         props_to_print = {}
-        for ship in self.get_ships_by_subclass()[subclass]:
+        for ship in subclass['ships']:
             result = {'ship':{}, 'subclass_props': []}
 
             result = self.fetch_prop(result, 'Ship Name', ship.get_name_substr() + base_lang_strings[ship.get_str_name_suffix()])
@@ -99,7 +102,7 @@ class DocHelper(object):
             result = self.fetch_prop(result, 'Loading Speed', ship.loading_speed)
 
             props_to_print[ship] = result['ship']
-            props_to_print[subclass] = result['subclass_props']
+            props_to_print[subclass['name']] = result['subclass_props']
 
         return props_to_print
 
