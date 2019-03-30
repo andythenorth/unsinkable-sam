@@ -271,7 +271,7 @@ class Ship(object):
 
 class BulkCarrier(Ship):
     """
-    Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse hopper wagon.
+    Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse dump car.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -301,7 +301,7 @@ class ContainerCarrier(Ship):
 
 class CoveredHopperCarrier(Ship):
     """
-    Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse hopper wagon.
+    Bulk cargos needing covered protection.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
