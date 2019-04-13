@@ -484,7 +484,7 @@ class Tanker(Ship):
         self.template = 'vehicle_with_visible_cargo.pynml'
         self.class_refit_groups = ['liquids']
         self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
-        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['edible_liquids'] # don't allow known edible liquids
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_generic_liquids']
         self.default_cargos = global_constants.default_cargos['tank']
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=polar_fox.constants.tanker_livery_recolour_maps)
