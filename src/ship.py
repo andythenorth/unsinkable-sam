@@ -320,9 +320,9 @@ class EdiblesTanker(Ship):
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.class_refit_groups = ['liquids']
-        self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be inedibles
-        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_edible_liquids'] # don't allow known inedibles
+        self.class_refit_groups = []
+        self.label_refits_allowed = global_constants.allowed_refits_by_label['edible_liquids'] # don't allow known inedibles
+        self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos['edibles_tank']
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.edibles_tanker_livery_recolour_maps)
