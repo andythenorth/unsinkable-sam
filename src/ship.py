@@ -306,7 +306,7 @@ class CoveredHopperCarrier(Ship):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.class_refit_groups = [] # no classes, use explicit labels
-        self.label_refits_allowed = ['GRAI', 'WHEA', 'MAIZ', 'SUGR', 'FMSP', 'RFPR', 'CLAY', 'BDMT', 'BEAN', 'NITR', 'RUBR', 'SAND', 'POTA', 'QLME', 'SASH', 'CMNT', 'KAOL', 'FERT', 'SALT', 'CBLK']
+        self.label_refits_allowed = global_constants.allowed_refits_by_label['covered_hoppers']
         self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos['covered_hopper']
         self.loading_speed_multiplier = 2
