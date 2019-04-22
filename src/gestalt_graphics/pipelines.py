@@ -323,7 +323,9 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     self.add_piece_cargo_spriterows(global_constants)
                 cumulative_input_spriterow_count += input_spriterow_count
 
-        input_image = Image.open(self.ship_source_input_path).crop((0, 0, graphics_constants.spritesheet_width, 10))
+        # for this pipeline, input_image is just blank white 10px high image, to which the vehicle sprites are then appended
+        input_image = Image.new("P", (graphics_constants.spritesheet_width, 10), 255)
+        input_image.putpalette(DOS_PALETTE)
         result = self.render_common(ship, input_image, self.units)
         return result
 
