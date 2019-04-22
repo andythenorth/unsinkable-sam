@@ -295,11 +295,12 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         self.units = []
         self.ship = ship
 
+        self.vehicle_source_image = Image.open(self.vehicle_source_input_path)
+
         crop_box_source = (0,
                            10,
                            graphics_constants.spritesheet_width,
                            10 + graphics_constants.spriterow_height)
-        self.vehicle_source_image = Image.open(self.vehicle_source_input_path)
         # create a base vehicle image by comping in hull, with empty / loading / loaded hull states
         self.vehicle_base_image = self.extend_base_image_to_3_rows_with_waterline_masked_per_load_state(self.vehicle_source_image.copy().crop(crop_box_source))
         # the cumulative_input_spriterow_count updates per processed group of spriterows, and is key to making this work
