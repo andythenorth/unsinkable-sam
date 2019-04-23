@@ -179,7 +179,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             self.units.append(SimpleRecolour(recolour_map))
             self.units.append(SimpleRecolour(recolour_map=self.ship.gestalt_graphics.hull_recolour_map))
 
-    def add_piece_cargo_spriterows(self, global_constants):
+    def add_piece_cargo_spriterows(self):
         # hax
         print('add_piece_cargo_spriterows: hax to crop out self.vehicle_base_image')
         self.vehicle_base_image = self.vehicle_base_image.copy().crop((0, 100, graphics_constants.spritesheet_width, 300))
@@ -263,7 +263,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 vehicle_comped_image = vehicle_cargo_rows_image.copy()
                 for pixel in loc_points:
                     angle_num = 0
-                    for counter, bbox in enumerate(global_constants.spritesheet_bounding_boxes):
+                    for counter, bbox in enumerate(self.global_constants.spritesheet_bounding_boxes):
                         if pixel[0] >= bbox[0]:
                             angle_num = counter
                     # clamp angle_num to 4, cargo sprites are symmetrical, only 4 angles provided
@@ -293,6 +293,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         self.hull_input_path = os.path.join(currentdir, 'src', 'graphics', 'hulls', ship.hull.spritesheet_name + '.png')
         self.waterline_mask_input_path = os.path.join(currentdir, 'src', 'graphics', 'waterline_masks', ship.hull.mask_name + '.png')
         self.units = []
+        self.global_constants = global_constants
         self.ship = ship
 
         self.vehicle_source_image = Image.open(self.vehicle_source_input_path)
@@ -321,7 +322,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     self.add_bulk_cargo_spriterows()
                 elif spriterow_type == 'piece_cargo':
                     input_spriterow_count = 2
-                    self.add_piece_cargo_spriterows(global_constants)
+                    self.add_piece_cargo_spriterows()
                 cumulative_input_spriterow_count += input_spriterow_count
 
         # for this pipeline, input_image is just blank white 10px high image, to which the vehicle sprites are then appended
