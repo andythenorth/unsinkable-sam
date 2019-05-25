@@ -118,7 +118,8 @@ allowed_refits_by_label = {'edible_liquids': ['MILK', 'WATR', 'BEER', 'FOOD', 'E
                                                'BEAN', 'NITR', 'RUBR', 'SAND', 'POTA', 'QLME', 'SASH', 'CMNT',
                                                'KAOL', 'FERT', 'SALT', 'CBLK', 'PLAS'],
                            'cryo_gases': ['CHLO', 'O2__'],
-                           'fruit_veg': ['FRUT', 'BEAN', 'CASS', 'JAVA', 'NUTS']}
+                           'fruit_veg': ['FRUT', 'BEAN', 'CASS', 'JAVA', 'NUTS'],
+                           'cold_metal': ['STEL', 'METL', 'STCB', 'STAL', 'STST', 'COPR']}
 
 # rather than using disallowed classes (can cause breakage), specific labels are disallowed
 disallowed_refits_by_label = {'non_dump_bulk': ['WOOD', 'SGCN', 'FICR', 'BDMT', 'WDPR', 'GRAI', 'WHEA', 'CERE', 'MAIZ', 'FRUT', 'BEAN', 'CMNT',
@@ -133,13 +134,14 @@ disallowed_refits_by_label = {'non_dump_bulk': ['WOOD', 'SGCN', 'FICR', 'BDMT', 
 # don't conflate this with general refittability, they're different concerns ;)
 # vehicle classes can also just provide their own list locally, using this is convenient, not obligatory
 default_cargos = {'box': ['GOOD', 'VPTS', 'FOOD'],
+                  'coal_hopper': ['COAL', 'COKE', 'NITR', 'KAOL'],
                   'covered_hopper': ['GRAI', 'KAOL'],
-                  'dump': ['IORE', 'MNO2', 'NITR'],
+                  'dump': ['IORE', 'MNO2', 'NITR', 'PHOS'],
                   'edibles_tank': ['WATR', 'MILK', 'BEER'],
                   'express': ['ENSP', 'FMSP', 'GOOD', 'FOOD', 'MAIL'],
                   'flat': ['STEL', 'STCB', 'COPR', 'METL'],
                   'fruit_veg': ['FRUT', 'BEAN', 'CASS', 'JAVA', 'NUTS'],
-                  'hopper': ['COAL', 'CORE', 'PORE'],
+                  'hopper': ['LIME', 'GRVL', 'SAND', 'PORE', 'SALT', 'IORE', 'CORE'],
                   # no intermodal, uses box
                   'silo': ['CMNT', 'BDMT', 'RFPR', 'QLME', 'FMSP'],
                   'stake': ['WOOD'],
@@ -209,13 +211,6 @@ piece_sprites_to_cargo_labels_maps = {'barrels_silver': ['BEER', 'DYES', 'EOIL',
                                       'tarps_gold_1': ['ENSP'],
                                       'tarps_red_1': ['BDMT'],
                                       'tarps_2cc_1': ['DFLT']}  # see note on use of DFLT above
-
-"""
-saved for cryo tanker recolours
-                               ("CHLO", {136: 154, 137: 155, 138: 156, 139: 157,
-                                         140: 158, 141: 159, 142: 160, 143: 161}),
-
-"""
 
 # Tanker recolour maps
 # DFLT label is a hack to support cargos with no specific sprites (including unknown cargos), and should not be added to cargo translation table
