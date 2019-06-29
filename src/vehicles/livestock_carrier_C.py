@@ -2,7 +2,7 @@ from ship import LivestockCarrier
 
 ship = LivestockCarrier(id='livestock_carrier_C',
                         numeric_id=20,
-                        name='[Livestock Carrier]',
+                        name='Gore Creek [Livestock Carrier]',
                         subtype='C',
                         hull='ShipHouseRear',
                         buy_cost=28,

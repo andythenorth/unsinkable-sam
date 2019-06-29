@@ -2,7 +2,7 @@ from ship import FlatDeckBarge
 
 ship = FlatDeckBarge(id='flatdeck_barge_C',
                      numeric_id=19,
-                     name='[Flatdeck Barge]',
+                     name='Roaring Fork [Flatdeck Barge]',
                      subtype='C',
                      hull='BargeHouseRear',
                      buy_cost=28,

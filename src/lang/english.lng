@@ -49,3 +49,7 @@ STR_BUY_MENU_REFIT_CAPACITIES_PACKET                            :{}{BLACK}Capaci
 
 STR_GENERIC_REFIT_SUBTYPE                                       : ({COMMA} units)
 STR_GENERIC_REFIT_SUBTYPE_BUY_MENU_INFO                         :{}{BLACK}Refittable capacities: {GOLD}{COMMA}, {COMMA} or {COMMA}{STRING}
+
+# project management
+STR_SPRITES_COMPLETE                                            :{}Sprites Complete: {GOLD}Yup
+STR_SPRITES_INCOMPLETE                                          :{}Sprites Complete: {GOLD}Nope

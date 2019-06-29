@@ -39,9 +39,9 @@ item(FEAT_SHIPS, ${ship.id}, ${ship.numeric_id}) {
     graphics {
         speed:                          ${ship.id}_switch_speed;
         cargo_capacity:                 ${ship.id}_switch_cargo_capacity;
-        purchase_cargo_capacity:        ${ship.default_capacity
-};
-        additional_text:                ${ship.get_buy_menu_string()};
+        purchase_cargo_capacity:        ${ship.default_capacity};
+        additional_text:                ${'string(STR_SPRITES_COMPLETE)' if ship.sprites_complete else 'string(STR_SPRITES_INCOMPLETE)'};
+        <!--!additional_text:                ${ship.get_buy_menu_string()};-->
         cargo_subtype_text:             ${ship.id}_switch_cargo_subtype_text;
         default:                        ${ship.id}_switch_graphics;
         purchase:                       ${ship.id}_sg_purchase;
