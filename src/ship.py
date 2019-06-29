@@ -44,8 +44,8 @@ class Ship(object):
         self._speed = kwargs.get('speed', None)
         # default to freight speed_class for convenience, over-ride in subclasses as needed
         self.speed_class = 'freight' # over-ride this for, e.g. fast_freight consists
-        # default standard capacities for freight for convenience, over-ride in subclasses as needed
-        self.capacities = {'A': 40, 'B': 100, 'C': 240, 'D': 576} # over-ride this for, e.g. pax ship capacities
+        # default standard capacities_by_subtype for freight for convenience, over-ride in subclasses as needed
+        self.capacities_by_subtype = {'A': 40, 'B': 100, 'C': 240, 'D': 576} # over-ride this for, e.g. pax ship capacities_by_subtype
         # extra type info, better over-ride in subclass
         self.str_type_info = 'EMPTY' # unused currently
         # nml-ish props, mostly optional
@@ -112,13 +112,13 @@ class Ship(object):
 
     @property
     def refittable_capacity_factors(self):
-        # default refittable capacities are [base capacity, 25% underload, 25% overload]
+        # default refittable capacities_by_subtype are [base capacity, 25% underload, 25% overload]
         # over-ride this in the subclass if necessary
         return [1, 0.75, 1.25]
 
     @property
     def capacities_refittable(self):
-        # ships can refit multiple capacities
+        # ships can refit multiple capacities_by_subtype
         # faff: mail ships need to divide default capacity for freight; freight ships multiply default capacity for mail
         # this is theoretically extensible to other cargos/classes, but will get ugly fast eh?
         if self.default_cargos[0] == 'MAIL':
@@ -135,7 +135,7 @@ class Ship(object):
 
     @property
     def default_capacity(self):
-        return self.capacities[self.subtype]
+        return self.capacities_by_subtype[self.subtype]
 
     @property
     def refittable_classes(self):
@@ -402,8 +402,8 @@ class MailShip(Ship):
         self.label_refits_allowed = []
         self.label_refits_disallowed = ['TOUR']
         self.default_cargos = global_constants.default_cargos['mail']
-        # these are the mail capacities for ships that have MAIL as default; freight capacity will be divided by global_constants.mail_multipler
-        self.capacities = {'A': 40, 'B': 120, 'C': 360} # no large mail ships, by design
+        # these are the mail capacities_by_subtype for ships that have MAIL as default; freight capacity will be divided by global_constants.mail_multipler
+        self.capacities_by_subtype = {'A': 40, 'B': 120, 'C': 360} # no large mail ships, by design
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.mail_livery_recolour_maps)
 
@@ -418,7 +418,7 @@ class PaxShipBase(Ship):
         self.label_refits_allowed = []
         self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos['pax']
-        self.capacities = {'A': 40, 'B': 125, 'C': 300, 'D': 720}
+        self.capacities_by_subtype = {'A': 40, 'B': 125, 'C': 300, 'D': 720}
         self.sound_effect = 'SOUND_FERRY_HORN'
 
 class PaxFastLoadingShip(PaxShipBase):
