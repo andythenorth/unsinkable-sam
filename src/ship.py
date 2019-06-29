@@ -163,7 +163,8 @@ class Ship(object):
     def buy_cost(self):
         if self._buy_cost is not None:
             return self._buy_cost
-        return 28
+        # !! this is an initial attempt to put buy cost in the correct bracket, but this is not finished !!
+        return self.default_capacity / 10
 
     def get_name_substr(self):
         # relies on name being in format "Foo [Bar]" for Name [Type Suffix]
