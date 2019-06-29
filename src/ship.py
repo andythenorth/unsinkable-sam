@@ -164,6 +164,7 @@ class Ship(object):
         if self._buy_cost is not None:
             return self._buy_cost
         # !! this is an initial attempt to put buy cost in the correct bracket, but this is not finished !!
+        # !! likely this should account for pax / mail / freight etc, this would be better done by sticking a multiplier on the subclass
         return self.default_capacity / 10
 
     def get_name_substr(self):
