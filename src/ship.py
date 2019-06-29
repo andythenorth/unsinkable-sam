@@ -52,7 +52,7 @@ class Ship(object):
         self.sound_effect = kwargs.get('sound_effect', 'SOUND_SHIP_HORN') # over-ride in subclasses as needed
         self.intro_date = kwargs.get('intro_date', None)
         self.vehicle_life = kwargs.get('vehicle_life', 100) # default 100 years, assumes 2 generations of ships 1850-2050
-        self.buy_cost = kwargs.get('buy_cost', None)
+        self._buy_cost = kwargs.get('buy_cost', None) # option to over-ride in individual ships if needed
         self.fixed_run_cost_factor = kwargs.get('fixed_run_cost_factor', None)
         self.fuel_run_cost_factor = kwargs.get('fuel_run_cost_factor', None)
         self.loading_speed_multiplier = 1 # over-ride in subclasses as needed (suggested values are 0.5 for slower loading and 2 for faster loading)
@@ -158,6 +158,12 @@ class Ship(object):
         # loading speed is *not* normalised per capacity for ships, unlike vehicles in Road Hog / Iron Horse
         # 10 is default OTTD value for ships, seems fine to me
         return 10 * self.loading_speed_multiplier
+
+    @property
+    def buy_cost(self):
+        if self._buy_cost is not None:
+            return self._buy_cost
+        return 28
 
     def get_name_substr(self):
         # relies on name being in format "Foo [Bar]" for Name [Type Suffix]
