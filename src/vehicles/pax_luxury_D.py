@@ -2,7 +2,7 @@ from ship import PaxLuxuryShip
 
 ship = PaxLuxuryShip(id='pax_luxury_D',
                      numeric_id=22,
-                     name='Santa Maria [Pax Luxury]',
+                     name='Zealand [Pax Luxury]',
                      subtype='D',
                      hull='TempHouseNone',
                      buy_cost=28,

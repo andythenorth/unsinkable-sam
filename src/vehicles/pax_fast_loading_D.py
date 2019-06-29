@@ -2,7 +2,7 @@ from ship import PaxFastLoadingShip
 
 ship = PaxFastLoadingShip(id='pax_fast_loading_D',
                           numeric_id=21,
-                          name='Timmyknocky [Pax Fast Loading]',
+                          name='Big Heart [Pax Fast Loading]',
                           subtype='D',
                           hull='TempHouseNone',
                           buy_cost=28,
