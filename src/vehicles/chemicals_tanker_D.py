@@ -10,6 +10,6 @@ ship = ChemicalsTanker(id='chemicals_tanker_D',
               intro_date=1870,
               str_type_info='COASTAL_TANKER',
               effect_type='EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE',
-              sprites_complete=True)
+              sprites_complete=False)
 
 
