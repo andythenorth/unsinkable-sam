@@ -2,7 +2,7 @@ from ship import CryoTanker
 
 ship = CryoTanker(id='cryo_tanker_C',
               numeric_id=38,
-              name='[Cryo Tanker]',
+              name='Bright Angel [Cryo Tanker]',
               subtype='C',
               hull='BargeHouseRear',
               fixed_run_cost_factor=2.0,

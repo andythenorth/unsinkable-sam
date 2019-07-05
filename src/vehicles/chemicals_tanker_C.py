@@ -2,7 +2,7 @@ from ship import ChemicalsTanker
 
 ship = ChemicalsTanker(id='chemicals_tanker_C',
               numeric_id=39,
-              name='[Chemicals Tanker]',
+              name='Green River [Chemicals Tanker]',
               subtype='C',
               hull='BargeHouseRear',
               fixed_run_cost_factor=2.0,
