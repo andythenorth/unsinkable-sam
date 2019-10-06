@@ -4,7 +4,7 @@ currentdir = os.curdir
 from PIL import Image
 
 import polar_fox
-from polar_fox.graphics_units import SimpleRecolour, AppendToSpritesheet, AddBuyMenuSprite
+from polar_fox.graphics_units import SimpleRecolour, AppendToSpritesheet
 from polar_fox.pixa import Spritesheet, pixascan
 from gestalt_graphics import graphics_constants
 
@@ -32,26 +32,6 @@ class Pipeline(object):
         # convenience method to get the ship source input image
         # I considered having this return the Image, not just the path, but it's not saving much, and is less obvious what it does when used
         return os.path.join(currentdir, 'src', 'graphics', 'ships', self.ship.id + '.png')
-
-    def process_buy_menu_sprite(self, spritesheet):
-        # this function is passed (uncalled) into the pipeline, and then called at render time
-        # this is so that it has the processed spritesheet available, which is essential for creating buy menu sprites
-        # n.b if buy menu sprite processing has conditions by vehicle type, could pass a dedicated function for each type of processing
-
-        # hard-coded positions for buy menu sprite (if used - it's optional)
-        buy_menu_sprite_height = 48
-        half_size = (int(self.global_constants.buy_menu_sprite_width / 2), int(buy_menu_sprite_height / 2))
-        crop_box_src = (610,
-                        10,
-                        610 + self.global_constants.buy_menu_sprite_width,
-                        10 + buy_menu_sprite_height)
-        crop_box_dest = (self.global_constants.buy_menu_sprite_x_loc,
-                         10,
-                         self.global_constants.buy_menu_sprite_x_loc + half_size[0],
-                         10 + half_size[1])
-        custom_buy_menu_sprite = spritesheet.sprites.copy().crop(crop_box_src).resize(half_size, resample=Image.NEAREST)
-        spritesheet.sprites.paste(custom_buy_menu_sprite, crop_box_dest)
-        return spritesheet
 
     def render_common(self, ship, input_image, units):
         # expects to be passed a PIL Image object
@@ -344,8 +324,6 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     input_spriterow_count = 2
                     self.add_piece_cargo_spriterows()
                 cumulative_input_spriterow_count += input_spriterow_count
-
-        self.units.append(AddBuyMenuSprite(self.process_buy_menu_sprite))
 
         # for this pipeline, input_image is just blank white 10px high image, to which the vehicle sprites are then appended
         input_image = Image.new("P", (graphics_constants.spritesheet_width, 10), 255)
