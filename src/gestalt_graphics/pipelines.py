@@ -192,7 +192,8 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         # hax
         print('add_piece_cargo_spriterows: hax to crop out self.vehicle_base_image')
         self.vehicle_base_image = self.vehicle_base_image.copy().crop((0, 100, self.sprites_max_x_extent, 300))
-        #self.vehicle_base_image.show()
+        #if self.ship.id == 'universal_freighter_D':
+            #self.vehicle_base_image.show()
         # !! this could possibly be optimised by slicing all the cargos once, globally, instead of per-unit
         cargo_group_output_row_height = 2 * graphics_constants.spriterow_height
         # Cargo spritesheets provide multiple lengths, using a specific format of rows
@@ -200,8 +201,8 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         cargo_spritesheet_bounding_boxes = {}
         for counter, length in enumerate([3, 4, 5, 6, 7, 8]):
             bb_result = []
-            for y_offset in [0, 20]:
-                bb_y_offset = (counter * 40) + y_offset
+            for y_offset in [0, 30]:
+                bb_y_offset = (counter * 60) + y_offset
                 bb_result.append(tuple([(i[0], i[1] + bb_y_offset, i[2], i[3] + bb_y_offset) for i in polar_fox.constants.cargo_spritesheet_bounding_boxes_base]))
             cargo_spritesheet_bounding_boxes[length] = bb_result
         # Overview
@@ -214,6 +215,9 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                            self.sprites_max_x_extent,
                            self.base_offset + graphics_constants.spriterow_height)
         vehicle_cargo_loc_image = self.vehicle_source_image.copy().crop(crop_box_vehicle_cargo_loc_row)
+        #if self.ship.id == 'universal_freighter_D':
+            #vehicle_cargo_loc_image.show()
+
         # get the loc points
         loc_points = [pixel for pixel in pixascan(vehicle_cargo_loc_image) if pixel[2] == 226]
         # two cargo rows needed, so extend the loc points list
@@ -255,6 +259,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             for cargo_filename in cargo_filenames:
                 cargo_sprites_input_path = os.path.join(currentdir, 'src', 'polar_fox', 'cargo_graphics', cargo_filename + '.png')
                 cargo_sprites_input_image = Image.open(cargo_sprites_input_path)
+
                 cargo_sprites = []
                 # build a list, with a two-tuple (cargo_sprite, mask) for each of 4 angles
                 # cargo sprites are assumed to be symmetrical, only 4 angles are needed
@@ -291,9 +296,12 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                                           pixel[0] + cargo_width,
                                           pixel[1] + 1)
                     vehicle_comped_image.paste(cargo_sprites[cargo_sprite_num][0], cargo_bounding_box, cargo_sprites[cargo_sprite_num][1])
+                    #if self.ship.id == 'universal_freighter_D' and cargo_filename == 'barrels_silver':
+                        #cargo_sprites[cargo_sprite_num][0].show()
                 # vehicle overlay with mask - overlays any areas where cargo shouldn't show
                 vehicle_comped_image.paste(self.vehicle_base_image, crop_box_comp_dest_1, vehicle_mask)
-                #vehicle_comped_image.show()
+                #if self.ship.id == 'universal_freighter_D':
+                    #vehicle_comped_image.show()
                 vehicle_comped_image_as_spritesheet = self.make_spritesheet_from_image(vehicle_comped_image)
                 self.units.append(AppendToSpritesheet(vehicle_comped_image_as_spritesheet, crop_box_dest))
                 self.units.append(SimpleRecolour(recolour_map=self.ship.gestalt_graphics.hull_recolour_map))
