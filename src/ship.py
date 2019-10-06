@@ -180,8 +180,8 @@ class Ship(object):
         type_suffix = '_'.join(type_suffix.split(' '))
         return 'STR_NAME_' + type_suffix
 
-    def get_str_size_suffix(self):
-        return 'STR_HULL_SIZE_' + self.subtype
+    def get_str_power_type_suffix(self):
+        return 'STR_POWER_TYPE_DIESEL'
 
     def get_str_type_info(self):
         # makes a string id for nml
@@ -189,7 +189,7 @@ class Ship(object):
 
     @property
     def name(self):
-        return "string(STR_NAME_" + self.id +", string(" + self.get_str_name_suffix() + "), string(" + self.get_str_size_suffix() + "))"
+        return "string(STR_NAME_" + self.id +", string(" + self.get_str_name_suffix() + "), string(" + self.get_str_power_type_suffix() + "))"
 
     def get_buy_menu_string(self):
         buy_menu_template = Template(

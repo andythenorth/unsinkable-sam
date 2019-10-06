@@ -41,6 +41,8 @@ STR_NAME_STEAMER                                                :Steamer
 STR_NAME_TANKER                                                 :Tanker
 STR_NAME_TRAWLER                                                :Trawler
 
+STR_POWER_TYPE_DIESEL                                           :Diesel
+
 STR_HULL_SIZE_A                                                 :Micro
 STR_HULL_SIZE_B                                                 :Mini
 STR_HULL_SIZE_C                                                 :Small
