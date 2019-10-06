@@ -2,5 +2,5 @@ STR_GRF_NAME                                                    :Unsinkable Sam 
 
 <!--! ship names -->
 <tal:build_vehicle_names repeat="ship ships">
-STR_NAME_${ship.id}                                          :${ship.get_name_substr()}{STRING} ({STRING}) <!--! no space between name and substr -->
+STR_NAME_${ship.id}                                          :{STRING} - ${ship.get_name_substr()} ({STRING}) <!--! no space between name and substr -->
 </tal:build_vehicle_names>

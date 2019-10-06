@@ -169,7 +169,8 @@ class Ship(object):
 
     def get_name_substr(self):
         # relies on name being in format "Foo [Bar]" for Name [Type Suffix]
-        return self._name.split('[')[0]
+        # also strips off whitespace
+        return self._name.split('[')[0].strip()
 
     def get_str_name_suffix(self):
         # used in ship name string only, relies on name property value being in format "Foo [Bar]" for Name [Type Suffix]
