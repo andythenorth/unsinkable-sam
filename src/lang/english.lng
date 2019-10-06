@@ -20,21 +20,21 @@ STR_NAME_BULK_BARGE                                             :Bulk Barge
 STR_NAME_BULK_CARRIER                                           :Bulk Carrier
 STR_NAME_CHEMICALS_TANKER                                       :Chemicals Tanker
 STR_NAME_CONTAINER_FEEDER                                       :Container Feeder
-STR_NAME_COVERED_HOPPER_BARGE                                   :Covered Hopper Barge
+STR_NAME_COVERED_HOPPER_BARGE                                   :Covered Bulk Barge
 STR_NAME_CRYO_TANKER                                            :Cryo Tanker
 STR_NAME_EDIBLES_TANKER                                         :Edibles Tanker
 STR_NAME_FAST_FERRY                                             :Fast Ferry
 STR_NAME_FERRY                                                  :Ferry
 STR_NAME_FLATDECK_BARGE                                         :Flat Deck Barge
 STR_NAME_FREIGHTER                                              :Freighter
-STR_NAME_FRUIT_VEG_CARRIER                                      :Fruit & Vegetables Carrier
+STR_NAME_FRUIT_VEG_CARRIER                                      :Fruit & Vegetables Ship
 STR_NAME_HOVERCRAFT                                             :Hovercraft
 STR_NAME_HYDROFOIL                                              :Hydrofoil
 STR_NAME_LIVESTOCK_CARRIER                                      :Livestock Carrier
 STR_NAME_LOG_TUG                                                :Log Tug
 STR_NAME_MAIL_SHIP                                              :Mail Ship
-STR_NAME_PAX_FAST_LOADING                                       :Fast-loading Passenger Ship
-STR_NAME_PAX_LUXURY                                             :Luxury Passenger Ship
+STR_NAME_PAX_FAST_LOADING                                       :Ferry
+STR_NAME_PAX_LUXURY                                             :Ferry
 STR_NAME_PIECE_GOODS_CARRIER                                    :Piece Goods Carrier
 STR_NAME_REEFER                                                 :Refrigerated Ship
 STR_NAME_STEAMER                                                :Steamer
