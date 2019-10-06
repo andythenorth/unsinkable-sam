@@ -35,7 +35,7 @@ STR_NAME_LOG_TUG                                                :Log Tug
 STR_NAME_MAIL_SHIP                                              :Mail Ship
 STR_NAME_PAX_FAST_LOADING                                       :Ferry
 STR_NAME_PAX_LUXURY                                             :Luxury Ferry
-STR_NAME_PIECE_GOODS_CARRIER                                    :Piece Goods Carrier
+STR_NAME_PIECE_GOODS_CARRIER                                    :Covered Freighter
 STR_NAME_REEFER                                                 :Refrigerated Ship
 STR_NAME_STEAMER                                                :Steamer
 STR_NAME_TANKER                                                 :Tanker
