@@ -332,7 +332,7 @@ class ChemicalsTanker(Ship):
         self.class_refit_groups = [] # no classes, use explicit labels
         self.label_refits_allowed = global_constants.allowed_refits_by_label['chemicals']
         self.label_refits_disallowed = []
-        self.default_cargos = global_constants.default_cargos['chemicals_tank']
+        self.default_cargos = global_constants.default_cargos['product_tank']
         self.loading_speed_multiplier = 2
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.covered_hopper_carrier_livery_recolour_maps)
