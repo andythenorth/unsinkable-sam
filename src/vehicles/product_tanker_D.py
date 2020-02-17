@@ -1,8 +1,8 @@
-from ship import ChemicalsTanker
+from ship import ProductTanker
 
-ship = ChemicalsTanker(id='chemicals_tanker_D',
+ship = ProductTanker(id='product_tanker_D',
               numeric_id=40,
-              name='Morrow Point [Chemicals Tanker]',
+              name='Morrow Point [Product Tanker]',
               subtype='D',
               hull='ShipHouseRear',
               fixed_run_cost_factor=12.0,

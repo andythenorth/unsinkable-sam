@@ -18,7 +18,6 @@ STR_PARAM_ROSTER_OPTION_0                                       :This Sceptered 
 
 STR_NAME_BULK_BARGE                                             :Bulk Barge
 STR_NAME_BULK_CARRIER                                           :Bulk Carrier
-STR_NAME_CHEMICALS_TANKER                                       :Chemicals Tanker
 STR_NAME_CONTAINER_FEEDER                                       :Container Feeder
 STR_NAME_COVERED_HOPPER_BARGE                                   :Covered Bulk Barge
 STR_NAME_CRYO_TANKER                                            :Cryo Tanker
@@ -36,6 +35,7 @@ STR_NAME_MAIL_SHIP                                              :Mail Ship
 STR_NAME_PAX_FAST_LOADING                                       :Ferry
 STR_NAME_PAX_LUXURY                                             :Luxury Ferry
 STR_NAME_PIECE_GOODS_CARRIER                                    :Covered Freighter
+STR_NAME_PRODUCT_TANKER                                         :Product Tanker
 STR_NAME_REEFER                                                 :Refrigerated Ship
 STR_NAME_STEAMER                                                :Steamer
 STR_NAME_TANKER                                                 :Tanker
