@@ -2,7 +2,7 @@ from ship import Tanker
 
 ship = Tanker(id='tanker_C',
               numeric_id=1,
-              name='Black River [Tanker]',
+              name='Ellesmere [Tanker]',
               subtype='C',
               hull='BargeHouseRear',
               fixed_run_cost_factor=2.0,

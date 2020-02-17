@@ -2,7 +2,7 @@ from ship import PaxFastLoadingShip
 
 ship = PaxFastLoadingShip(id='pax_fast_loading_B',
                           numeric_id=25,
-                          name='Sunset Falls [Pax Fast Loading]',
+                          name='Arranmore [Pax Fast Loading]',
                           subtype='B',
                           hull='TempHouseNone',
                           fixed_run_cost_factor=3.5,

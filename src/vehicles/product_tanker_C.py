@@ -2,7 +2,7 @@ from ship import ProductTanker
 
 ship = ProductTanker(id='product_tanker_C',
               numeric_id=39,
-              name='Green River [Product Tanker]',
+              name='Hellevik [Product Tanker]',
               subtype='C',
               hull='BargeHouseRear',
               fixed_run_cost_factor=2.0,

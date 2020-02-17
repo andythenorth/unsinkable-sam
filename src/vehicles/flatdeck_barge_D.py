@@ -2,7 +2,7 @@ from ship import FlatDeckBarge
 
 ship = FlatDeckBarge(id='flatdeck_barge_D',
                      numeric_id=17,
-                     name='Plateau [Flatdeck Barge]',
+                     name='Pensacola [Flatdeck Barge]',
                      subtype='D',
                      hull='PushBargeHouseRear',
                      fixed_run_cost_factor=3.5,

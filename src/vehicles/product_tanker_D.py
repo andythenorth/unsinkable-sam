@@ -2,7 +2,7 @@ from ship import ProductTanker
 
 ship = ProductTanker(id='product_tanker_D',
               numeric_id=40,
-              name='Morrow Point [Product Tanker]',
+              name='Magellan [Product Tanker]',
               subtype='D',
               hull='ShipHouseRear',
               fixed_run_cost_factor=12.0,
