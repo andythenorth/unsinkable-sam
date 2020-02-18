@@ -26,7 +26,7 @@
                                          height="${2 * global_constants.buy_menu_sprite_height}" />
                                 </td>
                                 <td style="vertical-align:middle;">
-                                    <a class="table-link-dark" href="#${ship.id}">${ship.get_name_substr()} ${base_lang_strings[ship.get_str_name_suffix()]}</a>
+                                    <a class="table-link-dark" href="#${ship.id}">${doc_helper.unpack_name_string(ship)}</a>
                                 </td>
                                 <td class="number" style="vertical-align:middle;">${ship.intro_date}</td>
                                 <td style="vertical-align:middle;">

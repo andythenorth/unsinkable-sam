@@ -85,12 +85,16 @@ class DocHelper(object):
         result['subclass_props'].append(prop_name)
         return result
 
+    def unpack_name_string(self, ship):
+        # doesn't include the power type suffix
+        return ship.get_name_substr() + ' ' + base_lang_strings[ship.get_str_name_suffix()]
+
     def get_props_to_print_in_code_reference(self, subclass):
         props_to_print = {}
         for ship in subclass['ships']:
             result = {'ship':{}, 'subclass_props': []}
 
-            result = self.fetch_prop(result, 'Ship Name', ship.get_name_substr() + base_lang_strings[ship.get_str_name_suffix()])
+            result = self.fetch_prop(result, 'Ship Name', self.unpack_name_string(ship))
             result = self.fetch_prop(result, 'Subtype', ship.subtype)
             result = self.fetch_prop(result, 'Extra Info', base_lang_strings[ship.get_str_type_info()])
             result = self.fetch_prop(result, 'Speed Laden', int(ship.speed))
