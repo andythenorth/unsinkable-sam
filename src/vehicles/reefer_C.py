@@ -2,7 +2,7 @@ from ship import Reefer
 
 ship = Reefer(id='reefer_C',
               numeric_id=14,
-              name='Polar Chill [Reefer]',
+              name='Kodiak [Reefer]',
               subtype='C',
               hull='ShipHouseForward',
               fixed_run_cost_factor=3.5,

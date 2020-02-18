@@ -2,7 +2,7 @@ from ship import EdiblesTanker
 
 ship = EdiblesTanker(id='edibles_tanker_C',
                      numeric_id=32,
-                     name='Agua Fria [Edibles Tanker]',
+                     name='Fresnel [Edibles Tanker]',
                      subtype='C',
                      hull='ShipHouseRear',
                      fixed_run_cost_factor=12.0,
