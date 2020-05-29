@@ -19,7 +19,9 @@ PROJECT_NAME = unsinkable-sam
 GRAPHICS_DIR = generated/graphics
 LANG_DIR = generated/lang
 NML_FILE = generated/unsinkable-sam.nml
-NML_FLAGS =-c -l $(LANG_DIR)
+NML_FLAGS =-c -l $(LANG_DIR) --verbosity=4
+
+-include Makefile.local
 
 EXPORTED = no
 ifeq ($(strip $(EXPORTED)),no)
