@@ -1,9 +1,9 @@
 from ship import MailShip
 
-ship = MailShip(id='mail_ship_C',
+ship = MailShip(id='mail_ship_D',
                 numeric_id=26,
                 name='Olympic [Mail Ship]',
-                subtype='C',
+                subtype='D',
                 hull='TempHouseNone',
                 fixed_run_cost_factor=3.5,
                 fuel_run_cost_factor=1.0,

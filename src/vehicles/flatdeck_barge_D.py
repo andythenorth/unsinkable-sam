@@ -1,10 +1,10 @@
 from ship import FlatDeckBarge
 
 ship = FlatDeckBarge(id='flatdeck_barge_D',
-                     numeric_id=17,
-                     name='Pensacola [Flatdeck Barge]',
+                     numeric_id=19,
+                     name='Roscoff [Flatdeck Barge]',
                      subtype='D',
-                     hull='PushBargeHouseRear',
+                     hull='BargeHouseRear',
                      fixed_run_cost_factor=3.5,
                      fuel_run_cost_factor=1.0,
                      intro_date=1870,

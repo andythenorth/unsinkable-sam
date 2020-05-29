@@ -421,7 +421,7 @@ class MailShip(Ship):
         self.label_refits_disallowed = ['TOUR']
         self.default_cargos = global_constants.default_cargos['mail']
         # these are the mail capacities_by_subtype for ships that have MAIL as default; freight capacity will be divided by global_constants.mail_multipler
-        self.capacities_by_subtype = {'A': 40, 'B': 120, 'C': 360} # no large mail ships, by design
+        self.capacities_by_subtype = {'A': 40, 'B': 120, 'D': 360} # no large mail ships, by design
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.mail_livery_recolour_maps)
 
@@ -453,6 +453,7 @@ class PaxFastLoadingShip(PaxShipBase):
     @property
     def hull_mapping(self):
         # default mapping of subtypes to hull lengths; over-ride in subclasses as needed
+        # !! WIP the actual mappings here are somewhat undecided
         return {'A':'44px', 'B':'44px', 'C':'64px', 'D':'96px'}
 
 
@@ -466,6 +467,12 @@ class PaxLuxuryShip(PaxShipBase):
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.pax_luxury_livery_recolour_maps)
+
+    @property
+    def hull_mapping(self):
+        # default mapping of subtypes to hull lengths; over-ride in subclasses as needed
+        # !! WIP the actual mappings here are somewhat undecided
+        return {'A':'44px', 'B':'64px', 'C':'96px', 'D':'128px'}
 
 
 class PieceGoodsCarrier(Ship):

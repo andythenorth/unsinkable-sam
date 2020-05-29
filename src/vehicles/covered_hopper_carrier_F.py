@@ -1,9 +1,9 @@
 from ship import CoveredHopperCarrier
 
-ship = CoveredHopperCarrier(id='covered_hopper_carrier_D',
+ship = CoveredHopperCarrier(id='covered_hopper_carrier_F',
                             numeric_id=33,
                             name='Fairport [Covered Hopper Barge]',
-                            subtype='D',
+                            subtype='F',
                             hull='PushBargeHouseRear',
                             fixed_run_cost_factor=3.5,
                             fuel_run_cost_factor=1.0,

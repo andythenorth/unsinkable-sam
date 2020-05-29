@@ -1,9 +1,9 @@
 from ship import Trawler
 
-ship = Trawler(id='trawler_C',
+ship = Trawler(id='trawler_D',
                numeric_id=13,
                name='Cromarty [Trawler]',
-               subtype='C',
+               subtype='D',
                hull='TempHouseNone',
                fixed_run_cost_factor=3.5,
                fuel_run_cost_factor=1.0,
