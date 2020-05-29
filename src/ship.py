@@ -45,7 +45,7 @@ class Ship(object):
         # default to freight speed_class for convenience, over-ride in subclasses as needed
         self.speed_class = 'freight' # over-ride this for, e.g. fast_freight consists
         # default standard capacities_by_subtype for freight for convenience, over-ride in subclasses as needed
-        self.capacities_by_subtype = {'A': 40, 'B': 100, 'C': 240, 'D': 576} # over-ride this for, e.g. pax ship capacities_by_subtype
+        self.capacities_by_subtype = {'A': 72, 'B': 160, 'C': 240, 'D': 360, 'E': 540, 'F': 720} # over-ride this for, e.g. pax ship capacities_by_subtype
         # extra type info, better over-ride in subclass
         self.str_type_info = 'EMPTY' # unused currently
         # nml-ish props, mostly optional
@@ -75,7 +75,7 @@ class Ship(object):
     @property
     def hull_mapping(self):
         # default mapping of subtypes to hull lengths; over-ride in subclasses as needed
-        return {'A':'44px', 'B':'64px', 'C':'96px', 'D':'128px'}
+        return {'A':'44px', 'B':'64px', 'C':'80px', 'D':'96px', 'E':'112px', 'F':'128px'}
 
     @property
     def speed(self):
