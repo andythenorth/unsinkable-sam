@@ -9,6 +9,6 @@ ship = Reefer(id='reefer_F',
               fuel_run_cost_factor=1.0,
               intro_date=1870,
               effect_type='EFFECT_SPRITE_DIESEL',
-              sprites_complete=True)
+              sprites_complete=False)
 
 
