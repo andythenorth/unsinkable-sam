@@ -257,7 +257,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                          cargo_group_output_row_height)
         for cargo_labels, cargo_filenames in self.ship.gestalt_graphics.piece_cargo_maps:
             for cargo_filename in cargo_filenames:
-                cargo_sprites_input_path = os.path.join(currentdir, 'src', 'polar_fox', 'cargo_graphics', cargo_filename + '.png')
+                cargo_sprites_input_path = os.path.join(currentdir, 'src', 'polar_fox', 'graphics', 'piece_cargos', cargo_filename + '.png')
                 cargo_sprites_input_image = Image.open(cargo_sprites_input_path)
 
                 cargo_sprites = []
