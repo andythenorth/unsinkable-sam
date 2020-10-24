@@ -291,7 +291,7 @@ class BulkCarrier(Ship):
         self.loading_speed_multiplier = 2
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True,
-                                                            hull_recolour_map=graphics_constants.hull_recolour_CC2)
+                                                            hull_recolour_map=graphics_constants.hull_recolour_CC1)
 
 
 class ContainerCarrier(Ship):
