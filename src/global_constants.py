@@ -25,7 +25,7 @@ buy_menu_sprite_x_loc = 610
 buy_menu_sprite_width = 128
 buy_menu_sprite_height = 22
 sprites_max_x_extent = 855
-
+docs_ship_image_height = 32 # show the full ship (assuming no ships taller than 32px in – view)
 
 # shared global constants via Polar Fox library - import at end to make the this project's constants easier to work with
 # done this way so we don't have to pass Polar Fox to templates, we can just pass global_constants

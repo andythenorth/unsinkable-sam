@@ -148,9 +148,9 @@ def render_docs_images():
     for ship in ships:
         vehicle_spritesheet = Image.open(os.path.join(vehicle_graphics_src, ship.id + '.png'))
         processed_vehicle_image = vehicle_spritesheet.crop(box=(buy_menu_bb[0],
-                                                                10 + ship.buy_menu_bb_y_offset,
+                                                                10 + global_constants.spritesheet_bounding_boxes[2][2] - global_constants.docs_ship_image_height,
                                                                 buy_menu_bb[0] + global_constants.buy_menu_sprite_width,
-                                                                10 + ship.buy_menu_bb_y_offset + global_constants.buy_menu_sprite_height))
+                                                                10 + global_constants.spritesheet_bounding_boxes[2][2]))
         # oversize the images to account for how browsers interpolate the images on retina / HDPI screens
         processed_vehicle_image = processed_vehicle_image.resize((4 * global_constants.buy_menu_sprite_width, 4 * global_constants.buy_menu_sprite_height),
                                                                   resample=Image.NEAREST)

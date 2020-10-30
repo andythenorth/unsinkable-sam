@@ -23,7 +23,7 @@
                                 <td style="vertical-align:middle;">
                                     <img src="static/img/${ship.id}.png"
                                          width="${2 * global_constants.buy_menu_sprite_width}"
-                                         height="${2 * global_constants.buy_menu_sprite_height}" />
+                                         height="${2 * global_constants.docs_ship_image_height}" />
                                 </td>
                                 <td style="vertical-align:middle;">
                                     <a class="table-link-dark" href="#${ship.id}">${doc_helper.unpack_name_string(ship)}</a>
