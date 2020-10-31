@@ -8,7 +8,6 @@ class Hull(object):
     # length
     # hull spritesheet file
     # vertical offset if needed, accounting for buy menu especially
-    # mask_name
     # effects position (list of 3-tuples for x, y, z positions of effects)
     # fatter / thinner ships might need offset adjustments
 
@@ -18,10 +17,6 @@ class Hull(object):
     @property
     def spritesheet_name(self):
         return self.hull_type + '_house_' + self.house_position +  '_' + self.hull_length
-
-    @property
-    def mask_name(self):
-        return self.hull_type  + '_waterline_mask_' + self.hull_length
 
     @property
     def wake_name(self):
