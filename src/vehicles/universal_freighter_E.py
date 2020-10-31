@@ -9,6 +9,7 @@ ship = UniversalFreighter(id='universal_freighter_E',
                           fuel_run_cost_factor=1.0,
                           intro_date=1870,
                           effect_type='EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE',
-                          cargo_length=8)
+                          cargo_length=8,
+                          sprites_complete=True)
 
 
