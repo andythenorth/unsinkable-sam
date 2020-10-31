@@ -240,7 +240,7 @@ class Ship(object):
     def buy_menu_bb_y_offset(self):
         # !! scaffolding for variable height ships that need offsets on their bounding box for buy menu
         # !! returns a fixed value currently, more wasn't needed yet :P Possibly delete?
-        return 20
+        return 16
 
     @property
     def offsets(self):

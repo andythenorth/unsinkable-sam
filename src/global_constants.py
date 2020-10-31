@@ -23,7 +23,7 @@ vehicle_offsets = {'32px': [[-14, -73], [-44, -38], [-22, -36], [8, -38], [-14, 
 
 buy_menu_sprite_x_loc = 610
 buy_menu_sprite_width = 128
-buy_menu_sprite_height = 28
+buy_menu_sprite_height = 32
 sprites_max_x_extent = 855
 docs_ship_image_height = 32 # show the full ship (assuming no ships taller than 32px in – view)
 
