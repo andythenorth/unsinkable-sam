@@ -10,6 +10,7 @@ from time import time
 import unsinkable_sam
 import utils
 import global_constants
+from polar_fox import git_info
 from rosters import registered_rosters # Iron Horse has support for compiling only active roster, copy if/when needed
 
 # get args passed by makefile
@@ -27,7 +28,8 @@ def render_header_item_nml(header_item, consists):
                                                     global_constants=global_constants,
                                                     utils=utils,
                                                     registered_rosters=registered_rosters,
-                                                    makefile_args=makefile_args))
+                                                    makefile_args=makefile_args,
+                                                    git_info=git_info))
 
 def render_consist_nml(consist):
     result = utils.unescape_chameleon_output(consist.render())

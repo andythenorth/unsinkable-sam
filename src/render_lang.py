@@ -2,6 +2,7 @@ print("[RENDER LANG] render_lang.py")
 
 import unsinkable_sam
 import utils
+from polar_fox import git_info
 
 import shutil
 import os
@@ -42,7 +43,7 @@ def main():
         src_file = codecs.open(os.path.join(lang_src, i + '.lng'), 'r','utf8')
         dst_file = codecs.open(os.path.join(lang_dst, i + '.lng'), 'w','utf8')
         lang_content = src_file.read()
-        lang_content = lang_content + lang_template(ships=ships, makefile_args=makefile_args)
+        lang_content = lang_content + lang_template(ships=ships, makefile_args=makefile_args, git_info=git_info)
         dst_file.write(lang_content)
         dst_file.close()
     # eh, how long does this take anyway?

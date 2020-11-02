@@ -1,4 +1,4 @@
-STR_GRF_NAME                                                    :Unsinkable Sam ${makefile_args.repo_version}
+STR_GRF_NAME                                                    :Unsinkable Sam ${git_info.get_version()}
 
 <!--! ship names -->
 <tal:build_vehicle_names repeat="ship ships">

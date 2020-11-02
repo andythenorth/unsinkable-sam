@@ -13,6 +13,7 @@ from PIL import Image
 import global_constants
 import utils as utils
 import unsinkable_sam
+from polar_fox import git_info
 
 # setting up a cache for compiled chameleon templates can significantly speed up template rendering
 chameleon_cache_path = os.path.join(currentdir, global_constants.chameleon_cache_dir)
@@ -120,13 +121,13 @@ def render_docs(doc_list, file_type, use_markdown=False):
     for doc_name in doc_list:
         template = docs_templates[doc_name + '.pt'] # .pt is the conventional extension for chameleon page templates
         doc = template(ships=ships, registered_rosters=registered_rosters, global_constants=global_constants,
-                       makefile_args=makefile_args, base_lang_strings=base_lang_strings, metadata=metadata,
+                       makefile_args=makefile_args, git_info=git_info, base_lang_strings=base_lang_strings, metadata=metadata,
                        utils=utils, doc_helper=DocHelper(), doc_name=doc_name)
         if use_markdown:
             # the doc might be in markdown format, if so we need to render markdown to html, and wrap the result in some boilerplate html
             markdown_wrapper = docs_templates['markdown_wrapper.pt']
             doc = markdown_wrapper(content=markdown.markdown(doc), global_constants=global_constants, makefile_args=makefile_args,
-                              metadata=metadata, utils=utils, doc_helper=DocHelper(), doc_name=doc_name)
+                              git_info=git_info, metadata=metadata, utils=utils, doc_helper=DocHelper(), doc_name=doc_name)
         if file_type == 'html':
             subdir = 'html'
         else:

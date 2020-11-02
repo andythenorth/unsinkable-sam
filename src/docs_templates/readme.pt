@@ -1,5 +1,5 @@
 ==================================
-Unsinkable Sam ${makefile_args.repo_version}
+Unsinkable Sam ${git_info.get_version()}
 ==================================
 Ships, for OpenTTD
 
@@ -9,7 +9,7 @@ Unsinkable Sam docs are published online:
 =======
 GRF Name: Unsinkable Sam
 
-This version of Unsinkable Sam is created using repository version ${makefile_args.repo_version}
+This version of Unsinkable Sam is created using repository version ${git_info.get_version()}
 
 Thanks to *all* who helped create Unsinkable Sam.
 
