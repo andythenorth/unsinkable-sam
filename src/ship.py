@@ -552,7 +552,8 @@ class Trawler(Ship):
 
 class UniversalFreighter(Ship):
     """
-    General purpose freight vessel type. No pax or mail cargos, refits any other cargo including liquids (in barrels or containers).
+    General purpose freight vessel type.
+    No pax or mail cargos, refits any other cargo including liquids (in barrels or containers).
     IRL: "multi-purpose vessel".
     Not "general cargo vessel", IRL they carry only piece goods (confusing much?).
     """

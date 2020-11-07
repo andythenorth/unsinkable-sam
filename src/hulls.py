@@ -63,9 +63,18 @@ class ShipHouseForward96px(Hull):
     def __init__(self):
         self.hull_length = '96px'
         self.hull_type = 'ship'
-        self.house_position = 'rear'
+        self.house_position = 'forward'
         self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
         self.effects_positions = [(11, 0, 24)]
+
+
+class ShipHouseForward112px(Hull):
+    def __init__(self):
+        self.hull_length = '112px'
+        self.hull_type = 'ship'
+        self.house_position = 'forward'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(12, 0, 24)]
 
 
 class ShipHouseForward128px(Hull):
@@ -173,6 +182,7 @@ registered_hulls = {'BargeHouseRear44px': BargeHouseRear44px(),
                     'BargeHouseRear96px': BargeHouseRear96px(),
                     'PushBargeHouseRear128px': PushBargeHouseRear128px(),
                     'ShipHouseForward96px': ShipHouseForward96px(),
+                    'ShipHouseForward112px': ShipHouseForward112px(),
                     'ShipHouseForward128px': ShipHouseForward128px(),
                     'ShipHouseRear80px': ShipHouseRear80px(),
                     'ShipHouseRear96px': ShipHouseRear96px(),

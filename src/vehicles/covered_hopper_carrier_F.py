@@ -9,5 +9,3 @@ ship = CoveredHopperCarrier(id='covered_hopper_carrier_F',
                             fuel_run_cost_factor=1.0,
                             intro_date=1870,
                             effect_type='EFFECT_SPRITE_DIESEL')
-
-

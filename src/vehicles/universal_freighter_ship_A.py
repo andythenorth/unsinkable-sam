@@ -1,6 +1,6 @@
 from ship import UniversalFreighter
 
-ship = UniversalFreighter(id='universal_freighter_A',
+ship = UniversalFreighter(id='universal_freighter_ship_A',
                           numeric_id=6,
                           name='Matson [Freighter]',
                           subtype='A',
@@ -10,5 +10,3 @@ ship = UniversalFreighter(id='universal_freighter_A',
                           intro_date=1870,
                           effect_type='EFFECT_SPRITE_DIESEL',
                           cargo_length=3)
-
-

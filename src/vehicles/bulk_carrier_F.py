@@ -10,5 +10,3 @@ ship = BulkCarrier(id='bulk_carrier_F',
                    intro_date=1870,
                    effect_type='EFFECT_SPRITE_DIESEL',
                    sprites_complete=False)
-
-

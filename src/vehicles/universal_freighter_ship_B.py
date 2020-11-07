@@ -1,6 +1,6 @@
 from ship import UniversalFreighter
 
-ship = UniversalFreighter(id='universal_freighter_B',
+ship = UniversalFreighter(id='universal_freighter_ship_B',
                           numeric_id=5,
                           name='Gelenbeek [Freighter]',
                           subtype='B',
@@ -10,5 +10,3 @@ ship = UniversalFreighter(id='universal_freighter_B',
                           intro_date=1870,
                           effect_type='EFFECT_SPRITE_DIESEL',
                           cargo_length=3)
-
-

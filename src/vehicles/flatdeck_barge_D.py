@@ -10,5 +10,3 @@ ship = FlatDeckBarge(id='flatdeck_barge_D',
                      intro_date=1870,
                      effect_type='EFFECT_SPRITE_DIESEL',
                      cargo_length=7)
-
-
