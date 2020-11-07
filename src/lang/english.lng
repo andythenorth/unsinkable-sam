@@ -26,6 +26,7 @@ STR_NAME_FAST_FERRY                                             :Fast Ferry
 STR_NAME_FERRY                                                  :Ferry
 STR_NAME_FLATDECK_BARGE                                         :Flat Barge
 STR_NAME_FREIGHTER                                              :Freighter
+STR_NAME_FREIGHT_BARGE                                          :Freight Barge
 STR_NAME_FRUIT_VEG_CARRIER                                      :Fruit & Vegetables Ship
 STR_NAME_HOVERCRAFT                                             :Hovercraft
 STR_NAME_HYDROFOIL                                              :Hydrofoil
@@ -35,9 +36,9 @@ STR_NAME_MAIL_SHIP                                              :Mail Ship
 STR_NAME_PAX_FAST_LOADING                                       :Ferry
 STR_NAME_PAX_LUXURY                                             :Luxury Ferry
 STR_NAME_PIECE_GOODS_CARRIER                                    :Dry Cargo Ship
-STR_NAME_PRODUCT_TANKER                                         :Product Tanker
 STR_NAME_REEFER                                                 :Refrigerated Ship
 STR_NAME_STEAMER                                                :Steamer
+STR_NAME_TANK_BARGE                                             :Tank Barge
 STR_NAME_TANKER                                                 :Tanker
 STR_NAME_TRAWLER                                                :Trawler
 

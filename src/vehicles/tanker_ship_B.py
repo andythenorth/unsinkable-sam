@@ -1,6 +1,6 @@
 from ship import Tanker
 
-ship = Tanker(id='tanker_B',
+ship = Tanker(id='tanker_ship_B',
               numeric_id=34,
               name='Berwick [Tanker]',
               subtype='B',

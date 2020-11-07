@@ -1,9 +1,9 @@
 from ship import Tanker
 
-ship = Tanker(id='tanker_E',
-              numeric_id=43,
-              name='Nottö [Tanker]',
-              subtype='E',
+ship = Tanker(id='tanker_ship_C',
+              numeric_id=44,
+              name='Kalsoy [Tanker]',
+              subtype='C',
               hull='ShipHouseRear',
               fixed_run_cost_factor=2.0,
               fuel_run_cost_factor=1.8,

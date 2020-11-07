@@ -1,10 +1,10 @@
 from ship import Tanker
 
-ship = Tanker(id='tanker_D',
-              numeric_id=1,
-              name='Ellesmere [Tanker]',
-              subtype='D',
-              hull='BargeHouseRear',
+ship = Tanker(id='tanker_barge_E',
+              numeric_id=49,
+              name='Nottö [TANK_BARGE]',
+              subtype='E',
+              hull='PushBargeHouseRear',
               fixed_run_cost_factor=2.0,
               fuel_run_cost_factor=1.8,
               intro_date=1870,

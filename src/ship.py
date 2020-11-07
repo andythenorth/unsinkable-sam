@@ -491,21 +491,6 @@ class PieceGoodsCarrier(Ship):
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.piece_goods_carrier_livery_recolour_maps)
 
 
-class ProductTanker(Ship):
-    """
-    Shinier version of the standard tanker, same refits, different defaults.
-    """
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.class_refit_groups = ['liquids']
-        self.label_refits_allowed = [] # refits most cargos that have liquid class even if they might be edibles
-        self.label_refits_disallowed = global_constants.disallowed_refits_by_label['non_generic_liquids']
-        self.default_cargos = global_constants.default_cargos['product_tank']
-        self.loading_speed_multiplier = 2
-        # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=polar_fox.constants.chemicals_tanker_livery_recolour_maps)
-
-
 class Reefer(Ship):
     """
     Refits to limited range of refrigerated cargos, with 'improved' cargo decay rate.
