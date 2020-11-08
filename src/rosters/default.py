@@ -82,12 +82,12 @@ roster = Roster(id = 'default',
                          piece_goods_carrier_D,
                          piece_goods_carrier_E,
                          piece_goods_carrier_F,
-                         flatdeck_barge_B,
-                         flatdeck_barge_D,
-                         flatdeck_barge_F,
-                         bulk_carrier_B,
-                         bulk_carrier_D,
-                         bulk_carrier_F,
+                         #flatdeck_barge_B, # deprecate?
+                         #flatdeck_barge_D, # deprecate?
+                         #flatdeck_barge_F, # deprecate?
+                         #bulk_carrier_B, # unfinished, un-needed?
+                         #bulk_carrier_D, # unfinished, un-needed?
+                         #bulk_carrier_F, # unfinished, un-needed?
                          tanker_ship_B,
                          tanker_ship_C,
                          tanker_ship_D,
