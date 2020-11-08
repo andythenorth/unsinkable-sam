@@ -281,6 +281,8 @@ class Ship(object):
 class BulkCarrier(Ship):
     """
     Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse dump car.
+    Tend to be just a single unfitted box hold, distinguishing them from general cargo vessels which have divided holds, tween-decks etc,.
+    Mini-bulkers may be self-discharging (crane or conveyor).  Bulk barges less likely to be.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -355,6 +357,7 @@ class EdiblesTanker(Ship):
 class FlatDeckBarge(Ship):
     """
     Flat deck, no holds - refits most cargos, not bulk.
+    !! Not used?? - this was added as equivalent of Horse flat cars, but that mode doesn't apply to shipping.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -539,8 +542,9 @@ class UniversalFreighter(Ship):
     """
     General purpose freight vessel type.
     No pax or mail cargos, refits any other cargo including liquids (in barrels or containers).
-    IRL: "multi-purpose vessel".
-    Not "general cargo vessel", IRL they carry only piece goods (confusing much?).
+    Tend to be fitted with divided holds, tween-decks etc, distinguishing them from mini-bulkers which are just a single unfitted box hold.
+    IRL: "multi-purpose vessel" (modern designation), or "general cargo vessel" or "dry cargo vessel".  Confusing much?
+    Ship version is probably geared (cranes), barge version is probably not.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

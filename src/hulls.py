@@ -158,6 +158,15 @@ class TempHouseNone64px(Hull):
         self.effects_positions = [(6, 0, 12)]
 
 
+class TempHouseNone80px(Hull):
+    def __init__(self):
+        self.hull_length = '80px'
+        self.hull_type = 'temp'
+        self.house_position = 'none'
+        self.load_state_y_offsets = [('empty', -1), ('part_load', 0), ('full_load', 1)]
+        self.effects_positions = [(6, 0, 12)]
+
+
 class TempHouseNone96px(Hull):
     def __init__(self):
         self.hull_length = '96px'
@@ -201,6 +210,7 @@ registered_hulls = {'BargeHouseRear44px': BargeHouseRear44px(),
                     'TempHouseNone32px': TempHouseNone32px(),
                     'TempHouseNone44px': TempHouseNone44px(),
                     'TempHouseNone64px': TempHouseNone64px(),
+                    'TempHouseNone80px': TempHouseNone80px(),
                     'TempHouseNone96px': TempHouseNone96px(),
                     'TempHouseNone112px': TempHouseNone112px(),
                     'TempHouseNone128px': TempHouseNone128px()}

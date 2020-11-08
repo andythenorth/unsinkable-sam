@@ -1,10 +1,10 @@
 from ship import BulkCarrier
 
-ship = BulkCarrier(id='bulk_carrier_B',
-                   numeric_id=35,
-                   name='Pittman [Bulk Barge]',
-                   subtype='B',
-                   hull='BargeHouseRear',
+ship = BulkCarrier(id='bulk_barge_C',
+                   numeric_id=55,
+                   name='Lorain [Bulk Barge]',
+                   subtype='C',
+                   hull='TempHouseNone',
                    fixed_run_cost_factor=3.5,
                    fuel_run_cost_factor=1.0,
                    intro_date=1870,

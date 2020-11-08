@@ -1,9 +1,15 @@
 from roster import Roster
 
 # ships in alphabetical order
-from vehicles import (bulk_carrier_B,
-                      bulk_carrier_D,
-                      bulk_carrier_F,
+from vehicles import (bulk_barge_B,
+                      bulk_barge_C,
+                      bulk_barge_D,
+                      bulk_barge_E,
+                      bulk_barge_F,
+                      bulk_ship_C,
+                      bulk_ship_D,
+                      bulk_ship_E,
+                      bulk_ship_F,
                       covered_hopper_carrier_F,
                       cryo_tanker_D,
                       cryo_tanker_F,
@@ -85,9 +91,15 @@ roster = Roster(id = 'default',
                          #flatdeck_barge_B, # deprecate?
                          #flatdeck_barge_D, # deprecate?
                          #flatdeck_barge_F, # deprecate?
-                         #bulk_carrier_B, # unfinished, un-needed?
-                         #bulk_carrier_D, # unfinished, un-needed?
-                         #bulk_carrier_F, # unfinished, un-needed?
+                         bulk_ship_C,
+                         bulk_ship_D,
+                         bulk_ship_E,
+                         bulk_ship_F,
+                         bulk_barge_B,
+                         bulk_barge_C,
+                         bulk_barge_D,
+                         bulk_barge_E,
+                         bulk_barge_F,
                          tanker_ship_B,
                          tanker_ship_C,
                          tanker_ship_D,

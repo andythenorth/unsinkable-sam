@@ -32,6 +32,7 @@ STR_NAME_HOVERCRAFT                                             :Hovercraft
 STR_NAME_HYDROFOIL                                              :Hydrofoil
 STR_NAME_LIVESTOCK_CARRIER                                      :Livestock Carrier
 STR_NAME_LOG_TUG                                                :Log Tug
+STR_NAME_MINI_BULKER                                            :Mini Bulker
 STR_NAME_MAIL_SHIP                                              :Mail Ship
 STR_NAME_PAX_FAST_LOADING                                       :Ferry
 STR_NAME_PAX_LUXURY                                             :Luxury Ferry

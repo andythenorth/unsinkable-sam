@@ -1,9 +1,9 @@
 from ship import BulkCarrier
 
-ship = BulkCarrier(id='bulk_carrier_F',
-                   numeric_id=9,
-                   name='Bigrock [Bulk Barge]',
-                   subtype='F',
+ship = BulkCarrier(id='bulk_barge_E',
+                   numeric_id=52,
+                   name='Dyna [Bulk Barge]',
+                   subtype='E',
                    hull='PushBargeHouseRear',
                    fixed_run_cost_factor=3.5,
                    fuel_run_cost_factor=1.0,
