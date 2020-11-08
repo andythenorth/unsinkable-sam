@@ -122,7 +122,7 @@ roster = Roster(id = 'default',
                          cryo_tanker_D,
                          cryo_tanker_E,
                          cryo_tanker_F,
-                         covered_hopper_carrier_F,
+                         #covered_hopper_carrier_F, # change to covered barge, as piece goods carrier?
                          livestock_carrier_D,
                          livestock_carrier_F,
                          edibles_tanker_B,
