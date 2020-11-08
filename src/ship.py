@@ -45,7 +45,7 @@ class Ship(object):
         # default to freight speed_class for convenience, over-ride in subclasses as needed
         self.speed_class = 'freight' # over-ride this for, e.g. fast_freight consists
         # default standard capacities_by_subtype for freight for convenience, over-ride in subclasses as needed
-        self.capacities_by_subtype = {'A': 80, 'B': 160, 'C': 240, 'D': 360, 'E': 540, 'F': 720} # over-ride this for, e.g. pax ship capacities_by_subtype
+        self.capacities_by_subtype = {'A': 80, 'B': 160, 'C': 240, 'D': 360, 'E': 540, 'F': 810} # over-ride this for, e.g. pax ship capacities_by_subtype
         # extra type info, better over-ride in subclass
         self.str_type_info = 'EMPTY' # unused currently
         # nml-ish props, mostly optional
@@ -328,6 +328,7 @@ class CoveredHopperCarrier(Ship):
 class CryoTanker(Ship):
     """
     Specialist tankers for gases under pressure, e.g. Oxygen, Chlorine etc.
+    IRL these are pressurised, semi-pressurised, fully refrigerated etc.  We wavey hands that distinction here.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -337,7 +338,7 @@ class CryoTanker(Ship):
         self.default_cargos = global_constants.default_cargos['cryo_gases']
         self.loading_speed_multiplier = 2
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.covered_hopper_carrier_livery_recolour_maps)
+        self.gestalt_graphics = GestaltGraphicsLiveryOnly(recolour_maps=graphics_constants.cryo_tanker_livery_recolour_maps)
 
 
 class EdiblesTanker(Ship):

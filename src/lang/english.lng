@@ -20,7 +20,7 @@ STR_NAME_BULK_BARGE                                             :Bulk Barge
 STR_NAME_BULK_CARRIER                                           :Bulk Carrier
 STR_NAME_CONTAINER_FEEDER                                       :Container Feeder
 STR_NAME_COVERED_HOPPER_BARGE                                   :Covered Bulk Barge
-STR_NAME_CRYO_TANKER                                            :Cryo Tanker
+STR_NAME_CRYO_TANKER                                            :Gas Tanker
 STR_NAME_EDIBLES_TANKER                                         :Edibles Tanker
 STR_NAME_FAST_FERRY                                             :Fast Ferry
 STR_NAME_FERRY                                                  :Ferry
