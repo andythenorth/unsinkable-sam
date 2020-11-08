@@ -117,8 +117,8 @@ roster = Roster(id = 'default',
                          edibles_tanker_F,
                          reefer_D,
                          reefer_F,
-                         fruit_veg_carrier_D,
-                         fruit_veg_carrier_F,
+                         #fruit_veg_carrier_D, # deprecate?
+                         #fruit_veg_carrier_F, # deprecate?
                          trawler_A,
                          trawler_B,
                          trawler_D

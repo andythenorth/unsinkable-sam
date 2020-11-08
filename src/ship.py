@@ -373,6 +373,7 @@ class FlatDeckBarge(Ship):
 class FruitVegCarrier(Ship):
     """
     Fruit and vegetables, with improved decay rate
+    !! deprecated - this was added as equivalent of Horse fruit & veg cars, but that mode doesn't apply to shipping - use reefer / dry cargo instead.
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
