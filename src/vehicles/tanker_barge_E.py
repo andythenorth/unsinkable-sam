@@ -2,7 +2,7 @@ from ship import Tanker
 
 ship = Tanker(id='tanker_barge_E',
               numeric_id=49,
-              name='Nottö [TANK_BARGE]',
+              name='Notto [TANK_BARGE]',
               subtype='E',
               hull='PushBargeHouseRear',
               fixed_run_cost_factor=2.0,
