@@ -82,6 +82,12 @@ roster = Roster(
     },
     # ships in buy menu order
     ships=[
+        universal_freighter_ship_E,
+    ],
+)
+
+"""
+        ships=[
         pax_fast_loading_A,
         pax_fast_loading_B,
         pax_fast_loading_C,
@@ -147,4 +153,4 @@ roster = Roster(
         trawler_B,
         trawler_D,
     ],
-)
+"""
