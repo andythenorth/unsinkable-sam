@@ -1,4 +1,5 @@
 import os.path
+
 currentdir = os.curdir
 
 from PIL import Image
@@ -8,7 +9,7 @@ from polar_fox.graphics_units import SimpleRecolour, AppendToSpritesheet, AddCar
 from polar_fox.pixa import Spritesheet, pixascan
 from gestalt_graphics import graphics_constants
 
-DOS_PALETTE = Image.open('palette_key.png').palette
+DOS_PALETTE = Image.open("palette_key.png").palette
 
 """
 Pipelines can be dedicated to a single task such as simple recolouring
@@ -23,7 +24,9 @@ class Pipeline(object):
         self.name = name
 
     def make_spritesheet_from_image(self, input_image):
-        spritesheet = Spritesheet(width=input_image.size[0], height=input_image.size[1] , palette=DOS_PALETTE)
+        spritesheet = Spritesheet(
+            width=input_image.size[0], height=input_image.size[1], palette=DOS_PALETTE
+        )
         spritesheet.sprites.paste(input_image)
         return spritesheet
 
@@ -31,20 +34,24 @@ class Pipeline(object):
     def vehicle_source_input_path(self):
         # convenience method to get the ship source input image
         # I considered having this return the Image, not just the path, but it's not saving much, and is less obvious what it does when used
-        return os.path.join(currentdir, 'src', 'graphics', 'ships', self.ship.id + '.png')
+        return os.path.join(
+            currentdir, "src", "graphics", "ships", self.ship.id + ".png"
+        )
 
     def render_common(self, ship, input_image, units):
         # expects to be passed a PIL Image object
         # units is a list of objects, with their config data already baked in (don't have to pass anything to units except the spritesheet)
         # each unit is then called in order, passing in and returning a pixa SpriteSheet
         # finally the spritesheet is saved
-        output_path = os.path.join(currentdir, 'generated', 'graphics', ship.id + '.png')
+        output_path = os.path.join(
+            currentdir, "generated", "graphics", ship.id + ".png"
+        )
         spritesheet = self.make_spritesheet_from_image(input_image)
 
         for unit in units:
             spritesheet = unit.render(spritesheet)
         # I don't normally leave commented-out code behind, but I'm bored of looking in the PIL docs for how to show the image during compile
-        #spritesheet.sprites.show()
+        # spritesheet.sprites.show()
         spritesheet.save(output_path)
 
     def render(self, ship):
@@ -64,140 +71,230 @@ class PassThroughPipeline(Pipeline):
 
 
 class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
-    """"
-        Extends a cargo carrier spritesheet with variations on cargo colours.
-        Quite convoluted as it handles multiple classes of cargo (bulk, piece etc)
+    """ "
+    Extends a cargo carrier spritesheet with variations on cargo colours.
+    Quite convoluted as it handles multiple classes of cargo (bulk, piece etc)
     """
+
     def __init__(self):
         # this should be sparse, don't store any ship info in Pipelines, pass at render time
         # initing things here is proven to have unexpected results, as the processor will be shared across multiple vehicles
         super().__init__("extend_spriterows_for_composited_cargos_pipeline")
 
-    def extend_base_image_to_3_rows_with_waterline_masked_per_load_state(self, base_image):
+    def extend_base_image_to_3_rows_with_waterline_masked_per_load_state(
+        self, base_image
+    ):
         # This composites the ship from:
         # - the ship base image (this contains the detail for the specific ship such as wheelhouse, holds etc)
         # - a standard hull image, including a waterline mask for each of 'loading' and 'loaded' states
         # And returns 3 rows, masked at the waterline for each of 3 load states
         # !! the naming of _base, _image, result_ etc is bad here, confusing, known issue - Oct 2020
-        crop_box_hull_1 = (0,
-                           10,
-                           self.sprites_max_x_extent,
-                           10 + graphics_constants.spriterow_height)
-        crop_box_hull_2 = (0,
-                           10 + graphics_constants.spriterow_height,
-                           self.sprites_max_x_extent,
-                           10 + (2 * graphics_constants.spriterow_height))
-        crop_box_hull_3 = (0,
-                           10 + (2 * graphics_constants.spriterow_height),
-                           self.sprites_max_x_extent,
-                           10 + (3 * graphics_constants.spriterow_height))
+        crop_box_hull_1 = (
+            0,
+            10,
+            self.sprites_max_x_extent,
+            10 + graphics_constants.spriterow_height,
+        )
+        crop_box_hull_2 = (
+            0,
+            10 + graphics_constants.spriterow_height,
+            self.sprites_max_x_extent,
+            10 + (2 * graphics_constants.spriterow_height),
+        )
+        crop_box_hull_3 = (
+            0,
+            10 + (2 * graphics_constants.spriterow_height),
+            self.sprites_max_x_extent,
+            10 + (3 * graphics_constants.spriterow_height),
+        )
 
-        crop_box_ship_base = (0,
-                              0,
-                              self.sprites_max_x_extent,
-                              graphics_constants.spriterow_height)
+        crop_box_ship_base = (
+            0,
+            0,
+            self.sprites_max_x_extent,
+            graphics_constants.spriterow_height,
+        )
 
         # the ship image has false colour pixels for the hull, to aid drawing; remove these by converting to white, also convert any blue to white
-        ship_base = base_image.point(lambda i: 255 if (i in range(178, 192) or i == 0) else i)
+        ship_base = base_image.point(
+            lambda i: 255 if (i in range(178, 192) or i == 0) else i
+        )
         # create a mask so that we paste only the ship pixels over the hull (no blue pixels)
         ship_mask = ship_base.copy()
-        ship_mask = ship_mask.point(lambda i: 0 if i == 255 else 255).convert("1") # the inversion here of blue and white looks a bit odd, but potato / potato
+        ship_mask = ship_mask.point(lambda i: 0 if i == 255 else 255).convert(
+            "1"
+        )  # the inversion here of blue and white looks a bit odd, but potato / potato
 
         hull_base = Image.open(self.hull_input_path)
         # hull_base uses false colour pixels for establishing correct dimensions; make these blue
-        hull_image = hull_base.copy().crop(crop_box_hull_1).point(lambda i: 0 if (i in range(215, 227) or i == 244) else i)
+        hull_image = (
+            hull_base.copy()
+            .crop(crop_box_hull_1)
+            .point(lambda i: 0 if (i in range(215, 227) or i == 244) else i)
+        )
 
         # no hull mask used for first load state (row 1), so only need to create 2 hull mask images
-        waterline_mask_row_2 = hull_base.copy().crop(crop_box_hull_2).point(lambda i: 0 if i == 226 else 255).convert("1")
-        waterline_mask_row_3 = hull_base.copy().crop(crop_box_hull_3).point(lambda i: 0 if i == 226 else 255).convert("1")
+        waterline_mask_row_2 = (
+            hull_base.copy()
+            .crop(crop_box_hull_2)
+            .point(lambda i: 0 if i == 226 else 255)
+            .convert("1")
+        )
+        waterline_mask_row_3 = (
+            hull_base.copy()
+            .crop(crop_box_hull_3)
+            .point(lambda i: 0 if i == 226 else 255)
+            .convert("1")
+        )
 
         hull_image.paste(ship_base, crop_box_ship_base, ship_mask)
 
         # 3 different load states to composite into result image so 3 different crop boxes to make the rows
-        crop_box_comp_dest_1 = (0,
-                                0,
-                                self.sprites_max_x_extent,
-                                graphics_constants.spriterow_height)
-        crop_box_comp_dest_2 = (0,
-                                graphics_constants.spriterow_height,
-                                self.sprites_max_x_extent,
-                                2 * graphics_constants.spriterow_height)
-        crop_box_comp_dest_3 = (0,
-                                2 * graphics_constants.spriterow_height,
-                                self.sprites_max_x_extent,
-                                3 * graphics_constants.spriterow_height)
+        crop_box_comp_dest_1 = (
+            0,
+            0,
+            self.sprites_max_x_extent,
+            graphics_constants.spriterow_height,
+        )
+        crop_box_comp_dest_2 = (
+            0,
+            graphics_constants.spriterow_height,
+            self.sprites_max_x_extent,
+            2 * graphics_constants.spriterow_height,
+        )
+        crop_box_comp_dest_3 = (
+            0,
+            2 * graphics_constants.spriterow_height,
+            self.sprites_max_x_extent,
+            3 * graphics_constants.spriterow_height,
+        )
 
-        result_image = Image.new("P", (self.sprites_max_x_extent, 3 * graphics_constants.spriterow_height))
+        result_image = Image.new(
+            "P", (self.sprites_max_x_extent, 3 * graphics_constants.spriterow_height)
+        )
         result_image.putpalette(DOS_PALETTE)
-        result_image.paste(hull_image, crop_box_comp_dest_1) # by design, no mask needed for first load state
+        result_image.paste(
+            hull_image, crop_box_comp_dest_1
+        )  # by design, no mask needed for first load state
         result_image.paste(hull_image, crop_box_comp_dest_2, waterline_mask_row_2)
         result_image.paste(hull_image, crop_box_comp_dest_3, waterline_mask_row_3)
         return result_image
 
     def add_generic_spriterow(self):
-        crop_box = (0,
-                    0,
-                    self.sprites_max_x_extent,
-                    graphics_constants.spriterow_height)
+        crop_box = (
+            0,
+            0,
+            self.sprites_max_x_extent,
+            graphics_constants.spriterow_height,
+        )
         vehicle_generic_spriterow_input_image = self.vehicle_base_image.crop(crop_box)
         # vehicle_generic_spriterow_input_image.show() # comment in to see the image when debugging
-        vehicle_generic_spriterow_input_as_spritesheet = self.make_spritesheet_from_image(vehicle_generic_spriterow_input_image)
-        self.units.append(AppendToSpritesheet(vehicle_generic_spriterow_input_as_spritesheet, crop_box))
-        self.units.append(AddCargoLabel(label='EMPTY',
-                                        x_offset=self.sprites_max_x_extent + 5,
-                                        y_offset= -1 * graphics_constants.spriterow_height))
+        vehicle_generic_spriterow_input_as_spritesheet = (
+            self.make_spritesheet_from_image(vehicle_generic_spriterow_input_image)
+        )
+        self.units.append(
+            AppendToSpritesheet(
+                vehicle_generic_spriterow_input_as_spritesheet, crop_box
+            )
+        )
+        self.units.append(
+            AddCargoLabel(
+                label="EMPTY",
+                x_offset=self.sprites_max_x_extent + 5,
+                y_offset=-1 * graphics_constants.spriterow_height,
+            )
+        )
 
     def add_livery_only_spriterows(self):
         # this might be extensible for containers when needed, using simple conditionals
         # or because containers include random options it might need reworking,
         # to be more similar to piece cargo handling, but using recolour not actual sprites
-        vehicle_livery_row_image_as_spritesheet = self.make_spritesheet_from_image(self.vehicle_base_image)
+        vehicle_livery_row_image_as_spritesheet = self.make_spritesheet_from_image(
+            self.vehicle_base_image
+        )
 
         for label, recolour_map in self.ship.gestalt_graphics.recolour_maps:
-            crop_box_dest = (0,
-                             0,
-                             self.sprites_max_x_extent,
-                             3 * graphics_constants.spriterow_height)
-            self.units.append(AppendToSpritesheet(vehicle_livery_row_image_as_spritesheet, crop_box_dest))
+            crop_box_dest = (
+                0,
+                0,
+                self.sprites_max_x_extent,
+                3 * graphics_constants.spriterow_height,
+            )
+            self.units.append(
+                AppendToSpritesheet(
+                    vehicle_livery_row_image_as_spritesheet, crop_box_dest
+                )
+            )
             self.units.append(SimpleRecolour(recolour_map))
-            self.units.append(AddCargoLabel(label=label,
-                                            x_offset=self.sprites_max_x_extent + 5,
-                                            y_offset= -1 * graphics_constants.spriterow_height))
+            self.units.append(
+                AddCargoLabel(
+                    label=label,
+                    x_offset=self.sprites_max_x_extent + 5,
+                    y_offset=-1 * graphics_constants.spriterow_height,
+                )
+            )
 
     def add_bulk_cargo_spriterows(self):
         cargo_group_row_height = 2 * graphics_constants.spriterow_height
-        crop_box_source = (0,
-                           self.base_offset,
-                           self.sprites_max_x_extent,
-                           self.base_offset + cargo_group_row_height)
-        vehicle_bulk_cargo_image = self.vehicle_source_image.copy().crop(crop_box_source)
-        vehicle_bulk_cargo_image = vehicle_bulk_cargo_image.point(lambda i: 255 if (i in range(178, 192) or i == 0) else i)
-        vehicle_bulk_cargo_mask = vehicle_bulk_cargo_image.copy().point(lambda i: 255 if i == 255 else 0).convert("1")
+        crop_box_source = (
+            0,
+            self.base_offset,
+            self.sprites_max_x_extent,
+            self.base_offset + cargo_group_row_height,
+        )
+        vehicle_bulk_cargo_image = self.vehicle_source_image.copy().crop(
+            crop_box_source
+        )
+        vehicle_bulk_cargo_image = vehicle_bulk_cargo_image.point(
+            lambda i: 255 if (i in range(178, 192) or i == 0) else i
+        )
+        vehicle_bulk_cargo_mask = (
+            vehicle_bulk_cargo_image.copy()
+            .point(lambda i: 255 if i == 255 else 0)
+            .convert("1")
+        )
 
-        vehicle_base_image = self.vehicle_base_image.copy().crop((0, 100, self.sprites_max_x_extent, 300))
+        vehicle_base_image = self.vehicle_base_image.copy().crop(
+            (0, 100, self.sprites_max_x_extent, 300)
+        )
 
-        vehicle_bulk_cargo_image.paste(vehicle_base_image, None, vehicle_bulk_cargo_mask)
-        #vehicle_bulk_cargo_image.show()
+        vehicle_bulk_cargo_image.paste(
+            vehicle_base_image, None, vehicle_bulk_cargo_mask
+        )
+        # vehicle_bulk_cargo_image.show()
 
-        vehicle_bulk_cargo_input_as_spritesheet = self.make_spritesheet_from_image(vehicle_bulk_cargo_image)
-        crop_box_dest = (0,
-                         0,
-                         self.sprites_max_x_extent,
-                         cargo_group_row_height)
+        vehicle_bulk_cargo_input_as_spritesheet = self.make_spritesheet_from_image(
+            vehicle_bulk_cargo_image
+        )
+        crop_box_dest = (0, 0, self.sprites_max_x_extent, cargo_group_row_height)
         for label, recolour_map in polar_fox.constants.bulk_cargo_recolour_maps:
-            self.units.append(AppendToSpritesheet(vehicle_bulk_cargo_input_as_spritesheet, crop_box_dest))
+            self.units.append(
+                AppendToSpritesheet(
+                    vehicle_bulk_cargo_input_as_spritesheet, crop_box_dest
+                )
+            )
             self.units.append(SimpleRecolour(recolour_map))
-            self.units.append(SimpleRecolour(recolour_map=self.ship.gestalt_graphics.hull_recolour_map))
-            self.units.append(AddCargoLabel(label=label,
-                                            x_offset=self.sprites_max_x_extent + 5,
-                                            y_offset=  -1 * cargo_group_row_height))
+            self.units.append(
+                SimpleRecolour(
+                    recolour_map=self.ship.gestalt_graphics.hull_recolour_map
+                )
+            )
+            self.units.append(
+                AddCargoLabel(
+                    label=label,
+                    x_offset=self.sprites_max_x_extent + 5,
+                    y_offset=-1 * cargo_group_row_height,
+                )
+            )
 
     def add_piece_cargo_spriterows(self):
         # hax
-        print('add_piece_cargo_spriterows: hax to crop out self.vehicle_base_image')
-        self.vehicle_base_image = self.vehicle_base_image.copy().crop((0, 100, self.sprites_max_x_extent, 300))
-        #if self.ship.id == 'universal_freighter_D':
-            #self.vehicle_base_image.show()
+        print("add_piece_cargo_spriterows: hax to crop out self.vehicle_base_image")
+        self.vehicle_base_image = self.vehicle_base_image.copy().crop(
+            (0, 100, self.sprites_max_x_extent, 300)
+        )
+        # if self.ship.id == 'universal_freighter_D':
+        # self.vehicle_base_image.show()
         # !! this could possibly be optimised by slicing all the cargos once, globally, instead of per-unit
         cargo_group_output_row_height = 2 * graphics_constants.spriterow_height
         # Cargo spritesheets provide multiple lengths, using a specific format of rows
@@ -207,61 +304,103 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             bb_result = []
             for y_offset in [0, 30]:
                 bb_y_offset = (counter * 60) + y_offset
-                bb_result.append(tuple([(i[0], i[1] + bb_y_offset, i[2], i[3] + bb_y_offset) for i in polar_fox.constants.cargo_spritesheet_bounding_boxes_base]))
+                bb_result.append(
+                    tuple(
+                        [
+                            (i[0], i[1] + bb_y_offset, i[2], i[3] + bb_y_offset)
+                            for i in polar_fox.constants.cargo_spritesheet_bounding_boxes_base
+                        ]
+                    )
+                )
             cargo_spritesheet_bounding_boxes[length] = bb_result
         # Overview
         # 2 spriterows for the vehicle loading / loaded states, with pink loc points for cargo
         # a mask row for the vehicle, with pink mask area, which is converted to black and white mask image
         # an overlay for the vehicle, created from the vehicle empty state spriterow, and comped with the mask after each cargo has been placed
         # there is a case not handled, where long cargo sprites will cabbed vehicles in / direction with cab at N end, hard to solve
-        crop_box_vehicle_cargo_loc_row = (0,
-                           self.base_offset,
-                           self.sprites_max_x_extent,
-                           self.base_offset + graphics_constants.spriterow_height)
-        vehicle_cargo_loc_image = self.vehicle_source_image.copy().crop(crop_box_vehicle_cargo_loc_row)
-        #if self.ship.id == 'universal_freighter_D':
-            #vehicle_cargo_loc_image.show()
+        crop_box_vehicle_cargo_loc_row = (
+            0,
+            self.base_offset,
+            self.sprites_max_x_extent,
+            self.base_offset + graphics_constants.spriterow_height,
+        )
+        vehicle_cargo_loc_image = self.vehicle_source_image.copy().crop(
+            crop_box_vehicle_cargo_loc_row
+        )
+        # if self.ship.id == 'universal_freighter_D':
+        # vehicle_cargo_loc_image.show()
 
         # get the loc points
-        loc_points = [pixel for pixel in pixascan(vehicle_cargo_loc_image) if pixel[2] == 226]
+        loc_points = [
+            pixel for pixel in pixascan(vehicle_cargo_loc_image) if pixel[2] == 226
+        ]
         # two cargo rows needed, so extend the loc points list
-        loc_points.extend([(pixel[0], pixel[1] + graphics_constants.spriterow_height, pixel[2]) for pixel in loc_points])
+        loc_points.extend(
+            [
+                (pixel[0], pixel[1] + graphics_constants.spriterow_height, pixel[2])
+                for pixel in loc_points
+            ]
+        )
         # sort them in y order, this causes sprites to overlap correctly when there are multiple loc points for an angle
         loc_points = sorted(loc_points, key=lambda x: x[1])
-        crop_box_mask = (0,
-                         self.base_offset + graphics_constants.spriterow_height,
-                         self.sprites_max_x_extent,
-                         self.base_offset + (2 * graphics_constants.spriterow_height))
-        vehicle_mask_base_image = self.vehicle_source_image.copy().crop(crop_box_mask).point(lambda i: 255 if i == 226 else 0).convert("1")
-        vehicle_mask = Image.new("1", (self.sprites_max_x_extent, cargo_group_output_row_height))
-        crop_box_mask_1 = (0,
-                           0,
-                           self.sprites_max_x_extent,
-                           0 + graphics_constants.spriterow_height)
-        crop_box_mask_2 = (0,
-                           0 + graphics_constants.spriterow_height,
-                           self.sprites_max_x_extent,
-                           0 + (2 * graphics_constants.spriterow_height))
+        crop_box_mask = (
+            0,
+            self.base_offset + graphics_constants.spriterow_height,
+            self.sprites_max_x_extent,
+            self.base_offset + (2 * graphics_constants.spriterow_height),
+        )
+        vehicle_mask_base_image = (
+            self.vehicle_source_image.copy()
+            .crop(crop_box_mask)
+            .point(lambda i: 255 if i == 226 else 0)
+            .convert("1")
+        )
+        vehicle_mask = Image.new(
+            "1", (self.sprites_max_x_extent, cargo_group_output_row_height)
+        )
+        crop_box_mask_1 = (
+            0,
+            0,
+            self.sprites_max_x_extent,
+            0 + graphics_constants.spriterow_height,
+        )
+        crop_box_mask_2 = (
+            0,
+            0 + graphics_constants.spriterow_height,
+            self.sprites_max_x_extent,
+            0 + (2 * graphics_constants.spriterow_height),
+        )
 
         vehicle_mask.paste(vehicle_mask_base_image, crop_box_mask_1)
         vehicle_mask.paste(vehicle_mask_base_image, crop_box_mask_2)
-        #vehicle_mask.show()
-        crop_box_comp_dest_1 = (0,
-                                0,
-                                self.sprites_max_x_extent,
-                                2 * graphics_constants.spriterow_height)
-        vehicle_cargo_rows_image = Image.new("P", (self.sprites_max_x_extent, cargo_group_output_row_height))
+        # vehicle_mask.show()
+        crop_box_comp_dest_1 = (
+            0,
+            0,
+            self.sprites_max_x_extent,
+            2 * graphics_constants.spriterow_height,
+        )
+        vehicle_cargo_rows_image = Image.new(
+            "P", (self.sprites_max_x_extent, cargo_group_output_row_height)
+        )
         vehicle_cargo_rows_image.putpalette(DOS_PALETTE)
         # paste empty states in for the cargo rows (base image = empty state)
         vehicle_cargo_rows_image.paste(self.vehicle_base_image, crop_box_comp_dest_1)
-        #vehicle_cargo_rows_image.show()
-        crop_box_dest = (0,
-                         0,
-                         self.sprites_max_x_extent,
-                         cargo_group_output_row_height)
-        for cargo_labels, cargo_filenames in self.ship.gestalt_graphics.piece_cargo_maps:
+        # vehicle_cargo_rows_image.show()
+        crop_box_dest = (0, 0, self.sprites_max_x_extent, cargo_group_output_row_height)
+        for (
+            cargo_labels,
+            cargo_filenames,
+        ) in self.ship.gestalt_graphics.piece_cargo_maps:
             for cargo_filename in cargo_filenames:
-                cargo_sprites_input_path = os.path.join(currentdir, 'src', 'polar_fox', 'graphics', 'piece_cargos', cargo_filename + '.png')
+                cargo_sprites_input_path = os.path.join(
+                    currentdir,
+                    "src",
+                    "polar_fox",
+                    "graphics",
+                    "piece_cargos",
+                    cargo_filename + ".png",
+                )
                 cargo_sprites_input_image = Image.open(cargo_sprites_input_path)
 
                 cargo_sprites = []
@@ -276,12 +415,16 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                         cargo_mask = cargo_sprite.copy()
                         # !! .point is noticeably slow although not signifcantly so with only 3 cargo types
                         # !! check this again if optimisation is a concern - can cargos be processed once and passed to the pipeline?
-                        cargo_mask = cargo_mask.point(lambda i: 0 if i == 0 else 255).convert("1")
+                        cargo_mask = cargo_mask.point(
+                            lambda i: 0 if i == 0 else 255
+                        ).convert("1")
                         cargo_sprites.append((cargo_sprite, cargo_mask))
                 vehicle_comped_image = vehicle_cargo_rows_image.copy()
                 for pixel in loc_points:
                     angle_num = 0
-                    for counter, bbox in enumerate(self.global_constants.spritesheet_bounding_boxes):
+                    for counter, bbox in enumerate(
+                        self.global_constants.spritesheet_bounding_boxes
+                    ):
                         if pixel[0] >= bbox[0]:
                             angle_num = counter
                     # clamp angle_num to 4, cargo sprites are symmetrical, only 4 angles provided
@@ -295,26 +438,50 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     cargo_height = cargo_sprites[cargo_sprite_num][0].size[1]
                     # the +1s for height adjust the crop box to include the loc point
                     # (needed beause loc points are left-bottom not left-top as per co-ordinate system, makes drawing loc points easier)
-                    cargo_bounding_box = (pixel[0],
-                                          pixel[1] - cargo_height + 1,
-                                          pixel[0] + cargo_width,
-                                          pixel[1] + 1)
-                    vehicle_comped_image.paste(cargo_sprites[cargo_sprite_num][0], cargo_bounding_box, cargo_sprites[cargo_sprite_num][1])
-                    #if self.ship.id == 'universal_freighter_D' and cargo_filename == 'barrels_silver':
-                        #cargo_sprites[cargo_sprite_num][0].show()
+                    cargo_bounding_box = (
+                        pixel[0],
+                        pixel[1] - cargo_height + 1,
+                        pixel[0] + cargo_width,
+                        pixel[1] + 1,
+                    )
+                    vehicle_comped_image.paste(
+                        cargo_sprites[cargo_sprite_num][0],
+                        cargo_bounding_box,
+                        cargo_sprites[cargo_sprite_num][1],
+                    )
+                    # if self.ship.id == 'universal_freighter_D' and cargo_filename == 'barrels_silver':
+                    # cargo_sprites[cargo_sprite_num][0].show()
                 # vehicle overlay with mask - overlays any areas where cargo shouldn't show
-                vehicle_comped_image.paste(self.vehicle_base_image, crop_box_comp_dest_1, vehicle_mask)
-                #if self.ship.id == 'universal_freighter_D':
-                    #vehicle_comped_image.show()
-                vehicle_comped_image_as_spritesheet = self.make_spritesheet_from_image(vehicle_comped_image)
-                self.units.append(AppendToSpritesheet(vehicle_comped_image_as_spritesheet, crop_box_dest))
-                self.units.append(SimpleRecolour(recolour_map=self.ship.gestalt_graphics.hull_recolour_map))
-                self.units.append(AddCargoLabel(label=cargo_filename,
-                                                x_offset=self.sprites_max_x_extent + 5,
-                                                y_offset=  -1 * cargo_group_output_row_height))
+                vehicle_comped_image.paste(
+                    self.vehicle_base_image, crop_box_comp_dest_1, vehicle_mask
+                )
+                # if self.ship.id == 'universal_freighter_D':
+                # vehicle_comped_image.show()
+                vehicle_comped_image_as_spritesheet = self.make_spritesheet_from_image(
+                    vehicle_comped_image
+                )
+                self.units.append(
+                    AppendToSpritesheet(
+                        vehicle_comped_image_as_spritesheet, crop_box_dest
+                    )
+                )
+                self.units.append(
+                    SimpleRecolour(
+                        recolour_map=self.ship.gestalt_graphics.hull_recolour_map
+                    )
+                )
+                self.units.append(
+                    AddCargoLabel(
+                        label=cargo_filename,
+                        x_offset=self.sprites_max_x_extent + 5,
+                        y_offset=-1 * cargo_group_output_row_height,
+                    )
+                )
 
     def render(self, ship, global_constants):
-        self.hull_input_path = os.path.join(currentdir, 'src', 'graphics', 'hulls', ship.hull.spritesheet_name + '.png')
+        self.hull_input_path = os.path.join(
+            currentdir, "src", "graphics", "hulls", ship.hull.spritesheet_name + ".png"
+        )
         self.units = []
         self.global_constants = global_constants
         self.ship = ship
@@ -322,29 +489,44 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 
         self.vehicle_source_image = Image.open(self.vehicle_source_input_path)
 
-        crop_box_source = (0,
-                           10,
-                           self.sprites_max_x_extent,
-                           10 + graphics_constants.spriterow_height)
+        crop_box_source = (
+            0,
+            10,
+            self.sprites_max_x_extent,
+            10 + graphics_constants.spriterow_height,
+        )
         # create a base vehicle image by comping in hull, with empty / loading / loaded hull states
-        self.vehicle_base_image = self.extend_base_image_to_3_rows_with_waterline_masked_per_load_state(self.vehicle_source_image.copy().crop(crop_box_source))
+        self.vehicle_base_image = (
+            self.extend_base_image_to_3_rows_with_waterline_masked_per_load_state(
+                self.vehicle_source_image.copy().crop(crop_box_source)
+            )
+        )
         # the cumulative_input_spriterow_count updates per processed group of spriterows, and is key to making this work
         cumulative_input_spriterow_count = 0
         for vehicle_counter, vehicle_rows in enumerate(ship.get_spriterow_counts()):
-            self.cur_vehicle_empty_row_offset = 10 + cumulative_input_spriterow_count * graphics_constants.spriterow_height
+            self.cur_vehicle_empty_row_offset = (
+                10
+                + cumulative_input_spriterow_count * graphics_constants.spriterow_height
+            )
             for spriterow_data in vehicle_rows:
                 spriterow_type = spriterow_data[0]
-                self.base_offset = 10 + (graphics_constants.spriterow_height * cumulative_input_spriterow_count)
-                if spriterow_type == 'always_use_same_spriterow' or spriterow_type == 'empty':
+                self.base_offset = 10 + (
+                    graphics_constants.spriterow_height
+                    * cumulative_input_spriterow_count
+                )
+                if (
+                    spriterow_type == "always_use_same_spriterow"
+                    or spriterow_type == "empty"
+                ):
                     input_spriterow_count = 1
                     self.add_generic_spriterow()
-                elif spriterow_type == 'livery_only':
+                elif spriterow_type == "livery_only":
                     input_spriterow_count = 1
                     self.add_livery_only_spriterows()
-                elif spriterow_type == 'bulk_cargo':
+                elif spriterow_type == "bulk_cargo":
                     input_spriterow_count = 2
                     self.add_bulk_cargo_spriterows()
-                elif spriterow_type == 'piece_cargo':
+                elif spriterow_type == "piece_cargo":
                     input_spriterow_count = 2
                     self.add_piece_cargo_spriterows()
                 cumulative_input_spriterow_count += input_spriterow_count
@@ -355,17 +537,22 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         result = self.render_common(ship, input_image, self.units)
         return result
 
+
 def get_pipeline(pipeline_name):
     # return a pipeline by name;
     # add pipelines here when creating new ones
-    for pipeline in [PassThroughPipeline(),
-                     ExtendSpriterowsForCompositedCargosPipeline()]:
+    for pipeline in [
+        PassThroughPipeline(),
+        ExtendSpriterowsForCompositedCargosPipeline(),
+    ]:
         if pipeline_name == pipeline.name:
             return pipeline
-    raise Exception("Pipeline not found: " + pipeline_name) # should never get to here
+    raise Exception("Pipeline not found: " + pipeline_name)  # should never get to here
+
 
 def main():
     print("yeah, pipelines.main() does nothing")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
 import os.path
+
 currentdir = os.curdir
 
 import sys
-sys.path.append(os.path.join('src')) # add to the module search path
+
+sys.path.append(os.path.join("src"))  # add to the module search path
 
 import global_constants
 import utils
@@ -13,7 +15,7 @@ import utils
 chameleon_cache_path = os.path.join(currentdir, global_constants.chameleon_cache_dir)
 if not os.path.exists(chameleon_cache_path):
     os.mkdir(chameleon_cache_path)
-os.environ['CHAMELEON_CACHE'] = chameleon_cache_path
+os.environ["CHAMELEON_CACHE"] = chameleon_cache_path
 
 generated_files_path = os.path.join(currentdir, global_constants.generated_files_dir)
 if not os.path.exists(generated_files_path):
@@ -27,18 +29,20 @@ from hulls import registered_hulls
 from rosters import registered_rosters
 
 from rosters import default
+
 default.roster.register()
 
 from vehicles import numeric_id_defender
+
 
 def get_ships_in_buy_menu_order():
     ships = []
     # first compose the buy menu order list
     buy_menu_sort_order = []
-    if makefile_args.get('roster', '*') == '*':
+    if makefile_args.get("roster", "*") == "*":
         active_rosters = [roster.id for roster in registered_rosters]
     else:
-        active_rosters = [makefile_args['roster']] # make sure it's iterable
+        active_rosters = [makefile_args["roster"]]  # make sure it's iterable
     for roster in registered_rosters:
         if roster.id in active_rosters:
             buy_menu_sort_order.extend(roster.buy_menu_sort_order)
@@ -48,9 +52,17 @@ def get_ships_in_buy_menu_order():
     ship_id_defender = set([ship.id for ship in ships])
     buy_menu_defender = set(buy_menu_sort_order)
     for id in buy_menu_defender.difference(ship_id_defender):
-        utils.echo_message("Warning: ship " + id + " in buy_menu_sort_order, but not found in registered ships")
+        utils.echo_message(
+            "Warning: ship "
+            + id
+            + " in buy_menu_sort_order, but not found in registered ships"
+        )
     for id in ship_id_defender.difference(buy_menu_defender):
-        utils.echo_message("Warning: ship " + id + " in ships, but not in buy_menu_sort_order - won't show in game")
+        utils.echo_message(
+            "Warning: ship "
+            + id
+            + " in ships, but not in buy_menu_sort_order - won't show in game"
+        )
     # rarely triggered guard against unused hulls being defined - just a tidy-minds issue
     used_hulls = set([ship.hull for ship in ships])
     for hull in registered_hulls.values():
@@ -58,10 +70,21 @@ def get_ships_in_buy_menu_order():
             utils.echo_message("Hull " + str(hull) + " is defined but unused")
     return ships
 
+
 def vacant_numeric_ids_formatted():
     # when adding vehicles it's useful to know what the next free numeric ID is
     # tidy-mind problem, but do we have any vacant numeric ID slots in the currently used range?
     # 'print' eh? - but it's fine echo_message isn't intended for this kind of info, don't bother changing
-    id_gaps = [str(i - 10) for i in numeric_id_defender if not (i - 10) in numeric_id_defender and i != 0 and i%10 == 0]
+    id_gaps = [
+        str(i - 10)
+        for i in numeric_id_defender
+        if not (i - 10) in numeric_id_defender and i != 0 and i % 10 == 0
+    ]
 
-    return "Vacant numeric ID slots: " + ', '.join(id_gaps) + (" and from " if len(id_gaps) > 0 else '' ) + str(max(numeric_id_defender) + 10) + " onwards"
+    return (
+        "Vacant numeric ID slots: "
+        + ", ".join(id_gaps)
+        + (" and from " if len(id_gaps) > 0 else "")
+        + str(max(numeric_id_defender) + 10)
+        + " onwards"
+    )

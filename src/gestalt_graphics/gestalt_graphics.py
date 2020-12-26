@@ -3,12 +3,14 @@ import gestalt_graphics.graphics_constants as graphics_constants
 from gestalt_graphics import pipelines
 import utils
 
+
 class GestaltGraphics(object):
     """
-        Simple stub class, which is extended in sub-classes to configure:
-         - base vehicle recolour (if any)
-         - cargo graphics (if any)
+    Simple stub class, which is extended in sub-classes to configure:
+     - base vehicle recolour (if any)
+     - cargo graphics (if any)
     """
+
     def __init__(self):
         # no graphics processing by default
         self.pipeline = None
@@ -16,7 +18,7 @@ class GestaltGraphics(object):
     @property
     def nml_template(self):
         # over-ride in sub-classes as needed
-        return 'vehicle_default.pynml'
+        return "vehicle_default.pynml"
 
     @property
     def num_cargo_sprite_variants(self, cargo_type=None):
@@ -30,45 +32,50 @@ class GestaltGraphics(object):
     def get_output_row_counts_by_type(self):
         # stub, for template compatibility reasons
         result = []
-        result.append(('single_row', 1))
+        result.append(("single_row", 1))
         return result
 
 
 class GestaltGraphicsVisibleCargo(GestaltGraphics):
     """
-        Used for vehicle with visible cargos
-        Supports *only* pixa-generated cargos; mixing with custom cargo rows isn't handled, TMWFTLB
+    Used for vehicle with visible cargos
+    Supports *only* pixa-generated cargos; mixing with custom cargo rows isn't handled, TMWFTLB
     """
+
     def __init__(self, **kwargs):
         super().__init__()
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
-        self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
+        self.pipeline = pipelines.get_pipeline(
+            "extend_spriterows_for_composited_cargos_pipeline"
+        )
         # default hull recolour to CC1, pass param to over-ride as needed
-        self.hull_recolour_map = kwargs.get('hull_recolour_map', graphics_constants.hull_recolour_CC1)
+        self.hull_recolour_map = kwargs.get(
+            "hull_recolour_map", graphics_constants.hull_recolour_CC1
+        )
         # cargo flags
-        self.has_bulk = kwargs.get('bulk', False)
-        self.has_piece = kwargs.get('piece', None) is not None
+        self.has_bulk = kwargs.get("bulk", False)
+        self.has_piece = kwargs.get("piece", None) is not None
         if self.has_piece:
-            self.piece_type = kwargs.get('piece')
+            self.piece_type = kwargs.get("piece")
         # required if piece is set, cargo sprites are available in multiple lengths, set the most appropriate
-        self.cargo_length = kwargs.get('cargo_length', None)
+        self.cargo_length = kwargs.get("cargo_length", None)
 
     @property
     def generic_rows(self):
         # map unknown cargos to sprites for some other label
         # assume that piece > input_spriterow_count, it's acceptable to show something like tarps for bulk, but not gravel for piece
         if self.has_piece:
-            return self.cargo_row_map['DFLT']
+            return self.cargo_row_map["DFLT"]
         elif self.has_bulk:
-            return self.cargo_row_map['GRVL']
+            return self.cargo_row_map["GRVL"]
         else:
             # shouldn't reach here, but eh,
-            utils.echo_message('generic_rows hit an unknown result in GestaltGraphics')
+            utils.echo_message("generic_rows hit an unknown result in GestaltGraphics")
             return [0]
 
     @property
     def nml_template(self):
-        return 'vehicle_with_visible_cargo.pynml'
+        return "vehicle_with_visible_cargo.pynml"
 
     @property
     def piece_cargo_maps(self):
@@ -78,9 +85,13 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
         # the templates and pipelines can be refactored later, and this can then be simpler
         # I cleaned this up in Horse April 2018
         result = []
-        sprite_names = polar_fox.constants.piece_vehicle_type_to_sprites_maps[self.piece_type]
+        sprite_names = polar_fox.constants.piece_vehicle_type_to_sprites_maps[
+            self.piece_type
+        ]
         for sprite_name in sprite_names:
-            cargo_labels = polar_fox.constants.piece_sprites_to_cargo_labels_maps[sprite_name]
+            cargo_labels = polar_fox.constants.piece_sprites_to_cargo_labels_maps[
+                sprite_name
+            ]
             map = (cargo_labels, [sprite_name])
             result.append(map)
         return result
@@ -91,11 +102,18 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
         # uses a list of 2-tuples, not a dict as order must be preserved
         result = []
         # assume an empty state spriterow - there was an optional bool flag for this per consist but it was unused so I removed it
-        result.append(('empty', 1))
+        result.append(("empty", 1))
         if self.has_bulk:
-            result.append(('bulk_cargo', 2 * len(polar_fox.constants.bulk_cargo_recolour_maps)))
+            result.append(
+                ("bulk_cargo", 2 * len(polar_fox.constants.bulk_cargo_recolour_maps))
+            )
         if self.has_piece:
-            result.append(('piece_cargo', 2 * sum([len(cargo_map[1]) for cargo_map in self.piece_cargo_maps])))
+            result.append(
+                (
+                    "piece_cargo",
+                    2 * sum([len(cargo_map[1]) for cargo_map in self.piece_cargo_maps]),
+                )
+            )
         return result
 
     @property
@@ -104,7 +122,9 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
         counter = 0
         if self.has_bulk:
             for cargo_map in polar_fox.constants.bulk_cargo_recolour_maps:
-                result[cargo_map[0]] = [counter] # list because multiple spriterows can map to a cargo label
+                result[cargo_map[0]] = [
+                    counter
+                ]  # list because multiple spriterows can map to a cargo label
                 counter += 1
         if self.has_piece:
             for cargo_labels, cargo_filenames in self.piece_cargo_maps:
@@ -118,29 +138,32 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
 
 class GestaltGraphicsLiveryOnly(GestaltGraphics):
     """
-        Used to handle the specific case of cargos shown only by vehicle livery.
-        This can also be used for recolouring vehicles with just a *single* livery which isn't cargo-specific.
+    Used to handle the specific case of cargos shown only by vehicle livery.
+    This can also be used for recolouring vehicles with just a *single* livery which isn't cargo-specific.
     """
+
     def __init__(self, recolour_maps, **kwargs):
         super().__init__()
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
-        self.pipeline = pipelines.get_pipeline('extend_spriterows_for_composited_cargos_pipeline')
+        self.pipeline = pipelines.get_pipeline(
+            "extend_spriterows_for_composited_cargos_pipeline"
+        )
         # recolour_maps map cargo labels to liveries, use 'DFLT' as the labe in the case of just one livery
         self.recolour_maps = recolour_maps
 
     @property
     def generic_rows(self):
-        print('generic_rows not implemented in GestaltGraphicsLiveryOnly')
+        print("generic_rows not implemented in GestaltGraphicsLiveryOnly")
         return None
 
     @property
     def nml_template(self):
-        return 'vehicle_with_cargo_specific_liveries.pynml'
+        return "vehicle_with_cargo_specific_liveries.pynml"
 
     def get_output_row_counts_by_type(self):
         # the template for visible livery requires the count of _all_ the liveries, *no calculating later*
         # 3 rows per livery (empty, 50% load, 100% load)
-        return [('livery_only', 3 * self.num_cargo_sprite_variants)]
+        return [("livery_only", 3 * self.num_cargo_sprite_variants)]
 
     @property
     def cargo_row_map(self):
@@ -149,19 +172,22 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
         result = {}
         counter = 0
         for cargo_map in self.recolour_maps:
-            result[cargo_map[0]] = [counter] # list because multiple spriterows can map to a cargo label
+            result[cargo_map[0]] = [
+                counter
+            ]  # list because multiple spriterows can map to a cargo label
             counter += 1
         return result
 
 
 class GestaltGraphicsCustom(GestaltGraphics):
     """
-        Used to handle (rare) cases with hand-drawn cargo (no pixa-generated cargos).
-        There is currently no graphics processing for this:
-        - just a simple pass-through, and an interface to the nml templates
-        - this could get support for body recolouring if needed
-        - this should not get support for compositing custom rows, TMWFTLB, just draw them in the vehicle spritesheet
+    Used to handle (rare) cases with hand-drawn cargo (no pixa-generated cargos).
+    There is currently no graphics processing for this:
+    - just a simple pass-through, and an interface to the nml templates
+    - this could get support for body recolouring if needed
+    - this should not get support for compositing custom rows, TMWFTLB, just draw them in the vehicle spritesheet
     """
+
     """
     raise Exception("GestaltGraphicsCustom: Not implemented")
     # !! ^ Custom graphics wasn't working right as of March 2018, and was unused

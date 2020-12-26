@@ -1,16 +1,18 @@
 from rosters import registered_rosters
 import pickle
 
+
 class Roster(object):
     """
     Rosters compose a set of vehicles which is complete for gameplay.
     """
+
     def __init__(self, **kwargs):
-        self.id = kwargs.get('id')
-        self.numeric_id = kwargs.get('numeric_id')
-        self.speeds = kwargs.get('speeds')
+        self.id = kwargs.get("id")
+        self.numeric_id = kwargs.get("numeric_id")
+        self.speeds = kwargs.get("speeds")
         self.ships = []
-        for ship in [ship.ship for ship in kwargs.get('ships')]:
+        for ship in [ship.ship for ship in kwargs.get("ships")]:
             self.ships.append(ship)
             ship.roster_id = self.id
 
@@ -26,7 +28,7 @@ class Roster(object):
                 pickle.dumps(ship)
             except:
                 print("Pickling failed for ship:", ship.id)
-                #raise # commented out because Coop Jenkins always fails to pickle the ship :(
+                # raise # commented out because Coop Jenkins always fails to pickle the ship :(
         return self.ships
 
     def register(roster):
