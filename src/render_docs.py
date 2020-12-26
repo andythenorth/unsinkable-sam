@@ -57,11 +57,9 @@ ships = sorted(ships, key=lambda ship: ship.intro_date)
 from rosters import registered_rosters
 
 metadata = {}
+metadata.update(global_constants.metadata)
 dates = sorted([i.intro_date for i in ships])
 metadata["dates"] = (dates[0], dates[-1])
-metadata["dev_thread_url"] = "http://www.tt-forums.net/viewtopic.php?f=26&t=44613"
-metadata["repo_url"] = "http://dev.openttdcoop.org/projects/unsinkable_sam/repository"
-metadata["issue_tracker"] = "http://dev.openttdcoop.org/projects/unsinkable_sam/issues"
 
 
 class DocHelper(object):

@@ -4,6 +4,12 @@ FUEL_RUN_COST = 10.0
 
 grfid = r"\55\53\53\33"
 
+metadata = {
+    "dev_thread_url": "https://www.tt-forums.net/viewtopic.php?f=26&t=75762",
+    "repo_url": "https://github.com/andythenorth/unsinkable-sam",
+    "docs_url": "https://grf.farm/unsinkable-sam",
+}
+
 # cargo aging constant - OTTD default is 185 - dibble this up in favour of ships, as they are relatively slow
 CARGO_AGE_PERIOD = 370
 
