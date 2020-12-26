@@ -35,7 +35,6 @@ else
   REPO_VERSION = ${exported_version}
 endif
 
-REPO_TITLE = "$(PROJECT_NAME) $(REPO_VERSION)"
 PROJECT_VERSIONED_NAME = $(PROJECT_NAME)-$(REPO_VERSION)
 ARGS = '$(PW)' '$(ROSTER)'
 
