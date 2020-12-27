@@ -1,6 +1,9 @@
 <tal:main_template metal:use-macro="load:main_template.pt">
 <div metal:fill-slot='body'>
     <div>
+        <div class="alert alert-error">
+            <strong>This page is outdated. Translations cannot be updated currently (December 2020).</strong>
+        </div>
         <h2>Help Translate Unsinkable Sam</h2>
         <p>Unsinkable Sam has already been translated into multiple languages, and more translations are always welcome.</p>
         <p>Translations can be added, checked and updated using the <a href="https://translator.openttdcoop.org/project/unsinkable-sam">web translator</a>.</p>
