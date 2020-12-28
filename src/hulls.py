@@ -21,10 +21,6 @@ class Hull(object):
     def spritesheet_name(self):
         return self.hull_type + "_house_" + self.house_position + "_" + self.hull_length
 
-    @property
-    def wake_name(self):
-        return self.hull_type + "_wake_" + self.hull_length
-
 
 class BargeHouseRear44px(Hull):
     def __init__(self):
