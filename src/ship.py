@@ -234,9 +234,6 @@ class Ship(object):
         type_suffix = "_".join(type_suffix.split(" "))
         return "STR_NAME_" + type_suffix
 
-    def get_str_power_type_suffix(self):
-        return "STR_POWER_TYPE_DIESEL"
-
     def get_str_type_info(self):
         # makes a string id for nml
         return "STR_" + self.str_type_info
@@ -248,8 +245,6 @@ class Ship(object):
             + self.id
             + ", string("
             + self.get_str_name_suffix()
-            + "), string("
-            + self.get_str_power_type_suffix()
             + "))"
         )
 

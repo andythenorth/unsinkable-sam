@@ -29,13 +29,6 @@ class Pipeline(object):
         # this should be sparse, don't store any ship info in Pipelines, pass at render time
         self.name = name
 
-    def make_spritesheet_from_image(self, input_image):
-        spritesheet = Spritesheet(
-            width=input_image.size[0], height=input_image.size[1], palette=DOS_PALETTE
-        )
-        spritesheet.sprites.paste(input_image)
-        return spritesheet
-
     @property
     def vehicle_source_input_path(self):
         # convenience method to get the ship source input image
@@ -84,7 +77,7 @@ class Pipeline(object):
         output_path = os.path.join(
             currentdir, "generated", "graphics", ship.id + ".png"
         )
-        spritesheet = self.make_spritesheet_from_image(input_image)
+        spritesheet = pixa.make_spritesheet_from_image(input_image, DOS_PALETTE)
 
         for unit in units:
             spritesheet = unit.render(spritesheet)
@@ -229,7 +222,9 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         vehicle_generic_spriterow_input_image = self.vehicle_base_image.crop(crop_box)
         # vehicle_generic_spriterow_input_image.show() # comment in to see the image when debugging
         vehicle_generic_spriterow_input_as_spritesheet = (
-            self.make_spritesheet_from_image(vehicle_generic_spriterow_input_image)
+            pixa.make_spritesheet_from_image(
+                vehicle_generic_spriterow_input_image, DOS_PALETTE
+            )
         )
         self.units.append(
             AppendToSpritesheet(
@@ -248,8 +243,8 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         # this might be extensible for containers when needed, using simple conditionals
         # or because containers include random options it might need reworking,
         # to be more similar to piece cargo handling, but using recolour not actual sprites
-        vehicle_livery_row_image_as_spritesheet = self.make_spritesheet_from_image(
-            self.vehicle_base_image
+        vehicle_livery_row_image_as_spritesheet = pixa.make_spritesheet_from_image(
+            self.vehicle_base_image, DOS_PALETTE
         )
 
         for label, recolour_map in self.ship.gestalt_graphics.recolour_maps:
@@ -302,8 +297,8 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         )
         # vehicle_bulk_cargo_image.show()
 
-        vehicle_bulk_cargo_input_as_spritesheet = self.make_spritesheet_from_image(
-            vehicle_bulk_cargo_image
+        vehicle_bulk_cargo_input_as_spritesheet = pixa.make_spritesheet_from_image(
+            vehicle_bulk_cargo_image, DOS_PALETTE
         )
         crop_box_dest = (0, 0, self.sprites_max_x_extent, cargo_group_row_height)
         for label, recolour_map in polar_fox.constants.bulk_cargo_recolour_maps:
@@ -458,8 +453,8 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             )
             # if self.ship.id == 'universal_freighter_D':
             # vehicle_comped_image.show()
-            vehicle_comped_image_as_spritesheet = self.make_spritesheet_from_image(
-                vehicle_comped_image
+            vehicle_comped_image_as_spritesheet = pixa.make_spritesheet_from_image(
+                vehicle_comped_image, DOS_PALETTE
             )
             self.units.append(
                 AppendToSpritesheet(vehicle_comped_image_as_spritesheet, crop_box_dest)
