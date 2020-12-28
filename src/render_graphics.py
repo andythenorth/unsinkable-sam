@@ -1,5 +1,3 @@
-print("[RENDER GRAPHICS] render_graphics.py")
-
 import codecs  # used for writing files - more unicode friendly than standard open() module
 
 import shutil
@@ -47,28 +45,23 @@ def main():
     print("[RENDER GRAPHICS] render_graphics.py")
     start = time()
     unsinkable_sam.main()
-    ships = unsinkable_sam.get_ships_in_buy_menu_order()
     # get args passed by makefile
     makefile_args = utils.get_makefile_args(sys)
-    num_pool_workers = makefile_args.get(
-        "num_pool_workers", 0
-    )  # default to no mp, makes debugging easier (mp fails to pickle errors correctly)
+    # default to no mp, makes debugging easier (mp fails to pickle errors correctly)
+    num_pool_workers = makefile_args.get("num_pool_workers", 0)
     if num_pool_workers == 0:
         use_multiprocessing = False
-        print(
-            "Multiprocessing disabled: (PW=0)"
-        )  # just print, no need for a coloured echo_message
+        # just print, no need for a coloured echo_message
+        print("Multiprocessing disabled: (PW=0)")
     else:
         use_multiprocessing = True
-        print(
-            "Multiprocessing enabled: (PW=" + str(num_pool_workers) + ")"
-        )  # just print, no need for a coloured echo_message
+        # just print, no need for a coloured echo_message
+        print("Multiprocessing enabled: (PW=" + str(num_pool_workers) + ")")
 
     graphics_input = os.path.join(currentdir, "src", "graphics", "ships")
     graphics_output_path = os.path.join(unsinkable_sam.generated_files_path, "graphics")
-    if os.path.exists(graphics_output_path):
-        shutil.rmtree(graphics_output_path)
-    os.mkdir(graphics_output_path)
+    if not os.path.exists(graphics_output_path):
+        os.mkdir(graphics_output_path)
 
     hint_file = codecs.open(
         os.path.join(graphics_output_path, "_graphics_files_here_are_generated.txt"),
@@ -80,6 +73,7 @@ def main():
     )
     hint_file.close()
 
+    ships = unsinkable_sam.get_ships_in_buy_menu_order()
     if use_multiprocessing == False:
         for ship in ships:
             run_pipeline(ship)
