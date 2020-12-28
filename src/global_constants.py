@@ -100,7 +100,7 @@ vehicle_offsets = {
     ],
 }
 
-buy_menu_sprite_x_loc = 630
+buy_menu_sprite_x_loc = 970
 buy_menu_sprite_width = 128
 buy_menu_sprite_height = 32
 sprites_max_x_extent = 885

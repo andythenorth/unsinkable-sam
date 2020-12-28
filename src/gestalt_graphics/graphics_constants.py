@@ -26,7 +26,7 @@ hull_recolour_CC2 = {
 # facts about 'standard' spritesheets, spritesheets varying from this will be painful
 spriterow_height = 100
 spritesheet_top_margin = 10
-spritesheet_width = 1046
+spritesheet_width = 1200
 
 # --- Livery Recolour Maps ---- #
 # label order matters, so tuples are used not dicts

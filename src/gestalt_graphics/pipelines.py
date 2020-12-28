@@ -2,10 +2,15 @@ import os.path
 
 currentdir = os.curdir
 
-from PIL import Image
+from PIL import Image, ImageDraw
 
 import polar_fox
-from polar_fox.graphics_units import SimpleRecolour, AppendToSpritesheet, AddCargoLabel
+from polar_fox.graphics_units import (
+    SimpleRecolour,
+    AppendToSpritesheet,
+    AddCargoLabel,
+    AddBuyMenuSprite,
+)
 from polar_fox.pixa import Spritesheet, pixascan
 from gestalt_graphics import graphics_constants
 
@@ -37,6 +42,38 @@ class Pipeline(object):
         return os.path.join(
             currentdir, "src", "graphics", "ships", self.ship.id + ".png"
         )
+
+    def process_buy_menu_sprite(self, spritesheet):
+        # this function is passed (uncalled) into the pipeline, and then called at render time
+        # this is so that it has the processed spritesheet available, which is essential for creating buy menu sprites
+        # n.b if buy menu sprite processing has conditions by vehicle type, could pass a dedicated function for each type of processing
+
+        # spriteset templates will add 10px left and right padding to buy menu sprite to prevent cramped appearance in buy menu
+        # note that this means
+        # 1. we can't just use the default <- view of the ship, we provide a separate buy menu sprite
+        # 2. we add a blue bounding box to draw into, with the extra padding
+        # 2. the ship is drawn 10px inset from the left edge of bounding box
+
+        draw_bounding_box = ImageDraw.Draw(spritesheet.sprites)
+        draw_bounding_box.rectangle(
+            [970, 10, 970 + 148, 10 + 48], fill=0, outline=None, width=0
+        )
+        crop_box_src = (
+            630,
+            10,
+            630 + self.ship.buy_menu_width,
+            10 + 48,
+        )
+        crop_box_dest = (
+            980,
+            10,
+            980 + self.ship.buy_menu_width,
+            10 + 48,
+        )
+        custom_buy_menu_sprite = spritesheet.sprites.copy().crop(crop_box_src)
+        spritesheet.sprites.paste(custom_buy_menu_sprite, crop_box_dest)
+        # increment x offset for pasting in next vehicle
+        return spritesheet
 
     def render_common(self, ship, input_image, units):
         # expects to be passed a PIL Image object
@@ -530,6 +567,8 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     input_spriterow_count = 2
                     self.add_piece_cargo_spriterows()
                 cumulative_input_spriterow_count += input_spriterow_count
+
+        self.units.append(AddBuyMenuSprite(self.process_buy_menu_sprite))
 
         # for this pipeline, input_image is just blank white 10px high image, to which the vehicle sprites are then appended
         input_image = Image.new("P", (graphics_constants.spritesheet_width, 10), 255)
