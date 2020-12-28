@@ -103,8 +103,8 @@ class PassThroughPipeline(Pipeline):
     def render(self, ship, global_constants):
         input_image = Image.open(self.vehicle_source_input_path)
         units = []
-        result = self.render_common(ship, input_image, units)
-        return result
+        self.render_common(ship, input_image, units)
+        input_image.close()
 
 
 class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
@@ -215,6 +215,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         )  # by design, no mask needed for first load state
         result_image.paste(hull_image, crop_box_comp_dest_2, waterline_mask_row_2)
         result_image.paste(hull_image, crop_box_comp_dest_3, waterline_mask_row_3)
+        hull_base.close()
         return result_image
 
     def add_generic_spriterow(self):
@@ -514,6 +515,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                         y_offset=-1 * cargo_group_output_row_height,
                     )
                 )
+                cargo_sprites_input_image.close()
 
     def render(self, ship, global_constants):
         self.hull_input_path = os.path.join(
@@ -573,8 +575,8 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         # for this pipeline, input_image is just blank white 10px high image, to which the vehicle sprites are then appended
         input_image = Image.new("P", (graphics_constants.spritesheet_width, 10), 255)
         input_image.putpalette(DOS_PALETTE)
-        result = self.render_common(ship, input_image, self.units)
-        return result
+        self.render_common(ship, input_image, self.units)
+        self.vehicle_source_image.close()
 
 
 def get_pipeline(pipeline_name):
