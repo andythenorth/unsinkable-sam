@@ -7,15 +7,12 @@ spriteset(${ship.id}_ss_not_loaded_not_moving, "generated/graphics/${ship.id}.pn
 }
 spriteset(${ship.id}_ss_not_loaded_moving, "generated/graphics/${ship.id}.png") {
   spriteset_template_empty_${ship.id}(10)
-  <!--! spriteset_template_${ship.id}(110) -->
 }
 spriteset(${ship.id}_ss_loaded_not_moving, "generated/graphics/${ship.id}.png") {
   spriteset_template_empty_${ship.id}(10)
-  <!--! spriteset_template_${ship.id}(510) -->
 }
 spriteset(${ship.id}_ss_loaded_moving, "generated/graphics/${ship.id}.png") {
   spriteset_template_empty_${ship.id}(10)
-  <!--! spriteset_template_${ship.id}(610) -->
 }
 
 spritegroup ${ship.id}_sg_moving {

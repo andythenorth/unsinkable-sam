@@ -15,14 +15,14 @@
 
 template spriteset_template_purchase_${ship.id}() {
     //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
-    [610,  10, 1, 1, 0, 0, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
     [${global_constants.buy_menu_sprite_x_loc},  ${10 + ship.buy_menu_bb_y_offset}, ${ship.buy_menu_width}, ${global_constants.buy_menu_sprite_height}, -${int(ship.buy_menu_width / 2)}, -17, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
 }
 
 // DEPOT VIEW
@@ -30,14 +30,14 @@ template spriteset_template_purchase_${ship.id}() {
 
 <!--!template spriteset_template_depot_${ship.id}(y) {
     //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
-    [610,  10, 1, 1, 0, 0, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
-    [610,   y, ${ship.depot_width}, 15, -${int(ship.depot_width / 2)}, -6, ANIM]
-    [610,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
+    [630,   y, ${ship.depot_width}, 15, -${int(ship.depot_width / 2)}, -6, ANIM]
+    [630,  10, 1, 1, 0, 0, ANIM]
 }-->
 
 // WAKES

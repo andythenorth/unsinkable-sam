@@ -18,12 +18,12 @@ CARGO_AGE_PERIOD = 370
 spritesheet_bounding_boxes = (
     (20, 28, 89),
     (60, 113, 66),
-    (186, 128, 48),
-    (318, 113, 66),
-    (444, 28, 89),
-    (484, 113, 66),
-    (610, 128, 48),
-    (742, 113, 66),
+    (190, 128, 48),
+    (330, 113, 66),
+    (460, 28, 89),
+    (500, 113, 66),
+    (630, 128, 48),
+    (770, 113, 66),
 )
 
 # standard vehicle offsets; custom can be supported if needed by extending ship.offsets
@@ -100,10 +100,10 @@ vehicle_offsets = {
     ],
 }
 
-buy_menu_sprite_x_loc = 610
+buy_menu_sprite_x_loc = 630
 buy_menu_sprite_width = 128
 buy_menu_sprite_height = 32
-sprites_max_x_extent = 855
+sprites_max_x_extent = 885
 docs_ship_image_height = (
     32  # show the full ship (assuming no ships taller than 32px in – view)
 )
