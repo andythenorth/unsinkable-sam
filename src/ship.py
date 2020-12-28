@@ -42,7 +42,6 @@ class Ship(object):
         numeric_id_defender.append(numeric_id)
         # roster is set when the vehicle is registered to a roster, only one roster per vehicle
         self.roster_id = "default"  # only one roster currently
-        print(self.id, self.roster, self.roster_id)
         self.roster.register_ship(self)
         # subtypes determine capacity, and are mapped to hull sizes in subclass
         self.subtype = subtype

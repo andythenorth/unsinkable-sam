@@ -9,7 +9,6 @@ class Roster(object):
 
     def __init__(self, **kwargs):
         self.id = kwargs.get("id")
-        print(self.id)
         self.numeric_id = kwargs.get("numeric_id")
         self.speeds = kwargs.get("speeds")
         self.ships = []
@@ -34,6 +33,5 @@ class Roster(object):
         ship.roster_id = self.id
 
     def register(self, disabled=False):
-        print("registering roster:", self.id)
         registered_rosters.append(self)
         self.disabled = disabled

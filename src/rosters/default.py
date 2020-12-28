@@ -1,7 +1,6 @@
 from roster import Roster
 
 def main(disabled=False):
-    print("default roster main() called")
     roster = Roster(
         id="default",
         numeric_id=1,
