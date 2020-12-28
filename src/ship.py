@@ -36,7 +36,10 @@ class Ship(object):
     """Base class for all types of ships"""
 
     def __init__(self, id, name, numeric_id, subtype, hull, **kwargs):
-        self.id = id
+        self.legacy_id = id
+        self.id = id[0:-1] + 'gen_1' + id[-1]
+        # hax !! - move all IDs to subclass + method on Ship
+        print(self.id)
         self._name = name  # private var because 'name' is accessed via @property method to add subtype string
         self.numeric_id = numeric_id
         numeric_id_defender.append(numeric_id)
