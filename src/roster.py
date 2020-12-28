@@ -9,12 +9,10 @@ class Roster(object):
 
     def __init__(self, **kwargs):
         self.id = kwargs.get("id")
+        print(self.id)
         self.numeric_id = kwargs.get("numeric_id")
         self.speeds = kwargs.get("speeds")
         self.ships = []
-        for ship in [ship.ship for ship in kwargs.get("ships")]:
-            self.ships.append(ship)
-            ship.roster_id = self.id
 
     @property
     def buy_menu_sort_order(self):
@@ -31,5 +29,11 @@ class Roster(object):
                 # raise # commented out because Coop Jenkins always fails to pickle the ship :(
         return self.ships
 
-    def register(roster):
-        registered_rosters.append(roster)
+    def register_ship(self, ship):
+        self.ships.append(ship)
+        ship.roster_id = self.id
+
+    def register(self, disabled=False):
+        print("registering roster:", self.id)
+        registered_rosters.append(self)
+        self.disabled = disabled

@@ -27,12 +27,28 @@ makefile_args = utils.get_makefile_args(sys)
 from hulls import registered_hulls
 
 from rosters import registered_rosters
-
 from rosters import default
 
-default.roster.register()
-
 from vehicles import numeric_id_defender
+
+# ship_types in alphabetical order
+from vehicles import (
+    bulk_ships,
+    bulk_barges,
+    cryo_tankers,
+    edibles_tankers,
+    livestock_carriers,
+    mail_ships,
+    pax_fast_loading_ships,
+    pax_luxury_ships,
+    piece_goods_carriers,
+    reefers,
+    tanker_barges,
+    tanker_ships,
+    trawlers,
+    universal_freighter_barges,
+    universal_freighter_ships,
+)
 
 
 def get_ships_in_buy_menu_order():
@@ -88,3 +104,25 @@ def vacant_numeric_ids_formatted():
         + str(max(numeric_id_defender) + 10)
         + " onwards"
     )
+
+
+def main():
+    # rosters
+    default.main(disabled=False)
+
+    # ship_types (in buy menu order)
+    pax_fast_loading_ships.main()
+    pax_luxury_ships.main()
+    mail_ships.main()
+    universal_freighter_ships.main()
+    universal_freighter_barges.main()
+    piece_goods_carriers.main()
+    bulk_ships.main()
+    bulk_barges.main()
+    tanker_ships.main()
+    tanker_barges.main()
+    cryo_tankers.main()
+    livestock_carriers.main()
+    reefers.main()
+    edibles_tankers.main()
+    trawlers.main()

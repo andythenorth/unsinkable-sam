@@ -55,6 +55,7 @@ def render_consist_nml(consist):
 
 def main():
     start = time()
+    unsinkable_sam.main()
     print(unsinkable_sam.vacant_numeric_ids_formatted())
 
     generated_nml_path = os.path.join(generated_files_path, "nml")

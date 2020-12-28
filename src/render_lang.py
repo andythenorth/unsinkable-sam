@@ -41,6 +41,7 @@ hint_file.close()
 
 def main():
     start = time()
+    unsinkable_sam.main()
     ships = set(unsinkable_sam.get_ships_in_buy_menu_order())
 
     languages_with_generation = ("english",)

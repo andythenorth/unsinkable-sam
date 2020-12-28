@@ -1,5 +1,3 @@
-print("[RENDER DOCS] render_docs.py")
-
 import codecs  # used for writing files - more unicode friendly than standard open() module
 
 import shutil
@@ -8,64 +6,34 @@ import os
 
 currentdir = os.curdir
 from time import time
-
 from PIL import Image
+import markdown
 
 import global_constants
 import utils as utils
 import unsinkable_sam
 from polar_fox import git_info
 
-# setting up a cache for compiled chameleon templates can significantly speed up template rendering
-chameleon_cache_path = os.path.join(currentdir, global_constants.chameleon_cache_dir)
-if not os.path.exists(chameleon_cache_path):
-    os.mkdir(chameleon_cache_path)
-os.environ["CHAMELEON_CACHE"] = chameleon_cache_path
+# !! this is done differently in iron horse, with registered fetched from iron_horse module
+from rosters import registered_rosters
 
-docs_src = os.path.join(currentdir, "src", "docs_templates")
-docs_output_path = os.path.join(currentdir, "docs")
-if os.path.exists(docs_output_path):
-    shutil.rmtree(docs_output_path)
-os.mkdir(docs_output_path)
-
-shutil.copy(os.path.join(docs_src, "index.html"), docs_output_path)
-
-static_dir_src = os.path.join(docs_src, "html", "static")
-static_dir_dst = os.path.join(docs_output_path, "html", "static")
-shutil.copytree(static_dir_src, static_dir_dst)
-
-# we'll be processing some extra images and saving them into the img dir
-images_dir_dst = os.path.join(static_dir_dst, "img")
-
-import markdown
-from chameleon import PageTemplateLoader  # chameleon used in most template cases
-
-# setup the places we look for templates
-docs_templates = PageTemplateLoader(docs_src, format="text")
+# get the strings from base lang file so they can be used in docs
+base_lang_strings = utils.parse_base_lang()
+metadata = {}
+metadata.update(global_constants.metadata)
 
 # get args passed by makefile
 makefile_args = utils.get_makefile_args(sys)
 
-# get the strings from base lang file so they can be used in docs
-base_lang_strings = utils.parse_base_lang()
+docs_src = os.path.join(currentdir, "src", "docs_templates")
 
-
-ships = unsinkable_sam.get_ships_in_buy_menu_order()
-# default sort for docs is by ship intro date
-ships = sorted(ships, key=lambda ship: ship.intro_date)
-
-from rosters import registered_rosters
-
-metadata = {}
-metadata.update(global_constants.metadata)
-dates = sorted([i.intro_date for i in ships])
-metadata["dates"] = (dates[0], dates[-1])
+# palette = utils.dos_palette_to_rgb()
 
 
 class DocHelper(object):
     # dirty class to help do some doc formatting
 
-    def get_ships_by_subclass(self):
+    def get_ships_by_subclass(self, ships):
         # first find all the subclasses + their vehicles
         ships_by_subclass = {}
         for ship in ships:
@@ -130,7 +98,13 @@ class DocHelper(object):
         return ("", "active")[doc_name == nav_link]
 
 
-def render_docs(doc_list, file_type, use_markdown=False):
+def render_docs(doc_list, file_type, docs_output_path, ships, use_markdown=False):
+    # imports inside functions are generally avoided
+    # but PageTemplateLoader is expensive to import and causes unnecessary overhead for Pool mapping when processing docs graphics
+    from chameleon import PageTemplateLoader
+
+    docs_templates = PageTemplateLoader(docs_src, format="text")
+
     for doc_name in doc_list:
         template = docs_templates[
             doc_name + ".pt"
@@ -174,7 +148,7 @@ def render_docs(doc_list, file_type, use_markdown=False):
         doc_file.close()
 
 
-def render_docs_images():
+def render_docs_images(docs_output_path, ships):
     # process vehicle buy menu sprites for reuse in docs
     # extend this similar to render_docs if other image types need processing in future
 
@@ -205,24 +179,62 @@ def render_docs_images():
             ),
             resample=Image.NEAREST,
         )
-        output_path = os.path.join(images_dir_dst, ship.id + ".png")
+
+        output_path = os.path.join(
+            currentdir,
+            "docs",
+            "html",
+            "static",
+            "img",
+            ship.id + ".png",
+            # ship.id + "_" + colour_name + ".png",
+        )
         processed_vehicle_image.save(output_path, optimize=True, transparency=0)
 
 
 def main():
+    print("[RENDER DOCS] render_docs.py")
     start = time()
+    unsinkable_sam.main()
+
+    # setting up a cache for compiled chameleon templates can significantly speed up template rendering
+    chameleon_cache_path = os.path.join(
+        currentdir, global_constants.chameleon_cache_dir
+    )
+    if not os.path.exists(chameleon_cache_path):
+        os.mkdir(chameleon_cache_path)
+    os.environ["CHAMELEON_CACHE"] = chameleon_cache_path
+
+    docs_output_path = os.path.join(currentdir, "docs")
+    if os.path.exists(docs_output_path):
+        shutil.rmtree(docs_output_path)
+    os.mkdir(docs_output_path)
+
+    shutil.copy(os.path.join(docs_src, "index.html"), docs_output_path)
+
+    static_dir_src = os.path.join(docs_src, "html", "static")
+    static_dir_dst = os.path.join(docs_output_path, "html", "static")
+    shutil.copytree(static_dir_src, static_dir_dst)
+
+    ships = unsinkable_sam.get_ships_in_buy_menu_order()
+    # default sort for docs is by ship intro date
+    ships = sorted(ships, key=lambda ship: ship.intro_date)
+
+    dates = sorted([i.intro_date for i in ships])
+    metadata["dates"] = (dates[0], dates[-1])
+
     # render standard docs from a list
     html_docs = ["ships", "code_reference", "get_started", "translations"]
     txt_docs = ["license", "readme"]
     markdown_docs = ["changelog"]
 
-    render_docs(html_docs, "html")
-    render_docs(txt_docs, "txt")
+    render_docs(html_docs, "html", docs_output_path, ships)
+    render_docs(txt_docs, "txt", docs_output_path, ships)
     # just render the markdown docs twice to get txt and html versions, simples no?
-    render_docs(markdown_docs, "txt")
-    render_docs(markdown_docs, "html", use_markdown=True)
+    render_docs(markdown_docs, "txt", docs_output_path, ships)
+    render_docs(markdown_docs, "html", docs_output_path, ships, use_markdown=True)
     # process images for use in docs
-    render_docs_images()
+    render_docs_images(docs_output_path, ships)
     # eh, how long does this take anyway?
     print(format((time() - start), ".2f") + "s")
 

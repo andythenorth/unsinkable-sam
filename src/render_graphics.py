@@ -46,6 +46,7 @@ def report_sprites_complete(ships):
 def main():
     print("[RENDER GRAPHICS] render_graphics.py")
     start = time()
+    unsinkable_sam.main()
     ships = unsinkable_sam.get_ships_in_buy_menu_order()
     # get args passed by makefile
     makefile_args = utils.get_makefile_args(sys)

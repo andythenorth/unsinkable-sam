@@ -40,14 +40,16 @@ class Ship(object):
         self._name = name  # private var because 'name' is accessed via @property method to add subtype string
         self.numeric_id = numeric_id
         numeric_id_defender.append(numeric_id)
+        # roster is set when the vehicle is registered to a roster, only one roster per vehicle
+        self.roster_id = "default"  # only one roster currently
+        print(self.id, self.roster, self.roster_id)
+        self.roster.register_ship(self)
         # subtypes determine capacity, and are mapped to hull sizes in subclass
         self.subtype = subtype
         # base hull (defines length, wake graphics, hull graphics if composited etc)
         self.hull = registered_hulls[hull + self.hull_mapping[self.subtype]]
         # create a structure for cargo /livery graphics options
         self.gestalt_graphics = GestaltGraphics()
-        # roster is set when the vehicle is registered to a roster, only one roster per vehicle
-        self.roster_id = None
         # option for multiple default cargos, cascading if first cargo(s) are not available
         self.default_cargos = []
         # speed is determined in sub class, or can be over-ridden by individual vehicles
@@ -120,8 +122,7 @@ class Ship(object):
         if self._speed:
             return self._speed
         elif self.speed_class:
-            roster_obj = self.get_roster(self.roster_id)
-            speeds = roster_obj.speeds[self.speed_class]
+            speeds = self.roster.speeds[self.speed_class]
             return speeds[max([year for year in speeds if self.intro_date >= year])]
         else:
             # assume no speed limit
@@ -259,15 +260,15 @@ class Ship(object):
         )
         return buy_menu_template.substitute(str_type_info=self.get_str_type_info())
 
-    def get_roster(self, roster_id):
+    @property
+    def roster(self):
         for roster in registered_rosters:
-            if roster_id == roster.id:
+            if self.roster_id == roster.id:
                 return roster
 
     def get_expression_for_rosters(self):
         # the working definition is one and only one roster per vehicle
-        roster = self.get_roster(self.roster_id)
-        return "param[2]==" + str(roster.numeric_id - 1)
+        return "param[2]==" + str(self.roster.numeric_id - 1)
 
     def get_nml_expression_for_default_cargos(self):
         # sometimes first default cargo is not available, so we use a list
