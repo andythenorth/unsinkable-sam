@@ -1,5 +1,6 @@
 from roster import Roster
 
+
 def main(disabled=False):
     roster = Roster(
         id="default",

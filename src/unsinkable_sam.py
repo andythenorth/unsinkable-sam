@@ -55,7 +55,7 @@ def get_ships_in_buy_menu_order():
     ships = []
     # first compose the buy menu order list
     buy_menu_sort_order = []
-    if makefile_args.get("roster", "*") == "*":
+    if makefile_args.get("roster", "ALL") == "ALL":
         active_rosters = [roster.id for roster in registered_rosters]
     else:
         active_rosters = [makefile_args["roster"]]  # make sure it's iterable

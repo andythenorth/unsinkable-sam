@@ -7,7 +7,11 @@ from polar_fox import git_info
 def get_makefile_args(sys):
     # get args passed by makefile
     if len(sys.argv) > 1:
-        makefile_args = {"num_pool_workers": int(sys.argv[1]), "roster": sys.argv[2]}
+        makefile_args = {
+            "num_pool_workers": int(sys.argv[1]),
+            "roster": sys.argv[2],
+            "suppress_cargo_sprites": True if sys.argv[3] == "True" else False,
+        }
     else:
         # provide any essential defaults here
         makefile_args = {}
