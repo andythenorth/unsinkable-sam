@@ -127,12 +127,19 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
                 ]  # list because multiple spriterows can map to a cargo label
                 counter += 1
         if self.has_piece:
-            for cargo_labels, cargo_filenames in self.piece_cargo_maps:
-                num_variants = len(cargo_filenames)
-                spriterow_nums = [counter + i for i in range(num_variants)]
-                for cargo_label in cargo_labels:
-                    result[cargo_label] = spriterow_nums
-                counter += num_variants
+            # handle that piece cargos are defined in dicts as {filename:[labels]}, where most cargo sprite stuff uses ((label, values), (label, values)) pairs format
+            for (
+                cargo_filename
+            ) in polar_fox.constants.piece_vehicle_type_to_sprites_maps[
+                self.piece_type
+            ]:
+                for (
+                    cargo_label
+                ) in polar_fox.constants.piece_sprites_to_cargo_labels_maps[
+                    cargo_filename
+                ]:
+                    result.setdefault(cargo_label, []).append(counter)
+                counter += 1
         return result
 
 
