@@ -11,15 +11,11 @@ import unsinkable_sam
 import global_constants
 from PIL import Image, ImageDraw
 
-unsinkable_sam.main()
-ships = unsinkable_sam.get_ships_in_buy_menu_order()
-input_graphics_dir = os.path.join("src", "graphics", "ships")
-output_graphics_dir = os.path.join("src", "graphics", "ships_migrated")
-base_template_spritesheet = Image.open(
-    os.path.join("src", "graphics", "base_spritesheet.png")
-)
 spriterow_height = 100
 DOS_PALETTE = Image.open("palette_key.png").palette
+
+input_graphics_dir = os.path.join("src", "graphics")
+output_graphics_dir = os.path.join("src", "graphics", "migrated")
 
 col_insertion_points = (
     [20, 0],
@@ -31,7 +27,6 @@ col_insertion_points = (
     [630, 0],
     [770, 0],
 )
-
 
 def get_legacy_bounding_boxes(y=0):
     return [
@@ -47,6 +42,9 @@ def get_legacy_bounding_boxes(y=0):
 
 
 def recomp_legacy_spriterows(row_count, spriterow, migrated_spritesheet):
+    base_template_spritesheet = Image.open(
+        os.path.join("src", "graphics", "base_spritesheet.png")
+    )
     migrated_spriterow = base_template_spritesheet.crop((0, 10, 900, 120))
     # we only want the first row to show blue bounding box for buy menu, so draw white rectangle over it for other rows
     for col_count, vertexes in enumerate(get_legacy_bounding_boxes()):
@@ -82,8 +80,8 @@ def migrate_spritesheet(rows_with_valid_content):
     return migrated_spritesheet
 
 
-def detect_spriterows_with_content(filename):
-    legacy_spritesheet = Image.open(os.path.join(input_graphics_dir, filename))
+def detect_spriterows_with_content(subdir, filename):
+    legacy_spritesheet = Image.open(os.path.join(input_graphics_dir, subdir, filename))
     base_y = 10
     rows_with_valid_content = []
     while base_y + spriterow_height < legacy_spritesheet.size[1]:
@@ -99,7 +97,7 @@ def detect_spriterows_with_content(filename):
             # row contains _some_ colours other than white and blue, now check if it contains any blue, or if it's just leftover parts from drawing
             if min(list(test_row.getdata())) > 0:
                 # there is no blue, this is just leftover parts, so show this image so it can be cleaned up manually
-                test_row.show()
+                #test_row.show()
                 print(filename, "contains some orphaned / leftover / junk pixels")
             else:
                 rows_with_valid_content.append(test_row)
@@ -107,27 +105,45 @@ def detect_spriterows_with_content(filename):
 
 
 def main():
+    unsinkable_sam.main()
     if os.path.exists(output_graphics_dir):
         shutil.rmtree(output_graphics_dir)
     os.mkdir(output_graphics_dir)
 
-    legacy_filenames = []
+    ship_filenames = []
+    ships = unsinkable_sam.get_ships_in_buy_menu_order()
     for ship in ships:
         for i in range(2):
             filename = os.path.join(ship.id + ".png")
-            if os.path.isfile(os.path.join(input_graphics_dir, filename)):
-                legacy_filenames.append(filename)
-    legacy_filenames.sort()
+            if os.path.isfile(os.path.join(input_graphics_dir, 'ships', filename)):
+                ship_filenames.append(filename)
+    ship_filenames.sort()
 
-    # legacy_filenames = ['cargo_sprinter_template_0.png'] # for testing a single vehicle when debugging
-    for filename in legacy_filenames:
+    for filename in ship_filenames:
         output_path = os.path.join(output_graphics_dir, filename)
-        rows_with_valid_content = detect_spriterows_with_content(filename)
+        rows_with_valid_content = detect_spriterows_with_content('ships', filename)
         migrated_spritesheet = migrate_spritesheet(rows_with_valid_content)
         migrated_spritesheet.save(output_path)
 
-    print("Migrated spritesheets count:", len(legacy_filenames))
+    print("Migrated ships count:", len(ship_filenames))
 
+    hull_filenames = []
+    hulls = unsinkable_sam.registered_hulls
+    print(hulls)
+    for hull in hulls.values():
+        for i in range(2):
+            filename = os.path.join(hull.spritesheet_name + ".png")
+            if os.path.isfile(os.path.join(input_graphics_dir, 'hulls', filename)):
+                hull_filenames.append(filename)
+    hull_filenames.sort()
+
+    for filename in hull_filenames:
+        output_path = os.path.join(output_graphics_dir, filename)
+        rows_with_valid_content = detect_spriterows_with_content('hulls', filename)
+        migrated_spritesheet = migrate_spritesheet(rows_with_valid_content)
+        migrated_spritesheet.save(output_path)
+
+    print("Migrated hulls count:", len(hull_filenames))
 
 if __name__ == "__main__":
     main()
