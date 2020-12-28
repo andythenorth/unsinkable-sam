@@ -4,7 +4,7 @@ Unsinkable Sam ${git_info.get_version()}
 Ships, for OpenTTD
 
 Unsinkable Sam docs are published online:
-  http://bundles.openttdcoop.org/unsinkable-sam/releases/LATEST/docs/html/get_started.html
+  ${utils.get_docs_url()}
 
 =======
 GRF Name: Unsinkable Sam

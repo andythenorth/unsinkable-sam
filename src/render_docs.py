@@ -98,12 +98,23 @@ class DocHelper(object):
         return ("", "active")[doc_name == nav_link]
 
 
-def render_docs(doc_list, file_type, docs_output_path, ships, use_markdown=False):
+def render_docs(
+    doc_list,
+    file_type,
+    docs_output_path,
+    ships,
+    use_markdown=False,
+    source_is_repo_root=False,
+):
+    if source_is_repo_root:
+        doc_path = os.path.join(currentdir)
+    else:
+        doc_path = docs_src
     # imports inside functions are generally avoided
     # but PageTemplateLoader is expensive to import and causes unnecessary overhead for Pool mapping when processing docs graphics
     from chameleon import PageTemplateLoader
 
-    docs_templates = PageTemplateLoader(docs_src, format="text")
+    docs_templates = PageTemplateLoader(doc_path, format="text")
 
     for doc_name in doc_list:
         template = docs_templates[
@@ -225,11 +236,19 @@ def main():
 
     # render standard docs from a list
     html_docs = ["ships", "code_reference", "get_started", "translations"]
-    txt_docs = ["license", "readme"]
+    txt_docs = ["readme"]
+    license_docs = ["license"]
     markdown_docs = ["changelog"]
 
     render_docs(html_docs, "html", docs_output_path, ships)
     render_docs(txt_docs, "txt", docs_output_path, ships)
+    render_docs(
+        license_docs,
+        "txt",
+        docs_output_path,
+        ships,
+        source_is_repo_root=True,
+    )
     # just render the markdown docs twice to get txt and html versions, simples no?
     render_docs(markdown_docs, "txt", docs_output_path, ships)
     render_docs(markdown_docs, "html", docs_output_path, ships, use_markdown=True)
