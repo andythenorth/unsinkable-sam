@@ -35,8 +35,8 @@ from vehicles import numeric_id_defender
 class Ship(object):
     """Base class for all types of ships"""
 
-    def __init__(self, name, numeric_id, subtype, hull, gen="gen_1", **kwargs):
-        self.id = self.base_id + "_" + gen + subtype
+    def __init__(self, name, numeric_id, gen, subtype, hull, **kwargs):
+        self.id = self.base_id + "_gen_" + str(gen) + subtype
         self._name = name  # private var because 'name' is accessed via @property method to add subtype string
         self.numeric_id = numeric_id
         numeric_id_defender.append(numeric_id)
@@ -49,6 +49,8 @@ class Ship(object):
         self.hull = registered_hulls[hull + self.hull_mapping[self.subtype]]
         # generation used to set default intro dates, speed etc unless explicitly set by a vehicle
         self.gen = gen
+        # if gen is used, the calculated intro date can be adjusted with +ve or -ve offset
+        self.intro_date_offset = kwargs.get("intro_date_offset", None)
         # create a structure for cargo /livery graphics options
         self.gestalt_graphics = GestaltGraphics()
         # option for multiple default cargos, cascading if first cargo(s) are not available
@@ -70,10 +72,7 @@ class Ship(object):
         # extra type info, better over-ride in subclass
         self.str_type_info = "EMPTY"  # unused currently
         # nml-ish props, mostly optional
-        self.sound_effect = kwargs.get(
-            "sound_effect", "SOUND_SHIP_HORN"
-        )  # over-ride in subclasses as needed
-        self.intro_date = kwargs.get("intro_date", None)
+        self.sound_effect = kwargs.get("sound_effect", "SOUND_SHIP_HORN")
         self.vehicle_life = kwargs.get(
             "vehicle_life", 100
         )  # default 100 years, assumes 2 generations of ships 1850-2050
@@ -156,6 +155,17 @@ class Ship(object):
             (fixed_run_cost + fuel_run_cost) / 98
         )  # divide by magic constant to get costs as factor in 0-255 range
         return min(calculated_run_cost, 255)  # cost factor is a byte, can't exceed 255
+
+    @property
+    def intro_date(self):
+        # automatic intro_date, but can over-ride by passing in kwargs for consist
+        assert self.gen != None, (
+            "%s consist has no gen set, which is incorrect" % self.id
+        )
+        result = self.roster.intro_dates["DEFAULT"][self.gen - 1]
+        if self.intro_date_offset is not None:
+            result = result + self.intro_date_offset
+        return result
 
     @property
     def refittable_capacity_factors(self):

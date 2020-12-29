@@ -5,9 +5,9 @@ def main():
     ship = BulkShip(
         numeric_id=54,
         name="Saltlick [Mini Bulker]",
+        gen=1,
         subtype="C",
         hull="ShipHouseRear",
-        intro_date=1870,
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
@@ -15,9 +15,9 @@ def main():
     ship = BulkShip(
         numeric_id=53,
         name="Lotsberget [Mini Bulker]",
+        gen=1,
         subtype="D",
         hull="ShipHouseRear",
-        intro_date=1870,
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
@@ -25,9 +25,9 @@ def main():
     ship = BulkShip(
         numeric_id=51,
         name="Gravelly [Mini Bulker]",
+        gen=1,
         subtype="E",
         hull="ShipHouseRear",
-        intro_date=1870,
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
@@ -35,9 +35,9 @@ def main():
     ship = BulkShip(
         numeric_id=50,
         name="Alligator [Mini Bulker]",
+        gen=1,
         subtype="F",
         hull="ShipHouseRear",
-        intro_date=1870,
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )

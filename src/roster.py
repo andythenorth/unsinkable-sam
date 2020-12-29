@@ -10,6 +10,7 @@ class Roster(object):
     def __init__(self, **kwargs):
         self.id = kwargs.get("id")
         self.numeric_id = kwargs.get("numeric_id")
+        self.intro_dates = kwargs.get("intro_dates")
         self.speeds = kwargs.get("speeds")
         self.ships = []
 

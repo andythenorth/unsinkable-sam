@@ -5,26 +5,26 @@ def main():
     ship = MailShip(
         numeric_id=28,
         name="Diamond [Mail Ship]",
+        gen=1,
         subtype="A",
         hull="TempHouseNone",
-        intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )
 
     ship = MailShip(
         numeric_id=27,
         name="Delta [Mail Ship]",
+        gen=1,
         subtype="B",
         hull="TempHouseNone",
-        intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )
 
     ship = MailShip(
         numeric_id=26,
         name="Olympic [Mail Ship]",
+        gen=1,
         subtype="D",
         hull="TempHouseNone",
-        intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )
