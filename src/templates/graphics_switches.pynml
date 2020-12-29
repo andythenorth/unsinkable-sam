@@ -1,4 +1,4 @@
-spriteset(${ship.id}_ss_wake, "src/graphics/hulls/${ship.hull.spritesheet_name}.png") {
+spriteset(${ship.id}_ss_wake, "src/graphics/hulls/${ship.hull.spritesheet_name}_gen_${ship.gen}.png") {
   spriteset_template_wake_${ship.id}(310)
 }
 
