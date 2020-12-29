@@ -1,11 +1,10 @@
-from ship import Tanker
+from ship import TankerShip
 
 
 def main():
-    ship = Tanker(
-        id="tanker_ship_B",
+    ship = TankerShip(
         numeric_id=34,
-        name="Berwick [Tanker]",
+        name="Berwick [TankerShip]",
         subtype="B",
         hull="BargeHouseRear",
         fixed_run_cost_factor=2.0,
@@ -15,10 +14,9 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
-    ship = Tanker(
-        id="tanker_ship_C",
+    ship = TankerShip(
         numeric_id=44,
-        name="Kalsoy [Tanker]",
+        name="Kalsoy [TankerShip]",
         subtype="C",
         hull="ShipHouseRear",
         fixed_run_cost_factor=2.0,
@@ -29,10 +27,9 @@ def main():
         sprites_complete=False,
     )
 
-    ship = Tanker(
-        id="tanker_ship_D",
+    ship = TankerShip(
         numeric_id=1,
-        name="Ellesmere [Tanker]",
+        name="Ellesmere [TankerShip]",
         subtype="D",
         hull="BargeHouseRear",
         fixed_run_cost_factor=2.0,
@@ -42,10 +39,9 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
-    ship = Tanker(
-        id="tanker_ship_E",
+    ship = TankerShip(
         numeric_id=43,
-        name="Gunfleet [Tanker]",
+        name="Gunfleet [TankerShip]",
         subtype="E",
         hull="ShipHouseRear",
         fixed_run_cost_factor=2.0,
@@ -56,10 +52,9 @@ def main():
         sprites_complete=False,
     )
 
-    ship = Tanker(
-        id="tanker_ship_F",
+    ship = TankerShip(
         numeric_id=2,
-        name="Rotterdam [Tanker]",
+        name="Rotterdam [TankerShip]",
         subtype="F",
         hull="ShipHouseRear",
         fixed_run_cost_factor=12.0,

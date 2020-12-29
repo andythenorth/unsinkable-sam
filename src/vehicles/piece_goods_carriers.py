@@ -3,7 +3,6 @@ from ship import PieceGoodsCarrier
 
 def main():
     ship = PieceGoodsCarrier(
-        id="piece_goods_carrier_D",
         numeric_id=7,
         name="Rampside [Piece Goods Carrier]",
         subtype="D",
@@ -15,7 +14,6 @@ def main():
     )
 
     ship = PieceGoodsCarrier(
-        id="piece_goods_carrier_E",
         numeric_id=45,
         name="Rivingen [Piece Goods Carrier]",
         subtype="E",
@@ -27,7 +25,6 @@ def main():
     )
 
     ship = PieceGoodsCarrier(
-        id="piece_goods_carrier_F",
         numeric_id=8,
         name="Trondheim [Piece Goods Carrier]",
         subtype="F",

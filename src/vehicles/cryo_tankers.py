@@ -3,11 +3,10 @@ from ship import CryoTanker
 
 def main():
     ship = CryoTanker(
-        id="cryo_tanker_B",
         numeric_id=63,
         name="Schmieder [Cryo Tanker]",
-        subtype="D",
-        hull="ShipHouseRear",
+        subtype="B",
+        hull="BargeHouseRear",
         fixed_run_cost_factor=2.0,
         fuel_run_cost_factor=1.8,
         intro_date=1870,
@@ -17,7 +16,6 @@ def main():
     )
 
     ship = CryoTanker(
-        id="cryo_tanker_C",
         numeric_id=64,
         name="Ferrel [Cryo Tanker]",
         subtype="C",
@@ -31,7 +29,6 @@ def main():
     )
 
     ship = CryoTanker(
-        id="cryo_tanker_D",
         numeric_id=38,
         name="Svedlund [Cryo Tanker]",
         subtype="D",
@@ -45,7 +42,6 @@ def main():
     )
 
     ship = CryoTanker(
-        id="cryo_tanker_E",
         numeric_id=62,
         name="Weicher [Cryo Tanker]",
         subtype="E",
@@ -59,7 +55,6 @@ def main():
     )
 
     ship = CryoTanker(
-        id="cryo_tanker_F",
         numeric_id=37,
         name="Picard [Cryo Tanker]",
         subtype="F",

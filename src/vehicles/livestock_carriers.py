@@ -3,7 +3,6 @@ from ship import LivestockCarrier
 
 def main():
     ship = LivestockCarrier(
-        id="livestock_carrier_D",
         numeric_id=20,
         name="Gore Creek [Livestock Carrier]",
         subtype="D",
@@ -15,7 +14,6 @@ def main():
     )
 
     ship = LivestockCarrier(
-        id="livestock_carrier_F",
         numeric_id=16,
         name="Sharkbait [Livestock Carrier]",
         subtype="F",

@@ -35,11 +35,8 @@ from vehicles import numeric_id_defender
 class Ship(object):
     """Base class for all types of ships"""
 
-    def __init__(self, id, name, numeric_id, subtype, hull, **kwargs):
-        self.legacy_id = id
-        self.id = id[0:-1] + 'gen_1' + id[-1]
-        # hax !! - move all IDs to subclass + method on Ship
-        print(self.id)
+    def __init__(self, name, numeric_id, subtype, hull, gen="gen_1", **kwargs):
+        self.id = self.base_id + "_" + gen + subtype
         self._name = name  # private var because 'name' is accessed via @property method to add subtype string
         self.numeric_id = numeric_id
         numeric_id_defender.append(numeric_id)
@@ -50,6 +47,8 @@ class Ship(object):
         self.subtype = subtype
         # base hull (defines length, wake graphics, hull graphics if composited etc)
         self.hull = registered_hulls[hull + self.hull_mapping[self.subtype]]
+        # generation used to set default intro dates, speed etc unless explicitly set by a vehicle
+        self.gen = gen
         # create a structure for cargo /livery graphics options
         self.gestalt_graphics = GestaltGraphics()
         # option for multiple default cargos, cascading if first cargo(s) are not available
@@ -356,7 +355,7 @@ class Ship(object):
         return nml_result
 
 
-class BulkCarrier(Ship):
+class BulkBase(Ship):
     """
     Limited set of bulk (mineral) cargos.  Equivalent of Road Hog dump hauler and Iron Horse dump car.
     Tend to be just a single unfitted box hold, distinguishing them from general cargo vessels which have divided holds, tween-decks etc,.
@@ -378,12 +377,33 @@ class BulkCarrier(Ship):
         )
 
 
+class BulkBarge(BulkBase):
+    """
+    Sparse subclass to set base ID
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "bulk_barge"
+        super().__init__(**kwargs)
+
+
+class BulkShip(BulkBase):
+    """
+    Sparse subclass to set base ID
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "bulk_ship"
+        super().__init__(**kwargs)
+
+
 class ContainerCarrier(Ship):
     """
     Refits to limited range of freight cargos, shows container graphics according to load state.
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "bulk_carrier"
         super().__init__(**kwargs)
         self.template = "container_carrier.pynml"
         # maintain other sets (e.g. IH etc) when changing container refits
@@ -399,6 +419,7 @@ class CoveredHopperCarrier(Ship):
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "bulk_carrier"
         super().__init__(**kwargs)
         self.class_refit_groups = []  # no classes, use explicit labels
         self.label_refits_allowed = global_constants.allowed_refits_by_label[
@@ -420,6 +441,7 @@ class CryoTanker(Ship):
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "cryo_tanker"
         super().__init__(**kwargs)
         self.class_refit_groups = []  # no classes, use explicit labels
         self.label_refits_allowed = global_constants.allowed_refits_by_label[
@@ -440,6 +462,7 @@ class EdiblesTanker(Ship):
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "edibles_tanker"
         super().__init__(**kwargs)
         self.class_refit_groups = []  # no classes, use explicit labels
         self.label_refits_allowed = global_constants.allowed_refits_by_label[
@@ -460,6 +483,7 @@ class FlatDeckBarge(Ship):
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "flat_deck"
         super().__init__(**kwargs)
         self.class_refit_groups = ["flatbed_freight"]
         self.label_refits_allowed = ["GOOD"]
@@ -470,28 +494,11 @@ class FlatDeckBarge(Ship):
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(piece="flat")
 
-
-class FruitVegCarrier(Ship):
+    # class FruitVegCarrier(Ship):
     """
     Fruit and vegetables, with improved decay rate
     !! deprecated - this was added as equivalent of Horse fruit & veg cars, but that mode doesn't apply to shipping - use reefer / dry cargo instead.
     """
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.class_refit_groups = []  # no classes, use explicit labels
-        self.label_refits_allowed = global_constants.allowed_refits_by_label[
-            "fruit_veg"
-        ]
-        self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
-            "non_freight_special_cases"
-        ]
-        self.default_cargos = global_constants.default_cargos["fruit_veg"]
-        self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD
-        # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsLiveryOnly(
-            recolour_maps=graphics_constants.fruit_veg_carrier_livery_recolour_maps
-        )
 
 
 class LivestockCarrier(Ship):
@@ -500,6 +507,7 @@ class LivestockCarrier(Ship):
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "livestock_carrier"
         super().__init__(**kwargs)
         self.class_refit_groups = ["empty"]
         self.label_refits_allowed = [
@@ -522,6 +530,7 @@ class LogTug(Ship):
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "log_tug"
         super().__init__(**kwargs)
         self.template = "log_tug.pynml"
         self.class_refit_groups = ["empty"]
@@ -536,6 +545,7 @@ class MailShip(Ship):
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "mail_ship"
         super().__init__(**kwargs)
         self.speed_class = "pax_mail"
         self.class_refit_groups = ["mail", "express_freight"]
@@ -575,6 +585,7 @@ class PaxFastLoadingShip(PaxShipBase):
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "pax_fast_loading"
         super().__init__(**kwargs)
         self.speed_class = "pax_mail"
         self.loading_speed_multiplier = 3
@@ -596,6 +607,7 @@ class PaxLuxuryShip(PaxShipBase):
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "pax_luxury"
         super().__init__(**kwargs)
         self.speed_class = "pax_mail"
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
@@ -619,6 +631,7 @@ class PieceGoodsCarrier(Ship):
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "piece_goods_carrier"
         super().__init__(**kwargs)
         self.class_refit_groups = ["packaged_freight"]
         self.label_refits_allowed = [
@@ -646,6 +659,7 @@ class Reefer(Ship):
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "reefer"
         super().__init__(**kwargs)
         self.class_refit_groups = ["refrigerated_freight"]
         self.label_refits_allowed = (
@@ -662,7 +676,7 @@ class Reefer(Ship):
         )
 
 
-class Tanker(Ship):
+class TankerBase(Ship):
     """
     Ronseal ("does what it says on the tin", for those without extensive knowledge of UK advertising).
     """
@@ -684,12 +698,33 @@ class Tanker(Ship):
         )
 
 
+class TankerBarge(TankerBase):
+    """
+    Sparse subclass to set base ID
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "tanker_barge"
+        super().__init__(**kwargs)
+
+
+class TankerShip(TankerBase):
+    """
+    Sparse subclass to set base ID
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "tanker_ship"
+        super().__init__(**kwargs)
+
+
 class Trawler(Ship):
     """
     Dedicated to fishing
     """
 
     def __init__(self, **kwargs):
+        self.base_id = "trawler"
         super().__init__(**kwargs)
         self.class_refit_groups = []
         self.label_refits_allowed = []
@@ -701,7 +736,7 @@ class Trawler(Ship):
         )
 
 
-class UniversalFreighter(Ship):
+class UniversalFreighterBase(Ship):
     """
     General purpose freight vessel type.
     No pax or mail cargos, refits any other cargo including liquids (in barrels or containers).
@@ -720,3 +755,23 @@ class UniversalFreighter(Ship):
         self.default_cargos = global_constants.default_cargos["open"]
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True, piece="open")
+
+
+class UniversalFreighterBarge(UniversalFreighterBase):
+    """
+    Sparse subclass, to set base ID
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "universal_freighter_barge"
+        super().__init__(**kwargs)
+
+
+class UniversalFreighterShip(UniversalFreighterBase):
+    """
+    Sparse subclass, to set base ID
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "universal_freighter_ship"
+        super().__init__(**kwargs)

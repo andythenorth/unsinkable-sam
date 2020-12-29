@@ -17,7 +17,6 @@ STR_PARAM_ROSTER_DESC                                           :Choose which se
 STR_PARAM_ROSTER_OPTION_0                                       :This Sceptered Isle
 
 STR_NAME_BULK_BARGE                                             :Bulk Barge
-STR_NAME_BULK_CARRIER                                           :Bulk Carrier
 STR_NAME_CONTAINER_FEEDER                                       :Container Feeder
 STR_NAME_COVERED_HOPPER_BARGE                                   :Covered Bulk Barge
 STR_NAME_CRYO_TANKER                                            :Gas Tanker
@@ -40,7 +39,7 @@ STR_NAME_PIECE_GOODS_CARRIER                                    :Dry Cargo Ship
 STR_NAME_REEFER                                                 :Refrigerated Ship
 STR_NAME_STEAMER                                                :Steamer
 STR_NAME_TANK_BARGE                                             :Tank Barge
-STR_NAME_TANKER                                                 :Tanker
+STR_NAME_TANKERSHIP                                             :Tanker
 STR_NAME_TRAWLER                                                :Trawler
 
 STR_POWER_TYPE_DIESEL                                           :Diesel

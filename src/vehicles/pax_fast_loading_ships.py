@@ -3,7 +3,6 @@ from ship import PaxFastLoadingShip
 
 def main():
     ship = PaxFastLoadingShip(
-        id="pax_fast_loading_A",
         numeric_id=29,
         name="Goblin [Pax Fast Loading]",
         subtype="A",
@@ -15,7 +14,6 @@ def main():
     )
 
     ship = PaxFastLoadingShip(
-        id="pax_fast_loading_B",
         numeric_id=25,
         name="Arranmore [Pax Fast Loading]",
         subtype="B",
@@ -27,7 +25,6 @@ def main():
     )
 
     ship = PaxFastLoadingShip(
-        id="pax_fast_loading_C",
         numeric_id=24,
         name="Cascades [Pax Fast Loading]",
         subtype="C",
@@ -39,7 +36,6 @@ def main():
     )
 
     ship = PaxFastLoadingShip(
-        id="pax_fast_loading_D",
         numeric_id=21,
         name="Valberg [Pax Fast Loading]",
         subtype="D",

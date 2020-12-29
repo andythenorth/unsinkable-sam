@@ -1,7 +1,6 @@
 from ship import CoveredHopperCarrier
 
 ship = CoveredHopperCarrier(
-    id="covered_hopper_carrier_F",
     numeric_id=33,
     name="Fairport [Covered Hopper Barge]",
     subtype="F",

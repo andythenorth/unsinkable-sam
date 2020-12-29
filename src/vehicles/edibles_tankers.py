@@ -3,7 +3,6 @@ from ship import EdiblesTanker
 
 def main():
     ship = EdiblesTanker(
-        id="edibles_tanker_B",
         numeric_id=58,
         name="Bounty [Edibles Tanker]",
         subtype="B",
@@ -15,7 +14,6 @@ def main():
     )
 
     ship = EdiblesTanker(
-        id="edibles_tanker_C",
         numeric_id=57,
         name="Mystic [Edibles Tanker]",
         subtype="C",
@@ -27,7 +25,6 @@ def main():
     )
 
     ship = EdiblesTanker(
-        id="edibles_tanker_D",
         numeric_id=32,
         name="Fresnel [Edibles Tanker]",
         subtype="D",
@@ -39,7 +36,6 @@ def main():
     )
 
     ship = EdiblesTanker(
-        id="edibles_tanker_E",
         numeric_id=56,
         name="Belliveau [Edibles Tanker]",
         subtype="E",
@@ -51,7 +47,6 @@ def main():
     )
 
     ship = EdiblesTanker(
-        id="edibles_tanker_F",
         numeric_id=18,
         name="Cortes [Edibles Tanker]",
         subtype="F",

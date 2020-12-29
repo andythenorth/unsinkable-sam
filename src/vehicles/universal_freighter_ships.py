@@ -1,10 +1,9 @@
-from ship import UniversalFreighter
+from ship import UniversalFreighterShip
 
 
 def main():
-    ship = UniversalFreighter(
+    ship = UniversalFreighterShip(
         roster_id="default",
-        id="universal_freighter_ship_A",
         numeric_id=6,
         name="Matson [Freighter]",
         subtype="A",
@@ -16,9 +15,8 @@ def main():
         cargo_length=3,
     )
 
-    ship = UniversalFreighter(
+    ship = UniversalFreighterShip(
         roster_id="default",
-        id="universal_freighter_ship_B",
         numeric_id=5,
         name="Gelenbeek [Freighter]",
         subtype="B",
@@ -30,9 +28,8 @@ def main():
         cargo_length=3,
     )
 
-    ship = UniversalFreighter(
+    ship = UniversalFreighterShip(
         roster_id="default",
-        id="universal_freighter_ship_C",
         numeric_id=4,
         name="Eagle [Freighter]",
         subtype="C",
@@ -44,9 +41,8 @@ def main():
         cargo_length=6,
     )
 
-    ship = UniversalFreighter(
+    ship = UniversalFreighterShip(
         roster_id="default",
-        id="universal_freighter_ship_D",
         numeric_id=3,
         name="Akraberg [Freighter]",
         subtype="D",
@@ -58,9 +54,8 @@ def main():
         cargo_length=8,
     )
 
-    ship = UniversalFreighter(
+    ship = UniversalFreighterShip(
         roster_id="default",
-        id="universal_freighter_ship_E",
         numeric_id=41,
         name="Shackleton [Freighter]",
         subtype="E",
@@ -73,9 +68,8 @@ def main():
         sprites_complete=True,
     )
 
-    ship = UniversalFreighter(
+    ship = UniversalFreighterShip(
         roster_id="default",
-        id="universal_freighter_ship_F",
         numeric_id=42,
         name="Longstone [Freighter]",
         subtype="F",

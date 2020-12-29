@@ -1,9 +1,8 @@
-from ship import Tanker
+from ship import TankerBarge
 
 
 def main():
-    ship = Tanker(
-        id="tanker_barge_D",
+    ship = TankerBarge(
         numeric_id=40,
         name="Durance [TANK_BARGE]",
         subtype="D",
@@ -15,8 +14,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
-    ship = Tanker(
-        id="tanker_barge_E",
+    ship = TankerBarge(
         numeric_id=49,
         name="Notto [TANK_BARGE]",
         subtype="E",
@@ -29,8 +27,7 @@ def main():
         sprites_complete=False,
     )
 
-    ship = Tanker(
-        id="tanker_barge_F",
+    ship = TankerBarge(
         numeric_id=39,
         name="Columbus [TANK_BARGE]",
         subtype="F",

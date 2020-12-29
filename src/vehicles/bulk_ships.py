@@ -1,9 +1,8 @@
-from ship import BulkCarrier
+from ship import BulkShip
 
 
 def main():
-    ship = BulkCarrier(
-        id="bulk_ship_C",
+    ship = BulkShip(
         numeric_id=54,
         name="Saltlick [Mini Bulker]",
         subtype="C",
@@ -15,8 +14,7 @@ def main():
         sprites_complete=False,
     )
 
-    ship = BulkCarrier(
-        id="bulk_ship_D",
+    ship = BulkShip(
         numeric_id=53,
         name="Lotsberget [Mini Bulker]",
         subtype="D",
@@ -28,8 +26,7 @@ def main():
         sprites_complete=False,
     )
 
-    ship = BulkCarrier(
-        id="bulk_ship_E",
+    ship = BulkShip(
         numeric_id=51,
         name="Gravelly [Mini Bulker]",
         subtype="E",
@@ -41,8 +38,7 @@ def main():
         sprites_complete=False,
     )
 
-    ship = BulkCarrier(
-        id="bulk_ship_F",
+    ship = BulkShip(
         numeric_id=50,
         name="Alligator [Mini Bulker]",
         subtype="F",
