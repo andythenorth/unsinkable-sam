@@ -117,6 +117,11 @@ class Ship(object):
         }
 
     @property
+    def hull_spritesheet_name(self):
+        # generally don't access hull.spritesheet_base_name directly, it needs the gen inserted
+        return self.hull.spritesheet_base_name + "_gen_" + str(self.gen)
+
+    @property
     def speed(self):
         # automatic speed, but can over-ride by passing in kwargs for consist
         if self._speed:

@@ -474,7 +474,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 
     def render(self, ship, global_constants):
         self.hull_input_path = os.path.join(
-            currentdir, "src", "graphics", "hulls", ship.hull.spritesheet_name + "_gen_" + str(ship.gen) + ".png"
+            currentdir, "src", "graphics", "hulls", ship.hull_spritesheet_name + ".png"
         )
         self.units = []
         self.global_constants = global_constants

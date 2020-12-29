@@ -1,4 +1,5 @@
-spriteset(${ship.id}_ss_wake, "src/graphics/hulls/${ship.hull.spritesheet_name}_gen_${ship.gen}.png") {
+<!--! wakes are in hull spritesheet; ship gen determines which hull gen to use -->
+spriteset(${ship.id}_ss_wake, "src/graphics/hulls/${ship.hull_spritesheet_name}.png") {
   spriteset_template_wake_${ship.id}(310)
 }
 

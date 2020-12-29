@@ -18,7 +18,7 @@ class Hull(object):
         print("__init__")
 
     @property
-    def spritesheet_name(self):
+    def spritesheet_base_name(self):
         return self.hull_type + "_house_" + self.house_position + "_" + self.hull_length
 
 
