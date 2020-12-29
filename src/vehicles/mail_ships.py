@@ -7,8 +7,6 @@ def main():
         name="Diamond [Mail Ship]",
         subtype="A",
         hull="TempHouseNone",
-        fixed_run_cost_factor=3.5,
-        fuel_run_cost_factor=1.0,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )
@@ -18,8 +16,6 @@ def main():
         name="Delta [Mail Ship]",
         subtype="B",
         hull="TempHouseNone",
-        fixed_run_cost_factor=3.5,
-        fuel_run_cost_factor=1.0,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )
@@ -29,8 +25,6 @@ def main():
         name="Olympic [Mail Ship]",
         subtype="D",
         hull="TempHouseNone",
-        fixed_run_cost_factor=3.5,
-        fuel_run_cost_factor=1.0,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )

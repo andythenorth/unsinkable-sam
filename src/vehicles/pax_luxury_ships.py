@@ -7,8 +7,6 @@ def main():
         name="Bonavista [Pax Luxury]",
         subtype="C",
         hull="ShipHouseRear",
-        fixed_run_cost_factor=3.5,
-        fuel_run_cost_factor=1.0,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )
@@ -18,8 +16,6 @@ def main():
         name="Zealand [Pax Luxury]",
         subtype="D",
         hull="TempHouseNone",
-        fixed_run_cost_factor=3.5,
-        fuel_run_cost_factor=1.0,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )

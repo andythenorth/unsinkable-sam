@@ -7,8 +7,6 @@ def main():
         name="Goblin [Pax Fast Loading]",
         subtype="A",
         hull="TempHouseNone",
-        fixed_run_cost_factor=3.5,
-        fuel_run_cost_factor=1.0,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )
@@ -18,8 +16,6 @@ def main():
         name="Arranmore [Pax Fast Loading]",
         subtype="B",
         hull="TempHouseNone",
-        fixed_run_cost_factor=3.5,
-        fuel_run_cost_factor=1.0,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )
@@ -29,8 +25,6 @@ def main():
         name="Cascades [Pax Fast Loading]",
         subtype="C",
         hull="TempHouseNone",
-        fixed_run_cost_factor=3.5,
-        fuel_run_cost_factor=1.0,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )
@@ -40,8 +34,6 @@ def main():
         name="Valberg [Pax Fast Loading]",
         subtype="D",
         hull="TempHouseNone",
-        fixed_run_cost_factor=3.5,
-        fuel_run_cost_factor=1.0,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_STEAM",
     )

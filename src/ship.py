@@ -77,12 +77,12 @@ class Ship(object):
         self.vehicle_life = kwargs.get(
             "vehicle_life", 100
         )  # default 100 years, assumes 2 generations of ships 1850-2050
-        self._buy_cost = kwargs.get(
-            "buy_cost", None
-        )  # option to over-ride in individual ships if needed
-        self.fixed_run_cost_factor = kwargs.get("fixed_run_cost_factor", None)
-        self.fuel_run_cost_factor = kwargs.get("fuel_run_cost_factor", None)
-        self.loading_speed_multiplier = 1  # over-ride in subclasses as needed (suggested values are 0.5 for slower loading and 2 for faster loading)
+        self._buy_cost = kwargs.get("buy_cost", None)
+        # !! temp - these need move to subtypes at some point (or as over-rides)
+        self.fixed_run_cost_factor = 3.5
+        self.fuel_run_cost_factor = 1.0
+        # over-ride loading speed in subclasses as needed (suggested values are 0.5 for slower loading and 2 for faster loading)
+        self.loading_speed_multiplier = 1
         self.cargo_age_period = kwargs.get(
             "cargo_age_period", global_constants.CARGO_AGE_PERIOD
         )

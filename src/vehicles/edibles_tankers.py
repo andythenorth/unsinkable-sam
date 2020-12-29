@@ -7,8 +7,6 @@ def main():
         name="Bounty [Edibles Tanker]",
         subtype="B",
         hull="BargeHouseRear",
-        fixed_run_cost_factor=12.0,
-        fuel_run_cost_factor=1.1,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_DIESEL",
     )
@@ -18,8 +16,6 @@ def main():
         name="Mystic [Edibles Tanker]",
         subtype="C",
         hull="ShipHouseRear",
-        fixed_run_cost_factor=12.0,
-        fuel_run_cost_factor=1.1,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_DIESEL",
     )
@@ -29,8 +25,6 @@ def main():
         name="Fresnel [Edibles Tanker]",
         subtype="D",
         hull="ShipHouseRear",
-        fixed_run_cost_factor=12.0,
-        fuel_run_cost_factor=1.1,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_DIESEL",
     )
@@ -40,8 +34,6 @@ def main():
         name="Belliveau [Edibles Tanker]",
         subtype="E",
         hull="ShipHouseRear",
-        fixed_run_cost_factor=12.0,
-        fuel_run_cost_factor=1.1,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_DIESEL",
     )
@@ -51,8 +43,6 @@ def main():
         name="Cortes [Edibles Tanker]",
         subtype="F",
         hull="ShipHouseRear",
-        fixed_run_cost_factor=12.0,
-        fuel_run_cost_factor=1.1,
         intro_date=1870,
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
