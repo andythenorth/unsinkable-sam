@@ -68,3 +68,15 @@ def main():
         effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
         cargo_length=8,
     )
+
+    ship = UniversalFreighterShip(
+        roster_id="default",
+        numeric_id=30,
+        name="Thesiger [Freighter]",
+        gen=2,
+        subtype="E",
+        hull="ShipHouseRear",
+        effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
+        cargo_length=8,
+        sprites_complete=True,
+    )
