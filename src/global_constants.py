@@ -10,6 +10,24 @@ metadata = {
     "docs_url": "https://grf.farm/unsinkable-sam",
 }
 
+buy_menu_sort_order_ships = [
+    "pax_fast_loading",
+    "pax_luxury",
+    "mail_ship",
+    "universal_freighter_ship",
+    "universal_freighter_barge",
+    "piece_goods_carrier",
+    "bulk_ship",
+    "bulk_barge",
+    "tanker_ship",
+    "tanker_barge",
+    "cryo_tanker",
+    "livestock_carrier",
+    "reefer",
+    "edibles_tanker",
+    "trawler",
+]
+
 # cargo aging constant - OTTD default is 185 - dibble this up in favour of ships, as they are relatively slow
 CARGO_AGE_PERIOD = 370
 

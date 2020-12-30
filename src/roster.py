@@ -1,4 +1,5 @@
 from rosters import registered_rosters
+import global_constants
 import pickle
 
 
@@ -20,14 +21,34 @@ class Roster(object):
 
     @property
     def ships_in_buy_menu_order(self):
-        for ship in self.ships:
+        result = []
+        for base_id in global_constants.buy_menu_sort_order_ships:
+            ships_for_type = [ship for ship in self.ships if ship.base_id == base_id]
+            result.extend(
+                # note that we want the sort order to be U, A, B, C, D so special handling
+                # this *doesn*'t handle the case of changing _multiple_ times between U and A / B / C / D between generations
+                sorted(
+                    ships_for_type,
+                    key=lambda ship: {
+                        "U": 1,
+                        "A": 2,
+                        "B": 3,
+                        "C": 4,
+                        "D": 5,
+                        "E": 6,
+                        "F": 7,
+                    }[ship.subtype],
+                )
+            )
+
+        for ship in result:
             # if ship won't pickle, then multiprocessing blows up, catching it here is faster and easier
             try:
                 pickle.dumps(ship)
             except:
                 print("Pickling failed for ship:", ship.id)
-                # raise # commented out because Coop Jenkins always fails to pickle the ship :(
-        return self.ships
+                raise
+        return result
 
     def register_ship(self, ship):
         self.ships.append(ship)
