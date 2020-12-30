@@ -12,6 +12,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
+
     ship = TankerShip(
         numeric_id=44,
         name="Kalsoy [TankerShip]",
@@ -33,9 +34,10 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
+
     ship = TankerShip(
         numeric_id=43,
-        name="Gunfleet [TankerShip]",
+        name="Chirikov [TankerShip]",
         gen=1,
         subtype="E",
         hull="ShipHouseRear",
@@ -52,5 +54,27 @@ def main():
         hull="ShipHouseRear",
         str_type_info="COASTAL_TANKER",
         effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
+        sprites_complete=False,
+    )
+
+    ship = TankerShip(
+        numeric_id=19,
+        name="Gunfleet [TankerShip]",
+        gen=2,
+        subtype="E",
+        hull="ShipHouseRear",
+        str_type_info="SMALL_TANKER_COASTAL_INLAND",
+        effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
+    )
+
+    ship = TankerShip(
+        numeric_id=31,
+        name="Escobar [TankerShip]",
+        gen=3,
+        subtype="E",
+        hull="ShipHouseRear",
+        str_type_info="SMALL_TANKER_COASTAL_INLAND",
+        effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )

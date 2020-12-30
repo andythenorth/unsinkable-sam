@@ -83,7 +83,7 @@ def main():
 
     ship = UniversalFreighterShip(
         roster_id="default",
-        numeric_id=90,
+        numeric_id=17,
         name="Fiennes [Freighter]",
         gen=3,
         subtype="E",
