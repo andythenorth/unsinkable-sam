@@ -28,6 +28,30 @@ buy_menu_sort_order_ships = [
     "trawler",
 ]
 
+# generalised mapping of base_id to role groups
+# order is significant, of both dict and base_id lists
+role_group_mapping = {
+    "pax": ["pax_fast_loading", "pax_luxury"],
+    "mail_utility": ["mail_ship"],
+    "dry_cargo": [
+        "universal_freighter_ship",
+        "universal_freighter_barge",
+        "piece_goods_carrier",
+        "bulk_ship",
+        "bulk_barge",
+    ],
+    "liquid_bulk": [
+        "tanker_ship",
+        "tanker_barge",
+        "cryo_tanker",
+    ],
+    "foodstuffs": [
+        "reefer",
+        "edibles_tanker",
+    ],
+    "specialist": ["livestock_carrier", "trawler"],
+}
+
 # cargo aging constant - OTTD default is 185 - dibble this up in favour of ships, as they are relatively slow
 CARGO_AGE_PERIOD = 370
 

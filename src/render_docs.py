@@ -57,6 +57,13 @@ class DocHelper(object):
     def get_roster_name(self, index):
         return base_lang_strings.get("STR_PARAM_ROSTER_OPTION_" + str(index), "")
 
+    def get_roster_by_id(self, roster_id, registered_rosters):
+        for roster in registered_rosters:
+            if roster.id == roster_id:
+                return roster
+        # default result
+        return None
+
     def fetch_prop(self, result, prop_name, value):
         result["ship"][prop_name] = value
         result["subclass_props"].append(prop_name)
@@ -96,6 +103,38 @@ class DocHelper(object):
 
     def get_active_nav(self, doc_name, nav_link):
         return ("", "active")[doc_name == nav_link]
+
+    def ships_as_tech_tree(self, ships):
+        # !! does not handle roster at time of writing
+        # structure
+        #    |- role_group
+        #       |- base_id (role)
+        #          |- generation
+        #             |- ship
+        # if there's no ship matching a combination of keys in the tree, there will be a None entry for that node in the tree, to ease walking the tree
+        result = {}
+        # much nested loops
+        for role_group in global_constants.role_group_mapping:
+            role_branches = {}
+            for role in global_constants.role_group_mapping[role_group]:
+                role_branches[role] = {}
+                # walk the generations, providing default None objects
+                for gen in range(
+                    1,
+                    len(
+                        self.get_roster_by_id(
+                            "default", unsinkable_sam.registered_rosters
+                        ).intro_dates["DEFAULT"]
+                    )
+                    + 1,
+                ):
+                    role_branches[role][gen] = None
+                # get the ships matching this role
+                for ship in ships:
+                    if ship.base_id == role:
+                        role_branches[role][ship.gen] = ship
+            result[role_group] = role_branches
+        return result
 
 
 def render_docs(
@@ -233,6 +272,8 @@ def main():
 
     dates = sorted([i.intro_date for i in ships])
     metadata["dates"] = (dates[0], dates[-1])
+
+    print(DocHelper().ships_as_tech_tree(ships))
 
     # render standard docs from a list
     html_docs = ["ships", "code_reference", "get_started", "translations"]
