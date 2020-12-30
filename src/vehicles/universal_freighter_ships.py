@@ -55,7 +55,7 @@ def main():
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
         cargo_length=8,
-        sprites_complete=True,
+        sprites_complete=False,
     )
 
     ship = UniversalFreighterShip(
@@ -79,4 +79,16 @@ def main():
         effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
         cargo_length=8,
         sprites_complete=True,
+    )
+
+    ship = UniversalFreighterShip(
+        roster_id="default",
+        numeric_id=90,
+        name="Fiennes [Freighter]",
+        gen=3,
+        subtype="E",
+        hull="ShipHouseRear",
+        effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
+        cargo_length=8,
+        sprites_complete=False,
     )
