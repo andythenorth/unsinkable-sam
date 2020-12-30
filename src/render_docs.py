@@ -118,21 +118,24 @@ class DocHelper(object):
             role_branches = {}
             for role in global_constants.role_group_mapping[role_group]:
                 role_branches[role] = {}
-                # walk the generations, providing default None objects
-                for gen in range(
-                    1,
-                    len(
-                        self.get_roster_by_id(
-                            "default", unsinkable_sam.registered_rosters
-                        ).intro_dates["DEFAULT"]
-                    )
-                    + 1,
-                ):
-                    role_branches[role][gen] = None
-                # get the ships matching this role
-                for ship in ships:
-                    if ship.base_id == role:
-                        role_branches[role][ship.gen] = ship
+                # hard-coded for now, move to global constants another day
+                for subtype in ["A", "B", "C", "D", "E", "F"]:
+                    role_branches[role][subtype] = {}
+                    # walk the generations, providing default None objects
+                    for gen in range(
+                        1,
+                        len(
+                            self.get_roster_by_id(
+                                "default", unsinkable_sam.registered_rosters
+                            ).intro_dates["DEFAULT"]
+                        )
+                        + 1,
+                    ):
+                        role_branches[role][subtype][gen] = None
+                    # get the ships matching this role
+                    for ship in ships:
+                        if ship.base_id == role and ship.subtype == subtype:
+                            role_branches[role][subtype][ship.gen] = ship
             result[role_group] = role_branches
         return result
 
@@ -276,7 +279,13 @@ def main():
     print(DocHelper().ships_as_tech_tree(ships))
 
     # render standard docs from a list
-    html_docs = ["ships", "code_reference", "get_started", "translations"]
+    html_docs = [
+        "ships",
+        "code_reference",
+        "get_started",
+        "translations",
+        "tech_tree_table_blue",
+    ]
     txt_docs = ["readme"]
     license_docs = ["license"]
     markdown_docs = ["changelog"]
