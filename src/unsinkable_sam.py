@@ -91,17 +91,19 @@ def vacant_numeric_ids_formatted():
     # when adding vehicles it's useful to know what the next free numeric ID is
     # tidy-mind problem, but do we have any vacant numeric ID slots in the currently used range?
     # 'print' eh? - but it's fine echo_message isn't intended for this kind of info, don't bother changing
-    id_gaps = [
-        str(i - 10)
-        for i in numeric_id_defender
-        if not (i - 10) in numeric_id_defender and i != 0 and i % 10 == 0
-    ]
-
+    print(sorted(numeric_id_defender))
+    max_id = max(numeric_id_defender)
+    print("max_id", max_id)
+    id_gaps = []
+    for id in range(0, max_id):
+        if id not in numeric_id_defender:
+            id_gaps.append(str(id))
+    print("id_gaps", id_gaps)
     return (
         "Vacant numeric ID slots: "
         + ", ".join(id_gaps)
         + (" and from " if len(id_gaps) > 0 else "")
-        + str(max(numeric_id_defender) + 10)
+        + str(max_id + 1)
         + " onwards"
     )
 
@@ -110,7 +112,7 @@ def main():
     # rosters
     default.main(disabled=False)
 
-    # ship_types (in buy menu order)
+    # ship_types (in alphabetical order)
     pax_fast_loading_ships.main()
     pax_luxury_ships.main()
     mail_ships.main()
