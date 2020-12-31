@@ -35,6 +35,12 @@ td.vehicle-image {
     text-align: center;
 }
 
+.tech_tree_table th {
+    text-align: center;
+}
+.tech_tree_table- {
+    text-align: center;
+}
 .tech_tree_vehicle_container {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -44,37 +50,23 @@ td.vehicle-image {
 }
 
 .tech_tree_vehicle {
-    border-radius: 8px;
+    display: block;
+    width: 138px;
+    margin-left: 81px;
+    margin-right: 81px;
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
-    display: block;
-    width:138px;
     background: #f5fcff;
-    position: absolute;
+    border-radius: 8px;
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5), inset 0 1px #fff, inset 0 -1px #fff;
 }
 .tech_tree_vehicle:hover {
-    border-radius: 8px;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 10px;
-    padding-bottom: 10px;
     display: block;
-    width:276px;
-    background: #f5fcff;
-    position: absolute;
-    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5), inset 0 1px #fff, inset 0 -1px #fff;
-}
-
-
-
-.tech_tree_vehicle_electric {
-    background: #fdf5ff;
-}
-.tech_tree_vehicle_electro_diesel {
-    background: #f5fff7;
+    width: 276px;
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 .tech_tree_vehicle_arrow:after, .tech_tree_vehicle_arrow:before {
@@ -96,11 +88,4 @@ td.vehicle-image {
     border-left-color: #f5fcff !important;
     margin-top: -20px;
     border-width: 20px;
-}
-
-.tech_tree_vehicle_electric:after {
-    border-left-color: #fdf5ff !important;
-}
-.tech_tree_vehicle_electro_diesel:after {
-    border-left-color: #f5fff7 !important;
 }
