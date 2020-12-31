@@ -4,7 +4,7 @@ from ship import UniversalFreighterBarge
 def main():
     ship = UniversalFreighterBarge(
         numeric_id=46,
-        name="Lindau [Freight Barge]",
+        name="Lindau",
         gen=2,
         subtype="D",
         hull="BargeHouseRear",
@@ -14,7 +14,7 @@ def main():
 
     ship = UniversalFreighterBarge(
         numeric_id=47,
-        name="Detroit [Freight Barge]",
+        name="Detroit",
         gen=2,
         subtype="E",
         hull="PushBargeHouseRear",
@@ -24,7 +24,7 @@ def main():
 
     ship = UniversalFreighterBarge(
         numeric_id=48,
-        name="Roanoke [Freight Barge]",
+        name="Roanoke",
         gen=2,
         subtype="F",
         hull="PushBargeHouseRear",

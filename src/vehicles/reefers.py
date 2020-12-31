@@ -4,7 +4,7 @@ from ship import Reefer
 def main():
     ship = Reefer(
         numeric_id=61,
-        name="Langara [Reefer]",
+        name="Langara",
         gen=2,
         subtype="B",
         hull="BargeHouseRear",
@@ -14,7 +14,7 @@ def main():
 
     ship = Reefer(
         numeric_id=60,
-        name="Samphire [Reefer]",
+        name="Samphire",
         gen=2,
         subtype="C",
         hull="ShipHouseRear",
@@ -24,7 +24,7 @@ def main():
 
     ship = Reefer(
         numeric_id=14,
-        name="Kodiak [Reefer]",
+        name="Kodiak",
         gen=2,
         subtype="D",
         hull="ShipHouseForward",
@@ -33,7 +33,7 @@ def main():
 
     ship = Reefer(
         numeric_id=59,
-        name="Caribou [Reefer]",
+        name="Caribou",
         gen=2,
         subtype="E",
         hull="ShipHouseForward",
@@ -42,7 +42,7 @@ def main():
 
     ship = Reefer(
         numeric_id=15,
-        name="Helsinki [Reefer]",
+        name="Helsinki",
         gen=2,
         subtype="F",
         hull="ShipHouseForward",

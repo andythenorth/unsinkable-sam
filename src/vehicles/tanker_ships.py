@@ -4,7 +4,7 @@ from ship import TankerShip
 def main():
     ship = TankerShip(
         numeric_id=34,
-        name="Berwick [TankerShip]",
+        name="Berwick",
         gen=2,
         subtype="B",
         hull="BargeHouseRear",
@@ -15,7 +15,7 @@ def main():
 
     ship = TankerShip(
         numeric_id=44,
-        name="Kalsoy [TankerShip]",
+        name="Kalsoy",
         gen=2,
         subtype="C",
         hull="ShipHouseRear",
@@ -26,7 +26,7 @@ def main():
 
     ship = TankerShip(
         numeric_id=1,
-        name="Ellesmere [TankerShip]",
+        name="Ellesmere",
         gen=2,
         subtype="D",
         hull="BargeHouseRear",
@@ -37,7 +37,7 @@ def main():
 
     ship = TankerShip(
         numeric_id=43,
-        name="Chirikov [TankerShip]",
+        name="Chirikov",
         gen=2,
         subtype="E",
         hull="ShipHouseRear",
@@ -48,7 +48,7 @@ def main():
 
     ship = TankerShip(
         numeric_id=2,
-        name="Rotterdam [TankerShip]",
+        name="Rotterdam",
         gen=2,
         subtype="F",
         hull="ShipHouseRear",
@@ -59,7 +59,7 @@ def main():
 
     ship = TankerShip(
         numeric_id=19,
-        name="Gunfleet [TankerShip]",
+        name="Gunfleet",
         gen=3,
         subtype="E",
         hull="ShipHouseRear",
@@ -72,7 +72,7 @@ def main():
 """
     ship = TankerShip(
         numeric_id=31,
-        name="Escobar [TankerShip]",
+        name="Escobar",
         gen=4,
         subtype="E",
         hull="ShipHouseRear",

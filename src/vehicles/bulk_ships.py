@@ -4,7 +4,7 @@ from ship import BulkShip
 def main():
     ship = BulkShip(
         numeric_id=54,
-        name="Saltlick [Mini Bulker]",
+        name="Saltlick",
         gen=2,
         subtype="C",
         hull="ShipHouseRear",
@@ -14,7 +14,7 @@ def main():
 
     ship = BulkShip(
         numeric_id=53,
-        name="Lotsberget [Mini Bulker]",
+        name="Lotsberget",
         gen=2,
         subtype="D",
         hull="ShipHouseRear",
@@ -24,7 +24,7 @@ def main():
 
     ship = BulkShip(
         numeric_id=51,
-        name="Gravelly [Mini Bulker]",
+        name="Gravelly",
         gen=2,
         subtype="E",
         hull="ShipHouseRear",
@@ -34,7 +34,7 @@ def main():
 
     ship = BulkShip(
         numeric_id=50,
-        name="Alligator [Mini Bulker]",
+        name="Alligator",
         gen=2,
         subtype="F",
         hull="ShipHouseRear",

@@ -4,7 +4,7 @@ from ship import PieceGoodsCarrier
 def main():
     ship = PieceGoodsCarrier(
         numeric_id=7,
-        name="Rampside [Piece Goods Carrier]",
+        name="Rampside",
         gen=2,
         subtype="D",
         hull="ShipHouseForward",
@@ -13,7 +13,7 @@ def main():
 
     ship = PieceGoodsCarrier(
         numeric_id=45,
-        name="Rivingen [Piece Goods Carrier]",
+        name="Rivingen",
         gen=2,
         subtype="E",
         hull="ShipHouseForward",
@@ -22,7 +22,7 @@ def main():
 
     ship = PieceGoodsCarrier(
         numeric_id=8,
-        name="Trondheim [Piece Goods Carrier]",
+        name="Trondheim",
         gen=2,
         subtype="F",
         hull="ShipHouseForward",

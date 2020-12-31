@@ -4,7 +4,7 @@ from ship import BulkBarge
 def main():
     ship = BulkBarge(
         numeric_id=35,
-        name="Pittman [Bulk Barge]",
+        name="Pittman",
         gen=2,
         subtype="B",
         hull="BargeHouseRear",
@@ -14,7 +14,7 @@ def main():
 
     ship = BulkBarge(
         numeric_id=55,
-        name="Lorain [Bulk Barge]",
+        name="Lorain",
         gen=2,
         subtype="C",
         hull="TempHouseNone",
@@ -24,7 +24,7 @@ def main():
 
     ship = BulkBarge(
         numeric_id=10,
-        name="Sandvik [Bulk Barge]",
+        name="Sandvik",
         gen=2,
         subtype="D",
         hull="BargeHouseRear",
@@ -34,7 +34,7 @@ def main():
 
     ship = BulkBarge(
         numeric_id=52,
-        name="Dyna [Bulk Barge]",
+        name="Dyna",
         gen=2,
         subtype="E",
         hull="PushBargeHouseRear",
@@ -44,7 +44,7 @@ def main():
 
     ship = BulkBarge(
         numeric_id=9,
-        name="Bigrock [Bulk Barge]",
+        name="Bigrock",
         gen=2,
         subtype="F",
         hull="PushBargeHouseRear",

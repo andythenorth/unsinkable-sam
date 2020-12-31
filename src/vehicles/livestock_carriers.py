@@ -4,7 +4,7 @@ from ship import LivestockCarrier
 def main():
     ship = LivestockCarrier(
         numeric_id=20,
-        name="Gore Creek [Livestock Carrier]",
+        name="Gore Creek",
         gen=2,
         subtype="D",
         hull="ShipHouseRear",
@@ -13,7 +13,7 @@ def main():
 
     ship = LivestockCarrier(
         numeric_id=16,
-        name="Sharkbait [Livestock Carrier]",
+        name="Sharkbait",
         gen=2,
         subtype="F",
         hull="ShipHouseForward",

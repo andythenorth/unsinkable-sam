@@ -4,7 +4,7 @@ from ship import CryoTanker
 def main():
     ship = CryoTanker(
         numeric_id=63,
-        name="Schmieder [Cryo Tanker]",
+        name="Schmieder",
         gen=2,
         subtype="B",
         hull="BargeHouseRear",
@@ -15,7 +15,7 @@ def main():
 
     ship = CryoTanker(
         numeric_id=64,
-        name="Ferrel [Cryo Tanker]",
+        name="Ferrel",
         gen=2,
         subtype="C",
         hull="ShipHouseRear",
@@ -26,7 +26,7 @@ def main():
 
     ship = CryoTanker(
         numeric_id=38,
-        name="Svedlund [Cryo Tanker]",
+        name="Svedlund",
         gen=2,
         subtype="D",
         hull="BargeHouseRear",
@@ -37,7 +37,7 @@ def main():
 
     ship = CryoTanker(
         numeric_id=62,
-        name="Weicher [Cryo Tanker]",
+        name="Weicher",
         gen=2,
         subtype="E",
         hull="ShipHouseRear",
@@ -48,7 +48,7 @@ def main():
 
     ship = CryoTanker(
         numeric_id=37,
-        name="Picard [Cryo Tanker]",
+        name="Picard",
         gen=2,
         subtype="F",
         hull="ShipHouseRear",

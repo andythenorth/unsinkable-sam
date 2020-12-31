@@ -4,7 +4,7 @@ from ship import PaxLuxuryShip
 def main():
     ship = PaxLuxuryShip(
         numeric_id=23,
-        name="Bonavista [Pax Luxury]",
+        name="Bonavista",
         gen=2,
         subtype="C",
         hull="ShipHouseRear",
@@ -13,7 +13,7 @@ def main():
 
     ship = PaxLuxuryShip(
         numeric_id=22,
-        name="Zealand [Pax Luxury]",
+        name="Zealand",
         gen=2,
         subtype="D",
         hull="TempHouseNone",
