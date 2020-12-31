@@ -206,6 +206,34 @@ def render_docs(
         doc_file.close()
 
 
+def render_docs_vehicle_details(ship, docs_output_path, ships):
+    # imports inside functions are generally avoided
+    # but PageTemplateLoader is expensive to import and causes unnecessary overhead for Pool mapping when processing docs graphics
+    from chameleon import PageTemplateLoader
+
+    docs_templates = PageTemplateLoader(docs_src, format="text")
+    template = docs_templates["vehicle_details.pt"]
+    doc_name = ship.id
+    doc = template(
+        ship=ship,
+        ships=ships,
+        global_constants=global_constants,
+        registered_rosters=unsinkable_sam.registered_rosters,
+        makefile_args=makefile_args,
+        git_info=git_info,
+        base_lang_strings=base_lang_strings,
+        metadata=metadata,
+        utils=utils,
+        doc_helper=DocHelper(),
+        doc_name=doc_name,
+    )
+    doc_file = codecs.open(
+        os.path.join(docs_output_path, "html", doc_name + ".html"), "w", "utf8"
+    )
+    doc_file.write(doc)
+    doc_file.close()
+
+
 def render_docs_images(docs_output_path, ships):
     # process vehicle buy menu sprites for reuse in docs
     # extend this similar to render_docs if other image types need processing in future
@@ -305,6 +333,11 @@ def main():
     # just render the markdown docs twice to get txt and html versions, simples no?
     render_docs(markdown_docs, "txt", docs_output_path, ships)
     render_docs(markdown_docs, "html", docs_output_path, ships, use_markdown=True)
+
+    # render vehicle details
+    for ship in ships:
+        render_docs_vehicle_details(ship, docs_output_path, ships)
+
     # process images for use in docs
     render_docs_images(docs_output_path, ships)
     # eh, how long does this take anyway?
