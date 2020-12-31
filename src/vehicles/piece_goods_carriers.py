@@ -5,7 +5,7 @@ def main():
     ship = PieceGoodsCarrier(
         numeric_id=7,
         name="Rampside [Piece Goods Carrier]",
-        gen=1,
+        gen=2,
         subtype="D",
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_STEAM",
@@ -14,7 +14,7 @@ def main():
     ship = PieceGoodsCarrier(
         numeric_id=45,
         name="Rivingen [Piece Goods Carrier]",
-        gen=1,
+        gen=2,
         subtype="E",
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_STEAM",
@@ -23,7 +23,7 @@ def main():
     ship = PieceGoodsCarrier(
         numeric_id=8,
         name="Trondheim [Piece Goods Carrier]",
-        gen=1,
+        gen=2,
         subtype="F",
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",

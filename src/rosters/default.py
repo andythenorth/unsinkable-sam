@@ -7,7 +7,7 @@ def main(disabled=False):
         numeric_id=1,
         # left as dict when copying from Iron Horse, assumes might split pax / freight / hovercraft etc in future?  Bets that I end up making it just a list?
         intro_dates={
-            "DEFAULT": [1870, 1965, 2020],
+            "DEFAULT": [1860, 1900, 1960, 2020],
         },
         speeds={
             "freight": {0: 25, 1950: 35},

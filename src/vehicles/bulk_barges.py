@@ -5,7 +5,7 @@ def main():
     ship = BulkBarge(
         numeric_id=35,
         name="Pittman [Bulk Barge]",
-        gen=1,
+        gen=2,
         subtype="B",
         hull="BargeHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
@@ -15,7 +15,7 @@ def main():
     ship = BulkBarge(
         numeric_id=55,
         name="Lorain [Bulk Barge]",
-        gen=1,
+        gen=2,
         subtype="C",
         hull="TempHouseNone",
         effect_type="EFFECT_SPRITE_DIESEL",
@@ -25,7 +25,7 @@ def main():
     ship = BulkBarge(
         numeric_id=10,
         name="Sandvik [Bulk Barge]",
-        gen=1,
+        gen=2,
         subtype="D",
         hull="BargeHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
@@ -35,7 +35,7 @@ def main():
     ship = BulkBarge(
         numeric_id=52,
         name="Dyna [Bulk Barge]",
-        gen=1,
+        gen=2,
         subtype="E",
         hull="PushBargeHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
@@ -45,7 +45,7 @@ def main():
     ship = BulkBarge(
         numeric_id=9,
         name="Bigrock [Bulk Barge]",
-        gen=1,
+        gen=2,
         subtype="F",
         hull="PushBargeHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",

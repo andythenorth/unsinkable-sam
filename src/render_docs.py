@@ -72,7 +72,9 @@ class DocHelper(object):
     def unpack_name_string(self, ship):
         # doesn't include the power type suffix
         return (
-            ship.get_name_substr() + " " + base_lang_strings[ship.get_str_name_suffix()]
+            ship.get_name_substr()
+            + " "
+            + base_lang_strings[ship.get_str_name_suffix()]
         )
 
     def get_props_to_print_in_code_reference(self, subclass):
@@ -275,8 +277,6 @@ def main():
 
     dates = sorted([i.intro_date for i in ships])
     metadata["dates"] = (dates[0], dates[-1])
-
-    print(DocHelper().ships_as_tech_tree(ships))
 
     # render standard docs from a list
     html_docs = [
