@@ -3,39 +3,6 @@ from ship import TankerShip
 
 def main():
     ship = TankerShip(
-        numeric_id=34,
-        name="Berwick",
-        gen=2,
-        subtype="B",
-        hull="BargeHouseRear",
-        str_type_info="SMALL_TANKER_COASTAL_INLAND",
-        effect_type="EFFECT_SPRITE_DIESEL",
-        sprites_complete=False,
-    )
-
-    ship = TankerShip(
-        numeric_id=44,
-        name="Kalsoy",
-        gen=2,
-        subtype="C",
-        hull="ShipHouseRear",
-        str_type_info="SMALL_TANKER_COASTAL_INLAND",
-        effect_type="EFFECT_SPRITE_DIESEL",
-        sprites_complete=False,
-    )
-
-    ship = TankerShip(
-        numeric_id=1,
-        name="Ellesmere",
-        gen=2,
-        subtype="D",
-        hull="BargeHouseRear",
-        str_type_info="SMALL_TANKER_COASTAL_INLAND",
-        effect_type="EFFECT_SPRITE_DIESEL",
-        sprites_complete=False,
-    )
-
-    ship = TankerShip(
         numeric_id=43,
         name="Chirikov",
         gen=2,
@@ -47,9 +14,42 @@ def main():
     )
 
     ship = TankerShip(
+        numeric_id=34,
+        name="Berwick",
+        gen=3,
+        subtype="B",
+        hull="BargeHouseRear",
+        str_type_info="SMALL_TANKER_COASTAL_INLAND",
+        effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
+    )
+
+    ship = TankerShip(
+        numeric_id=44,
+        name="Kalsoy",
+        gen=3,
+        subtype="C",
+        hull="ShipHouseRear",
+        str_type_info="SMALL_TANKER_COASTAL_INLAND",
+        effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
+    )
+
+    ship = TankerShip(
+        numeric_id=1,
+        name="Ellesmere",
+        gen=3,
+        subtype="D",
+        hull="BargeHouseRear",
+        str_type_info="SMALL_TANKER_COASTAL_INLAND",
+        effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
+    )
+
+    ship = TankerShip(
         numeric_id=2,
         name="Rotterdam",
-        gen=2,
+        gen=3,
         subtype="F",
         hull="ShipHouseRear",
         str_type_info="COASTAL_TANKER",

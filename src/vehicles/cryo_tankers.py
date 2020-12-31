@@ -5,7 +5,7 @@ def main():
     ship = CryoTanker(
         numeric_id=63,
         name="Schmieder",
-        gen=2,
+        gen=3,
         subtype="B",
         hull="BargeHouseRear",
         str_type_info="SMALL_TANKER_COASTAL_INLAND",
@@ -16,7 +16,7 @@ def main():
     ship = CryoTanker(
         numeric_id=64,
         name="Ferrel",
-        gen=2,
+        gen=3,
         subtype="C",
         hull="ShipHouseRear",
         str_type_info="SMALL_TANKER_COASTAL_INLAND",
@@ -27,7 +27,7 @@ def main():
     ship = CryoTanker(
         numeric_id=38,
         name="Svedlund",
-        gen=2,
+        gen=3,
         subtype="D",
         hull="BargeHouseRear",
         str_type_info="SMALL_TANKER_COASTAL_INLAND",
@@ -38,7 +38,7 @@ def main():
     ship = CryoTanker(
         numeric_id=62,
         name="Weicher",
-        gen=2,
+        gen=3,
         subtype="E",
         hull="ShipHouseRear",
         str_type_info="SMALL_TANKER_COASTAL_INLAND",
@@ -49,7 +49,7 @@ def main():
     ship = CryoTanker(
         numeric_id=37,
         name="Picard",
-        gen=2,
+        gen=3,
         subtype="F",
         hull="ShipHouseRear",
         str_type_info="COASTAL_TANKER",

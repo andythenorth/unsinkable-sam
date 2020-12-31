@@ -5,7 +5,7 @@ def main():
     ship = LivestockCarrier(
         numeric_id=20,
         name="Gore Creek",
-        gen=2,
+        gen=3,
         subtype="D",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_STEAM",
@@ -14,7 +14,7 @@ def main():
     ship = LivestockCarrier(
         numeric_id=16,
         name="Sharkbait",
-        gen=2,
+        gen=3,
         subtype="F",
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",

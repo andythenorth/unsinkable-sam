@@ -5,7 +5,7 @@ def main():
     ship = TankerBarge(
         numeric_id=40,
         name="Durance",
-        gen=2,
+        gen=3,
         subtype="D",
         hull="BargeHouseRear",
         str_type_info="SMALL_TANKER_COASTAL_INLAND",
@@ -15,7 +15,7 @@ def main():
     ship = TankerBarge(
         numeric_id=49,
         name="Notto",
-        gen=2,
+        gen=3,
         subtype="E",
         hull="PushBargeHouseRear",
         str_type_info="SMALL_TANKER_COASTAL_INLAND",
@@ -26,7 +26,7 @@ def main():
     ship = TankerBarge(
         numeric_id=39,
         name="Columbus",
-        gen=2,
+        gen=3,
         subtype="F",
         hull="PushBargeHouseRear",
         str_type_info="COASTAL_TANKER",

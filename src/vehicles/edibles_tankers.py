@@ -5,7 +5,7 @@ def main():
     ship = EdiblesTanker(
         numeric_id=58,
         name="Bounty",
-        gen=2,
+        gen=3,
         subtype="B",
         hull="BargeHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
@@ -14,7 +14,7 @@ def main():
     ship = EdiblesTanker(
         numeric_id=57,
         name="Mystic",
-        gen=2,
+        gen=3,
         subtype="C",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
@@ -23,7 +23,7 @@ def main():
     ship = EdiblesTanker(
         numeric_id=32,
         name="Fresnel",
-        gen=2,
+        gen=3,
         subtype="D",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
@@ -32,7 +32,7 @@ def main():
     ship = EdiblesTanker(
         numeric_id=56,
         name="Belliveau",
-        gen=2,
+        gen=3,
         subtype="E",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
@@ -41,7 +41,7 @@ def main():
     ship = EdiblesTanker(
         numeric_id=18,
         name="Cortes",
-        gen=2,
+        gen=3,
         subtype="F",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",

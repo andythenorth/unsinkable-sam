@@ -5,7 +5,7 @@ def main():
     ship = Trawler(
         numeric_id=11,
         name="Newfoundland",
-        gen=2,
+        gen=3,
         subtype="A",
         hull="TempHouseNone",
         effect_type="EFFECT_SPRITE_STEAM",
@@ -14,7 +14,7 @@ def main():
     ship = Trawler(
         numeric_id=12,
         name="Rio Pescado",
-        gen=2,
+        gen=3,
         subtype="B",
         hull="TempHouseNone",
         effect_type="EFFECT_SPRITE_STEAM",
@@ -23,7 +23,7 @@ def main():
     ship = Trawler(
         numeric_id=13,
         name="Cromarty",
-        gen=2,
+        gen=3,
         subtype="D",
         hull="TempHouseNone",
         effect_type="EFFECT_SPRITE_STEAM",
