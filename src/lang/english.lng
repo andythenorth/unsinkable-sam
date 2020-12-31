@@ -31,7 +31,7 @@ STR_NAME_REEFER                                                 :Refrigerated Sh
 STR_NAME_TANKER_BARGE                                           :Tank Barge
 STR_NAME_TANKER_SHIP                                            :Tanker
 STR_NAME_TRAWLER                                                :Trawler
-STR_NAME_UNIVERSAL_FREIGHTER_BARGE                              :Freight Barge
+STR_NAME_UNIVERSAL_FREIGHTER_BARGE                              :Barge
 STR_NAME_UNIVERSAL_FREIGHTER_SHIP                               :Freighter
 
 STR_POWER_TYPE_DIESEL                                           :Diesel
