@@ -238,11 +238,6 @@ class Ship(object):
         # !! likely this should account for pax / mail / freight etc, this would be better done by sticking a multiplier on the subclass
         return self.default_capacity / 10
 
-    def get_name_substr(self):
-        # relies on name being in format "Foo [Bar]" for Name [Type Suffix]
-        # also strips off whitespace
-        return self._name.split("[")[0].strip()
-
     def get_str_name_suffix(self):
         # used in ship name string only, relies on name property value being in format "Foo [Bar]" for Name [Type Suffix]
         # this could be refactored to be simpler, see Iron Horse where [STUFF] is dropped from vehicle name declarations

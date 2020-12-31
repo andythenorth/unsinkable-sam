@@ -3,5 +3,5 @@ STR_GRF_DOCS_URL                                                :${utils.get_doc
 
 <!--! ship names -->
 <tal:build_vehicle_names repeat="ship ships">
-STR_NAME_${ship.id}                                          :${ship.get_name_substr()} {STRING}
+STR_NAME_${ship.id}                                          :${ship._name} {STRING}
 </tal:build_vehicle_names>

@@ -75,7 +75,7 @@ class DocHelper(object):
 
     def unpack_name_string(self, ship):
         # doesn't include the power type suffix
-        return ship.get_name_substr() + " " + self.unpack_name_suffix(ship.base_id)
+        return ship._name + " " + self.unpack_name_suffix(ship.base_id)
 
     def get_props_to_print_in_code_reference(self, subclass):
         props_to_print = {}
