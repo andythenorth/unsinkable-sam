@@ -132,7 +132,12 @@
                                                                     <!--! this is using a private var, but I am not going to lose sleep over it -->
                                                                     ${doc_helper.unpack_name_string(ship)}
                                                                 </span>
-                                                                <img src="static/img/${ship.id}.png" style="width:100%" />
+                                                                <img class="tech_tree_vehicle_image"
+                                                                     style="width:${ship.buy_menu_width}px"
+                                                                     src="static/img/${ship.id}.png" />
+                                                                <img class="tech_tree_vehicle_image_zoom"
+                                                                     style="width:${2 * ship.buy_menu_width}px"
+                                                                     src="static/img/${ship.id}.png" />
                                                                 <!--! unfinished migration from Iron Horse -->
                                                                 <!--!<img src="static/img/${ship.id}_${vehicle_cc}.png"
                                                                      width="${2 * doc_helper.buy_menu_sprite_width(ship)}"

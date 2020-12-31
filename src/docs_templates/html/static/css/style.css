@@ -63,10 +63,18 @@ td.vehicle-image {
     box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.5), inset 0 1px #fff, inset 0 -1px #fff;
 }
 .tech_tree_vehicle:hover {
-    display: block;
     width: 276px;
     margin-left: 12px;
     margin-right: 12px;
+}
+.tech_tree_vehicle .tech_tree_vehicle_image_zoom {
+    display: none;
+}
+.tech_tree_vehicle:hover .tech_tree_vehicle_image {
+    display: none;
+}
+.tech_tree_vehicle:hover .tech_tree_vehicle_image_zoom {
+    display: inline-block;
 }
 
 .tech_tree_vehicle_arrow:after, .tech_tree_vehicle_arrow:before {

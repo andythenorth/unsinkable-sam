@@ -225,14 +225,14 @@ def render_docs_images(docs_output_path, ships):
                 10
                 + global_constants.spritesheet_bounding_boxes[2][2]
                 - global_constants.docs_ship_image_height,
-                buy_menu_bb[0] + global_constants.buy_menu_sprite_width,
+                buy_menu_bb[0] + ship.buy_menu_width,
                 10 + global_constants.spritesheet_bounding_boxes[2][2],
             )
         )
         # oversize the images to account for how browsers interpolate the images on retina / HDPI screens
         processed_vehicle_image = processed_vehicle_image.resize(
             (
-                4 * global_constants.buy_menu_sprite_width,
+                4 * ship.buy_menu_width,
                 4 * global_constants.buy_menu_sprite_height,
             ),
             resample=Image.NEAREST,
