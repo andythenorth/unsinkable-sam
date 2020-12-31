@@ -92,7 +92,6 @@
                         </thead>
                         <tbody>
                             <tal:roles repeat="role roles">
-                                ${role}
                                 <tal:subtypes repeat="subtype tech_tree[role_group][role]">
                                     <tr style="border-top: solid ${'2px #ccc' if role in ['branch_freight', 'heavy_freight', 'very_heavy_freight', 'heavy_express', 'pax_railcar', 'hst', 'lolz'] else '1px #eee'};
                                                box-shadow: inset 0 -1px #fff;
@@ -117,7 +116,7 @@
                                             <span tal:condition="'F' in subtype">
                                                 Large
                                             </span>
-                                            ${role}
+                                            ${doc_helper.unpack_name_suffix(role)}
                                         </th>
                                         <td tal:repeat="gen range(1, len(intro_dates) + 1)" class="text-center" style="width: 160px;">
                                             <tal:ship define="ship tech_tree[role_group][role][subtype][gen]">

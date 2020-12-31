@@ -69,13 +69,13 @@ class DocHelper(object):
         result["subclass_props"].append(prop_name)
         return result
 
+    def unpack_name_suffix(self, name_suffix):
+        # this duplicates a method on Ship, which isn't available in tech tree row header cells as no ship is in scope
+        return base_lang_strings["STR_NAME_" + name_suffix.upper()]
+
     def unpack_name_string(self, ship):
         # doesn't include the power type suffix
-        return (
-            ship.get_name_substr()
-            + " "
-            + base_lang_strings[ship.get_str_name_suffix()]
-        )
+        return ship.get_name_substr() + " " + self.unpack_name_suffix(ship.base_id)
 
     def get_props_to_print_in_code_reference(self, subclass):
         props_to_print = {}
@@ -122,7 +122,7 @@ class DocHelper(object):
                 role_branches[role] = {}
                 # hard-coded for now, move to global constants another day
                 for subtype in ["A", "B", "C", "D", "E", "F"]:
-                    role_branches[role][subtype] = {}
+                    subtype_branch = {}
                     # walk the generations, providing default None objects
                     for gen in range(
                         1,
@@ -133,11 +133,14 @@ class DocHelper(object):
                         )
                         + 1,
                     ):
-                        role_branches[role][subtype][gen] = None
+                        subtype_branch[gen] = None
                     # get the ships matching this role
                     for ship in ships:
                         if ship.base_id == role and ship.subtype == subtype:
-                            role_branches[role][subtype][ship.gen] = ship
+                            subtype_branch[ship.gen] = ship
+                    # to prevent empty rows in tech tree, only include the subtype_branch if it contains actual ships
+                    if set(subtype_branch.values()) != {None}:
+                        role_branches[role][subtype] = subtype_branch
             result[role_group] = role_branches
         return result
 

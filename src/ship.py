@@ -246,10 +246,7 @@ class Ship(object):
     def get_str_name_suffix(self):
         # used in ship name string only, relies on name property value being in format "Foo [Bar]" for Name [Type Suffix]
         # this could be refactored to be simpler, see Iron Horse where [STUFF] is dropped from vehicle name declarations
-        type_suffix = self._name.split("[")[1].split("]")[0]
-        type_suffix = type_suffix.upper()
-        type_suffix = "_".join(type_suffix.split(" "))
-        return "STR_NAME_" + type_suffix
+        return "STR_NAME_" + self.base_id.upper()
 
     def get_str_type_info(self):
         # makes a string id for nml
