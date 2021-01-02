@@ -211,11 +211,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         result_image.paste(hull_image, crop_box_comp_dest_3, waterline_mask_row_3)
 
         # directly recolour for deck and house adjustments, which can be defined per ship
-        # hull recoloring for specific cargos is *not* done here, use GestaltGraphicsLiveryOnly for that case
-        # !! this might want extended for hull recolouring,
-        #   !! then some Ship types could stop using GestaltGraphicsLiveryOnly and instead we could have a GestaltGraphicsRecolourOnly gestalt?
-        #   !! maybe, but check what the templating expects
-        #   !! Horse has refactored GestaltGraphicsLiveryOnly gestalt to GestaltGraphicsSimpleBodyColourRemaps and template to vehicle_with_simple_body_colour_remaps
+        # hull recoloring for specific cargos is *not* done here, use GestaltGraphicsSimpleColourRemaps for that case
         #
         # !! I've used deck and house maps to be explicit and not have magic guessing
         # !! but if the order of remapping becomes significant, then swap this to just pass a list of arbitrary recolours, to execute in order, that will permit recolouring to intermediates to control effects

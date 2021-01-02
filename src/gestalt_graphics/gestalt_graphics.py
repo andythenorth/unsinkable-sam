@@ -143,10 +143,15 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
         return result
 
 
-class GestaltGraphicsLiveryOnly(GestaltGraphics):
+class GestaltGraphicsSimpleColourRemaps(GestaltGraphics):
     """
-    Used to handle the specific case of cargos shown only by vehicle livery.
-    This can also be used for recolouring vehicles with just a *single* livery which isn't cargo-specific.
+    Simple recolouring of deck, house, hull etc to:
+    - a single default livery
+    - optional extra liveries for specific cargos
+
+    Can use 'magic' colour ranges (safer), or recolour other 'actual appearance' ranges (more likely to break / have unintended consequences).
+    This gestalt can also be used as a shortcut simply for compositing ships to hulls.
+    Not suitable for recolouring cargo sprites.
     """
 
     def __init__(self, recolour_maps, **kwargs):
@@ -160,12 +165,12 @@ class GestaltGraphicsLiveryOnly(GestaltGraphics):
 
     @property
     def generic_rows(self):
-        print("generic_rows not implemented in GestaltGraphicsLiveryOnly")
+        print("generic_rows not implemented in GestaltGraphicsSimpleColourRemaps")
         return None
 
     @property
     def nml_template(self):
-        return "vehicle_with_cargo_specific_liveries.pynml"
+        return "vehicle_with_simple_colour_remaps.pynml"
 
     def get_output_row_counts_by_type(self):
         # the template for visible livery requires the count of _all_ the liveries, *no calculating later*
