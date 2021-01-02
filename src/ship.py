@@ -806,7 +806,16 @@ class UniversalFreighterBase(Ship):
         ]
         self.default_cargos = global_constants.default_cargos["open"]
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo(bulk=True, piece="open")
+        # might need to split house stuff down to individual ships / barges?
+        if self.subtype == "E":
+            house_recolour_map = graphics_constants.house_recolour_roof_dark_red_1
+        elif self.subtype == "F":
+            house_recolour_map = graphics_constants.house_recolour_roof_silver_1
+        else:
+            house_recolour_map = None
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(
+            bulk=True, piece="open", house_recolour_map=house_recolour_map
+        )
 
 
 class UniversalFreighterBarge(UniversalFreighterBase):
