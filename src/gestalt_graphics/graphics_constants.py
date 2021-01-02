@@ -64,21 +64,12 @@ edibles_tanker_livery_recolour_maps = (  # see note on DFLT above
             141: 11,
             142: 12,
             143: 13,
-            # cabin roof (if applicable)
-            40: CC1,
-            41: CC1 + 1,
-            42: CC1 + 2,
-            43: CC1 + 3,
-            44: CC1 + 4,
-            45: CC1 + 5,
-            46: CC1 + 6,
-            47: CC1 + 7,
             # deck recolour
             70: 1,
             60: 2,
             72: 3,
-            74: 4,
-            123: 5,
+            123: 4,
+            74: 5,
             75: 6,
         },
     ),
@@ -118,14 +109,33 @@ reefer_livery_recolour_maps = (  # see note on DFLT above
             141: 11,
             142: 12,
             143: 13,
-            60: 1,
+            # deck recolour
+            70: 1,
+            60: 2,
             72: 3,
             123: 4,
             74: 5,
-            75: 4,
+            75: 6,
         },
     ),
 )
+# tanker hull colours come from Polar Fox, but ship deck colour remap is local to Sam
+# this one is just a simple dict which the Polar Fox remaps are extended with
+tanker_deck_recolour_maps = {
+    170: 17,
+    171: 18,
+    172: 19,
+    173: 20,
+    174: 21,
+    175: 22,
+    176: 23,
+    70: 40,
+    60: 41,
+    72: 42,
+    123: 43,
+    74: 44,
+    75: 45,
+}
 # Trawler, only DFLT is used as of Jan 2018
 trawler_livery_recolour_maps = (  # see note on DFLT above
     (

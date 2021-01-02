@@ -700,8 +700,12 @@ class TankerBase(Ship):
         ]
         self.default_cargos = global_constants.default_cargos["tank"]
         # Graphics configuration
+        # extend Polar Fox tanker recolours to handle deck recolouring
+        extended_recolour_maps = polar_fox.constants.tanker_livery_recolour_maps
+        for recolour_map in extended_recolour_maps:
+            recolour_map[1].update(graphics_constants.tanker_deck_recolour_maps)
         self.gestalt_graphics = GestaltGraphicsLiveryOnly(
-            recolour_maps=polar_fox.constants.tanker_livery_recolour_maps
+            recolour_maps=extended_recolour_maps
         )
 
 
