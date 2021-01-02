@@ -10,7 +10,7 @@
             <table class="table table-striped tablesorter">
                 <thead>
                     <tr>
-                        <td><!--! empty cell --></td>
+                        <td class="sorter-false"><!--! empty cell --></td>
                         <th>Ship Name</th>
                         <th class="number">Intro Date</th>
                         <th>Special Features</th>
@@ -20,10 +20,9 @@
                     <tal:build_ships_list repeat="ship ships">
                         <tal:ship_in_roster condition="ship.id in roster.buy_menu_sort_order">
                             <tr id="${ship.id}">
-                                <td style="vertical-align:middle;">
+                                <td style="vertical-align:middle; text-align:center;">
                                     <img src="static/img/${ship.id}.png"
-                                         width="${2 * global_constants.buy_menu_sprite_width}"
-                                         height="${2 * global_constants.docs_ship_image_height}" />
+                                         width="${2 * ship.buy_menu_width}" />
                                 </td>
                                 <td style="vertical-align:middle;">
                                     <a class="table-link-dark" href="#${ship.id}">${doc_helper.unpack_name_string(ship)}</a>
