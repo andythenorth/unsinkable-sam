@@ -114,7 +114,11 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         super().__init__("extend_spriterows_for_composited_cargos_pipeline")
 
     def extend_base_image_to_3_rows_with_waterline_masked_per_load_state(
-        self, base_image, deck_recolour_map=None, house_recolour_map=None, house_make_safe_recolour_map=None
+        self,
+        base_image,
+        deck_recolour_map=None,
+        house_recolour_map=None,
+        house_make_safe_recolour_map=None,
     ):
         # This composites the ship from:
         # - the ship base image (this contains the detail for the specific ship such as wheelhouse, holds etc)
@@ -165,6 +169,28 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             .point(lambda i: 0 if (i in range(215, 227) or i == 244) else i)
         )
 
+        # directly recolour for deck, house and hull adjustments, which can be defined per ship
+        # *not* for cargo-specific hull recoloring, pass cargo_recolour_maps to GestaltGraphicsSimpleColourRemaps for that case
+        # Order
+        # 1. house recolour map tends to use the dark red range as magic colour because it's nice to draw in
+        #    but dark red may also be a destination for deck recolour, so first force the house magic red to use the spare (non-hull) purple range
+        # 2. deck recolour, as it recolours arbitrary ranges, and has a chance of colliding with house and hull destination colours
+        # 3. house (tends to use magic colour)
+        # 4. hull (tends to use magic colour)
+        recolour_maps = [
+            graphics_constants.house_make_magic_red_safe_recolour_map,
+            self.ship.gestalt_graphics.deck_recolour_map,
+            self.ship.gestalt_graphics.house_recolour_map,
+            self.ship.gestalt_graphics.hull_recolour_map,
+        ]
+        for recolour_map in recolour_maps:
+            if recolour_map is not None:
+                recolour_table = ProcessingUnit().make_recolour_table(recolour_map)
+                hull_image = hull_image.point(recolour_table)
+        """
+        if self.ship.id == "tanker_ship_gen_3F":
+            hull_image.show()
+        """
         # no hull mask used for first load state (row 1), so only need to create 2 hull mask images
         waterline_mask_row_2 = (
             hull_base.copy()
@@ -210,30 +236,6 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         result_image.paste(hull_image, crop_box_comp_dest_2, waterline_mask_row_2)
         result_image.paste(hull_image, crop_box_comp_dest_3, waterline_mask_row_3)
 
-        # directly recolour for deck and house adjustments, which can be defined per ship
-        # hull recoloring for specific cargos is *not* done here, use GestaltGraphicsSimpleColourRemaps for that case
-        #
-        # !! I've used deck and house maps to be explicit and not have magic guessing
-        # !! but if the order of remapping becomes significant, then swap this to just pass a list of arbitrary recolours, to execute in order, that will permit recolouring to intermediates to control effects
-        # !! currently not known to be needed, probably TMWFTLB
-        # this could be avoided by using the other never-used purple range for house, but that is harder to draw with (conflates with hull purple)
-        # this could all be avoided by allowing completely arbitrary pipeline order, just a list of recolour maps declared per ship
-        # that might be fine, but I prefer the explicit interface, arbitrary lists tend towards silent bugs
-        # house recolour map tends to use the dark red range as it's nice to draw in, contrasts with hull purple and is consistent with use in e.g. Iron Horse, Polar Fox etc
-        # but dark red may also be a destination for deck recolour, so first force the house recolour to the spare (non-hull) purple range
-        if house_make_safe_recolour_map is not None:
-            recolour_table = ProcessingUnit().make_recolour_table(house_recolour_map)
-            result_image = result_image.point(recolour_table)
-        # then deck recolour first, as it recolours arbitrary ranges, and has a chance of colliding with house and hull destination colours
-        if deck_recolour_map is not None:
-            recolour_table = ProcessingUnit().make_recolour_table(deck_recolour_map)
-            result_image = result_image.point(recolour_table)
-        # then house and deck
-        if house_recolour_map is not None:
-            recolour_table = ProcessingUnit().make_recolour_table(house_recolour_map)
-            result_image = result_image.point(recolour_table)
-        #if self.ship.id == "universal_freighter_ship_gen_3E":
-            #result_image.show()
         hull_base.close()
         return result_image
 

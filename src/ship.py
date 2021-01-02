@@ -437,7 +437,7 @@ class CoveredHopperCarrier(Ship):
         self.loading_speed_multiplier = 2
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.covered_hopper_carrier_livery_recolour_maps
+            hull_recolour_map=graphics_constants.hull_recolour_CC1
         )
 
 
@@ -459,7 +459,7 @@ class CryoTanker(Ship):
         self.loading_speed_multiplier = 2
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.cryo_tanker_livery_recolour_maps
+            hull_recolour_map=graphics_constants.hull_recolour_CC1
         )
 
 
@@ -478,8 +478,20 @@ class EdiblesTanker(Ship):
         self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos["edibles_tank"]
         # Graphics configuration
+        hull_recolour_map = graphics_constants.hull_recolour_white
+        deck_recolour_map = {
+            70: 1,
+            60: 2,
+            72: 3,
+            123: 4,
+            74: 5,
+            75: 6,
+        }
+        house_recolour_map = graphics_constants.house_recolour_roof_CC1_1
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.edibles_tanker_livery_recolour_maps
+            hull_recolour_map=hull_recolour_map,
+            deck_recolour_map=deck_recolour_map,
+            house_recolour_map=house_recolour_map,
         )
 
 
@@ -522,12 +534,11 @@ class LivestockCarrier(Ship):
         ]  # set to livestock by default, don't need to make it refit
         self.label_refits_disallowed = []
         self.default_cargos = ["LVST"]  # no need for fallbacks, single refit
-        self.cargo_age_period = (
-            2 * global_constants.CARGO_AGE_PERIOD
-        )  # improved decay rate
+        # improved decay rate
+        self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.livestock_carrier_livery_recolour_maps
+            hull_recolour_map=graphics_constants.hull_recolour_CC2
         )
 
 
@@ -567,7 +578,7 @@ class MailShip(Ship):
         }  # no large mail ships, by design
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.mail_livery_recolour_maps
+            hull_recolour_map=graphics_constants.hull_recolour_CC1
         )
 
 
@@ -598,7 +609,7 @@ class PaxFastLoadingShip(PaxShipBase):
         self.loading_speed_multiplier = 3
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.pax_fast_loading_livery_recolour_maps
+            hull_recolour_map=graphics_constants.hull_recolour_CC1
         )
 
     @property
@@ -620,7 +631,7 @@ class PaxLuxuryShip(PaxShipBase):
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.pax_luxury_livery_recolour_maps
+            hull_recolour_map=graphics_constants.hull_recolour_CC2
         )
 
     @property
@@ -656,7 +667,7 @@ class PieceGoodsCarrier(Ship):
         self.default_cargos = global_constants.default_cargos["box"]
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.piece_goods_carrier_livery_recolour_maps
+            hull_recolour_map=graphics_constants.hull_recolour_CC1
         )
 
 
@@ -674,12 +685,20 @@ class Reefer(Ship):
         )  # no specific labels needed, refits all cargos that have refrigerated class
         self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos["reefer"]
-        self.cargo_age_period = (
-            2 * global_constants.CARGO_AGE_PERIOD
-        )  # improved decay rate
+        # improved decay rate
+        self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
+        hull_recolour_map = graphics_constants.hull_recolour_white
+        deck_recolour_map = {
+            70: 1,
+            60: 2,
+            72: 3,
+            123: 4,
+            74: 5,
+            75: 6,
+        }
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.reefer_livery_recolour_maps
+            hull_recolour_map=hull_recolour_map, deck_recolour_map=deck_recolour_map
         )
 
 
@@ -700,12 +719,24 @@ class TankerBase(Ship):
         ]
         self.default_cargos = global_constants.default_cargos["tank"]
         # Graphics configuration
-        # extend Polar Fox tanker recolours to handle deck recolouring
-        extended_recolour_maps = polar_fox.constants.tanker_livery_recolour_maps
-        for recolour_map in extended_recolour_maps:
-            recolour_map[1].update(graphics_constants.tanker_deck_recolour_maps)
+        deck_recolour_map = {
+            70: 40,
+            60: 41,
+            72: 42,
+            123: 43,
+            74: 44,
+            75: 45,
+        }
+        if self.subtype == "E":
+            house_recolour_map = graphics_constants.house_recolour_roof_dark_red_1
+        elif self.subtype == "F":
+            house_recolour_map = graphics_constants.house_recolour_roof_silver_1
+        else:
+            house_recolour_map = None
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=extended_recolour_maps
+            cargo_recolour_maps=polar_fox.constants.tanker_livery_recolour_maps,
+            deck_recolour_map=deck_recolour_map,
+            house_recolour_map=house_recolour_map,
         )
 
 
@@ -742,8 +773,18 @@ class Trawler(Ship):
         self.label_refits_disallowed = []
         self.default_cargos = ["FISH"]  # no need for fallbacks, single refit
         # Graphics configuration
+        hull_recolour_map = {
+            136: 146,
+            137: 147,
+            138: 148,
+            139: 149,
+            140: 150,
+            141: 151,
+            142: 152,
+            143: 153,
+        }
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.trawler_livery_recolour_maps
+            hull_recolour_map=hull_recolour_map
         )
 
 

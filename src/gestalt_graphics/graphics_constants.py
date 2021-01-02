@@ -1,6 +1,7 @@
 # colour defaults
 CC1 = 198
 CC2 = 80
+house_magic_colour = 170
 
 hull_recolour_CC1 = {
     136: CC1,
@@ -22,6 +23,59 @@ hull_recolour_CC2 = {
     142: CC2 + 6,
     143: CC2 + 7,
 }
+hull_recolour_white = {
+    136: 5,
+    137: 7,
+    138: 8,
+    139: 9,
+    140: 10,
+    141: 11,
+    142: 12,
+    143: 13,
+}
+
+# used because it's nicer to draw with dark red as magic colour, but it's not safe as a magic colour, so it's remapped to a spare purple range
+house_make_magic_red_safe_recolour_map = {
+    40: house_magic_colour,
+    41: house_magic_colour + 1,
+    42: house_magic_colour + 2,
+    43: house_magic_colour + 3,
+    44: house_magic_colour + 4,
+    45: house_magic_colour + 5,
+    46: house_magic_colour + 6,
+    47: house_magic_colour + 7,
+}
+# arbitrary house recolouring maps
+house_recolour_roof_CC1_1 = {
+    house_magic_colour: CC1,
+    house_magic_colour + 1: CC1 + 1,
+    house_magic_colour + 2: CC1 + 2,
+    house_magic_colour + 3: CC1 + 3,
+    house_magic_colour + 4: CC1 + 4,
+    house_magic_colour + 5: CC1 + 5,
+    house_magic_colour + 6: CC1 + 6,
+    house_magic_colour + 7: CC1 + 7,
+}
+house_recolour_roof_dark_red_1 = {
+    house_magic_colour: 40,
+    house_magic_colour + 1: 41,
+    house_magic_colour + 2: 42,
+    house_magic_colour + 3: 43,
+    house_magic_colour + 4: 44,
+    house_magic_colour + 5: 45,
+    house_magic_colour + 6: 46,
+    house_magic_colour + 7: CC1 + 7,
+}
+house_recolour_roof_silver_1 = {
+    house_magic_colour: 17, # starts 1 up in the range to keep it looking like metallic white
+    house_magic_colour + 1: 18,
+    house_magic_colour + 2: 19,
+    house_magic_colour + 3: 20,
+    house_magic_colour + 4: 21,
+    house_magic_colour + 5: 22,
+    house_magic_colour + 6: 23,
+    house_magic_colour + 7: 14, # out of silvers, go to off-white
+}
 
 # facts about 'standard' spritesheets, spritesheets varying from this will be painful
 spriterow_height = 100
@@ -41,114 +95,4 @@ container_recolour_maps = (
     {170 + i: CC1 + i for i in range(8)},
     {170 + i: CC2 + i for i in range(8)},
     {170 + i: 8 + i for i in range(8)},
-)
-# Livestock carrier, only DFLT is used as of Jan 2018
-covered_hopper_carrier_livery_recolour_maps = (  # see note on DFLT above
-    ("DFLT", hull_recolour_CC2),
-)
-# Gas (cryo) tankers, only DFLT is used as of Nov 2020
-cryo_tanker_livery_recolour_maps = (  # see note on DFLT above
-    ("DFLT", hull_recolour_CC1),
-)
-# Edibles tankers, only DFLT is used as of Jan 2018
-edibles_tanker_livery_recolour_maps = (  # see note on DFLT above
-    (
-        "DFLT",
-        {
-            # hull
-            136: 5,
-            137: 7,
-            138: 8,
-            139: 9,
-            140: 10,
-            141: 11,
-            142: 12,
-            143: 13,
-            # deck recolour
-            70: 1,
-            60: 2,
-            72: 3,
-            123: 4,
-            74: 5,
-            75: 6,
-        },
-    ),
-)
-fruit_veg_carrier_livery_recolour_maps = (  # see note on DFLT above
-    ("DFLT", hull_recolour_CC2),
-)
-# Livestock carrier, only DFLT is used as of Jan 2018
-livestock_carrier_livery_recolour_maps = (  # see note on DFLT above
-    ("DFLT", hull_recolour_CC2),
-)
-# Mail, only DFLT is used as of Jan 2018
-mail_livery_recolour_maps = (("DFLT", hull_recolour_CC1),)  # see note on DFLT above
-# Mail, only DFLT is used as of Mar 2018
-pax_fast_loading_livery_recolour_maps = (  # see note on DFLT above
-    ("DFLT", hull_recolour_CC1),
-)
-# Pax Luxury, only DFLT is used as of Mar 2018
-pax_luxury_livery_recolour_maps = (  # see note on DFLT above
-    ("DFLT", hull_recolour_CC2),
-)
-# Piece goods carrier, only DFLT is used as of Jan 2018
-piece_goods_carrier_livery_recolour_maps = (  # see note on DFLT above
-    ("DFLT", hull_recolour_CC1),
-)
-# Refrigerated ships, only DFLT is used as of Jan 2018
-# !! possibly this is the same as edibles_tanker map, and could be consolidated ??
-reefer_livery_recolour_maps = (  # see note on DFLT above
-    (
-        "DFLT",
-        {
-            136: 5,
-            137: 7,
-            138: 8,
-            139: 9,
-            140: 10,
-            141: 11,
-            142: 12,
-            143: 13,
-            # deck recolour
-            70: 1,
-            60: 2,
-            72: 3,
-            123: 4,
-            74: 5,
-            75: 6,
-        },
-    ),
-)
-# tanker hull colours come from Polar Fox, but ship deck colour remap is local to Sam
-# this one is just a simple dict which the Polar Fox remaps are extended with
-tanker_deck_recolour_maps = {
-    170: 17,
-    171: 18,
-    172: 19,
-    173: 20,
-    174: 21,
-    175: 22,
-    176: 23,
-    70: 40,
-    60: 41,
-    72: 42,
-    123: 43,
-    74: 44,
-    75: 45,
-}
-# Trawler, only DFLT is used as of Jan 2018
-trawler_livery_recolour_maps = (  # see note on DFLT above
-    (
-        "DFLT",
-        {
-            136: 146,
-            137: 147,
-            138: 148,
-            139: 149,
-            140: 150,
-            141: 151,
-            142: 152,
-            143: 153,
-        },
-    ),
 )

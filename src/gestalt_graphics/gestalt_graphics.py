@@ -52,6 +52,9 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
         self.hull_recolour_map = kwargs.get(
             "hull_recolour_map", graphics_constants.hull_recolour_CC1
         )
+        # n.b. deck and house recolours are defined per gestalt as of Jan 2021, not in base class, refactor if need arises
+        self.deck_recolour_map = kwargs.get("deck_recolour_map", None)
+        self.house_recolour_map = kwargs.get("house_recolour_map", None)
         # cargo flags
         self.has_bulk = kwargs.get("bulk", False)
         self.has_piece = kwargs.get("piece", None) is not None
@@ -160,9 +163,22 @@ class GestaltGraphicsSimpleColourRemaps(GestaltGraphics):
         self.pipeline = pipelines.get_pipeline(
             "extend_spriterows_for_composited_cargos_pipeline"
         )
-        # cargo recolour_maps map cargo labels to liveries, use 'DFLT' as the labe in the case of just one livery
-        default_cargo_recolour_map = (('DFLT', {}),) # note weird tuple format is weird eh
-        self.cargo_recolour_maps = kwargs.get('cargo_recolour_maps', default_cargo_recolour_map)
+        # pass either a single hull recolour or pass recolours per cargo
+        if kwargs.get("hull_recolour_map", None) is not None:
+            self.hull_recolour_map = kwargs.get("hull_recolour_map", None)
+            default_cargo_recolour_map = (
+                ("DFLT", {}),
+            )  # cargo_recolour_maps requires an empty default
+            self.cargo_recolour_maps = kwargs.get(
+                "cargo_recolour_maps", default_cargo_recolour_map
+            )
+        else:
+            # rely on erroring if neither hull_recolour_map or cargo_recolour_maps are passed
+            self.cargo_recolour_maps = kwargs["cargo_recolour_maps"]
+            self.hull_recolour_map = None
+        # n.b. deck and house recolours are defined per gestalt as of Jan 2021, not in base class, refactor if need arises
+        self.deck_recolour_map = kwargs.get("deck_recolour_map", None)
+        self.house_recolour_map = kwargs.get("house_recolour_map", None)
 
     @property
     def generic_rows(self):
