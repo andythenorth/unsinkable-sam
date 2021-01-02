@@ -40,7 +40,7 @@ def main():
         name="Ellesmere",
         gen=3,
         subtype="D",
-        hull="BargeHouseRear",
+        hull="ShipHouseRear",
         str_type_info="SMALL_TANKER_COASTAL_INLAND",
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
