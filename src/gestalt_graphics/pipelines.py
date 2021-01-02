@@ -336,11 +336,6 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     vehicle_bulk_cargo_input_as_spritesheet, crop_box_dest
                 )
             )
-            self.units.append(
-                SimpleRecolour(
-                    recolour_map=self.ship.gestalt_graphics.hull_recolour_map
-                )
-            )
             self.units.append(SimpleRecolour(recolour_map))
             self.units.append(
                 AddCargoLabel(
@@ -487,11 +482,6 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             )
             self.units.append(
                 AppendToSpritesheet(vehicle_comped_image_as_spritesheet, crop_box_dest)
-            )
-            self.units.append(
-                SimpleRecolour(
-                    recolour_map=self.ship.gestalt_graphics.hull_recolour_map
-                )
             )
             self.units.append(
                 AddCargoLabel(
