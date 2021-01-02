@@ -10,6 +10,7 @@ from polar_fox.graphics_units import (
     AppendToSpritesheet,
     AddCargoLabel,
     AddBuyMenuSprite,
+    ProcessingUnit,
 )
 import polar_fox.pixa as pixa
 from polar_fox.pixa import Spritesheet, PieceCargoSprites
@@ -113,7 +114,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         super().__init__("extend_spriterows_for_composited_cargos_pipeline")
 
     def extend_base_image_to_3_rows_with_waterline_masked_per_load_state(
-        self, base_image
+        self, base_image, deck_recolour_map=None, house_recolour_map=None, house_make_safe_recolour_map=None
     ):
         # This composites the ship from:
         # - the ship base image (this contains the detail for the specific ship such as wheelhouse, holds etc)
@@ -204,11 +205,39 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             "P", (self.sprites_max_x_extent, 3 * graphics_constants.spriterow_height)
         )
         result_image.putpalette(DOS_PALETTE)
-        result_image.paste(
-            hull_image, crop_box_comp_dest_1
-        )  # by design, no mask needed for first load state
+        # by design, no mask needed for first load state
+        result_image.paste(hull_image, crop_box_comp_dest_1)
         result_image.paste(hull_image, crop_box_comp_dest_2, waterline_mask_row_2)
         result_image.paste(hull_image, crop_box_comp_dest_3, waterline_mask_row_3)
+
+        # directly recolour for deck and house adjustments, which can be defined per ship
+        # hull recoloring for specific cargos is *not* done here, use GestaltGraphicsLiveryOnly for that case
+        # !! this might want extended for hull recolouring,
+        #   !! then some Ship types could stop using GestaltGraphicsLiveryOnly and instead we could have a GestaltGraphicsRecolourOnly gestalt?
+        #   !! maybe, but check what the templating expects
+        #   !! Horse has refactored GestaltGraphicsLiveryOnly gestalt to GestaltGraphicsSimpleBodyColourRemaps and template to vehicle_with_simple_body_colour_remaps
+        #
+        # !! I've used deck and house maps to be explicit and not have magic guessing
+        # !! but if the order of remapping becomes significant, then swap this to just pass a list of arbitrary recolours, to execute in order, that will permit recolouring to intermediates to control effects
+        # !! currently not known to be needed, probably TMWFTLB
+        # this could be avoided by using the other never-used purple range for house, but that is harder to draw with (conflates with hull purple)
+        # this could all be avoided by allowing completely arbitrary pipeline order, just a list of recolour maps declared per ship
+        # that might be fine, but I prefer the explicit interface, arbitrary lists tend towards silent bugs
+        # house recolour map tends to use the dark red range as it's nice to draw in, contrasts with hull purple and is consistent with use in e.g. Iron Horse, Polar Fox etc
+        # but dark red may also be a destination for deck recolour, so first force the house recolour to the spare (non-hull) purple range
+        if house_make_safe_recolour_map is not None:
+            recolour_table = ProcessingUnit().make_recolour_table(house_recolour_map)
+            result_image = result_image.point(recolour_table)
+        # then deck recolour first, as it recolours arbitrary ranges, and has a chance of colliding with house and hull destination colours
+        if deck_recolour_map is not None:
+            recolour_table = ProcessingUnit().make_recolour_table(deck_recolour_map)
+            result_image = result_image.point(recolour_table)
+        # then house and deck
+        if house_recolour_map is not None:
+            recolour_table = ProcessingUnit().make_recolour_table(house_recolour_map)
+            result_image = result_image.point(recolour_table)
+        #if self.ship.id == "universal_freighter_ship_gen_3E":
+            #result_image.show()
         hull_base.close()
         return result_image
 
@@ -295,6 +324,8 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         vehicle_bulk_cargo_image.paste(
             vehicle_base_image, None, vehicle_bulk_cargo_mask
         )
+
+        # if self.ship.id == "universal_freighter_ship_gen_3E":
         # vehicle_bulk_cargo_image.show()
 
         vehicle_bulk_cargo_input_as_spritesheet = pixa.make_spritesheet_from_image(
@@ -307,12 +338,12 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     vehicle_bulk_cargo_input_as_spritesheet, crop_box_dest
                 )
             )
-            self.units.append(SimpleRecolour(recolour_map))
             self.units.append(
                 SimpleRecolour(
                     recolour_map=self.ship.gestalt_graphics.hull_recolour_map
                 )
             )
+            self.units.append(SimpleRecolour(recolour_map))
             self.units.append(
                 AddCargoLabel(
                     label=label,
