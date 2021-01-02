@@ -154,14 +154,15 @@ class GestaltGraphicsSimpleColourRemaps(GestaltGraphics):
     Not suitable for recolouring cargo sprites.
     """
 
-    def __init__(self, recolour_maps, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__()
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
         self.pipeline = pipelines.get_pipeline(
             "extend_spriterows_for_composited_cargos_pipeline"
         )
-        # recolour_maps map cargo labels to liveries, use 'DFLT' as the labe in the case of just one livery
-        self.recolour_maps = recolour_maps
+        # cargo recolour_maps map cargo labels to liveries, use 'DFLT' as the labe in the case of just one livery
+        default_cargo_recolour_map = (('DFLT', {}),) # note weird tuple format is weird eh
+        self.cargo_recolour_maps = kwargs.get('cargo_recolour_maps', default_cargo_recolour_map)
 
     @property
     def generic_rows(self):
@@ -183,7 +184,7 @@ class GestaltGraphicsSimpleColourRemaps(GestaltGraphics):
         # !! the order of cargo types here must be kept in sync with the order in the cargo graphics processor
         result = {}
         counter = 0
-        for cargo_map in self.recolour_maps:
+        for cargo_map in self.cargo_recolour_maps:
             result[cargo_map[0]] = [
                 counter
             ]  # list because multiple spriterows can map to a cargo label

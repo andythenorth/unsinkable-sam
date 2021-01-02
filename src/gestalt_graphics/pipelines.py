@@ -272,7 +272,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             self.vehicle_base_image, DOS_PALETTE
         )
 
-        for label, recolour_map in self.ship.gestalt_graphics.recolour_maps:
+        for label, recolour_map in self.ship.gestalt_graphics.cargo_recolour_maps:
             crop_box_dest = (
                 0,
                 0,
