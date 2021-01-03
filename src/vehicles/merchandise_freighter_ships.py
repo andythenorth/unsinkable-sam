@@ -2,6 +2,7 @@ from ship import MerchandiseFreighterShip
 
 
 def main():
+    """
     ship = MerchandiseFreighterShip(
         roster_id="default",
         numeric_id=78,
@@ -13,6 +14,7 @@ def main():
         cargo_length=8,
         sprites_complete=False,
     )
+    """
 
     ship = MerchandiseFreighterShip(
         roster_id="default",

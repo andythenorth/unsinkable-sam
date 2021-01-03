@@ -2,6 +2,7 @@ from ship import EdiblesTanker
 
 
 def main():
+
     ship = EdiblesTanker(
         numeric_id=69,
         name="Gumdrop",
