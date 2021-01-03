@@ -2,6 +2,7 @@ from ship import TankerShip
 
 
 def main():
+    """
     ship = TankerShip(
         numeric_id=43,
         name="Chirikov",
@@ -12,6 +13,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
+    """
 
     ship = TankerShip(
         numeric_id=67,
