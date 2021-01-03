@@ -46,6 +46,17 @@ house_make_magic_red_safe_recolour_map = {
     47: house_magic_colour + 7,
 }
 # arbitrary house recolouring maps
+house_recolour_CC2_to_CC1 = {
+    CC2: CC1,
+    CC2 + 1: CC1 + 1,
+    CC2 + 2: CC1 + 2,
+    CC2 + 3: CC1 + 3,
+    CC2 + 4: CC1 + 4,
+    CC2 + 5: CC1 + 5,
+    CC2 + 6: CC1 + 6,
+    CC2 + 7: CC1 + 7,
+
+}
 house_recolour_roof_CC1_1 = {
     house_magic_colour: CC1,
     house_magic_colour + 1: CC1 + 1,
