@@ -2,6 +2,7 @@ from ship import Reefer
 
 
 def main():
+
     ship = Reefer(
         numeric_id=760,
         name="Seafrost",

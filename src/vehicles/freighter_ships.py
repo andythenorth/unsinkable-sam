@@ -12,7 +12,7 @@ def main():
     name="Watchet",
     name="Amherst",
     """
-
+    """
     ship = FreighterShip(
         roster_id="default",
         numeric_id=30,
@@ -24,7 +24,7 @@ def main():
         cargo_length=8,
         sprites_complete=False,
     )
-
+    """
     ship = FreighterShip(
         roster_id="default",
         numeric_id=60,
@@ -97,8 +97,7 @@ def main():
         sprites_complete=True,
     )
 
-
-"""
+    """
     ship = FreighterShip(
         roster_id="default",
         numeric_id=170,
@@ -110,4 +109,4 @@ def main():
         cargo_length=8,
         sprites_complete=False,
     )
-"""
+    """
