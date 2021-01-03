@@ -2,6 +2,7 @@ from ship import FreighterShip
 
 
 def main():
+    """
     ship = FreighterShip(
         roster_id="default",
         numeric_id=30,
@@ -59,6 +60,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=8,
     )
+    """
 
     ship = FreighterShip(
         roster_id="default",
@@ -72,6 +74,7 @@ def main():
         sprites_complete=True,
     )
 
+    """
     ship = FreighterShip(
         roster_id="default",
         numeric_id=42,
@@ -83,8 +86,6 @@ def main():
         cargo_length=8,
     )
 
-
-"""
     ship = FreighterShip(
         roster_id="default",
         numeric_id=17,
@@ -96,4 +97,4 @@ def main():
         cargo_length=8,
         sprites_complete=False,
     )
-"""
+    """
