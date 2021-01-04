@@ -553,6 +553,56 @@ class FlatDeckBarge(Ship):
     """
 
 
+class FreighterBase(Ship):
+    """
+    General purpose freight vessel type.
+    No pax or mail cargos, refits any other cargo including liquids (in barrels or containers).
+    Tend to be fitted with divided holds, tween-decks etc, distinguishing them from mini-bulkers which are just a single unfitted box hold.
+    IRL: "multi-purpose vessel" (modern designation), or "general cargo vessel" or "dry cargo vessel".  Confusing much?
+    Ship version is probably geared (cranes), barge version is probably not.
+    """
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.class_refit_groups = ["all_freight"]
+        self.label_refits_allowed = []  # no specific labels needed, refits all freight
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
+            "non_freight_special_cases"
+        ]
+        self.default_cargos = global_constants.default_cargos["open"]
+        # Graphics configuration
+        # might need to split house stuff down to individual ships / barges?
+        if self.subtype == "E":
+            house_recolour_map = graphics_constants.house_recolour_roof_dark_red_1
+        elif self.subtype == "F":
+            house_recolour_map = graphics_constants.house_recolour_roof_silver_1
+        else:
+            house_recolour_map = None
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(
+            bulk=True, piece="open", house_recolour_map=house_recolour_map
+        )
+
+
+class FreighterBarge(FreighterBase):
+    """
+    Sparse subclass, to set base ID
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "universal_freighter_barge"
+        super().__init__(**kwargs)
+
+
+class FreighterShip(FreighterBase):
+    """
+    Sparse subclass, to set base ID
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "universal_freighter_ship"
+        super().__init__(**kwargs)
+
+
 class LivestockCarrier(Ship):
     """
     Special type for livestock (as you might guess).
@@ -790,53 +840,3 @@ class Trawler(Ship):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             hull_recolour_map=hull_recolour_map
         )
-
-
-class UniversalFreighterBase(Ship):
-    """
-    General purpose freight vessel type.
-    No pax or mail cargos, refits any other cargo including liquids (in barrels or containers).
-    Tend to be fitted with divided holds, tween-decks etc, distinguishing them from mini-bulkers which are just a single unfitted box hold.
-    IRL: "multi-purpose vessel" (modern designation), or "general cargo vessel" or "dry cargo vessel".  Confusing much?
-    Ship version is probably geared (cranes), barge version is probably not.
-    """
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.class_refit_groups = ["all_freight"]
-        self.label_refits_allowed = []  # no specific labels needed, refits all freight
-        self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
-            "non_freight_special_cases"
-        ]
-        self.default_cargos = global_constants.default_cargos["open"]
-        # Graphics configuration
-        # might need to split house stuff down to individual ships / barges?
-        if self.subtype == "E":
-            house_recolour_map = graphics_constants.house_recolour_roof_dark_red_1
-        elif self.subtype == "F":
-            house_recolour_map = graphics_constants.house_recolour_roof_silver_1
-        else:
-            house_recolour_map = None
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo(
-            bulk=True, piece="open", house_recolour_map=house_recolour_map
-        )
-
-
-class UniversalFreighterBarge(UniversalFreighterBase):
-    """
-    Sparse subclass, to set base ID
-    """
-
-    def __init__(self, **kwargs):
-        self.base_id = "universal_freighter_barge"
-        super().__init__(**kwargs)
-
-
-class UniversalFreighterShip(UniversalFreighterBase):
-    """
-    Sparse subclass, to set base ID
-    """
-
-    def __init__(self, **kwargs):
-        self.base_id = "universal_freighter_ship"
-        super().__init__(**kwargs)

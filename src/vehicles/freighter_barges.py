@@ -1,8 +1,8 @@
-from ship import UniversalFreighterBarge
+from ship import FreighterBarge
 
 
 def main():
-    ship = UniversalFreighterBarge(
+    ship = FreighterBarge(
         numeric_id=46,
         name="Lindau",
         gen=3,
@@ -12,7 +12,7 @@ def main():
         cargo_length=8,
     )
 
-    ship = UniversalFreighterBarge(
+    ship = FreighterBarge(
         numeric_id=47,
         name="Detroit",
         gen=3,
@@ -22,7 +22,7 @@ def main():
         cargo_length=8,
     )
 
-    ship = UniversalFreighterBarge(
+    ship = FreighterBarge(
         numeric_id=48,
         name="Roanoke",
         gen=3,

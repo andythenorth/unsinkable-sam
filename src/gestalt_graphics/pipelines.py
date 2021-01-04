@@ -323,7 +323,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             vehicle_base_image, None, vehicle_bulk_cargo_mask
         )
 
-        # if self.ship.id == "universal_freighter_ship_gen_3E":
+        # if self.ship.id == "freighter_ship_gen_3E":
         # vehicle_bulk_cargo_image.show()
 
         vehicle_bulk_cargo_input_as_spritesheet = pixa.make_spritesheet_from_image(

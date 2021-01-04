@@ -38,6 +38,8 @@ from vehicles import (
     cargo_liners,
     cryo_tankers,
     edibles_tankers,
+    freighter_barges,
+    freighter_ships,
     livestock_carriers,
     mail_ships,
     pax_fast_loading_ships,
@@ -46,8 +48,6 @@ from vehicles import (
     tanker_barges,
     tanker_ships,
     trawlers,
-    universal_freighter_barges,
-    universal_freighter_ships,
 )
 
 
@@ -114,6 +114,8 @@ def main():
     cargo_liners.main()
     cryo_tankers.main()
     edibles_tankers.main()
+    freighter_barges.main()
+    freighter_ships.main()
     livestock_carriers.main()
     mail_ships.main()
     pax_fast_loading_ships.main()
@@ -122,5 +124,3 @@ def main():
     tanker_barges.main()
     tanker_ships.main()
     trawlers.main()
-    universal_freighter_barges.main()
-    universal_freighter_ships.main()

@@ -1,8 +1,8 @@
-from ship import UniversalFreighterShip
+from ship import FreighterShip
 
 
 def main():
-    ship = UniversalFreighterShip(
+    ship = FreighterShip(
         roster_id="default",
         numeric_id=41,
         name="Shackleton",
@@ -14,7 +14,7 @@ def main():
         sprites_complete=False,
     )
 
-    ship = UniversalFreighterShip(
+    ship = FreighterShip(
         roster_id="default",
         numeric_id=6,
         name="Matson",
@@ -25,7 +25,7 @@ def main():
         cargo_length=3,
     )
 
-    ship = UniversalFreighterShip(
+    ship = FreighterShip(
         roster_id="default",
         numeric_id=5,
         name="Gelenbeek",
@@ -36,7 +36,7 @@ def main():
         cargo_length=3,
     )
 
-    ship = UniversalFreighterShip(
+    ship = FreighterShip(
         roster_id="default",
         numeric_id=4,
         name="Eagle",
@@ -47,7 +47,7 @@ def main():
         cargo_length=6,
     )
 
-    ship = UniversalFreighterShip(
+    ship = FreighterShip(
         roster_id="default",
         numeric_id=3,
         name="Akraberg",
@@ -58,7 +58,7 @@ def main():
         cargo_length=8,
     )
 
-    ship = UniversalFreighterShip(
+    ship = FreighterShip(
         roster_id="default",
         numeric_id=42,
         name="Longstone",
@@ -69,7 +69,7 @@ def main():
         cargo_length=8,
     )
 
-    ship = UniversalFreighterShip(
+    ship = FreighterShip(
         roster_id="default",
         numeric_id=30,
         name="Thesiger",
@@ -83,7 +83,7 @@ def main():
 
 
 """
-    ship = UniversalFreighterShip(
+    ship = FreighterShip(
         roster_id="default",
         numeric_id=17,
         name="Fiennes",

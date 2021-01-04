@@ -22,6 +22,8 @@ STR_NAME_CARGO_LINER                                            :Cargo Liner
 STR_NAME_COVERED_HOPPER_BARGE                                   :Covered Bulk Barge
 STR_NAME_CRYO_TANKER                                            :Gas Tanker
 STR_NAME_EDIBLES_TANKER                                         :Edibles Tanker
+STR_NAME_FREIGHTER_BARGE                                        :Barge
+STR_NAME_FREIGHTER_SHIP                                         :Freighter
 STR_NAME_LIVESTOCK_CARRIER                                      :Livestock Carrier
 STR_NAME_LOG_TUG                                                :Log Tug
 STR_NAME_MAIL_SHIP                                              :Mail Ship
@@ -31,8 +33,6 @@ STR_NAME_REEFER                                                 :Refrigerated Sh
 STR_NAME_TANKER_BARGE                                           :Tank Barge
 STR_NAME_TANKER_SHIP                                            :Tanker
 STR_NAME_TRAWLER                                                :Trawler
-STR_NAME_UNIVERSAL_FREIGHTER_BARGE                              :Barge
-STR_NAME_UNIVERSAL_FREIGHTER_SHIP                               :Freighter
 
 STR_POWER_TYPE_DIESEL                                           :Diesel
 
