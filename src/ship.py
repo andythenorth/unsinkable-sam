@@ -404,6 +404,38 @@ class BulkShip(BulkBase):
         super().__init__(**kwargs)
 
 
+class CargoLiner(Ship):
+    """
+    Piece goods cargos, other selected cargos.  Equivalent of Road Hog box hauler and Iron Horse box car / van.
+    IRL: "GCV", "Break-bulk", "Pallet carrier", also cargo packet (but not mail packet)
+    Not "box ship" because IRL they are container carriers (yair).
+    The name is ultimately just a generic solution to 'this is not quite a general freighter', that doesn't describe the specific shape or cargo type or RL trade name.
+    Many name variants were tried, Cargo Liner seemed to stick.
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "cargo_liner"
+        super().__init__(**kwargs)
+        self.class_refit_groups = ["packaged_freight"]
+        self.label_refits_allowed = [
+            "MAIL",
+            "GRAI",
+            "WHEA",
+            "MAIZ",
+            "FRUT",
+            "BEAN",
+            "NITR",
+        ]  # Iron Horse compatibility
+        self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
+            "non_freight_special_cases"
+        ]
+        self.default_cargos = global_constants.default_cargos["box"]
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
+            hull_recolour_map=graphics_constants.hull_recolour_CC1
+        )
+
+
 class ContainerCarrier(Ship):
     """
     Refits to limited range of freight cargos, shows container graphics according to load state.
@@ -640,36 +672,6 @@ class PaxLuxuryShip(PaxShipBase):
         # default mapping of subtypes to hull lengths; over-ride in subclasses as needed
         # !! WIP the actual mappings here are somewhat undecided
         return {"A": "44px", "B": "64px", "C": "96px", "D": "128px"}
-
-
-class PieceGoodsCarrier(Ship):
-    """
-    Piece goods cargos, other selected cargos.  Equivalent of Road Hog box hauler and Iron Horse box wagon.
-    IRL: "GCV", "Break-bulk", "Pallet carrier".
-    Not "box ship" because IRL they are container carriers (yair).
-    """
-
-    def __init__(self, **kwargs):
-        self.base_id = "piece_goods_carrier"
-        super().__init__(**kwargs)
-        self.class_refit_groups = ["packaged_freight"]
-        self.label_refits_allowed = [
-            "MAIL",
-            "GRAI",
-            "WHEA",
-            "MAIZ",
-            "FRUT",
-            "BEAN",
-            "NITR",
-        ]  # Iron Horse compatibility
-        self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
-            "non_freight_special_cases"
-        ]
-        self.default_cargos = global_constants.default_cargos["box"]
-        # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=graphics_constants.hull_recolour_CC1
-        )
 
 
 class Reefer(Ship):

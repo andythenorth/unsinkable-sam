@@ -1,8 +1,8 @@
-from ship import PieceGoodsCarrier
+from ship import CargoLiner
 
 
 def main():
-    ship = PieceGoodsCarrier(
+    ship = CargoLiner(
         numeric_id=7,
         name="Rampside",
         gen=3,
@@ -11,7 +11,7 @@ def main():
         effect_type="EFFECT_SPRITE_STEAM",
     )
 
-    ship = PieceGoodsCarrier(
+    ship = CargoLiner(
         numeric_id=45,
         name="Rivingen",
         gen=3,
@@ -20,7 +20,7 @@ def main():
         effect_type="EFFECT_SPRITE_STEAM",
     )
 
-    ship = PieceGoodsCarrier(
+    ship = CargoLiner(
         numeric_id=8,
         name="Trondheim",
         gen=3,

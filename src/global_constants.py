@@ -16,7 +16,7 @@ buy_menu_sort_order_ships = [
     "mail_ship",
     "universal_freighter_ship",
     "universal_freighter_barge",
-    "piece_goods_carrier",
+    "cargo_liner",
     "bulk_ship",
     "bulk_barge",
     "tanker_ship",
@@ -36,7 +36,7 @@ role_group_mapping = {
     "dry_cargo": [
         "universal_freighter_ship",
         "universal_freighter_barge",
-        "piece_goods_carrier",
+        "cargo_liner",
         "bulk_ship",
         "bulk_barge",
     ],

@@ -35,13 +35,13 @@ from vehicles import numeric_id_defender
 from vehicles import (
     bulk_ships,
     bulk_barges,
+    cargo_liners,
     cryo_tankers,
     edibles_tankers,
     livestock_carriers,
     mail_ships,
     pax_fast_loading_ships,
     pax_luxury_ships,
-    piece_goods_carriers,
     reefers,
     tanker_barges,
     tanker_ships,
@@ -114,7 +114,7 @@ def main():
     mail_ships.main()
     universal_freighter_ships.main()
     universal_freighter_barges.main()
-    piece_goods_carriers.main()
+    cargo_liners.main()
     bulk_ships.main()
     # bulk_barges.main() # barges need refactored to be riverboats / push barges
     tanker_ships.main()

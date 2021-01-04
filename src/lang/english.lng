@@ -18,6 +18,7 @@ STR_PARAM_ROSTER_OPTION_0                                       :This Sceptered 
 
 STR_NAME_BULK_BARGE                                             :Bulk Barge
 STR_NAME_BULK_SHIP                                              :Mini Bulker
+STR_NAME_CARGO_LINER                                            :Cargo Liner
 STR_NAME_COVERED_HOPPER_BARGE                                   :Covered Bulk Barge
 STR_NAME_CRYO_TANKER                                            :Gas Tanker
 STR_NAME_EDIBLES_TANKER                                         :Edibles Tanker
@@ -26,7 +27,6 @@ STR_NAME_LOG_TUG                                                :Log Tug
 STR_NAME_MAIL_SHIP                                              :Mail Ship
 STR_NAME_PAX_FAST_LOADING                                       :Ferry
 STR_NAME_PAX_LUXURY                                             :Luxury Ferry
-STR_NAME_PIECE_GOODS_CARRIER                                    :Side Loader
 STR_NAME_REEFER                                                 :Refrigerated Ship
 STR_NAME_TANKER_BARGE                                           :Tank Barge
 STR_NAME_TANKER_SHIP                                            :Tanker
