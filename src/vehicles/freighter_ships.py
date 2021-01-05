@@ -60,17 +60,6 @@ def main():
 
     ship = FreighterShip(
         roster_id="default",
-        numeric_id=42,
-        name="Longstone",
-        gen=3,
-        subtype="F",
-        hull="ShipHouseRear",
-        effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
-        cargo_length=8,
-    )
-
-    ship = FreighterShip(
-        roster_id="default",
         numeric_id=41,
         name="Thesiger",
         gen=3,
@@ -81,6 +70,17 @@ def main():
         sprites_complete=True,
     )
 
+
+    ship = FreighterShip(
+        roster_id="default",
+        numeric_id=42,
+        name="Longstone",
+        gen=3,
+        subtype="F",
+        hull="ShipHouseRear",
+        effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
+        cargo_length=8,
+    )
 
 """
     ship = FreighterShip(
