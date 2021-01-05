@@ -589,7 +589,7 @@ class FreighterBarge(FreighterBase):
     """
 
     def __init__(self, **kwargs):
-        self.base_id = "universal_freighter_barge"
+        self.base_id = "freighter_barge"
         super().__init__(**kwargs)
 
 
@@ -599,7 +599,7 @@ class FreighterShip(FreighterBase):
     """
 
     def __init__(self, **kwargs):
-        self.base_id = "universal_freighter_ship"
+        self.base_id = "freighter_ship"
         super().__init__(**kwargs)
 
 

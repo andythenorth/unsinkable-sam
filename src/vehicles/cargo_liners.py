@@ -3,6 +3,15 @@ from ship import CargoLiner
 
 def main():
     ship = CargoLiner(
+        numeric_id=9,
+        name="Amethyste",
+        gen=2,
+        subtype="E",
+        hull="TempHouseNone",
+        effect_type="EFFECT_SPRITE_STEAM",
+    )
+
+    ship = CargoLiner(
         numeric_id=7,
         name="Rampside",
         gen=3,
