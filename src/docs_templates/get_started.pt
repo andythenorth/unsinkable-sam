@@ -26,19 +26,14 @@
             <div id="download-unsinkable-sam">
                 <h2>1. Download Unsinkable Sam</h2>
                 <p class="lead">
-                    Unsinkable Sam is available from the content service in OpenTTD, as a zip for manual installation,
-                    or as a source checkout for compiling locally (requires mercurial and various python dependencies).
+                    Unsinkable Sam is available from the content service in OpenTTD,
+                    or as a source checkout for compiling locally (requires git and various python dependencies).
                 </p>
                 <div class="row">
                     <div class="col-sm-4">
                         <h3>Download in OpenTTD</h3>
                         <p><strong>Easiest</strong>: get Unsinkable Sam from the OpenTTD content service.</p>
                         <a class="btn btn-primary btn-block" href="http://wiki.openttd.org/Content_downloading">Instructions</a>
-                    </div>
-                    <div class="col-sm-4">
-                        <h3>Download Zip</h3>
-                        <p>Get the latest Unsinkable Sam release for <a href="http://wiki.openttd.org/Newgrf#Manual_install">manual install</a>.</p>
-                        <a class="btn btn-info btn-block" href="http://bundles.openttdcoop.org/unsinkable-sam/releases/LATEST/">Download Unsinkable Sam</a>
                     </div>
                     <div class="col-sm-4">
                         <h3>Download Source</h3>
