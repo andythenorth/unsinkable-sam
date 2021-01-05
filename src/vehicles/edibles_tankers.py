@@ -2,6 +2,7 @@ from ship import EdiblesTanker
 
 
 def main():
+    """
     ship = EdiblesTanker(
         numeric_id=58,
         name="Bounty",
@@ -28,7 +29,7 @@ def main():
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
     )
-
+    """
     ship = EdiblesTanker(
         numeric_id=56,
         name="Belliveau",
@@ -38,7 +39,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=True,
     )
-
+    """
     ship = EdiblesTanker(
         numeric_id=18,
         name="Cortes",
@@ -48,3 +49,4 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
+    """
