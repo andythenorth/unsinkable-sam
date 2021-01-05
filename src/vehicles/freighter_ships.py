@@ -4,7 +4,7 @@ from ship import FreighterShip
 def main():
     ship = FreighterShip(
         roster_id="default",
-        numeric_id=41,
+        numeric_id=30,
         name="Shackleton",
         gen=2,
         subtype="E",
@@ -71,7 +71,7 @@ def main():
 
     ship = FreighterShip(
         roster_id="default",
-        numeric_id=30,
+        numeric_id=41,
         name="Thesiger",
         gen=3,
         subtype="E",
