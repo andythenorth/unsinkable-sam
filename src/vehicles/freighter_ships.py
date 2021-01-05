@@ -70,7 +70,6 @@ def main():
         sprites_complete=True,
     )
 
-
     ship = FreighterShip(
         roster_id="default",
         numeric_id=42,
@@ -81,6 +80,7 @@ def main():
         effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
         cargo_length=8,
     )
+
 
 """
     ship = FreighterShip(

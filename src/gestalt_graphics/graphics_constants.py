@@ -55,7 +55,6 @@ house_recolour_CC2_to_CC1 = {
     CC2 + 5: CC1 + 5,
     CC2 + 6: CC1 + 6,
     CC2 + 7: CC1 + 7,
-
 }
 house_recolour_roof_CC1_1 = {
     house_magic_colour: CC1,
