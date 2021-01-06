@@ -238,9 +238,10 @@ class Ship(object):
         # !! likely this should account for pax / mail / freight etc, this would be better done by sticking a multiplier on the subclass
         return self.default_capacity / 10
 
-    def get_str_name_suffix(self):
-        # used in ship name string only, relies on name property value being in format "Foo [Bar]" for Name [Type Suffix]
-        # this could be refactored to be simpler, see Iron Horse where [STUFF] is dropped from vehicle name declarations
+    @property
+    def name_suffix_as_string_name(self):
+        # used in ship name string only
+        # may be over-ridden in subclasses
         return "STR_NAME_" + self.base_id.upper()
 
     def get_str_type_info(self):
@@ -253,7 +254,7 @@ class Ship(object):
             "string(STR_NAME_"
             + self.id
             + ", string("
-            + self.get_str_name_suffix()
+            + self.name_suffix_as_string_name
             + "))"
         )
 
@@ -379,8 +380,11 @@ class BulkBase(Ship):
         self.default_cargos = global_constants.default_cargos["dump"]
         self.loading_speed_multiplier = 2
         # Graphics configuration
+        house_recolour_map = (
+            graphics_constants.house_recolour_roof_CC1_1.copy()
+        )  # copy because update is used to extend the map
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(
-            bulk=True, hull_recolour_map=graphics_constants.hull_recolour_CC1
+            bulk=True, hull_recolour_map=graphics_constants.hull_recolour_CC1, house_recolour_map=house_recolour_map
         )
 
 
@@ -521,7 +525,7 @@ class EdiblesTanker(Ship):
         }
         house_recolour_map = (
             graphics_constants.house_recolour_roof_CC1_1.copy()
-        )  # copy becuase update is used to extend the map
+        )  # copy because update is used to extend the map
         house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             hull_recolour_map=hull_recolour_map,
@@ -785,7 +789,7 @@ class TankerBase(Ship):
         if self.subtype == "E":
             house_recolour_map = (
                 graphics_constants.house_recolour_roof_dark_red_1.copy()
-            )  # copy becuase update is used to extend the map
+            )  # copy because update is used to extend the map
             house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
         elif self.subtype == "F":
             house_recolour_map = graphics_constants.house_recolour_roof_silver_1
