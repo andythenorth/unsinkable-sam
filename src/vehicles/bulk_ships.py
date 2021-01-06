@@ -3,6 +3,16 @@ from ship import BulkShip
 
 def main():
     ship = BulkShip(
+        numeric_id=51,
+        name="Dyna",
+        gen=2,
+        subtype="E",
+        hull="TempHouseNone",
+        effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
+    )
+
+    ship = BulkShip(
         numeric_id=54,
         name="Saltlick",
         gen=3,

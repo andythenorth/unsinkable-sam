@@ -33,16 +33,6 @@ def main():
     )
 
     ship = BulkBarge(
-        numeric_id=52,
-        name="Dyna",
-        gen=2,
-        subtype="E",
-        hull="PushBargeHouseRear",
-        effect_type="EFFECT_SPRITE_DIESEL",
-        sprites_complete=False,
-    )
-
-    ship = BulkBarge(
         numeric_id=9,
         name="Bigrock",
         gen=2,

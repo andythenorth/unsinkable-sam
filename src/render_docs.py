@@ -71,10 +71,13 @@ class DocHelper(object):
 
     def unpack_name_suffix(self, name_suffix):
         # this duplicates a method on Ship, which isn't available in tech tree row header cells as no ship is in scope
-        return base_lang_strings["STR_NAME_" + name_suffix.upper()]
+        try:
+            return base_lang_strings["STR_NAME_" + name_suffix.upper()]
+        except:
+            utils.echo_message("Can't return name suffix for " + name_suffix)
+            return "CABBAGE"
 
     def unpack_name_string(self, ship):
-        # doesn't include the power type suffix
         return ship._name + " " + self.unpack_name_suffix(ship.base_id)
 
     def get_props_to_print_in_code_reference(self, subclass):

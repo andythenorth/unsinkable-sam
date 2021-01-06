@@ -7,7 +7,7 @@ def main():
         name="Chirikov",
         gen=2,
         subtype="E",
-        hull="ShipHouseRear",
+        hull="TempHouseNone",
         str_type_info="SMALL_TANKER_COASTAL_INLAND",
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,

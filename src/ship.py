@@ -386,6 +386,15 @@ class BulkBase(Ship):
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(
             bulk=True, hull_recolour_map=graphics_constants.hull_recolour_CC1, house_recolour_map=house_recolour_map
         )
+    @property
+
+    def name_suffix_as_string_name(self):
+        # used in ship name string only
+        # may be over-ridden in subclasses
+        if self.gen < 3:
+            return "STR_NAME_COLLIER"
+        else:
+            return "STR_NAME_MINI_BULKER"
 
 
 class BulkBarge(BulkBase):
