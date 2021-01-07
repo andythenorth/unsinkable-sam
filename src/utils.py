@@ -91,5 +91,3 @@ def unpack_colour(colour_name, cc_to_remap):
             + " + company_colour"
             + str(cc_to_remap)
         )
-
-

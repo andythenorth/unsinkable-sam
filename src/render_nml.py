@@ -72,7 +72,12 @@ def main():
         unsinkable_sam.get_ships_in_buy_menu_order()
     )  # 'consists' not 'ships', it makes it easier to cross-maintain this script with scripts in IH and RH
 
-    header_items = ["header", "cargo_table", "recolour_sprites", "procedures_colour_randomisation_strategies"]
+    header_items = [
+        "header",
+        "cargo_table",
+        "recolour_sprites",
+        "procedures_colour_randomisation_strategies",
+    ]
     for header_item in header_items:
         grf_nml.write(render_header_item_nml(header_item, consists))
 

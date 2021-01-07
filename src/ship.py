@@ -384,7 +384,9 @@ class BulkBase(Ship):
             graphics_constants.house_recolour_roof_CC1_1.copy()
         )  # copy because update is used to extend the map
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(
-            bulk=True, hull_recolour_map=graphics_constants.hull_recolour_CC1, house_recolour_map=house_recolour_map
+            bulk=True,
+            hull_recolour_map=graphics_constants.hull_recolour_CC1,
+            house_recolour_map=house_recolour_map,
         )
 
 
