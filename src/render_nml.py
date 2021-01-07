@@ -33,6 +33,7 @@ def render_header_item_nml(header_item, consists):
         template(
             consists=consists,
             global_constants=global_constants,
+            temp_storage_ids=global_constants.temp_storage_ids,  # convenience measure
             utils=utils,
             registered_rosters=registered_rosters,
             makefile_args=makefile_args,
@@ -71,7 +72,12 @@ def main():
         unsinkable_sam.get_ships_in_buy_menu_order()
     )  # 'consists' not 'ships', it makes it easier to cross-maintain this script with scripts in IH and RH
 
-    header_items = ["header", "cargo_table"]
+    header_items = [
+        "header",
+        "cargo_table",
+        "recolour_sprites",
+        "procedures_colour_randomisation_strategies",
+    ]
     for header_item in header_items:
         grf_nml.write(render_header_item_nml(header_item, consists))
 

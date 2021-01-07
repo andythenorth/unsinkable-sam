@@ -52,6 +52,75 @@ role_group_mapping = {
     "specialist": ["livestock_carrier", "trawler"],
 }
 
+# custom remappings of cc1/cc2, used in recolour_sprites, not used in graphics generation, so not in graphics_constants
+# post python 3.7, we rely on dict order being stable here, so we can get keys by position when we need to
+custom_ship_recolour_sprite_maps = {
+    "custom_dark_brown": (105, 106, 33, 34, 35, 36, 37, 38),
+    "custom_bauxite": (60, 61, 73, 62, 75, 76, 77, 78),
+    "custom_dark_pink": (40, 41, 42, 43, 44, 45, 46, 47),
+    "custom_light_pink": (43, 44, 45, 46, 47, 166, 167, 168),
+    "custom_dark_grey": (3, 16, 17, 18, 19, 20, 21, 22),
+    "custom_dark_yellow": (60, 61, 62, 64, 65, 66, 67, 68),
+    "custom_dark_white": (18, 7, 8, 10, 11, 12, 13, 14),
+    "custom_light_purple": (136, 170, 171, 172, 173, 174, 175, 176),
+    "custom_light_mauve": (129, 130, 131, 132, 133, 134, 135, 14),
+    "custom_dark_orange": (62, 63, 64, 193, 194, 195, 196, 197),
+    "custom_dark_cream": (112, 113, 114, 116, 117, 118, 119, 120),
+    # can't name it dark_green cos that conflates with DARK_GREEN
+    "custom_green": (
+        80,
+        82,
+        83,
+        84,
+        85,
+        86,
+        207,
+        209,
+    ),
+    # can't name it dark_blue cos that conflates with DARK_BLUE
+    "custom_blue": (
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        210,
+    ),
+    # can't name it dark_light_blue cos that would be silly
+    "custom_light_blue": (
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        210,
+    ),
+    # can't name it light_dark_blue cos that would be silly
+    "custom_dark_blue": (
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        152,
+    ),
+    "custom_dark_red": (180, 181, 182, 183, 164, 165, 166, 167),
+    "custom_pale_green": (97, 98, 99, 100, 101, 102, 103, 14),
+    "custom_dark_green": (89, 90, 91, 92, 93, 94, 95, 31),
+}
+
+# up to 127 temp storages are available, might as well allocate them exclusively within the graphics chain to avoid any collisions
+temp_storage_ids = dict(
+    cc_num_to_randomise=0,  # used in procedures_colour_randomisation_strategies
+    auto_colour_randomisation_strategy_num=1,  # used in procedures_colour_randomisation_strategies
+)
+
 # cargo aging constant - OTTD default is 185 - dibble this up in favour of ships, as they are relatively slow
 CARGO_AGE_PERIOD = 370
 
@@ -165,3 +234,4 @@ generated_files_dir = polar_fox.constants.generated_files_dir
 graphics_path = polar_fox.constants.graphics_path
 mail_multiplier = polar_fox.constants.mail_multiplier
 max_game_date = polar_fox.constants.max_game_date
+company_colour_maps = polar_fox.constants.company_colour_maps
