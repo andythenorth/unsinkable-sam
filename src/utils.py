@@ -1,6 +1,5 @@
 import os.path
 import global_constants
-import codecs  # used for writing files - more unicode friendly than standard open() module
 from polar_fox import git_info
 
 
@@ -45,17 +44,12 @@ def unescape_chameleon_output(escaped_nml):
 
 def parse_base_lang():
     # expose base lang strings to python - for reuse in docs
-    base_lang_file = codecs.open(
-        os.path.join("src", "lang", "english.lng"), "r", "utf8"
-    )
-    text = base_lang_file.readlines()
-    # this is fragile, playing one line python is silly :)
-    strings = dict(
-        (line.split(":", 1)[0].strip(), line.split(":", 1)[1].strip())
-        for line in text
-        if ":" in line
-    )
-    return strings
+    with open(os.path.join("src", "lang", "english.lng"), "r", encoding="utf8") as base_lang_file:
+        strings = {}
+        for line in base_lang_file:
+            if ":" in line:
+                strings[line.split(":", 1)[0].strip()] = line.split(":", 1)[1].strip()
+        return strings
 
 
 def echo_message(message):
