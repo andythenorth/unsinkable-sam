@@ -40,8 +40,8 @@ item(FEAT_SHIPS, ${ship.id}, ${ship.numeric_id}) {
         speed:                          ${ship.id}_switch_speed;
         cargo_capacity:                 ${ship.id}_switch_cargo_capacity;
         purchase_cargo_capacity:        ${ship.default_capacity};
-        <!--!colour_mapping:                 switch_colour_mapping(${consist.cc_num_to_randomise}, ${consist.auto_colour_randomisation_strategy_num}, ${int(consist.use_wagon_base_colour_parameter)});-->
-        colour_mapping:                 switch_colour_mapping(${1}, ${0}, ${int(True)});
+        <!--!colour_mapping:                 switch_colour_mapping(${consist.cc_num_to_randomise}, ${consist.auto_colour_randomisation_strategy_num});-->
+        colour_mapping:                 switch_colour_mapping(${1}, ${0});
         additional_text:                ${'string(STR_SPRITES_COMPLETE)' if ship.sprites_complete else 'string(STR_SPRITES_INCOMPLETE)'};
         <!--!additional_text:                ${ship.get_buy_menu_string()};-->
         cargo_subtype_text:             ${ship.id}_switch_cargo_subtype_text;

@@ -2,7 +2,7 @@
 
 <!--! * Shared colour sets with variants of CC, may be used by multiple strategies -->
 <!--! note that random bits need to be unique within the switch chain to prevent dependent results -->
-<tal:colour_sets define="random_bits 'random_bits';
+<tal:colour_sets define="random_bits 'getbits(random_bits, 1, 1)';
                          colour_sets {'dark_blue': ['COLOUR_DARK_BLUE', 'custom_dark_blue'],
                                       'pale_green': ['COLOUR_PALE_GREEN', 'custom_pale_green'],
                                       'pink': ['COLOUR_PINK', 'custom_dark_pink'],
@@ -34,17 +34,12 @@
 </tal:colour_sets>
 
 
-<!--! * Strategies for random recolouring of wagons *
-    1. strategies apply rules to branch to colour sets, which apply a random choice from 2 shades of the chosen colour (as of Nov 2020)
-    2. player parameter can choose certain strategies explicitly
-    3. magic may or may not get added for engine-specific or cargo-specific colours
+<!--! * Strategies for random recolouring of company colour on ships *
+    1. strategies apply rules to branch to colour sets, which apply a random choice from 2 shades of the chosen colour (as of Jan 2021)
+    2. !! UNFINISHED player parameter can choose certain strategies explicitly
 -->
 
-<!--! as of Dec 2019 this is not used with articulated vehicles,
-      however if articulated vehicle support is need it will need alternatives checking FORWARD_SELF(n)
-      these will have to be duplicates of these switches on a repeat, with named entry points -->
-
-<tal:switch_by_company_colour repeat="cc [['1cc', '2cc'], ['1cc', '1cc'], ['2cc', '1cc'], ['2cc', '2cc']]">
+<tal:switch_by_company_colour repeat="cc [['1cc', '1cc'], ['2cc', '2cc']]">
     switch (FEAT_SHIPS, SELF, switch_by_company_colour_${cc[0]}_to_${cc[1]}, company_colour${cc[1][0]}) {
         COLOUR_DARK_BLUE: switch_colour_set_dark_blue_${cc[0]};
         COLOUR_PALE_GREEN: switch_colour_set_pale_green_${cc[0]};
@@ -65,19 +60,7 @@
     }
 </tal:switch_by_company_colour>
 
-<tal:strategy_randomise_base_colour repeat="cc [['1cc', '2cc'], ['2cc', '1cc']]">
-    <!--! note that random bits need to be unique within the switch chain to prevent dependent results -->
-    switch (FEAT_SHIPS, SELF, switch_strategy_randomise_base_colour_${cc[0]}_unflipped, random_bits) {
-        1: switch_by_company_colour_${cc[0]}_to_${cc[1]};
-        switch_by_company_colour_${cc[0]}_to_${cc[0]};
-    }
-    switch (FEAT_SHIPS, SELF, switch_strategy_randomise_base_colour_${cc[0]}_flipped, random_bits) {
-        1: switch_by_company_colour_${cc[0]}_to_${cc[0]};
-        switch_by_company_colour_${cc[0]}_to_${cc[1]};
-    }
-</tal:strategy_randomise_base_colour>
-
-<tal:strategy_no_randomisation>
+<tal:strategy_no_randomisation replace="nothing">
     switch (FEAT_SHIPS, SELF, switch_strategy_no_randomisation_unflipped, 0) {
         return base_sprite_2cc + 16 * company_colour2 + company_colour1; <!--! apply regular 1CC and 2CC, no random -->
     }
@@ -86,43 +69,24 @@
     }
 </tal:strategy_no_randomisation>
 
-<tal:select_strategy_from_param repeat="cc [['1cc', 'unflipped', '1cc'], ['1cc', 'flipped', '2cc'], ['2cc', 'unflipped', '2cc'], ['2cc', 'flipped', '1cc']]">
-    switch (FEAT_SHIPS, SELF, switch_select_randomisation_strategy_${cc[0]}_${cc[1]},
-                <!--! fiddly ternary check if the wagon type forces a strategy that over-rides the parameter option
-                      wagon types can only be 'less random' than the parameter option, never 'more random'
-                      ternary assumes that the strategy number decreases in line with degree of randomness, with 0 as 'fully random' -->
-                LOAD_TEMP(${temp_storage_ids.auto_colour_randomisation_strategy_num}) <= param_wagon_colour_randomisation_strategy
-                    ? param_wagon_colour_randomisation_strategy
-                    : LOAD_TEMP(${temp_storage_ids.auto_colour_randomisation_strategy_num})) {
-        1: switch_by_company_colour_${cc[0]}_to_${cc[2]};
-        2: switch_strategy_no_randomisation_${cc[1]};
-        switch_strategy_randomise_base_colour_${cc[0]}_${cc[1]};
-    }
-</tal:select_strategy_from_param>
-
 switch (FEAT_SHIPS, SELF, switch_cc_num_to_randomise, LOAD_TEMP(${temp_storage_ids.cc_num_to_randomise})) {
-    1: switch_select_randomisation_strategy_1cc_unflipped;
-    2: switch_select_randomisation_strategy_2cc_unflipped;
-}
-<!--! invert cc1 / cc2 choice if flipped -->
-switch (FEAT_SHIPS, SELF, switch_cc_num_to_randomise_flipped, LOAD_TEMP(${temp_storage_ids.cc_num_to_randomise})) {
-    1: switch_select_randomisation_strategy_1cc_flipped;
-    2: switch_select_randomisation_strategy_2cc_flipped;
+    1: switch_by_company_colour_1cc_to_1cc;
+    2: switch_by_company_colour_2cc_to_2cc;
 }
 
-switch (FEAT_SHIPS, SELF, switch_colour_mapping, cc_num_to_randomise, auto_colour_randomisation_strategy_num, use_wagon_base_colour_parameter,
-                                                    [STORE_TEMP(cc_num_to_randomise, ${temp_storage_ids.cc_num_to_randomise}),
+switch (FEAT_SHIPS, SELF, switch_colour_mapping, cc_num_to_randomise, auto_colour_randomisation_strategy_num,
+                                                    [
+                                                     STORE_TEMP(cc_num_to_randomise, ${temp_storage_ids.cc_num_to_randomise}),
                                                      STORE_TEMP(auto_colour_randomisation_strategy_num, ${temp_storage_ids.auto_colour_randomisation_strategy_num}),
-                                                     STORE_TEMP(use_wagon_base_colour_parameter, ${temp_storage_ids.use_wagon_base_colour_parameter}),
-                                                     vehicle_is_flipped]) {
-    1: switch_cc_num_to_randomise_flipped;
-    switch_cc_num_to_randomise;
+                                                     ]) {
+    return switch_cc_num_to_randomise;
 }
 
 <!--! purchase cb doesn't appear to support checking flipped var (didn't test this thoroughly, might be wrong), so provide dedicated purchase entry point switch -->
-switch (FEAT_SHIPS, SELF, switch_colour_mapping_purchase, cc_num_to_randomise, auto_colour_randomisation_strategy_num, use_wagon_base_colour_parameter,
-                                                    [STORE_TEMP(cc_num_to_randomise, ${temp_storage_ids.cc_num_to_randomise}),
+switch (FEAT_SHIPS, SELF, switch_colour_mapping_purchase, cc_num_to_randomise, auto_colour_randomisation_strategy_num,
+                                                    [
+                                                     STORE_TEMP(cc_num_to_randomise, ${temp_storage_ids.cc_num_to_randomise}),
                                                      STORE_TEMP(auto_colour_randomisation_strategy_num, ${temp_storage_ids.auto_colour_randomisation_strategy_num}),
-                                                     STORE_TEMP(use_wagon_base_colour_parameter, ${temp_storage_ids.use_wagon_base_colour_parameter})]) {
+                                                     ]) {
     return switch_cc_num_to_randomise;
 }

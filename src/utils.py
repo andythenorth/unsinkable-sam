@@ -84,9 +84,9 @@ def unpack_colour(colour_name, cc_to_remap):
             + cc_to_remap
             - 1
         )
-        # return an nml fragment in format "custom_wagon_recolour_sprites + 16 * 0 /* recolour set */ + company_colour1 /* or company_colour2 */"
+        # return an nml fragment in format "custom_ship_recolour_sprites + 16 * 0 /* recolour set */ + company_colour1 /* or company_colour2 */"
         return (
-            "custom_wagon_recolour_sprites + 16 * "
+            "custom_ship_recolour_sprites + 16 * "
             + str(remap_index)
             + " + company_colour"
             + str(cc_to_remap)

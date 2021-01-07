@@ -115,7 +115,6 @@ custom_wagon_recolour_sprite_maps = {
 temp_storage_ids = dict(
     cc_num_to_randomise=0,  # used in procedures_colour_randomisation_strategies
     auto_colour_randomisation_strategy_num=1,  # used in procedures_colour_randomisation_strategies
-    use_wagon_base_colour_parameter=2,  # used in procedures_colour_randomisation_strategies
 )
 
 # cargo aging constant - OTTD default is 185 - dibble this up in favour of ships, as they are relatively slow
