@@ -75,13 +75,13 @@ def unpack_colour(colour_name, cc_to_remap):
     else:
         # assume custom colour
         colour_name_offset = 2 * list(
-            global_constants.custom_wagon_recolour_sprite_maps.keys()
+            global_constants.custom_ship_recolour_sprite_maps.keys()
         ).index(colour_name)
         remap_index = colour_name_offset + cc_to_remap - 1
-        # return an nml fragment in format "custom_ship_recolour_sprites + 16 * 0 /* recolour set */ + company_colour1 /* or company_colour2 */"
+        # return an nml fragment: custom_ship_recolour_sprites + index into recolour sprite + [company_colour1 or company_colour2]
         return (
             "custom_ship_recolour_sprites + "
             + str(16 * remap_index)
             + " + company_colour"
-            + str(1 if cc_to_remap is 2 else 2)
+            + str(1 if cc_to_remap == 2 else 2)
         )

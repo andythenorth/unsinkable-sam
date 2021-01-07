@@ -54,7 +54,7 @@ role_group_mapping = {
 
 # custom remappings of cc1/cc2, used in recolour_sprites, not used in graphics generation, so not in graphics_constants
 # post python 3.7, we rely on dict order being stable here, so we can get keys by position when we need to
-custom_wagon_recolour_sprite_maps = {
+custom_ship_recolour_sprite_maps = {
     "custom_dark_brown": (105, 106, 33, 34, 35, 36, 37, 38),
     "custom_bauxite": (60, 61, 73, 62, 75, 76, 77, 78),
     "custom_dark_pink": (40, 41, 42, 43, 44, 45, 46, 47),
