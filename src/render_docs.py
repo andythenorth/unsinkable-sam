@@ -69,16 +69,16 @@ class DocHelper(object):
         result["subclass_props"].append(prop_name)
         return result
 
-    def unpack_name_suffix(self, name_suffix):
+    def unpack_name_suffix(self, name_suffix_as_string_name):
         # this duplicates a method on Ship, which isn't available in tech tree row header cells as no ship is in scope
         try:
-            return base_lang_strings["STR_NAME_" + name_suffix.upper()]
+            return base_lang_strings[name_suffix_as_string_name]
         except:
-            utils.echo_message("Can't return name suffix for " + name_suffix)
+            utils.echo_message("Can't return name suffix for " + name_suffix_as_string_name)
             return "CABBAGE"
 
     def unpack_name_string(self, ship):
-        return ship._name + " " + self.unpack_name_suffix(ship.base_id)
+        return ship._name + " " + self.unpack_name_suffix(ship.name_suffix_as_string_name)
 
     def get_props_to_print_in_code_reference(self, subclass):
         props_to_print = {}
