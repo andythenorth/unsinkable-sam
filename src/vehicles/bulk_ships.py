@@ -2,6 +2,7 @@ from ship import BulkShip
 
 
 def main():
+    """
     ship = BulkShip(
         numeric_id=51,
         name="Dyna",
@@ -31,7 +32,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
-
+    """
     ship = BulkShip(
         numeric_id=51,
         name="Gravelly",
@@ -41,7 +42,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=True,
     )
-
+    """
     ship = BulkShip(
         numeric_id=50,
         name="Alligator",
@@ -51,3 +52,4 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
+    """

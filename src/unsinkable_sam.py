@@ -109,7 +109,7 @@ def main():
     default.main(disabled=False)
 
     # ship_types (in alphabetical order)
-    # bulk_ships.main()
+    bulk_ships.main()
     # bulk_barges.main() # barges need refactored to be riverboats / push barges
     # cargo_liners.main()
     # cryo_tankers.main()
