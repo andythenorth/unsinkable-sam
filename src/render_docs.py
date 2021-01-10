@@ -70,10 +70,13 @@ class DocHelper(object):
         return result
 
     def unpack_name_suffix(self, name_suffix_as_string_name):
-        # this duplicates a method on Ship, which isn't available in tech tree row header cells as no ship is in scope
         try:
             return base_lang_strings[name_suffix_as_string_name]
         except:
+            # no good solution currently for
+            # 1. names for roles that are consistent, but ship model name suffixes change (Collier vs. Mini Bulker)
+            # 2. no ship in scope
+            # probably need a separate set of strings for the role?  Parent types?
             utils.echo_message("Can't return name suffix for " + name_suffix_as_string_name)
             return "CABBAGE"
 

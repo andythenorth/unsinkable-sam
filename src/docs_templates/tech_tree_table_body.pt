@@ -117,7 +117,11 @@
                                             <span tal:condition="'F' in subtype">
                                                 Large
                                             </span>
-                                            ${doc_helper.unpack_name_suffix(role)}
+                                            <!--! currently (Jan 2021) there are no reliable strings for the role name
+                                                  the ship role is consistent, but the ship name suffix used in the buy menu may vary by ship model
+                                                  TMWFTLB to solve right now
+                                                ${doc_helper.unpack_name_suffix(role)}
+                                            -->
                                         </th>
                                         <td tal:repeat="gen range(1, len(intro_dates) + 1)" class="text-center" style="width: 300px;">
                                             <tal:ship define="ship tech_tree[role_group][role][subtype][gen]">
