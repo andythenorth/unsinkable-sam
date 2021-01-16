@@ -589,7 +589,7 @@ class FreighterBase(Ship):
         self.default_cargos = global_constants.default_cargos["open"]
         # Graphics configuration
         # might need to split house stuff down to individual ships / barges?
-        if self.subtype == "E":
+        if self.subtype == "E" or self.subtype == "C":
             house_recolour_map = graphics_constants.house_recolour_roof_dark_red_1
         elif self.subtype == "F":
             house_recolour_map = graphics_constants.house_recolour_roof_silver_1
