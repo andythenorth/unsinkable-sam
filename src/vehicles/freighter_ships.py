@@ -53,7 +53,7 @@ def main():
         name="Akraberg",
         gen=3,
         subtype="D",
-        hull="BargeHouseRear",
+        hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
         cargo_length=8,
     )
