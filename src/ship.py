@@ -802,7 +802,7 @@ class TankerBase(Ship):
                 graphics_constants.house_recolour_roof_dark_red_1.copy()
             )  # copy because update is used to extend the map
             house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
-        elif self.subtype in ["D", "F"]:
+        elif self.subtype in ["B", "D", "F"]:
             house_recolour_map = graphics_constants.house_recolour_roof_silver_1
         else:
             house_recolour_map = None
