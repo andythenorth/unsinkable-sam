@@ -22,7 +22,7 @@ def main():
         subtype="A",
         hull="BargeHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
-        cargo_length=3,
+        cargo_length=7,
     )
 
     ship = FreighterShip(
