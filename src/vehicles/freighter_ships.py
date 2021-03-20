@@ -14,7 +14,7 @@ def main():
         cargo_length=8,
         sprites_complete=False,
     )
-
+    """
     ship = FreighterShip(
         roster_id="default",
         numeric_id=6,
@@ -26,7 +26,7 @@ def main():
         cargo_length=7,
         sprites_complete=True,
     )
-
+    """
     ship = FreighterShip(
         roster_id="default",
         numeric_id=5,
