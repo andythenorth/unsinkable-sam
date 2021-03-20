@@ -23,6 +23,7 @@ def main():
         hull="BargeHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=7,
+        sprites_complete=True,
     )
 
     ship = FreighterShip(
