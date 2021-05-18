@@ -7,7 +7,7 @@ def main():
         name="Langara",
         gen=3,
         subtype="B",
-        hull="BargeHouseRear",
+        hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=3,
     )
