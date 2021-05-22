@@ -13,6 +13,16 @@ def main():
     )
 
     ship = BulkShip(
+        numeric_id=65,
+        name="Hellevik",
+        gen=3,
+        subtype="B",
+        hull="ShipHouseRear",
+        effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=True,
+    )
+
+    ship = BulkShip(
         numeric_id=54,
         name="Saltlick",
         gen=3,
