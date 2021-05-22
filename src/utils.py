@@ -44,7 +44,9 @@ def unescape_chameleon_output(escaped_nml):
 
 def parse_base_lang():
     # expose base lang strings to python - for reuse in docs
-    with open(os.path.join("src", "lang", "english.lng"), "r", encoding="utf8") as base_lang_file:
+    with open(
+        os.path.join("src", "lang", "english.lng"), "r", encoding="utf8"
+    ) as base_lang_file:
         strings = {}
         for line in base_lang_file:
             if ":" in line:

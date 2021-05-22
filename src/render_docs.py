@@ -77,11 +77,15 @@ class DocHelper(object):
             # 1. names for roles that are consistent, but ship model name suffixes change (Collier vs. Mini Bulker)
             # 2. no ship in scope
             # probably need a separate set of strings for the role?  Parent types?
-            utils.echo_message("Can't return name suffix for " + name_suffix_as_string_name)
+            utils.echo_message(
+                "Can't return name suffix for " + name_suffix_as_string_name
+            )
             return "CABBAGE"
 
     def unpack_name_string(self, ship):
-        return ship._name + " " + self.unpack_name_suffix(ship.name_suffix_as_string_name)
+        return (
+            ship._name + " " + self.unpack_name_suffix(ship.name_suffix_as_string_name)
+        )
 
     def get_props_to_print_in_code_reference(self, subclass):
         props_to_print = {}

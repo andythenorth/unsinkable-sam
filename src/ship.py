@@ -388,8 +388,8 @@ class BulkBase(Ship):
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
             house_recolour_map=house_recolour_map,
         )
-    @property
 
+    @property
     def name_suffix_as_string_name(self):
         # used in ship name string only
         # may be over-ridden in subclasses
