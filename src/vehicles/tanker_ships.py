@@ -13,6 +13,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
+    """
 
     ship = TankerShip(
         numeric_id=34,
@@ -25,6 +26,7 @@ def main():
         sprites_complete=True,
     )
 
+    """
     ship = TankerShip(
         numeric_id=44,
         name="Kalsoy",
