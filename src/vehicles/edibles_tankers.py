@@ -9,6 +9,7 @@ def main():
         subtype="B",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=True,
     )
 
     ship = EdiblesTanker(
