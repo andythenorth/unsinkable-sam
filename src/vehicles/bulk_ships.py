@@ -12,7 +12,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
-
+    """
     ship = BulkShip(
         numeric_id=65,
         name="Hellevik",
@@ -22,7 +22,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=True,
     )
-
+    """
     ship = BulkShip(
         numeric_id=54,
         name="Saltlick",
