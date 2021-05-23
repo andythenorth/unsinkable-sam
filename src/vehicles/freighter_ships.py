@@ -45,7 +45,7 @@ def main():
         gen=3,
         subtype="C",
         hull="ShipHouseRear",
-        effect_type="EFFECT_SPRITE_STEAM",
+        effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=6,
     )
 
@@ -56,7 +56,7 @@ def main():
         gen=3,
         subtype="D",
         hull="ShipHouseRear",
-        effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
+        effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=8,
     )
 
@@ -67,7 +67,7 @@ def main():
         gen=3,
         subtype="E",
         hull="ShipHouseRear",
-        effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
+        effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=8,
         sprites_complete=True,
     )
@@ -79,7 +79,7 @@ def main():
         gen=3,
         subtype="F",
         hull="ShipHouseRear",
-        effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
+        effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=8,
     )
 
