@@ -29,7 +29,7 @@ def main():
         subtype="C",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
-        sprites_complete=False,
+        sprites_complete=True,
     )
 
     ship = BulkShip(
@@ -39,7 +39,7 @@ def main():
         subtype="D",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
-        sprites_complete=False,
+        sprites_complete=True,
     )
 
     ship = BulkShip(
