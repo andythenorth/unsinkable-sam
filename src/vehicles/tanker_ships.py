@@ -37,7 +37,6 @@ def main():
         sprites_complete=True,
     )
 
-    """
     ship = TankerShip(
         numeric_id=44,
         name="Kalsoy",
@@ -61,17 +60,6 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=2,
-        name="Rotterdam",
-        gen=3,
-        subtype="F",
-        hull="ShipHouseRear",
-        str_type_info="COASTAL_TANKER",
-        effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
-        sprites_complete=False,
-    )
-    """
-    ship = TankerShip(
         numeric_id=19,
         name="Gunfleet",
         gen=3,
@@ -82,8 +70,19 @@ def main():
         sprites_complete=True,
     )
 
-
-"""
+    """
+    ship = TankerShip(
+        numeric_id=2,
+        name="Rotterdam",
+        gen=3,
+        subtype="F",
+        hull="ShipHouseRear",
+        str_type_info="COASTAL_TANKER",
+        effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
+        sprites_complete=False,
+    )
+    """
+    """
     ship = TankerShip(
         numeric_id=31,
         name="Escobar",
@@ -94,4 +93,4 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
-"""
+    """
