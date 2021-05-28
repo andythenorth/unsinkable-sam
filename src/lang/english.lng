@@ -34,6 +34,7 @@ STR_NAME_REEFER                                                 :Refrigerated Sh
 STR_NAME_TANKER_BARGE                                           :Tank Barge
 STR_NAME_TANKER_SHIP                                            :Tanker
 STR_NAME_TRAWLER                                                :Trawler
+STR_NAME_UTILITY_HOVERCRAFT                                     :Hovercraft
 
 STR_POWER_TYPE_DIESEL                                           :Diesel
 

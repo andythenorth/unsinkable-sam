@@ -14,6 +14,7 @@ buy_menu_sort_order_ships = [
     "pax_fast_loading",
     "pax_luxury",
     "mail_ship",
+    "utility_hovercraft",
     "freighter_ship",
     "freighter_barge",
     "cargo_liner",

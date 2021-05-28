@@ -48,6 +48,7 @@ from vehicles import (
     tanker_barges,
     tanker_ships,
     trawlers,
+    utility_hovercraft,
 )
 
 
@@ -124,3 +125,4 @@ def main():
     tanker_barges.main()
     tanker_ships.main()
     trawlers.main()
+    utility_hovercraft.main()

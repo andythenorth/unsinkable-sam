@@ -859,3 +859,28 @@ class Trawler(Ship):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             hull_recolour_map=hull_recolour_map
         )
+
+
+class UtilityHovercraft(Ship):
+    """
+    Hovercraft for express freight
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "utility_hovercraft"
+        super().__init__(**kwargs)
+        self.class_refit_groups = ["mail", "express_freight"]
+        self.label_refits_allowed = []
+        self.label_refits_disallowed = ["TOUR"]
+        self.default_cargos = global_constants.default_cargos["mail"]
+        # these are the mail capacities_by_subtype for ships that have MAIL as default; freight capacity will be divided by global_constants.mail_multipler
+        self.capacities_by_subtype = {
+            "A": 40,
+            "B": 120,
+            "D": 360,
+        }  # no large mail ships, by design
+        self._speed = 50
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
+            hull_recolour_map=graphics_constants.hull_recolour_CC1
+        )
