@@ -19,6 +19,7 @@ def main():
         subtype="C",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=True,
     )
 
     ship = EdiblesTanker(
@@ -28,6 +29,7 @@ def main():
         subtype="D",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=True,
     )
 
     ship = EdiblesTanker(
