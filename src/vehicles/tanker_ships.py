@@ -14,6 +14,17 @@ def main():
     )
 
     ship = TankerShip(
+        numeric_id=67,
+        name="Salso",
+        gen=3,
+        subtype="A",
+        hull="ShipHouseRear",
+        str_type_info="SMALL_TANKER_COASTAL_INLAND",
+        effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
+    )
+
+    ship = TankerShip(
         numeric_id=34,
         name="Berwick",
         gen=3,
