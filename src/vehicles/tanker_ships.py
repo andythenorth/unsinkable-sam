@@ -13,7 +13,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
-
+    """
     ship = TankerShip(
         numeric_id=67,
         name="Salso",
@@ -24,7 +24,6 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
-    """
 
     ship = TankerShip(
         numeric_id=34,
