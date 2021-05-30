@@ -9,7 +9,17 @@ def main():
         subtype="E",
         hull="TempHouseNone",
         effect_type="EFFECT_SPRITE_DIESEL",
-        sprites_complete=False,
+        sprites_complete=True,
+    )
+
+    ship = BulkShip(
+        numeric_id=68,
+        name="Rockton",
+        gen=3,
+        subtype="A",
+        hull="ShipHouseRear",
+        effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=True,
     )
 
     ship = BulkShip(
