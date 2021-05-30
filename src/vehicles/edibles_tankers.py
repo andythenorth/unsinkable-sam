@@ -3,6 +3,16 @@ from ship import EdiblesTanker
 
 def main():
     ship = EdiblesTanker(
+        numeric_id=69,
+        name="Gumdrop",
+        gen=3,
+        subtype="A",
+        hull="ShipHouseRear",
+        effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=True,
+    )
+
+    ship = EdiblesTanker(
         numeric_id=58,
         name="Bounty",
         gen=3,
