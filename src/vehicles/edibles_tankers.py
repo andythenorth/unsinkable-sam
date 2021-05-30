@@ -12,7 +12,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=True,
     )
-    """
+
     ship = EdiblesTanker(
         numeric_id=57,
         name="Mystic",
@@ -32,7 +32,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=True,
     )
-    """
+
     ship = EdiblesTanker(
         numeric_id=56,
         name="Belliveau",
