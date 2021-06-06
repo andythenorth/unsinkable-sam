@@ -7,7 +7,7 @@ def main():
         name="Langara",
         gen=3,
         subtype="B",
-        hull="ShipHouseRear",
+        hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=3,
     )
@@ -17,8 +17,8 @@ def main():
         name="Samphire",
         gen=3,
         subtype="C",
-        hull="ShipHouseRear",
-        effect_type="EFFECT_SPRITE_STEAM",
+        hull="ShipHouseForward",
+        effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=6,
     )
 
@@ -28,7 +28,7 @@ def main():
         gen=3,
         subtype="D",
         hull="ShipHouseForward",
-        effect_type="EFFECT_SPRITE_STEAM",
+        effect_type="EFFECT_SPRITE_DIESEL",
     )
 
     ship = Reefer(
@@ -37,7 +37,7 @@ def main():
         gen=3,
         subtype="E",
         hull="ShipHouseForward",
-        effect_type="EFFECT_SPRITE_STEAM",
+        effect_type="EFFECT_SPRITE_DIESEL",
     )
 
     ship = Reefer(

@@ -12,12 +12,30 @@ def main():
     )
 
     ship = CargoLiner(
+        numeric_id=70,
+        name="Braddock",
+        gen=3,
+        subtype="B",
+        hull="ShipHouseForward",
+        effect_type="EFFECT_SPRITE_DIESEL",
+    )
+
+    ship = CargoLiner(
+        numeric_id=71,
+        name="Magellan",
+        gen=3,
+        subtype="C",
+        hull="ShipHouseForward",
+        effect_type="EFFECT_SPRITE_DIESEL",
+    )
+
+    ship = CargoLiner(
         numeric_id=7,
         name="Rampside",
         gen=3,
         subtype="D",
         hull="ShipHouseForward",
-        effect_type="EFFECT_SPRITE_STEAM",
+        effect_type="EFFECT_SPRITE_DIESEL",
     )
 
     ship = CargoLiner(
@@ -26,7 +44,7 @@ def main():
         gen=3,
         subtype="E",
         hull="ShipHouseForward",
-        effect_type="EFFECT_SPRITE_STEAM",
+        effect_type="EFFECT_SPRITE_DIESEL",
     )
 
     ship = CargoLiner(
