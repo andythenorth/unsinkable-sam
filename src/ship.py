@@ -797,7 +797,7 @@ class TankerBase(Ship):
             74: 44,
             75: 45,
         }
-        if self.subtype in ["C", "E"]:
+        if self.subtype in ["A", "C", "E"]:
             house_recolour_map = (
                 graphics_constants.house_recolour_roof_dark_red_1.copy()
             )  # copy because update is used to extend the map
