@@ -58,17 +58,6 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=2,
-        name="Rotterdam",
-        gen=3,
-        subtype="F",
-        hull="ShipHouseRear",
-        str_type_info="COASTAL_TANKER",
-        effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
-        sprites_complete=False,
-    )
-
-    ship = TankerShip(
         numeric_id=19,
         name="Gunfleet",
         gen=3,
@@ -76,6 +65,17 @@ def main():
         hull="ShipHouseRear",
         str_type_info="SMALL_TANKER_COASTAL_INLAND",
         effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=True,
+    )
+
+    ship = TankerShip(
+        numeric_id=2,
+        name="Rotterdam",
+        gen=3,
+        subtype="F",
+        hull="ShipHouseRear",
+        str_type_info="COASTAL_TANKER",
+        effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
         sprites_complete=True,
     )
 

@@ -163,7 +163,7 @@ class ShipHouseRear128px(Hull):
         self.hull_type = "ship"
         self.house_position = "rear"
         self.load_state_y_offsets = [("empty", -1), ("part_load", 1), ("full_load", 3)]
-        self.effects_positions = [(11, 0, 24)]
+        self.effects_positions = [(15, 0, 27)]
 
 
 class TempHouseNone32px(Hull):
