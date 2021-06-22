@@ -75,7 +75,6 @@ def main():
         sprites_complete=True,
     )
 
-    """
     ship = FreighterShip(
         roster_id="default",
         numeric_id=42,
@@ -85,8 +84,10 @@ def main():
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=8,
+        sprites_complete=True,
     )
 
+    """
     ship = FreighterShip(
         roster_id="default",
         numeric_id=17,
