@@ -446,8 +446,16 @@ class CargoLiner(Ship):
         ]
         self.default_cargos = global_constants.default_cargos["box"]
         # Graphics configuration
+        # might need to split house stuff down to individual ships / barges?
+        if self.subtype in ["A", "C", "E"]:
+            house_recolour_map = graphics_constants.house_recolour_roof_silver_1
+        elif self.subtype in ["B", "D", "F"]:
+            house_recolour_map = graphics_constants.house_recolour_roof_dark_red_1
+        else:
+            house_recolour_map = graphics_constants.house_recolour_roof_CC1_1
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=graphics_constants.hull_recolour_CC1
+            hull_recolour_map=graphics_constants.hull_recolour_CC1,
+            house_recolour_map=house_recolour_map
         )
 
 
