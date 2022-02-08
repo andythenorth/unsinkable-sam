@@ -77,14 +77,14 @@ house_recolour_roof_dark_red_1 = {
     house_magic_colour + 7: CC1 + 7,
 }
 house_recolour_roof_silver_1 = {
-    house_magic_colour: 17,  # starts 1 up in the range to keep it looking like metallic white
-    house_magic_colour + 1: 18,
-    house_magic_colour + 2: 19,
-    house_magic_colour + 3: 20,
-    house_magic_colour + 4: 21,
-    house_magic_colour + 5: 22,
-    house_magic_colour + 6: 23,
-    house_magic_colour + 7: 14,  # out of silvers, go to off-white
+    house_magic_colour: 16,
+    house_magic_colour + 1: 17,
+    house_magic_colour + 2: 18,
+    house_magic_colour + 3: 19,
+    house_magic_colour + 4: 20,
+    house_magic_colour + 5: 21,
+    house_magic_colour + 6: 22,
+    house_magic_colour + 7: 23,
 }
 
 # facts about 'standard' spritesheets, spritesheets varying from this will be painful
