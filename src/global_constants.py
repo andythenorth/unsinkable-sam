@@ -24,8 +24,8 @@ buy_menu_sort_order_ships = [
     "tanker_barge",
     "cryo_tanker",
     "livestock_carrier",
-    "reefer",
     "edibles_tanker",
+    "reefer",
     "trawler",
 ]
 

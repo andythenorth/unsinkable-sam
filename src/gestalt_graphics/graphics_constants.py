@@ -24,14 +24,24 @@ hull_recolour_CC2 = {
     143: CC2 + 7,
 }
 hull_recolour_white = {
-    136: 5,
-    137: 7,
-    138: 8,
-    139: 9,
-    140: 10,
-    141: 11,
-    142: 12,
-    143: 13,
+    136: 8,
+    137: 9,
+    138: 10,
+    139: 11,
+    140: 12,
+    141: 13,
+    142: 14,
+    143: 15,
+}
+hull_recolour_silver = {
+    136: 16,
+    137: 17,
+    138: 18,
+    139: 19,
+    140: 20,
+    141: 21,
+    142: 22,
+    143: 23,
 }
 
 # used because it's nicer to draw with dark red as magic colour, but it's not safe as a magic colour, so it's remapped to a spare purple range

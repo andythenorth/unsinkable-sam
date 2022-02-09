@@ -27,7 +27,7 @@ def main():
         name="Kodiak",
         gen=3,
         subtype="D",
-        hull="ShipHouseForward",
+        hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
     )
 
@@ -45,7 +45,7 @@ def main():
         name="Helsinki",
         gen=3,
         subtype="F",
-        hull="ShipHouseForward",
+        hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )

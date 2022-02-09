@@ -775,7 +775,11 @@ class Reefer(Ship):
             74: 5,
             75: 6,
         }
-        house_recolour_map = graphics_constants.house_recolour_roof_CC1_1
+        house_recolour_map = (
+            graphics_constants.house_recolour_roof_dark_red_1.copy()
+        )  # copy because update is used to extend the map
+        # extend to invert funnel CC
+        house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             hull_recolour_map=hull_recolour_map, deck_recolour_map=deck_recolour_map, house_recolour_map=house_recolour_map
         )
