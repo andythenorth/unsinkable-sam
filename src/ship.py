@@ -770,7 +770,9 @@ class Reefer(Ship):
         deck_recolour_map = {
             70: 1,
             60: 2,
+            71: 2,
             72: 3,
+            73: 4,
             123: 4,
             74: 5,
             75: 6,
