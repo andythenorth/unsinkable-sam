@@ -646,7 +646,8 @@ class LivestockCarrier(Ship):
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=graphics_constants.hull_recolour_CC2
+            hull_recolour_map=graphics_constants.hull_recolour_silver,
+            house_recolour_map=graphics_constants.house_recolour_roof_dark_red_1
         )
 
 
