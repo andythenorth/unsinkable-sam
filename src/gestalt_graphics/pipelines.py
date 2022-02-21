@@ -155,6 +155,11 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         ship_base = base_image.point(
             lambda i: 255 if (i in range(178, 192) or i == 0) else i
         )
+        """
+        foo = graphics_constants.hull_recolour_CC1
+        recolour_table = ProcessingUnit().make_recolour_table(foo)
+        ship_base = ship_base.point(recolour_table)
+        """
         # create a mask so that we paste only the ship pixels over the hull (no blue pixels)
         ship_mask = ship_base.copy()
         ship_mask = ship_mask.point(lambda i: 0 if i == 255 else 255).convert(
@@ -187,6 +192,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             if recolour_map is not None:
                 recolour_table = ProcessingUnit().make_recolour_table(recolour_map)
                 hull_image = hull_image.point(recolour_table)
+                ship_base = ship_base.point(recolour_table)
         """
         if self.ship.id == "tanker_ship_gen_3F":
             hull_image.show()
