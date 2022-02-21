@@ -9,6 +9,7 @@ def main():
         subtype="E",
         hull="TempHouseNone",
         effect_type="EFFECT_SPRITE_STEAM",
+        sprites_complete=False,
     )
 
     ship = CargoLiner(
@@ -18,6 +19,7 @@ def main():
         subtype="B",
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
     )
 
     ship = CargoLiner(
@@ -27,6 +29,7 @@ def main():
         subtype="C",
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
     )
 
     ship = CargoLiner(
@@ -36,6 +39,7 @@ def main():
         subtype="D",
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
     )
 
     ship = CargoLiner(
@@ -45,6 +49,7 @@ def main():
         subtype="E",
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
     )
 
     ship = CargoLiner(
@@ -54,5 +59,5 @@ def main():
         subtype="F",
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",
-        sprites_complete=False,
+        sprites_complete=True,
     )
