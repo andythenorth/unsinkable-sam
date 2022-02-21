@@ -2,6 +2,7 @@ from ship import Reefer
 
 
 def main():
+    """
     ship = Reefer(
         numeric_id=61,
         name="Langara",
@@ -43,7 +44,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
     )
-
+    """
     ship = Reefer(
         numeric_id=15,
         name="Helsinki",
