@@ -55,6 +55,9 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
         # n.b. deck and house recolours are defined per gestalt as of Jan 2021, not in base class, refactor if need arises
         self.deck_recolour_map = kwargs.get("deck_recolour_map", None)
         self.house_recolour_map = kwargs.get("house_recolour_map", None)
+        # option to recolour ship pixels per hull/house/deck rules, this is generally a desirable shortcut and allows drawing ship in magic colours matching hull
+        # however it can cause unwanted recolouring of ship pixels, so it's explicitly enabled per gestalt
+        self.apply_hull_recolours_to_ship = kwargs.get('apply_hull_recolours_to_ship', False)
         # cargo flags
         self.has_bulk = kwargs.get("bulk", False)
         self.has_piece = kwargs.get("piece", None) is not None
@@ -179,6 +182,9 @@ class GestaltGraphicsSimpleColourRemaps(GestaltGraphics):
         # n.b. deck and house recolours are defined per gestalt as of Jan 2021, not in base class, refactor if need arises
         self.deck_recolour_map = kwargs.get("deck_recolour_map", None)
         self.house_recolour_map = kwargs.get("house_recolour_map", None)
+        # option to recolour ship pixels per hull/house/deck rules, this is generally a desirable shortcut and allows drawing ship in magic colours matching hull
+        # however it can cause unwanted recolouring of ship pixels, so it's explicitly enabled per gestalt
+        self.apply_hull_recolours_to_ship = kwargs.get('apply_hull_recolours_to_ship', False)
 
     @property
     def generic_rows(self):

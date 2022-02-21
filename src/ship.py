@@ -455,7 +455,8 @@ class CargoLiner(Ship):
             house_recolour_map = graphics_constants.house_recolour_roof_CC1_1
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            house_recolour_map=house_recolour_map
+            house_recolour_map=house_recolour_map,
+            apply_hull_recolours_to_ship=True,
         )
 
 
@@ -647,7 +648,7 @@ class LivestockCarrier(Ship):
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             hull_recolour_map=graphics_constants.hull_recolour_silver,
-            house_recolour_map=graphics_constants.house_recolour_roof_dark_red_1
+            house_recolour_map=graphics_constants.house_recolour_roof_dark_red_1,
         )
 
 
@@ -784,7 +785,10 @@ class Reefer(Ship):
         # extend to invert funnel CC
         house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=hull_recolour_map, deck_recolour_map=deck_recolour_map, house_recolour_map=house_recolour_map
+            hull_recolour_map=hull_recolour_map,
+            deck_recolour_map=deck_recolour_map,
+            house_recolour_map=house_recolour_map,
+            apply_hull_recolours_to_ship=True,
         )
 
 
