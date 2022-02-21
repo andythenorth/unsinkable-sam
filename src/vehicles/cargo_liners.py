@@ -2,6 +2,7 @@ from ship import CargoLiner
 
 
 def main():
+    """
     ship = CargoLiner(
         numeric_id=9,
         name="Amethyste",
@@ -51,7 +52,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=True,
     )
-
+    """
     ship = CargoLiner(
         numeric_id=8,
         name="Trondheim",
