@@ -10,6 +10,7 @@ def main():
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=3,
+        sprites_complete=False,
     )
 
     ship = Reefer(
@@ -20,6 +21,7 @@ def main():
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",
         cargo_length=6,
+        sprites_complete=False,
     )
 
     ship = Reefer(
@@ -29,6 +31,7 @@ def main():
         subtype="D",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
     )
 
     ship = Reefer(
@@ -38,6 +41,7 @@ def main():
         subtype="E",
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
     )
 
     ship = Reefer(
@@ -47,5 +51,5 @@ def main():
         subtype="F",
         hull="ShipHouseRear",
         effect_type="EFFECT_SPRITE_DIESEL",
-        sprites_complete=False,
+        sprites_complete=True,
     )
