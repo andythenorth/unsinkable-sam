@@ -121,7 +121,7 @@ def main():
     # mail_ships.main()
     # pax_fast_loading_ships.main()
     # pax_luxury_ships.main()
-    # reefers.main()
+    reefers.main()
     # tanker_barges.main()
     tanker_ships.main()
     # trawlers.main()
