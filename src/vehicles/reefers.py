@@ -32,7 +32,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=True,
     )
-    """
+
     ship = Reefer(
         numeric_id=14,
         name="Kodiak",
@@ -42,7 +42,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=True,
     )
-    """
+
     ship = Reefer(
         numeric_id=59,
         name="Caribou",
