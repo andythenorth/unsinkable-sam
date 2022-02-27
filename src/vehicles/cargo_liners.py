@@ -13,6 +13,16 @@ def main():
     )
 
     ship = CargoLiner(
+        numeric_id=75,
+        name="Inisheer",
+        gen=3,
+        subtype="A",
+        hull="ShipHouseForward",
+        effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
+    )
+
+    ship = CargoLiner(
         numeric_id=70,
         name="Braddock",
         gen=3,
