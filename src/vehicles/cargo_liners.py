@@ -12,7 +12,7 @@ def main():
         effect_type="EFFECT_SPRITE_STEAM",
         sprites_complete=False,
     )
-
+    """
     ship = CargoLiner(
         numeric_id=75,
         name="Inisheer",
@@ -22,7 +22,7 @@ def main():
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=True,
     )
-
+    """
     ship = CargoLiner(
         numeric_id=70,
         name="Braddock",
