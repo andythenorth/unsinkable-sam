@@ -9,7 +9,7 @@ def main():
         subtype="A",
         hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_DIESEL",
-        sprites_complete=False,
+        sprites_complete=True,
     )
 
     ship = Reefer(
