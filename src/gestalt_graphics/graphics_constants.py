@@ -43,6 +43,16 @@ hull_recolour_silver = {
     142: 22,
     143: 23,
 }
+hull_recolour_dark_blue = {
+    136: 144,
+    137: 145,
+    138: 146,
+    139: 147,
+    140: 148,
+    141: 149,
+    142: 150,
+    143: 151,
+}
 
 # used because it's nicer to draw with dark red as magic colour, but it's not safe as a magic colour, so it's remapped to a spare purple range
 house_make_magic_red_safe_recolour_map = {

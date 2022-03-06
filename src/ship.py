@@ -866,18 +866,9 @@ class Trawler(Ship):
         self.label_refits_disallowed = []
         self.default_cargos = ["FISH"]  # no need for fallbacks, single refit
         # Graphics configuration
-        hull_recolour_map = {
-            136: 146,
-            137: 147,
-            138: 148,
-            139: 149,
-            140: 150,
-            141: 151,
-            142: 152,
-            143: 153,
-        }
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=hull_recolour_map
+            hull_recolour_map=graphics_constants.hull_recolour_dark_blue,
+            apply_hull_recolours_to_ship=True,
         )
 
 

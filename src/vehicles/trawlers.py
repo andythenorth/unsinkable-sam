@@ -7,7 +7,7 @@ def main():
         name="Newfoundland",
         gen=3,
         subtype="A",
-        hull="TempHouseNone",
+        hull="ShipHouseForward",
         effect_type="EFFECT_SPRITE_STEAM",
     )
 
