@@ -10,6 +10,12 @@ Don't make changes here, make them in the Polar Fox project and redistribute.
 Any changes made here are liable to be over-written.
 """
 
+"""
+This file is generated from the Polar Fox project.
+Don't make changes here, make them in the Polar Fox project and redistribute.
+Any changes made here are liable to be over-written.
+"""
+
 # used to construct the cargo table automatically
 # ! order is significant ! - openttd will cascade through default cargos in the order specified by the cargo table
 cargo_labels = [
@@ -160,7 +166,7 @@ allowed_refits_by_label = {
         "RFPR",
         "CHLO",
     ],  # seems to be used by intermodal, otherwise chemicals tankers are deprecated in favour of product tankers
-    "cold_metal": ["STEL", "METL", "STCB", "STAL", "STST", "COPR", "STSH", "STWR"],
+    "cold_metal": ["STEL", "METL", "STCB", "STAL", "STST", "COPR", "STSH", "STWR", "ALUM"],
     "covered_hoppers": [
         "GRAI",
         "WHEA",
@@ -186,7 +192,23 @@ allowed_refits_by_label = {
     ],  # not CBLK, gets dedicated vehicles or box
     "cryo_gases": ["CHLO", "O2__", "NH3_"],
     "edible_liquids": ["MILK", "WATR", "BEER", "FOOD", "EOIL"],
-    "fruit_veg": ["FRUT", "BEAN", "CASS", "JAVA", "NUTS"],
+    "farm_products": [
+        "BEAN",
+        "CASS",
+        "CERE",
+        "FERT",
+        "FMSP",
+        "FRUT",
+        "GRAI",
+        "JAVA",
+        "MAIZ",
+        "NUTS",
+        "OLSD",
+        "SEED",
+        "SGBT",
+        "TATO",
+        "WHEA",
+    ],
     "long_products": [
         "STEL",
         "METL",
@@ -270,9 +292,10 @@ disallowed_refits_by_label = {
 # vehicle classes can also just provide their own list locally, using this is convenient, not obligatory
 # !! the names of these deliberately don't match to the names of the vehicle types in a specific grf, as each grf will use these differently to suit vehicle types
 default_cargos = {
-    "box": ["GOOD", "GLAS", "VPTS", "BOOM"],
-    "box_intermodal": ["POWR", "GOOD", "PAPR"],
+    "box": ["GOOD", "TYRE", "GLAS", "VPTS", "BOOM"],
     "box_curtain_side": ["VBOD", "BDMT", "FRUT", "FERT", "WDPR", "GOOD"],
+    "box_goods": ["GOOD", "GLAS", "FRUT", "BOOM"],
+    "box_intermodal": ["POWR", "GOOD", "PAPR"],
     "box_sliding_wall": ["VENG", "BOOM", "PAPR", "JAVA", "GOOD"],
     "box_vehicle_parts": ["VPTS", "PAPR", "RUBR", "STEL", "WOOL", "GOOD"],
     "bulkhead": ["STCB", "PIPE", "WDPR", "ALUM", "ZINC", "STEL", "COPR"],
@@ -285,7 +308,9 @@ default_cargos = {
     "covered_roller_roof": ["KAOL", "QLME", "SALT"],
     "cryo_gases": ["O2__", "CHLO"],
     "dump": ["MNO2", "FECR", "NITR", "PHOS", "SAND", "GRVL"],
+    "dump_aggregates": ["LIME", "GRVL", "SAND", "CLAY"],
     "dump_high_sides": ["COKE", "PEAT", "COAL"],
+    "dump_ore": ["IORE", "PHOS", "PORE", "CORE"],
     "dump_scrap": ["SCMT", "COAL"],
     "edibles_tank": ["WATR", "MILK", "BEER"],
     "express": [
@@ -295,6 +320,8 @@ default_cargos = {
         "GOOD",
         "FOOD",
     ],  # ENSP was tried as default, but confusing when attached express cars for mail to pax trains
+    "farm_products_box": ["FRUT", "BEAN", "CASS", "JAVA", "NUTS"],
+    "farm_products_hopper": ["MAIZ", "GRAI", "WHEA", "CERE", "SGBT", "OLSD", "CASS", "NUTS"],
     "flat": ["ALUM", "WDPR", "STEL", "COPR", "METL"],
     "flat_sliding_roof": [
         "ZINC",
@@ -310,6 +337,7 @@ default_cargos = {
         "FMSP",
         "WDPR",
     ],  # possibly tarpaulin roof shouldn't be flat at all?
+    # fruit_veg should be deprecated
     "fruit_veg": ["FRUT", "BEAN", "CASS", "JAVA", "NUTS"],
     "hopper_coal": ["COAL", "COKE", "NITR", "POTA"],
     "hopper_ore": ["IORE", "CORE", "PORE", "PHOS", "COKE"],
@@ -630,22 +658,22 @@ cryo_tanker_livery_recolour_maps_extended = (
         {
             136: 154,
             137: 155,
-            138: 157,
-            139: 158,
-            140: 159,
+            138: 156,
+            139: 157,
+            140: 158,
             141: 159,
             142: 160,
             143: 161,
         },
         # weathered
         {
-            136: 154,
+            136: 96,
             137: 155,
-            138: 157,
-            139: 158,
-            140: 159,
-            141: 159,
-            142: 160,
+            138: 156,
+            139: 157,
+            140: 158,
+            141: 151,
+            142: 152,
             143: 161,
         },
     ),
