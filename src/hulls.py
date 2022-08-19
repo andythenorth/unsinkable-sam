@@ -82,7 +82,7 @@ class ShipHouseForward64px(Hull):
         self.hull_type = "ship"
         self.house_position = "forward"
         self.load_state_y_offsets = [("empty", -1), ("part_load", 0), ("full_load", 1)]
-        self.effects_positions = [(11, 0, 24)]
+        self.effects_positions = [(6, 2, 14), (6, -2, 14)]
 
 
 class ShipHouseForward80px(Hull):
