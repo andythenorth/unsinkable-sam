@@ -3,6 +3,17 @@ from ship import CryoTanker
 
 def main():
     ship = CryoTanker(
+        numeric_id=77,
+        name="Waldeck",
+        gen=3,
+        subtype="A",
+        hull="ShipHouseRear",
+        str_type_info="SMALL_TANKER_COASTAL_INLAND",
+        effect_type="EFFECT_SPRITE_DIESEL",
+        sprites_complete=False,
+    )
+
+    ship = CryoTanker(
         numeric_id=63,
         name="Schmieder",
         gen=3,
@@ -29,7 +40,7 @@ def main():
         name="Svedlund",
         gen=3,
         subtype="D",
-        hull="BargeHouseRear",
+        hull="ShipHouseRear",
         str_type_info="SMALL_TANKER_COASTAL_INLAND",
         effect_type="EFFECT_SPRITE_DIESEL",
         sprites_complete=False,
