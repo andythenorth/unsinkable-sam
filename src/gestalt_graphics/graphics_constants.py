@@ -107,6 +107,16 @@ house_recolour_roof_silver_1 = {
     house_magic_colour + 7: 23,
 }
 
+# arbitrary deck recolouring maps
+deck_recolour_map_dark_red_1 = {
+    70: 40,
+    60: 41,
+    72: 42,
+    123: 43,
+    74: 44,
+    75: 45,
+}
+
 # facts about 'standard' spritesheets, spritesheets varying from this will be painful
 spriterow_height = 100
 spritesheet_top_margin = 10

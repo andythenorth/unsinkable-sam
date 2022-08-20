@@ -520,6 +520,7 @@ class CryoTanker(Ship):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
             cargo_recolour_maps=polar_fox.constants.cryo_tanker_livery_recolour_maps,
+            deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=house_recolour_map,
         )
 
@@ -813,15 +814,6 @@ class TankerBase(Ship):
             "non_generic_liquids"
         ]
         self.default_cargos = global_constants.default_cargos["tank"]
-        # Graphics configuration
-        deck_recolour_map = {
-            70: 40,
-            60: 41,
-            72: 42,
-            123: 43,
-            74: 44,
-            75: 45,
-        }
         if self.subtype in ["A", "C", "E"]:
             house_recolour_map = (
                 graphics_constants.house_recolour_roof_dark_red_1.copy()
@@ -833,7 +825,7 @@ class TankerBase(Ship):
             house_recolour_map = None
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             cargo_recolour_maps=polar_fox.constants.tanker_livery_recolour_maps,
-            deck_recolour_map=deck_recolour_map,
+            deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=house_recolour_map,
         )
 
