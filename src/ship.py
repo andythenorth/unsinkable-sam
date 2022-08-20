@@ -514,8 +514,13 @@ class CryoTanker(Ship):
         self.default_cargos = global_constants.default_cargos["cryo_gases"]
         self.loading_speed_multiplier = 2
         # Graphics configuration
+        house_recolour_map = (
+            graphics_constants.house_recolour_roof_CC1_1
+        )
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=graphics_constants.hull_recolour_CC1
+            hull_recolour_map=graphics_constants.hull_recolour_CC1,
+            cargo_recolour_maps=polar_fox.constants.cryo_tanker_livery_recolour_maps,
+            house_recolour_map=house_recolour_map,
         )
 
 
