@@ -273,7 +273,7 @@ def render_docs_images(docs_output_path, ships):
                 4 * ship.buy_menu_width,
                 4 * global_constants.buy_menu_sprite_height,
             ),
-            resample=Image.NEAREST,
+            resample=Image.Resampling.NEAREST,
         )
 
         output_path = os.path.join(
