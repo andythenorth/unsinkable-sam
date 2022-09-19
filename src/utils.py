@@ -1,6 +1,11 @@
 import os.path
 import global_constants
 from polar_fox import git_info
+from polar_fox.utils import echo_message as echo_message
+from polar_fox.utils import dos_palette_to_rgb as dos_palette_to_rgb
+from polar_fox.utils import unescape_chameleon_output as unescape_chameleon_output
+from polar_fox.utils import split_nml_string_lines as split_nml_string_lines
+from polar_fox.utils import unwrap_nml_string_declaration as unwrap_nml_string_declaration
 
 
 def get_makefile_args(sys):
@@ -28,20 +33,6 @@ def get_docs_url():
     return "/".join(result)
 
 
-def unescape_chameleon_output(escaped_nml):
-    # first drop as much whitespace as we sensibly can
-    # in tests, this doesn't make the compile any faster at all, but it reduced firs.nml (v3.0.4) from 326k lines to 226k lines,
-    escaped_nml = "\n".join(
-        [x for x in escaped_nml.split("\n") if x.strip(" \t\n\r") != ""]
-    )
-    # chameleon html-escapes some characters; that's sane and secure for chameleon's intended web use, but not wanted for nml
-    # there is probably a standard module for unescaping html entities, but this will do for now
-    escaped_nml = ">".join(escaped_nml.split("&gt;"))
-    escaped_nml = "<".join(escaped_nml.split("&lt;"))
-    escaped_nml = "&".join(escaped_nml.split("&amp;"))
-    return escaped_nml
-
-
 def parse_base_lang():
     # expose base lang strings to python - for reuse in docs
     with open(
@@ -52,12 +43,6 @@ def parse_base_lang():
             if ":" in line:
                 strings[line.split(":", 1)[0].strip()] = line.split(":", 1)[1].strip()
         return strings
-
-
-def echo_message(message):
-    # use to raise messages from templates to standard out (can't print directly from template render)
-    # magically wraps these messages in ANSI colour to make them visible - they are only intended for noticeable messages, not general output
-    print("\033[33m" + message + "\033[0m")
 
 
 def unpack_colour(colour_name, cc_to_remap):
