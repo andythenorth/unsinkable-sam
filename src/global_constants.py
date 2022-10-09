@@ -23,6 +23,7 @@ buy_menu_sort_order_ships = [
     "scrap_carrier_ship",
     "bulk_barge",
     "tanker_ship",
+    "product_tanker_ship",
     "tanker_barge",
     "cryo_tanker",
     "livestock_carrier",
@@ -47,6 +48,7 @@ role_group_mapping = {
     ],
     "liquid_bulk": [
         "tanker_ship",
+        "product_tanker",
         "tanker_barge",
         "cryo_tanker",
     ],

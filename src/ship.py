@@ -863,6 +863,16 @@ class TankerBase(Ship):
             "non_generic_liquids"
         ]
         self.default_cargos = global_constants.default_cargos["tank"]
+
+
+class TankerBarge(TankerBase):
+    """
+    Tanker barge
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "tanker_barge"
+        super().__init__(**kwargs)
         if self.subtype in ["A", "C", "E"]:
             house_recolour_map = (
                 graphics_constants.house_recolour_roof_dark_red_1.copy()
@@ -879,24 +889,44 @@ class TankerBase(Ship):
         )
 
 
-class TankerBarge(TankerBase):
-    """
-    Sparse subclass to set base ID
-    """
-
-    def __init__(self, **kwargs):
-        self.base_id = "tanker_barge"
-        super().__init__(**kwargs)
-
-
 class TankerShip(TankerBase):
     """
-    Sparse subclass to set base ID
+    Standard tanker
     """
 
     def __init__(self, **kwargs):
         self.base_id = "tanker_ship"
         super().__init__(**kwargs)
+        if self.subtype in ["A", "C", "E"]:
+            house_recolour_map = (
+                graphics_constants.house_recolour_roof_dark_red_1.copy()
+            )  # copy because update is used to extend the map
+            house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
+        elif self.subtype in ["B", "D", "F"]:
+            house_recolour_map = graphics_constants.house_recolour_roof_silver_1
+        else:
+            house_recolour_map = None
+        self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
+            cargo_recolour_maps=polar_fox.constants.tanker_livery_recolour_maps,
+            deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
+            house_recolour_map=house_recolour_map,
+        )
+
+
+# not in alphabetical order as uses TankerBase
+class ProductTankerShip(TankerBase):
+    """
+    Visual variant of the standard tanker, for visual variety
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "product_tanker_ship"
+        super().__init__(**kwargs)
+        self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
+            cargo_recolour_maps=graphics_constants.product_tanker_livery_recolour_maps,
+            deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
+            house_recolour_map=graphics_constants.house_recolour_roof_silver_1,
+        )
 
 
 class Trawler(Ship):
