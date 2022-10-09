@@ -514,9 +514,7 @@ class CryoTanker(Ship):
         self.default_cargos = global_constants.default_cargos["cryo_gases"]
         self.loading_speed_multiplier = 2
         # Graphics configuration
-        house_recolour_map = (
-            graphics_constants.house_recolour_roof_CC1_1
-        )
+        house_recolour_map = graphics_constants.house_recolour_roof_CC1_1
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
             cargo_recolour_maps=polar_fox.constants.cryo_tanker_livery_recolour_maps,
@@ -602,8 +600,17 @@ class FreighterBase(Ship):
             "non_freight_special_cases"
         ]
         self.default_cargos = global_constants.default_cargos["open"]
+
+
+class FreighterBarge(FreighterBase):
+    """
+    Barge-type freighter
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "freighter_barge"
+        super().__init__(**kwargs)
         # Graphics configuration
-        # might need to split house stuff down to individual ships / barges?
         if self.subtype in ["A", "C", "E"]:
             house_recolour_map = graphics_constants.house_recolour_roof_dark_red_1
         elif self.subtype in ["B", "D", "F"]:
@@ -615,24 +622,42 @@ class FreighterBase(Ship):
         )
 
 
-class FreighterBarge(FreighterBase):
-    """
-    Sparse subclass, to set base ID
-    """
-
-    def __init__(self, **kwargs):
-        self.base_id = "freighter_barge"
-        super().__init__(**kwargs)
-
-
 class FreighterShip(FreighterBase):
     """
-    Sparse subclass, to set base ID
+    Standard freighter
     """
 
     def __init__(self, **kwargs):
         self.base_id = "freighter_ship"
         super().__init__(**kwargs)
+        # Graphics configuration
+        if self.subtype in ["A", "C", "E"]:
+            house_recolour_map = graphics_constants.house_recolour_roof_dark_red_1
+        elif self.subtype in ["B", "D", "F"]:
+            house_recolour_map = graphics_constants.house_recolour_roof_silver_1
+        else:
+            house_recolour_map = None
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(
+            bulk=True, piece="open", house_recolour_map=house_recolour_map
+        )
+
+
+class MerchandiseFreighterShip(FreighterBase):
+    """
+    Colour variation on standard freighter, no other differences
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "merchandise_freighter_ship"
+        super().__init__(**kwargs)
+        # Graphics configuration
+        house_recolour_map = graphics_constants.house_recolour_roof_CC1_1
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(
+            bulk=True,
+            piece="open",
+            house_recolour_map=house_recolour_map,
+            hull_recolour_map=graphics_constants.hull_recolour_dark_grey,
+        )
 
 
 class LivestockCarrier(Ship):

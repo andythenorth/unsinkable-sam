@@ -53,6 +53,16 @@ hull_recolour_dark_blue = {
     142: 150,
     143: 151,
 }
+hull_recolour_dark_grey = {
+    136: 33,
+    136 + 1: 34,
+    136 + 2: 6,
+    136 + 3: 7,
+    136 + 4: 20,
+    136 + 5: 21,
+    136 + 6: 22,
+    136 + 7: 39,
+}
 
 # used because it's nicer to draw with dark red as magic colour, but it's not safe as a magic colour, so it's remapped to a spare purple range
 house_make_magic_red_safe_recolour_map = {
@@ -115,6 +125,14 @@ deck_recolour_map_dark_red_1 = {
     123: 43,
     74: 44,
     75: 45,
+}
+deck_recolour_map_merchandise_1 = {
+    70: 104,
+    60: 105,
+    72: 32,
+    123: 33,
+    74: 34,
+    75: 35,
 }
 
 # facts about 'standard' spritesheets, spritesheets varying from this will be painful

@@ -16,6 +16,7 @@ buy_menu_sort_order_ships = [
     "mail_ship",
     "utility_hovercraft",
     "freighter_ship",
+    "merchandise_freighter_ship",
     "freighter_barge",
     "cargo_liner",
     "bulk_ship",
@@ -36,6 +37,7 @@ role_group_mapping = {
     "mail_utility": ["mail_ship"],
     "dry_cargo": [
         "freighter_ship",
+        "merchandise_freighter_ship",
         "freighter_barge",
         "cargo_liner",
         "bulk_ship",

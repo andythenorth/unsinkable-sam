@@ -40,6 +40,7 @@ from vehicles import (
     edibles_tankers,
     freighter_barges,
     freighter_ships,
+    merchandise_freighter_ships,
     livestock_carriers,
     mail_ships,
     pax_fast_loading_ships,
@@ -117,6 +118,7 @@ def main():
     edibles_tankers.main()
     freighter_barges.main()
     freighter_ships.main()
+    merchandise_freighter_ships.main()
     livestock_carriers.main()
     mail_ships.main()
     pax_fast_loading_ships.main()
