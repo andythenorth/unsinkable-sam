@@ -32,6 +32,7 @@ STR_NAME_MINI_BULKER                                            :Mini Bulker
 STR_NAME_PAX_FAST_LOADING                                       :Ferry
 STR_NAME_PAX_LUXURY                                             :Luxury Ferry
 STR_NAME_REEFER                                                 :Refrigerated Ship
+STR_NAME_SCRAP_CARRIER_SHIP                                     :Scrap Carrier
 STR_NAME_TANKER_BARGE                                           :Tank Barge
 STR_NAME_TANKER_SHIP                                            :Tanker
 STR_NAME_TRAWLER                                                :Trawler

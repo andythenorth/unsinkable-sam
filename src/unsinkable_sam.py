@@ -46,6 +46,7 @@ from vehicles import (
     pax_fast_loading_ships,
     pax_luxury_ships,
     reefers,
+    scrap_carrier_ships,
     tanker_barges,
     tanker_ships,
     trawlers,
@@ -124,6 +125,7 @@ def main():
     pax_fast_loading_ships.main()
     pax_luxury_ships.main()
     reefers.main()
+    scrap_carrier_ships.main()
     tanker_barges.main()
     tanker_ships.main()
     trawlers.main()

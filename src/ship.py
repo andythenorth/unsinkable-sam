@@ -379,14 +379,37 @@ class BulkBase(Ship):
         ]
         self.default_cargos = global_constants.default_cargos["dump"]
         self.loading_speed_multiplier = 2
+
+
+class BulkBarge(BulkBase):
+    """
+    Bulk barge
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "bulk_barge"
+        super().__init__(**kwargs)
         # Graphics configuration
-        house_recolour_map = (
-            graphics_constants.house_recolour_roof_CC1_1.copy()
-        )  # copy because update is used to extend the map
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(
             bulk=True,
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            house_recolour_map=house_recolour_map,
+            house_recolour_map=graphics_constants.house_recolour_roof_CC1_1,
+        )
+
+
+class BulkShip(BulkBase):
+    """
+    Standard bulk ship
+    """
+
+    def __init__(self, **kwargs):
+        self.base_id = "bulk_ship"
+        super().__init__(**kwargs)
+        # Graphics configuration
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(
+            bulk=True,
+            hull_recolour_map=graphics_constants.hull_recolour_CC1,
+            house_recolour_map=graphics_constants.house_recolour_roof_dark_red_1,
         )
 
     @property
@@ -399,24 +422,25 @@ class BulkBase(Ship):
             return "STR_NAME_MINI_BULKER"
 
 
-class BulkBarge(BulkBase):
+# not in alphabetical order as it depends on subclassing BulkBase
+class ScrapCarrierShip(BulkBase):
     """
-    Sparse subclass to set base ID
-    """
-
-    def __init__(self, **kwargs):
-        self.base_id = "bulk_barge"
-        super().__init__(**kwargs)
-
-
-class BulkShip(BulkBase):
-    """
-    Sparse subclass to set base ID
+    Colour variation on standard bulk ship, no other differences
     """
 
     def __init__(self, **kwargs):
-        self.base_id = "bulk_ship"
+        self.base_id = "scrap_carrier_ship"
         super().__init__(**kwargs)
+        # Graphics configuration
+        house_recolour_map = (
+            graphics_constants.house_recolour_roof_rust_1.copy()
+        )  # copy because update is used to extend the map
+        house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(
+            bulk=True,
+            hull_recolour_map=graphics_constants.hull_recolour_dirty_black,
+            house_recolour_map=house_recolour_map,
+        )
 
 
 class CargoLiner(Ship):

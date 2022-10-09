@@ -63,6 +63,16 @@ hull_recolour_dark_grey = {
     136 + 6: 22,
     136 + 7: 39,
 }
+hull_recolour_dirty_black = {
+    136: 70,
+    136 + 1: 71,
+    136 + 2: 33,
+    136 + 3: 5,
+    136 + 4: 6,
+    136 + 5: 35,
+    136 + 6: 7,
+    136 + 7: 8,
+}
 
 # used because it's nicer to draw with dark red as magic colour, but it's not safe as a magic colour, so it's remapped to a spare purple range
 house_make_magic_red_safe_recolour_map = {
@@ -115,6 +125,16 @@ house_recolour_roof_silver_1 = {
     house_magic_colour + 5: 21,
     house_magic_colour + 6: 22,
     house_magic_colour + 7: 23,
+}
+house_recolour_roof_rust_1 = {
+    house_magic_colour: 60,
+    house_magic_colour + 1: 72,
+    house_magic_colour + 2: 123,
+    house_magic_colour + 3: 74,
+    house_magic_colour + 4: 75,
+    house_magic_colour + 5: 76,
+    house_magic_colour + 6: 77,
+    house_magic_colour + 7: 78,
 }
 
 # arbitrary deck recolouring maps
