@@ -635,14 +635,8 @@ class FreighterBarge(FreighterBase):
         self.base_id = "freighter_barge"
         super().__init__(**kwargs)
         # Graphics configuration
-        if self.subtype in ["A", "C", "E"]:
-            house_recolour_map = graphics_constants.house_recolour_roof_dark_red_1
-        elif self.subtype in ["B", "D", "F"]:
-            house_recolour_map = graphics_constants.house_recolour_roof_silver_1
-        else:
-            house_recolour_map = None
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(
-            bulk=True, piece="open", house_recolour_map=house_recolour_map
+            bulk=True, piece="open", house_recolour_map=graphics_constants.house_recolour_roof_CC1_1
         )
 
 
@@ -873,19 +867,10 @@ class TankerBarge(TankerBase):
     def __init__(self, **kwargs):
         self.base_id = "tanker_barge"
         super().__init__(**kwargs)
-        if self.subtype in ["A", "C", "E"]:
-            house_recolour_map = (
-                graphics_constants.house_recolour_roof_dark_red_1.copy()
-            )  # copy because update is used to extend the map
-            house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
-        elif self.subtype in ["B", "D", "F"]:
-            house_recolour_map = graphics_constants.house_recolour_roof_silver_1
-        else:
-            house_recolour_map = None
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             cargo_recolour_maps=polar_fox.constants.tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
-            house_recolour_map=house_recolour_map,
+            house_recolour_map=graphics_constants.house_recolour_roof_CC1_1,
         )
 
 
@@ -903,9 +888,12 @@ class TankerShip(TankerBase):
             )  # copy because update is used to extend the map
             house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
         elif self.subtype in ["B", "D", "F"]:
-            house_recolour_map = graphics_constants.house_recolour_roof_silver_1
+            house_recolour_map = (
+                 graphics_constants.house_recolour_roof_silver_1.copy()
+            )  # copy because update is used to extend the map
         else:
-            house_recolour_map = None
+            house_recolour_map = []
+        house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             cargo_recolour_maps=polar_fox.constants.tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,

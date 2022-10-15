@@ -40,6 +40,15 @@ class BargeHouseRear64px(Hull):
         self.effects_positions = [(6, 0, 12)]
 
 
+class BargeHouseRear80px(Hull):
+    def __init__(self):
+        self.hull_length = "80px"
+        self.hull_type = "barge"
+        self.house_position = "rear"
+        self.load_state_y_offsets = [("empty", -1), ("part_load", 0), ("full_load", 1)]
+        self.effects_positions = [(8, 0, 14)]
+
+
 class BargeHouseRear96px(Hull):
     def __init__(self):
         self.hull_length = "96px"
@@ -47,6 +56,24 @@ class BargeHouseRear96px(Hull):
         self.house_position = "rear"
         self.load_state_y_offsets = [("empty", -1), ("part_load", 0), ("full_load", 1)]
         self.effects_positions = [(10, 0, 16)]
+
+
+class BargeHouseRear112px(Hull):
+    def __init__(self):
+        self.hull_length = "112px"
+        self.hull_type = "barge"
+        self.house_position = "rear"
+        self.load_state_y_offsets = [("empty", -1), ("part_load", 0), ("full_load", 1)]
+        self.effects_positions = [(12, 0, 24)]
+
+
+class BargeHouseRear128px(Hull):
+    def __init__(self):
+        self.hull_length = "128px"
+        self.hull_type = "barge"
+        self.house_position = "rear"
+        self.load_state_y_offsets = [("empty", -1), ("part_load", 0), ("full_load", 2)]
+        self.effects_positions = [(15, 0, 27)]
 
 
 class PushBargeHouseRear112px(Hull):
@@ -242,7 +269,10 @@ class TempHouseNone128px(Hull):
 registered_hulls = {
     "BargeHouseRear44px": BargeHouseRear44px(),
     "BargeHouseRear64px": BargeHouseRear64px(),
+    "BargeHouseRear80px": BargeHouseRear80px(),
     "BargeHouseRear96px": BargeHouseRear96px(),
+    "BargeHouseRear112px": BargeHouseRear112px(),
+    "BargeHouseRear128px": BargeHouseRear128px(),
     "PushBargeHouseRear112px": PushBargeHouseRear112px(),
     "PushBargeHouseRear128px": PushBargeHouseRear128px(),
     "ShipHouseForward44px": ShipHouseForward44px(),
