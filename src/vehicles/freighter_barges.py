@@ -29,7 +29,7 @@ def main():
         subtype="E",
         hull="BargeHouseRear",
         effect_type="EFFECT_SPRITE_AIRCRAFT_BREAKDOWN_SMOKE",
-        cargo_length=8,
+        cargo_length=5,
     )
 
     ship = FreighterBarge(
