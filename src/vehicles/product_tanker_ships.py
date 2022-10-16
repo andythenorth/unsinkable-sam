@@ -48,7 +48,7 @@ def main():
 
     ship = ProductTankerShip(
         numeric_id=96,
-        name="Lecointe",
+        name="Washburn",
         gen=3,
         subtype="E",
         hull="ShipHouseRear",
