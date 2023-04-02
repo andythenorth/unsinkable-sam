@@ -42,7 +42,7 @@ def report_sprites_complete(ships):
 
 # wrapped in a main() function so this can be called explicitly, because unexpected multiprocessing fork bombs are bad
 def main():
-    print("[RENDER GRAPHICS] render_graphics.py")
+    print("[RENDER GRAPHICS]")
     start = time()
     unsinkable_sam.main()
     # get args passed by makefile
@@ -86,7 +86,11 @@ def main():
     report_sprites_complete(ships)
 
     # eh, how long does this take anyway?
-    print(format((time() - start), ".2f") + "s")
+    print(
+        "[RENDER GRAPHICS]",
+        "- complete",
+        format((time() - start), ".2f") + "s",
+    )
 
 
 if __name__ == "__main__":

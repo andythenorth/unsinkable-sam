@@ -1,5 +1,3 @@
-print("[RENDER NML] render_nml.py")
-
 import codecs  # used for writing files - more unicode friendly than standard open() module
 
 import sys
@@ -55,6 +53,7 @@ def render_consist_nml(consist):
 
 
 def main():
+    print("[RENDER NML]")
     start = time()
     unsinkable_sam.main()
     print(unsinkable_sam.vacant_numeric_ids_formatted())
@@ -86,7 +85,11 @@ def main():
         grf_nml.write(render_consist_nml(consist))
     grf_nml.close()
     # eh, how long does this take anyway?
-    print(format((time() - start), ".2f") + "s")
+    print(
+        "[RENDER NML]",
+        "- complete",
+        format((time() - start), ".2f") + "s",
+    )
 
 
 if __name__ == "__main__":

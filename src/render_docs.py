@@ -5,6 +5,8 @@ import sys
 import os
 
 currentdir = os.curdir
+import multiprocessing
+from itertools import repeat
 from time import time
 from PIL import Image
 import markdown
@@ -244,7 +246,7 @@ def render_docs_vehicle_details(ship, docs_output_path, ships):
     doc_file.close()
 
 
-def render_docs_images(docs_output_path, ships):
+def render_docs_images(ship, docs_output_path):
     # process vehicle buy menu sprites for reuse in docs
     # extend this similar to render_docs if other image types need processing in future
 
@@ -253,45 +255,57 @@ def render_docs_images(docs_output_path, ships):
     # for development, just run render_graphics manually before running render_docs
     vehicle_graphics_src = os.path.join(currentdir, "generated", "graphics")
     buy_menu_bb = global_constants.spritesheet_bounding_boxes[6]
-    for ship in ships:
-        vehicle_spritesheet = Image.open(
-            os.path.join(vehicle_graphics_src, ship.id + ".png")
+    vehicle_spritesheet = Image.open(
+        os.path.join(vehicle_graphics_src, ship.id + ".png")
+    )
+    processed_vehicle_image = vehicle_spritesheet.crop(
+        box=(
+            buy_menu_bb[0],
+            10
+            + global_constants.spritesheet_bounding_boxes[2][2]
+            - global_constants.docs_ship_image_height,
+            buy_menu_bb[0] + ship.buy_menu_width,
+            10 + global_constants.spritesheet_bounding_boxes[2][2],
         )
-        processed_vehicle_image = vehicle_spritesheet.crop(
-            box=(
-                buy_menu_bb[0],
-                10
-                + global_constants.spritesheet_bounding_boxes[2][2]
-                - global_constants.docs_ship_image_height,
-                buy_menu_bb[0] + ship.buy_menu_width,
-                10 + global_constants.spritesheet_bounding_boxes[2][2],
-            )
-        )
-        # oversize the images to account for how browsers interpolate the images on retina / HDPI screens
-        processed_vehicle_image = processed_vehicle_image.resize(
-            (
-                4 * ship.buy_menu_width,
-                4 * global_constants.buy_menu_sprite_height,
-            ),
-            resample=Image.Resampling.NEAREST,
-        )
+    )
+    # oversize the images to account for how browsers interpolate the images on retina / HDPI screens
+    processed_vehicle_image = processed_vehicle_image.resize(
+        (
+            4 * ship.buy_menu_width,
+            4 * global_constants.buy_menu_sprite_height,
+        ),
+        resample=Image.Resampling.NEAREST,
+    )
 
-        output_path = os.path.join(
-            currentdir,
-            "docs",
-            "html",
-            "static",
-            "img",
-            ship.id + ".png",
-            # ship.id + "_" + colour_name + ".png",
-        )
-        processed_vehicle_image.save(output_path, optimize=True, transparency=0)
+    output_path = os.path.join(
+        currentdir,
+        "docs",
+        "html",
+        "static",
+        "img",
+        ship.id + ".png",
+        # ship.id + "_" + colour_name + ".png",
+    )
+    processed_vehicle_image.save(output_path, optimize=True, transparency=0)
 
 
 def main():
     print("[RENDER DOCS] render_docs.py")
     start = time()
     unsinkable_sam.main()
+
+    # default to no mp, makes debugging easier (mp fails to pickle errors correctly)
+    num_pool_workers = makefile_args.get("num_pool_workers", 0)
+    if num_pool_workers == 0:
+        use_multiprocessing = False
+        # just print, no need for a coloured echo_message
+        print("Multiprocessing disabled: (PW=0)")
+    else:
+        use_multiprocessing = True
+        # logger = multiprocessing.log_to_stderr()
+        # logger.setLevel(25)
+        # just print, no need for a coloured echo_message
+        print("Multiprocessing enabled: (PW=" + str(num_pool_workers) + ")")
 
     # setting up a cache for compiled chameleon templates can significantly speed up template rendering
     chameleon_cache_path = os.path.join(
@@ -348,10 +362,30 @@ def main():
     for ship in ships:
         render_docs_vehicle_details(ship, docs_output_path, ships)
 
+
     # process images for use in docs
-    render_docs_images(docs_output_path, ships)
-    # eh, how long does this take anyway?
-    print(format((time() - start), ".2f") + "s")
+    # yes, I really did bother using a pool to save at best a couple of seconds, because FML :)
+    slow_start = time()
+    if use_multiprocessing == False:
+        for ship in ships:
+            render_docs_images(ship, docs_output_path)
+    else:
+        # Would this go faster if the pipelines from each consist were placed in MP pool, not just the consist?
+        # probably potato / potato tbh
+        pool = multiprocessing.Pool(processes=num_pool_workers)
+        pool.starmap(
+            render_docs_images,
+            zip(ships, repeat(docs_output_path)),
+        )
+        pool.close()
+        pool.join()
+    print("render_docs_images", time() - slow_start)
+
+    print(
+        "[RENDER DOCS]",
+        "- complete",
+        format((time() - start), ".2f") + "s",
+    )
 
 
 if __name__ == "__main__":
