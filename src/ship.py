@@ -72,7 +72,7 @@ class Ship(object):
         # extra type info, better over-ride in subclass
         self.str_type_info = "EMPTY"  # unused currently
         # nml-ish props, mostly optional
-        self.sound_effect = kwargs.get("sound_effect", "SOUND_SHIP_HORN")
+        self.sound_effect = kwargs.get("sound_effect", "SOUND_DEPARTURE_CARGO_SHIP")
         self.vehicle_life = kwargs.get(
             "vehicle_life", 100
         )  # default 100 years, assumes 2 generations of ships 1850-2050
@@ -753,7 +753,7 @@ class PaxShipBase(Ship):
         self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos["pax"]
         self.capacities_by_subtype = {"A": 40, "B": 125, "C": 300, "D": 720}
-        self.sound_effect = "SOUND_FERRY_HORN"
+        self.sound_effect = "SOUND_DEPARTURE_FERRY"
 
 
 class PaxFastLoadingShip(PaxShipBase):
