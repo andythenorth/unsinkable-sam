@@ -1,11 +1,17 @@
 import os.path
+import tomllib
+
+currentdir = os.curdir
+
 import global_constants
 from polar_fox import git_info
 from polar_fox.utils import echo_message as echo_message
 from polar_fox.utils import dos_palette_to_rgb as dos_palette_to_rgb
 from polar_fox.utils import unescape_chameleon_output as unescape_chameleon_output
 from polar_fox.utils import split_nml_string_lines as split_nml_string_lines
-from polar_fox.utils import unwrap_nml_string_declaration as unwrap_nml_string_declaration
+from polar_fox.utils import (
+    unwrap_nml_string_declaration as unwrap_nml_string_declaration,
+)
 
 
 def get_makefile_args(sys):
@@ -33,16 +39,30 @@ def get_docs_url():
     return "/".join(result)
 
 
-def parse_base_lang():
-    # expose base lang strings to python - for reuse in docs
-    with open(
-        os.path.join("src", "lang", "english.lng"), "r", encoding="utf8"
-    ) as base_lang_file:
-        strings = {}
-        for line in base_lang_file:
-            if ":" in line:
-                strings[line.split(":", 1)[0].strip()] = line.split(":", 1)[1].strip()
-        return strings
+def get_lang_data(lang, ships):
+    global_pragma = {}
+    lang_strings = {}
+    with open(os.path.join(currentdir, "src", "lang", lang + ".toml"), "rb") as fp:
+        lang_source = tomllib.load(fp)
+
+    for node_name, node_value in lang_source.items():
+        if node_name == "GLOBAL_PRAGMA":
+            # explicit handling of global pragma items
+            global_pragma["grflangid"] = node_value["grflangid"]
+            global_pragma["plural"] = node_value["plural"]
+            if node_value.get("gender", False):
+                global_pragma["gender"] = node_value["gender"]
+            if node_value.get("case", False):
+                global_pragma["case"] = node_value["case"]
+        else:
+            # this assumes only one roster, no string over-rides, but check Iron Horse if multi-roster support is needed
+            lang_strings[node_name] = node_value["base"]
+
+    for ship in ships:
+        if ship._name is not None:
+            lang_strings["STR_NAME_" + ship.id.upper()] = ship._name + " {STRING}"
+
+    return {"global_pragma": global_pragma, "lang_strings": lang_strings}
 
 
 def unpack_colour(colour_name, cc_to_remap):

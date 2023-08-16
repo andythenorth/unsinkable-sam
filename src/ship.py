@@ -252,7 +252,7 @@ class Ship(object):
     def name(self):
         return (
             "string(STR_NAME_"
-            + self.id
+            + self.id.upper()
             + ", string("
             + self.name_suffix_as_string_name
             + "))"

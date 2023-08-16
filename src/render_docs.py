@@ -19,8 +19,6 @@ from polar_fox import git_info
 # !! this is done differently in iron horse, with registered fetched from iron_horse module
 from rosters import registered_rosters
 
-# get the strings from base lang file so they can be used in docs
-base_lang_strings = utils.parse_base_lang()
 metadata = {}
 metadata.update(global_constants.metadata)
 
@@ -34,6 +32,9 @@ docs_src = os.path.join(currentdir, "src", "docs_templates")
 
 class DocHelper(object):
     # dirty class to help do some doc formatting
+
+    def __init__(self, lang_strings):
+        self.lang_strings = lang_strings
 
     def get_ships_by_subclass(self, ships):
         # first find all the subclasses + their vehicles
@@ -57,7 +58,7 @@ class DocHelper(object):
         return sorted(result, key=lambda subclass: subclass["name"])
 
     def get_roster_name(self, index):
-        return base_lang_strings.get("STR_PARAM_ROSTER_OPTION_" + str(index), "")
+        return self.lang_strings.get("STR_PARAM_ROSTER_OPTION_" + str(index), "")
 
     def get_roster_by_id(self, roster_id, registered_rosters):
         for roster in registered_rosters:
@@ -73,7 +74,7 @@ class DocHelper(object):
 
     def unpack_name_suffix(self, name_suffix_as_string_name):
         try:
-            return base_lang_strings[name_suffix_as_string_name]
+            return self.lang_strings[name_suffix_as_string_name]
         except:
             # no good solution currently for
             # 1. names for roles that are consistent, but ship model name suffixes change (Collier vs. Mini Bulker)
@@ -97,7 +98,7 @@ class DocHelper(object):
             result = self.fetch_prop(result, "Ship Name", self.unpack_name_string(ship))
             result = self.fetch_prop(result, "Subtype", ship.subtype)
             result = self.fetch_prop(
-                result, "Extra Info", base_lang_strings[ship.get_str_type_info()]
+                result, "Extra Info", self.lang_strings[ship.get_str_type_info()]
             )
             result = self.fetch_prop(result, "Speed Laden", int(ship.speed))
             result = self.fetch_prop(result, "Intro Date", ship.intro_date)
@@ -161,6 +162,7 @@ def render_docs(
     doc_list,
     file_type,
     docs_output_path,
+    doc_helper,
     ships,
     use_markdown=False,
     source_is_repo_root=False,
@@ -185,10 +187,9 @@ def render_docs(
             global_constants=global_constants,
             makefile_args=makefile_args,
             git_info=git_info,
-            base_lang_strings=base_lang_strings,
             metadata=metadata,
             utils=utils,
-            doc_helper=DocHelper(),
+            doc_helper=doc_helper,
             doc_name=doc_name,
         )
         if use_markdown:
@@ -201,7 +202,7 @@ def render_docs(
                 git_info=git_info,
                 metadata=metadata,
                 utils=utils,
-                doc_helper=DocHelper(),
+                doc_helper=doc_helper,
                 doc_name=doc_name,
             )
         if file_type == "html":
@@ -218,7 +219,7 @@ def render_docs(
         doc_file.close()
 
 
-def render_docs_vehicle_details(ship, docs_output_path, ships):
+def render_docs_vehicle_details(ship, docs_output_path, doc_helper, ships):
     # imports inside functions are generally avoided
     # but PageTemplateLoader is expensive to import and causes unnecessary overhead for Pool mapping when processing docs graphics
     from chameleon import PageTemplateLoader
@@ -233,10 +234,9 @@ def render_docs_vehicle_details(ship, docs_output_path, ships):
         registered_rosters=unsinkable_sam.registered_rosters,
         makefile_args=makefile_args,
         git_info=git_info,
-        base_lang_strings=base_lang_strings,
         metadata=metadata,
         utils=utils,
-        doc_helper=DocHelper(),
+        doc_helper=doc_helper,
         doc_name=doc_name,
     )
     doc_file = codecs.open(
@@ -246,7 +246,7 @@ def render_docs_vehicle_details(ship, docs_output_path, ships):
     doc_file.close()
 
 
-def render_docs_images(ship, docs_output_path):
+def render_docs_images(ship, docs_output_path, doc_helper):
     # process vehicle buy menu sprites for reuse in docs
     # extend this similar to render_docs if other image types need processing in future
 
@@ -330,6 +330,8 @@ def main():
     # default sort for docs is by ship intro date
     ships = sorted(ships, key=lambda ship: ship.intro_date)
 
+    doc_helper = DocHelper(lang_strings=utils.get_lang_data("english", ships)["lang_strings"])
+
     dates = sorted([i.intro_date for i in ships])
     metadata["dates"] = (dates[0], dates[-1])
 
@@ -345,22 +347,23 @@ def main():
     license_docs = ["license"]
     markdown_docs = ["changelog"]
 
-    render_docs(html_docs, "html", docs_output_path, ships)
-    render_docs(txt_docs, "txt", docs_output_path, ships)
+    render_docs(html_docs, "html", docs_output_path, doc_helper, ships)
+    render_docs(txt_docs, "txt", docs_output_path, doc_helper, ships)
     render_docs(
         license_docs,
         "txt",
         docs_output_path,
+        doc_helper,
         ships,
         source_is_repo_root=True,
     )
     # just render the markdown docs twice to get txt and html versions, simples no?
-    render_docs(markdown_docs, "txt", docs_output_path, ships)
-    render_docs(markdown_docs, "html", docs_output_path, ships, use_markdown=True)
+    render_docs(markdown_docs, "txt", docs_output_path, doc_helper, ships)
+    render_docs(markdown_docs, "html", docs_output_path, doc_helper, ships, use_markdown=True)
 
     # render vehicle details
     for ship in ships:
-        render_docs_vehicle_details(ship, docs_output_path, ships)
+        render_docs_vehicle_details(ship, docs_output_path, doc_helper, ships)
 
 
     # process images for use in docs
@@ -368,14 +371,14 @@ def main():
     slow_start = time()
     if use_multiprocessing == False:
         for ship in ships:
-            render_docs_images(ship, docs_output_path)
+            render_docs_images(ship, docs_output_path, doc_helper)
     else:
         # Would this go faster if the pipelines from each consist were placed in MP pool, not just the consist?
         # probably potato / potato tbh
         pool = multiprocessing.Pool(processes=num_pool_workers)
         pool.starmap(
             render_docs_images,
-            zip(ships, repeat(docs_output_path)),
+            zip(ships, repeat(docs_output_path), repeat(doc_helper)),
         )
         pool.close()
         pool.join()

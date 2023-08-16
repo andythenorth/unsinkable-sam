@@ -80,10 +80,10 @@ $(GRAPHICS_TARGET): $(shell $(FIND_FILES) --ext=.py --ext=.png src)
 	$(_V) $(PYTHON3) src/render_graphics.py $(ARGS)
 	$(_V) touch $(GRAPHICS_TARGET)
 
-$(LANG_TARGET): $(shell $(FIND_FILES) --ext=.py --ext=.pynml --ext=.lng src)
+$(LANG_TARGET): $(shell $(FIND_FILES) --ext=.py --ext=.pynml --ext=.toml src)
 	$(_V) $(PYTHON3) src/render_lang.py $(ARGS)
 
-$(HTML_DOCS): $(GRAPHICS_TARGET) $(LANG_TARGET) $(shell $(FIND_FILES) --ext=.py --ext=.pynml --ext=.pt --ext=.lng --ext=.png src)
+$(HTML_DOCS): $(GRAPHICS_TARGET) $(shell $(FIND_FILES) --ext=.py --ext=.pynml --ext=.pt --ext=.lng --ext=.png src)
 	$(_V) $(PYTHON3) src/render_docs.py $(ARGS)
 
 $(NML_FILE): $(shell $(FIND_FILES) --ext=.py --ext=.pynml src)
