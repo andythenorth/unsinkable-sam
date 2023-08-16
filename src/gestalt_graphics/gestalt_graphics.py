@@ -14,6 +14,8 @@ class GestaltGraphics(object):
     def __init__(self):
         # no graphics processing by default
         self.pipeline = None
+        # force livery to default for this gestalt
+        self.liveries = [graphics_constants.variant_liveries["_DEFAULT"]]
 
     @property
     def nml_template(self):
@@ -65,6 +67,7 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
             self.piece_type = kwargs.get("piece")
         # required if piece is set, cargo sprites are available in multiple lengths, set the most appropriate
         self.cargo_length = kwargs.get("cargo_length", None)
+        self.liveries = kwargs["liveries"]
 
     @property
     def generic_rows(self):
@@ -185,6 +188,7 @@ class GestaltGraphicsSimpleColourRemaps(GestaltGraphics):
         # option to recolour ship pixels per hull/house/deck rules, this is generally a desirable shortcut and allows drawing ship in magic colours matching hull
         # however it can cause unwanted recolouring of ship pixels, so it's explicitly enabled per gestalt
         self.apply_hull_recolours_to_ship = kwargs.get('apply_hull_recolours_to_ship', False)
+        self.liveries = kwargs["liveries"]
 
     @property
     def generic_rows(self):

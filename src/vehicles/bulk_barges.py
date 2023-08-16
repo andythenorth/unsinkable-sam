@@ -3,7 +3,7 @@ from ship import BulkBarge
 
 def main():
     ship = BulkBarge(
-        numeric_id=35,
+        numeric_id=350,
         name="Pittman",
         gen=2,
         subtype="B",
@@ -13,7 +13,7 @@ def main():
     )
 
     ship = BulkBarge(
-        numeric_id=55,
+        numeric_id=550,
         name="Lorain",
         gen=2,
         subtype="C",
@@ -23,7 +23,7 @@ def main():
     )
 
     ship = BulkBarge(
-        numeric_id=10,
+        numeric_id=100,
         name="Sandvik",
         gen=2,
         subtype="D",
@@ -33,7 +33,7 @@ def main():
     )
 
     ship = BulkBarge(
-        numeric_id=9,
+        numeric_id=90,
         name="Bigrock",
         gen=2,
         subtype="F",

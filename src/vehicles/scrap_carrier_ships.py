@@ -3,7 +3,7 @@ from ship import ScrapCarrierShip
 
 def main():
     ship = ScrapCarrierShip(
-        numeric_id=86,
+        numeric_id=860,
         name="Sintra",
         gen=3,
         subtype="A",
@@ -13,7 +13,7 @@ def main():
     )
 
     ship = ScrapCarrierShip(
-        numeric_id=87,
+        numeric_id=870,
         name="Klink",
         gen=3,
         subtype="B",
@@ -23,7 +23,7 @@ def main():
     )
 
     ship = ScrapCarrierShip(
-        numeric_id=88,
+        numeric_id=880,
         name="Skansin",
         gen=3,
         subtype="C",
@@ -33,7 +33,7 @@ def main():
     )
 
     ship = ScrapCarrierShip(
-        numeric_id=89,
+        numeric_id=890,
         name="Grinna",
         gen=3,
         subtype="D",
@@ -43,7 +43,7 @@ def main():
     )
 
     ship = ScrapCarrierShip(
-        numeric_id=90,
+        numeric_id=900,
         name="Carson",
         gen=3,
         subtype="E",
@@ -53,7 +53,7 @@ def main():
     )
 
     ship = ScrapCarrierShip(
-        numeric_id=91,
+        numeric_id=910,
         name="Anvil",
         gen=3,
         subtype="F",

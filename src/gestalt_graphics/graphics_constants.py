@@ -3,6 +3,11 @@ CC1 = 198
 CC2 = 80
 house_magic_colour = 170
 
+variant_liveries = {
+    "_DEFAULT": "foo",
+    "_BULK_TEST": "bar",
+}
+
 hull_recolour_CC1 = {
     136: CC1,
     137: CC1 + 1,

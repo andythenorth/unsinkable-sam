@@ -3,7 +3,7 @@ from ship import FreighterBarge
 
 def main():
     ship = FreighterBarge(
-        numeric_id=99,
+        numeric_id=990,
         name="Maryport",
         gen=3,
         subtype="C",
@@ -13,7 +13,7 @@ def main():
     )
 
     ship = FreighterBarge(
-        numeric_id=46,
+        numeric_id=460,
         name="Lindau",
         gen=3,
         subtype="D",
@@ -23,7 +23,7 @@ def main():
     )
 
     ship = FreighterBarge(
-        numeric_id=47,
+        numeric_id=470,
         name="Detroit",
         gen=3,
         subtype="E",
@@ -33,7 +33,7 @@ def main():
     )
 
     ship = FreighterBarge(
-        numeric_id=48,
+        numeric_id=480,
         name="Roanoke",
         gen=3,
         subtype="F",

@@ -6,55 +6,59 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_create_visual_effect, ${ship.get_expression
 }
 
 
-// -- props -- //
-item(FEAT_SHIPS, ${ship.id}, ${ship.numeric_id}) {
-    property {
-        name:                           ${ship.name};
-        climates_available:             NO_CLIMATE; // nml constant
-        sound_effect:                   ${ship.sound_effect};
-        effect_spawn_model:             ${ship.effect_spawn_model};
-        introduction_date:              date(${ship.intro_date},01,01); // ship just supplies intro year - openttd randomises intro dates a bit anyway
-        cargo_capacity:                 ${ship.default_capacity};
-        sprite_id:                      SPRITE_ID_NEW_SHIP; //enable new graphics - nml constant
-        // speed is not set, handled by cb
-        cost_factor:                    ${ship.buy_cost};
-        running_cost_factor:            ${ship.running_cost};
-        refit_cost:                     0; // leave at 0 for refitting without defining cb
-        is_refittable:                  1;
-        refittable_cargo_classes:       bitmask(${ship.refittable_classes});
-        non_refittable_cargo_classes:   bitmask(); // don't set non-refittable classes, increases likelihood of breaking cargo support
-        cargo_allow_refit:              [${ship.get_label_refits_allowed()}];
-        cargo_disallow_refit:           [${ship.get_label_refits_disallowed()}];
-        <tal:default_cargo condition="len(ship.default_cargos) > 0">
-            default_cargo_type:             ${ship.get_nml_expression_for_default_cargos()};
-        </tal:default_cargo>
-        loading_speed:                  ${ship.loading_speed};
-        cargo_age_period:               ${ship.cargo_age_period};
-        misc_flags:                     bitmask(SHIP_FLAG_2CC, SHIP_FLAG_AUTOREFIT, SHIP_FLAG_SPRITE_STACK); // nml constants
-        model_life:                     ${ship.adjusted_model_life};
-        retire_early:                   ${ship.vehicle_life - 4}; // magic from Eddi
-        reliability_decay:              20; // default value
-        vehicle_life:                   ${ship.vehicle_life};
-    }
-    graphics {
-        speed:                          ${ship.id}_switch_speed;
-        cargo_capacity:                 ${ship.id}_switch_cargo_capacity;
-        purchase_cargo_capacity:        ${ship.default_capacity};
-        <!--!colour_mapping:                 switch_colour_mapping(${consist.cc_num_to_randomise}, ${consist.auto_colour_randomisation_strategy_num});-->
-        colour_mapping:                 switch_colour_mapping(${1}, ${0});
-        additional_text:                ${'string(STR_SPRITES_COMPLETE)' if ship.sprites_complete else 'string(STR_SPRITES_INCOMPLETE)'};
-        <!--!additional_text:                ${ship.get_buy_menu_string()};-->
-        cargo_subtype_text:             ${ship.id}_switch_cargo_subtype_text;
-        default:                        ${ship.id}_switch_graphics;
-        purchase:                       ${ship.id}_sg_purchase;
-        create_effect:                  ${ship.id}_create_visual_effect;
-    }
-}
-
-if (${ship.get_expression_for_rosters()}) {
-    item(FEAT_SHIPS, ${ship.id}, ${ship.numeric_id}) {
+<tal:ship_variants repeat="ship_variant ship.resolve_buyable_variants()">
+    item(FEAT_SHIPS, ${ship_variant.id}, ${ship_variant.numeric_id}) {
         property {
-            climates_available:             ALL_CLIMATES;
+            name:                           ${ship.name};
+            climates_available:             NO_CLIMATE; // nml constant
+            sound_effect:                   ${ship.sound_effect};
+            effect_spawn_model:             ${ship.effect_spawn_model};
+            introduction_date:              date(${ship.intro_date},01,01); // ship just supplies intro year - openttd randomises intro dates a bit anyway
+            cargo_capacity:                 ${ship.default_capacity};
+            sprite_id:                      SPRITE_ID_NEW_SHIP; //enable new graphics - nml constant
+            // speed is not set, handled by cb
+            cost_factor:                    ${ship.buy_cost};
+            running_cost_factor:            ${ship.running_cost};
+            refit_cost:                     0; // leave at 0 for refitting without defining cb
+            is_refittable:                  1;
+            refittable_cargo_classes:       bitmask(${ship.refittable_classes});
+            non_refittable_cargo_classes:   bitmask(); // don't set non-refittable classes, increases likelihood of breaking cargo support
+            cargo_allow_refit:              [${ship.get_label_refits_allowed()}];
+            cargo_disallow_refit:           [${ship.get_label_refits_disallowed()}];
+            <tal:default_cargo condition="len(ship.default_cargos) > 0">
+                default_cargo_type:             ${ship.get_nml_expression_for_default_cargos()};
+            </tal:default_cargo>
+            loading_speed:                  ${ship.loading_speed};
+            cargo_age_period:               ${ship.cargo_age_period};
+            misc_flags:                     bitmask(SHIP_FLAG_2CC, SHIP_FLAG_AUTOREFIT, SHIP_FLAG_SPRITE_STACK); // nml constants
+            model_life:                     ${ship.adjusted_model_life};
+            retire_early:                   ${ship.vehicle_life - 4}; // magic from Eddi
+            reliability_decay:              20; // default value
+            vehicle_life:                   ${ship.vehicle_life};
+            <tal:variant_group condition="ship_variant.numeric_id != ship_variant.ship.numeric_id">
+                variant_group:                  ${ship_variant.ship.numeric_id};
+            </tal:variant_group>
+        }
+        graphics {
+            speed:                          ${ship.id}_switch_speed;
+            cargo_capacity:                 ${ship.id}_switch_cargo_capacity;
+            purchase_cargo_capacity:        ${ship.default_capacity};
+            <!--!colour_mapping:                 switch_colour_mapping(${consist.cc_num_to_randomise}, ${consist.auto_colour_randomisation_strategy_num});-->
+            colour_mapping:                 switch_colour_mapping(${1}, ${0});
+            additional_text:                ${'string(STR_SPRITES_COMPLETE)' if ship.sprites_complete else 'string(STR_SPRITES_INCOMPLETE)'};
+            <!--!additional_text:                ${ship.get_buy_menu_string()};-->
+            cargo_subtype_text:             ${ship.id}_switch_cargo_subtype_text;
+            default:                        ${ship.id}_switch_graphics;
+            purchase:                       ${ship.id}_sg_purchase;
+            create_effect:                  ${ship.id}_create_visual_effect;
         }
     }
-}
+
+    if (${ship.get_expression_for_rosters()}) {
+        item(FEAT_SHIPS, ${ship_variant.id}, ${ship_variant.numeric_id}) {
+            property {
+                climates_available:             ALL_CLIMATES;
+            }
+        }
+    }
+</tal:ship_variants>

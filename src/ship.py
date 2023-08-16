@@ -32,8 +32,23 @@ from rosters import registered_rosters
 from vehicles import numeric_id_defender
 
 
+class BuyableVariant(object):
+    """Simple class for ship variants."""
+
+    def __init__(self, ship, livery, numeric_id):
+        self.ship = ship
+        self.livery = livery
+        self.numeric_id = numeric_id
+        if self.numeric_id == self.ship.numeric_id:
+            self.id = self.ship.id
+        else:
+            self.id = self.ship.id + str(numeric_id)
+
+    def get_variant_group_parent_vehicle_id(self):
+        return None
+
 class Ship(object):
-    """Base class for all types of ships"""
+    """Base class for all types of ships."""
 
     def __init__(self, name, numeric_id, gen, subtype, hull, **kwargs):
         self.id = self.base_id + "_gen_" + str(gen) + subtype
@@ -98,6 +113,19 @@ class Ship(object):
         self.cargo_length = kwargs.get("cargo_length", None)
         # aids 'project management'
         self.sprites_complete = kwargs.get("sprites_complete", False)
+
+    def resolve_buyable_variants(self):
+        # !! this potentially has sequencing issues as it depends on gestalt_graphics, but that's initialised to default at this point
+        # !! need some post-flight method, or render-time method
+        # !!! currently attempting to use it only at template render time
+        # this method can be over-ridden per consist subclass as needed
+        # the basic form of buyable variants is driven by liveries
+        result = []
+        for livery in self.gestalt_graphics.liveries:
+            # we don't need to know the actual livery here, we rely on matching them up later by indexes, which is fine
+            numeric_id = self.numeric_id + len(result)
+            result.append(BuyableVariant(self, livery=livery, numeric_id=numeric_id))
+        return result
 
     @property
     def num_unique_spritesheet_suffixes(self):
@@ -394,6 +422,7 @@ class BulkBarge(BulkBase):
             bulk=True,
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
             house_recolour_map=graphics_constants.house_recolour_roof_CC1_1,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -410,6 +439,7 @@ class BulkShip(BulkBase):
             bulk=True,
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
             house_recolour_map=graphics_constants.house_recolour_roof_dark_red_1,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"], graphics_constants.variant_liveries["_BULK_TEST"]],
         )
 
     @property
@@ -440,6 +470,7 @@ class ScrapCarrierShip(BulkBase):
             bulk=True,
             hull_recolour_map=graphics_constants.hull_recolour_dirty_black,
             house_recolour_map=house_recolour_map,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -481,6 +512,7 @@ class CargoLiner(Ship):
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
             house_recolour_map=house_recolour_map,
             apply_hull_recolours_to_ship=True,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -517,7 +549,8 @@ class CoveredHopperCarrier(Ship):
         self.loading_speed_multiplier = 2
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=graphics_constants.hull_recolour_CC1
+            hull_recolour_map=graphics_constants.hull_recolour_CC1,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -544,6 +577,7 @@ class CryoTanker(Ship):
             cargo_recolour_maps=polar_fox.constants.cryo_tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=house_recolour_map,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -579,6 +613,7 @@ class EdiblesTanker(Ship):
             hull_recolour_map=hull_recolour_map,
             deck_recolour_map=deck_recolour_map,
             house_recolour_map=house_recolour_map,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -598,7 +633,10 @@ class FlatDeckBarge(Ship):
         ]
         self.default_cargos = global_constants.default_cargos["flat"]
         # Graphics configuration
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo(piece="flat")
+        self.gestalt_graphics = GestaltGraphicsVisibleCargo(
+            piece="flat",
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
+        )
 
     # class FruitVegCarrier(Ship):
     """
@@ -636,7 +674,10 @@ class FreighterBarge(FreighterBase):
         super().__init__(**kwargs)
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(
-            bulk=True, piece="open", house_recolour_map=graphics_constants.house_recolour_roof_CC1_1
+            bulk=True,
+            piece="open",
+            house_recolour_map=graphics_constants.house_recolour_roof_CC1_1,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -656,7 +697,8 @@ class FreighterShip(FreighterBase):
         else:
             house_recolour_map = None
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(
-            bulk=True, piece="open", house_recolour_map=house_recolour_map
+            bulk=True, piece="open", house_recolour_map=house_recolour_map,            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
+
         )
 
 
@@ -675,6 +717,7 @@ class MerchandiseFreighterShip(FreighterBase):
             piece="open",
             house_recolour_map=house_recolour_map,
             hull_recolour_map=graphics_constants.hull_recolour_dark_grey,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -698,6 +741,7 @@ class LivestockCarrier(Ship):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             hull_recolour_map=graphics_constants.hull_recolour_silver,
             house_recolour_map=graphics_constants.house_recolour_roof_dark_red_1,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -737,7 +781,8 @@ class MailShip(Ship):
         }  # no large mail ships, by design
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=graphics_constants.hull_recolour_CC1
+            hull_recolour_map=graphics_constants.hull_recolour_CC1,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -768,7 +813,8 @@ class PaxFastLoadingShip(PaxShipBase):
         self.loading_speed_multiplier = 3
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=graphics_constants.hull_recolour_CC1
+            hull_recolour_map=graphics_constants.hull_recolour_CC1,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
     @property
@@ -790,7 +836,8 @@ class PaxLuxuryShip(PaxShipBase):
         self.cargo_age_period = 3 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=graphics_constants.hull_recolour_CC2
+            hull_recolour_map=graphics_constants.hull_recolour_CC2,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
     @property
@@ -838,6 +885,7 @@ class Reefer(Ship):
             deck_recolour_map=deck_recolour_map,
             house_recolour_map=house_recolour_map,
             apply_hull_recolours_to_ship=True,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -871,6 +919,7 @@ class TankerBarge(TankerBase):
             cargo_recolour_maps=polar_fox.constants.tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=graphics_constants.house_recolour_roof_CC1_1,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -889,7 +938,7 @@ class TankerShip(TankerBase):
             house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
         elif self.subtype in ["B", "D", "F"]:
             house_recolour_map = (
-                 graphics_constants.house_recolour_roof_silver_1.copy()
+                graphics_constants.house_recolour_roof_silver_1.copy()
             )  # copy because update is used to extend the map
         else:
             house_recolour_map = []
@@ -898,6 +947,7 @@ class TankerShip(TankerBase):
             cargo_recolour_maps=polar_fox.constants.tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=house_recolour_map,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -914,6 +964,7 @@ class ProductTankerShip(TankerBase):
             cargo_recolour_maps=graphics_constants.product_tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=graphics_constants.house_recolour_roof_silver_1,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -933,6 +984,7 @@ class Trawler(Ship):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             hull_recolour_map=graphics_constants.hull_recolour_dark_blue,
             apply_hull_recolours_to_ship=True,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )
 
 
@@ -957,5 +1009,6 @@ class UtilityHovercraft(Ship):
         self._speed = 50
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=graphics_constants.hull_recolour_CC1
+            hull_recolour_map=graphics_constants.hull_recolour_CC1,
+            liveries=[graphics_constants.variant_liveries["_DEFAULT"]],
         )

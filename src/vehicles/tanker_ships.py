@@ -14,7 +14,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=67,
+        numeric_id=670,
         name="Salso",
         gen=3,
         subtype="A",
@@ -25,7 +25,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=34,
+        numeric_id=340,
         name="Berwick",
         gen=3,
         subtype="B",
@@ -36,7 +36,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=44,
+        numeric_id=440,
         name="Kalsoy",
         gen=3,
         subtype="C",
@@ -47,7 +47,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=1,
+        numeric_id=10,
         name="Ellesmere",
         gen=3,
         subtype="D",
@@ -58,7 +58,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=19,
+        numeric_id=190,
         name="Gunfleet",
         gen=3,
         subtype="E",
@@ -69,7 +69,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=2,
+        numeric_id=20,
         name="Rotterdam",
         gen=3,
         subtype="F",
@@ -82,7 +82,7 @@ def main():
 
 """
     ship = TankerShip(
-        numeric_id=31,
+        numeric_id=310,
         name="Escobar",
         gen=4,
         subtype="E",

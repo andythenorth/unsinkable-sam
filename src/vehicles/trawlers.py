@@ -3,7 +3,7 @@ from ship import Trawler
 
 def main():
     ship = Trawler(
-        numeric_id=11,
+        numeric_id=110,
         name="Newfoundland",
         gen=3,
         subtype="A",
@@ -12,7 +12,7 @@ def main():
     )
 
     ship = Trawler(
-        numeric_id=12,
+        numeric_id=120,
         name="Rio Pescado",
         gen=3,
         subtype="B",
@@ -21,7 +21,7 @@ def main():
     )
 
     ship = Trawler(
-        numeric_id=13,
+        numeric_id=130,
         name="Cromarty",
         gen=3,
         subtype="D",
