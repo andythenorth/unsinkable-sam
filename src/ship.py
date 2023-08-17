@@ -571,28 +571,6 @@ class BulkShip(BulkBase):
             return "STR_NAME_MINI_BULKER"
 
 
-# not in alphabetical order as it depends on subclassing BulkBase
-class ScrapCarrierShip(BulkBase):
-    """
-    Colour variation on standard bulk ship, no other differences
-    """
-
-    def __init__(self, **kwargs):
-        self.base_id = "scrap_carrier_ship"
-        super().__init__(**kwargs)
-        # Graphics configuration
-        house_recolour_map = (
-            graphics_constants.house_recolour_roof_rust_1.copy()
-        )  # copy because update is used to extend the map
-        house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo(
-            bulk=True,
-            hull_recolour_map=graphics_constants.hull_recolour_dirty_black,
-            house_recolour_map=house_recolour_map,
-            liveries=[global_constants.ship_liveries["_DEFAULT"]],
-        )
-
-
 class CargoLiner(Ship):
     """
     Piece goods cargos, other selected cargos.  Equivalent of Road Hog box hauler and Iron Horse box car / van.
@@ -836,25 +814,6 @@ class FreighterShip(FreighterBase):
                 global_constants.ship_liveries["FREIGHT_TEAL"],
                 global_constants.ship_liveries["FREIGHT_RUSTY_BLACK"],
             ],
-        )
-
-
-class MerchandiseFreighterShip(FreighterBase):
-    """
-    Colour variation on standard freighter, no other differences
-    """
-
-    def __init__(self, **kwargs):
-        self.base_id = "merchandise_freighter_ship"
-        super().__init__(**kwargs)
-        # Graphics configuration
-        house_recolour_map = graphics_constants.house_recolour_roof_CC1_1
-        self.gestalt_graphics = GestaltGraphicsVisibleCargo(
-            bulk=True,
-            piece="open",
-            house_recolour_map=house_recolour_map,
-            hull_recolour_map=graphics_constants.hull_recolour_dark_grey,
-            liveries=[global_constants.ship_liveries["_DEFAULT"]],
         )
 
 

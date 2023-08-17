@@ -68,9 +68,6 @@ base = "Log Tug"
 [STR_NAME_MAIL_SHIP]
 base = "Mail Ship"
 
-[STR_NAME_MERCHANDISE_FREIGHTER_SHIP]
-base = "Merchandise Freighter"
-
 [STR_NAME_MINI_BULKER]
 base = "Mini Bulker"
 
@@ -85,9 +82,6 @@ base = "Product Tanker"
 
 [STR_NAME_REEFER]
 base = "Refrigerated Ship"
-
-[STR_NAME_SCRAP_CARRIER_SHIP]
-base = "Scrap Carrier"
 
 [STR_NAME_TANKER_BARGE]
 base = "Tank Barge"

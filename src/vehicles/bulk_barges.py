@@ -2,6 +2,16 @@ from ship import BulkBarge
 
 
 def main():
+    """
+        possible barge names
+        name="Sintra",
+        name="Klink",
+        name="Skansin",
+        name="Grinna",
+        name="Carson",
+        name="Anvil",
+    """
+
     ship = BulkBarge(
         numeric_id=350,
         name="Pittman",
