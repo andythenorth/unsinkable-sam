@@ -5,10 +5,9 @@ custom_ship_recolour_sprites = reserve_sprites(16 * 2 * ${len(global_constants.c
 
 replace(custom_ship_recolour_sprites) {
     <tal:custom_ship_recolour_sprite_maps repeat="custom_map_pair global_constants.custom_ship_recolour_sprite_maps.items()">
-        // -- Custom map for cc1: ${custom_map_pair[0]} - use player setting for cc2 -- //
+        // custom map for cc1: ${custom_map_pair[0]} - use player setting for cc2
         <tal:company_colour_maps repeat="company_colour_map_pair global_constants.company_colour_maps.items()">
-            // cc1 will be custom map ${custom_map_pair[0]}
-            // cc2  will be ${company_colour_map_pair[0]} ${company_colour_map_pair[1]}
+            //${company_colour_map_pair[0]}
             recolour_sprite {
             <tal:company_colour_map repeat="colour_index company_colour_map_pair[1]">
                 ${hex(198 + repeat.colour_index.index)}: ${hex(custom_map_pair[1][repeat.colour_index.index])};
@@ -16,10 +15,9 @@ replace(custom_ship_recolour_sprites) {
             </tal:company_colour_map>
             }
         </tal:company_colour_maps>
-        // -- Custom map for cc2: ${custom_map_pair[0]} - use player setting for cc1 -- //
+        // custom map for cc2: ${custom_map_pair[0]} - use player setting for cc1
         <tal:company_colour_maps repeat="company_colour_map_pair global_constants.company_colour_maps.items()">
-            // cc1 will be ${company_colour_map_pair[0]} ${company_colour_map_pair[1]}
-            // cc2 will be custom map ${custom_map_pair[0]}
+            //${company_colour_map_pair[0]}
             recolour_sprite {
             <tal:company_colour_map repeat="colour_index company_colour_map_pair[1]">
                 ${hex(198 + repeat.colour_index.index)}: ${hex(colour_index)};
@@ -29,4 +27,3 @@ replace(custom_ship_recolour_sprites) {
         </tal:company_colour_maps>
     </tal:custom_ship_recolour_sprite_maps>
 }
-

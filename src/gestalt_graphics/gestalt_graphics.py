@@ -2,6 +2,7 @@ import polar_fox
 import gestalt_graphics.graphics_constants as graphics_constants
 from gestalt_graphics import pipelines
 import utils
+import global_constants
 
 
 class GestaltGraphics(object):
@@ -15,7 +16,7 @@ class GestaltGraphics(object):
         # no graphics processing by default
         self.pipeline = None
         # force livery to default for this gestalt
-        self.liveries = [graphics_constants.variant_liveries["_DEFAULT"]]
+        self.liveries = [global_constants.ship_liveries["_DEFAULT"]]
 
     @property
     def nml_template(self):

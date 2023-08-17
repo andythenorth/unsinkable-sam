@@ -56,7 +56,7 @@ def main():
     print("[RENDER NML]")
     start = time()
     unsinkable_sam.main()
-    print(unsinkable_sam.vacant_numeric_ids_formatted())
+    print(unsinkable_sam.find_vacant_id_runs())
 
     generated_nml_path = os.path.join(generated_files_path, "nml")
     if not os.path.exists(generated_nml_path):
@@ -75,6 +75,7 @@ def main():
         "header",
         "cargo_table",
         "recolour_sprites",
+        "procedures_alternative_var_random_bits",
         "procedures_colour_randomisation_strategies",
     ]
     for header_item in header_items:

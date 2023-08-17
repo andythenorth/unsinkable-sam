@@ -1,0 +1,38 @@
+<!--! to aid managing which bits are used for what, access to them is wrapped in named pseudo vars
+      these can then be eye-balled for overlaps
+      - note that not all vehicles use all the pseudo vars, and/or not all overlaps are problematic
+-->
+
+<!--! slightly over-engineered abstraction of getting the random bits
+      this is here because it was inherited from Horse on copy-paste code, _could_ be refactored out, but didn't bother
+-->
+switch (FEAT_SHIPS, SELF, switch_alternative_var_random_bits, bits_offset, bits_count, getbits(random_bits, bits_offset, bits_count)) {
+    <!--! return with nothing else will yield the computed value -->
+    return;
+}
+
+<!--! colour set and weathered variant are ok to overlap (probably gets best visual result where vehicles use both together) -->
+switch (FEAT_SHIPS, SELF, random_bits_colour_set, switch_alternative_var_random_bits(0, 1)) {
+    <!--! return with nothing else to yield the computed value  -->
+    return;
+}
+switch (FEAT_SHIPS, SELF, random_bits_weathered_variant, switch_alternative_var_random_bits(0, 1)) {
+    <!--! return with nothing else to yield the computed value  -->
+    return;
+}
+
+<!--! up to 8 random liveries for ship recolour/remaps
+      these may overlap random ship choices due to shortage of bits, but eh, JFDI
+-->
+switch (FEAT_SHIPS, SELF, random_bits_ship_random_remap_livery, switch_alternative_var_random_bits(1, 3)) {
+    <!--! return with nothing else to yield the computed value  -->
+    return;
+}
+
+<!--! the picking from bit 2 onwards is just a wild guess to try and make this independent from colour and weathering choices etc
+      bits_counts varies, but is limited upstream by get_ship_randomisation_candidates()
+-->
+switch (FEAT_SHIPS, SELF, random_bits_randomised_ship_choose_ship, bits_count, switch_alternative_var_random_bits(2, bits_count)) {
+    <!--! return with nothing else to yield the computed value  -->
+    return;
+}

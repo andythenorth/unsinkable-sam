@@ -53,7 +53,7 @@ def main():
     )
 
     ship = BulkShip(
-        numeric_id=510,
+        numeric_id=330,
         name="Gravelly",
         gen=3,
         subtype="E",
