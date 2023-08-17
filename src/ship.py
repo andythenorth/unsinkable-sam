@@ -549,15 +549,15 @@ class BulkShip(BulkBase):
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(
             bulk=True,
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            house_recolour_map=graphics_constants.house_recolour_roof_dark_red_1,
+            house_recolour_map=graphics_constants.house_recolour_roof_rust_1,
             liveries=[
                 global_constants.ship_liveries["_DEFAULT"],
-                global_constants.ship_liveries["FREIGHT_GREMLIN_GREEN"],
                 global_constants.ship_liveries["FREIGHT_NIGHTSHADE"],
-                global_constants.ship_liveries["FREIGHT_SAND"],
+                global_constants.ship_liveries["FREIGHT_RUSTY_BLACK"],
+                global_constants.ship_liveries["FREIGHT_OCHRE"],
                 global_constants.ship_liveries["FREIGHT_GREY"],
-                global_constants.ship_liveries["FREIGHT_BAUXITE"],
-                global_constants.ship_liveries["RANDOM_LIVERIES_2"],
+                global_constants.ship_liveries["FREIGHT_RUBY"],
+                global_constants.ship_liveries["FREIGHT_TEAL"],
             ],
         )
 
@@ -834,7 +834,7 @@ class FreighterShip(FreighterBase):
                 global_constants.ship_liveries["FREIGHT_RUBY"],
                 global_constants.ship_liveries["FREIGHT_GREY"],
                 global_constants.ship_liveries["FREIGHT_TEAL"],
-                global_constants.ship_liveries["FREIGHT_BAUXITE"],
+                global_constants.ship_liveries["FREIGHT_RUSTY_BLACK"],
             ],
         )
 

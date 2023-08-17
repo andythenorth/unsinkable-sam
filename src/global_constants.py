@@ -148,6 +148,8 @@ custom_ship_recolour_sprite_maps = {
     "custom_faded_ruby": (71, 72, 73, 43, 44, 76, 77, 47),
     "custom_oil_black": (1, 2, 3, 4, 5, 6, 7, 8),
     "custom_faded_oil_black": (1, 70, 16, 4, 26, 6, 7, 8),
+    "custom_rusty_black": (70, 71, 33, 5, 6, 35, 7, 8),
+    "custom_faded_rusty_black": (70, 71, 32, 26, 6, 34, 7, 8),
     "custom_gremlin_green": (24, 25, 26, 27, 28, 29, 30, 31),
     "custom_faded_gremlin_green": (24, 25, 26, 109, 28, 29, 59, 103),
     "custom_ochre": (60, 61, 62, 63, 192, 193, 194, 196),
@@ -184,6 +186,7 @@ colour_sets = {
     "freight_straw": ["COLOUR_BROWN", "COLOUR_CREAM"],
     "freight_ruby": ["custom_ruby", "custom_faded_ruby"],
     "freight_oil_black": ["custom_oil_black", "custom_faded_oil_black"],
+    "freight_rusty_black": ["custom_rusty_black", "custom_faded_rusty_black"],
     "freight_gremlin_green": ["custom_gremlin_green", "custom_faded_gremlin_green"],
     "freight_ochre": ["custom_ochre", "custom_faded_ochre"],
     "freight_sand": ["COLOUR_BROWN", "custom_dark_brown"],
@@ -436,6 +439,14 @@ ship_liveries = {
     },
     "FREIGHT_OIL_BLACK": {
         "colour_set": "freight_oil_black",
+        "use_weathering": True,
+        "docs_image_input_cc": [
+            ("COLOUR_BLUE", "COLOUR_BLUE"),
+            ("COLOUR_RED", "COLOUR_WHITE"),
+        ],
+    },
+    "FREIGHT_RUSTY_BLACK": {
+        "colour_set": "freight_rusty_black",
         "use_weathering": True,
         "docs_image_input_cc": [
             ("COLOUR_BLUE", "COLOUR_BLUE"),
