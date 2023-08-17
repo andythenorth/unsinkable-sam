@@ -146,8 +146,9 @@ custom_ship_recolour_sprite_maps = {
     "custom_dark_sulphur": (62, 62 + 1, 62 + 2, 193, 194, 50, 51, 52),
     "custom_ruby": (40, 41, 42, 43, 44, 45, 46, 47),
     "custom_faded_ruby": (71, 72, 73, 43, 44, 76, 77, 47),
-    "custom_oil_black": (1, 2, 3, 4, 5, 6, 7, 8),
-    "custom_faded_oil_black": (1, 70, 16, 4, 26, 6, 7, 8),
+    # oil black has been adjusted compared to Iron Horse, to account for ships being larger and needing darker colours
+    "custom_oil_black": (104, 1, 2, 3, 4, 5, 6, 7),
+    "custom_faded_oil_black": (1, 2, 3, 4, 26, 6, 7, 8),
     "custom_rusty_black": (70, 71, 33, 5, 6, 35, 7, 8),
     "custom_faded_rusty_black": (70, 71, 32, 26, 6, 34, 7, 8),
     "custom_gremlin_green": (24, 25, 26, 27, 28, 29, 30, 31),
@@ -539,6 +540,14 @@ ship_liveries = {
         "docs_image_input_cc": [
             ("COLOUR_BLUE", "COLOUR_BLUE"),
             ("COLOUR_RED", "COLOUR_WHITE"),
+        ],
+    },
+    "CC_WHITE": {
+        "colour_set": "white",
+        "use_weathering": True,
+        "docs_image_input_cc": [
+            ("COLOUR_WHITE", "COLOUR_BLUE"),
+            ("COLOUR_WHITE", "COLOUR_RED"),
         ],
     },
 }

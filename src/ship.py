@@ -682,7 +682,19 @@ class CryoTanker(Ship):
             cargo_recolour_maps=polar_fox.constants.cryo_tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=house_recolour_map,
-            liveries=[global_constants.ship_liveries["_DEFAULT"]],
+            liveries=[
+                global_constants.ship_liveries["_DEFAULT"],
+                global_constants.ship_liveries["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                global_constants.ship_liveries["FREIGHT_RUBY"],
+                global_constants.ship_liveries["FREIGHT_SILVER"],
+                global_constants.ship_liveries["FREIGHT_PEWTER"],
+                global_constants.ship_liveries["FREIGHT_NIGHTSHADE"],
+                global_constants.ship_liveries["FREIGHT_TEAL"],
+                global_constants.ship_liveries["FREIGHT_SULPHUR"],
+                global_constants.ship_liveries["FREIGHT_OCHRE"],
+                global_constants.ship_liveries["FREIGHT_RUSTY_BLACK"],
+                global_constants.ship_liveries["FREIGHT_BAUXITE"],
+            ],
         )
 
 
@@ -718,7 +730,9 @@ class EdiblesTanker(Ship):
             hull_recolour_map=hull_recolour_map,
             deck_recolour_map=deck_recolour_map,
             house_recolour_map=house_recolour_map,
-            liveries=[global_constants.ship_liveries["_DEFAULT"]],
+            liveries=[
+                global_constants.ship_liveries["_DEFAULT"],
+            ],
         )
 
 
@@ -1040,10 +1054,22 @@ class TankerShip(TankerBase):
             house_recolour_map = []
         house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=polar_fox.constants.tanker_livery_recolour_maps,
+            cargo_recolour_maps=graphics_constants.tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=house_recolour_map,
-            liveries=[global_constants.ship_liveries["_DEFAULT"]],
+            liveries=[
+                global_constants.ship_liveries["_DEFAULT"],
+                global_constants.ship_liveries["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                global_constants.ship_liveries["FREIGHT_SULPHUR"],
+                global_constants.ship_liveries["FREIGHT_SILVER"],
+                global_constants.ship_liveries["FREIGHT_TEAL"],
+                global_constants.ship_liveries["FREIGHT_OIL_BLACK"],
+                global_constants.ship_liveries["FREIGHT_RUBY"],
+                global_constants.ship_liveries["FREIGHT_GREY"],
+                global_constants.ship_liveries["FREIGHT_RUSTY_BLACK"],
+                global_constants.ship_liveries["FREIGHT_OCHRE"],
+                global_constants.ship_liveries["FREIGHT_BAUXITE"],
+            ],
         )
 
 
@@ -1057,10 +1083,22 @@ class ProductTankerShip(TankerBase):
         self.base_id = "product_tanker_ship"
         super().__init__(**kwargs)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.product_tanker_livery_recolour_maps,
+            cargo_recolour_maps=graphics_constants.tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=graphics_constants.house_recolour_roof_silver_1,
-            liveries=[global_constants.ship_liveries["_DEFAULT"]],
+            liveries=[
+                global_constants.ship_liveries["_DEFAULT"],
+                global_constants.ship_liveries["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                global_constants.ship_liveries["FREIGHT_SULPHUR"],
+                global_constants.ship_liveries["FREIGHT_SILVER"],
+                global_constants.ship_liveries["FREIGHT_TEAL"],
+                global_constants.ship_liveries["FREIGHT_OIL_BLACK"],
+                global_constants.ship_liveries["FREIGHT_RUBY"],
+                global_constants.ship_liveries["FREIGHT_GREY"],
+                global_constants.ship_liveries["FREIGHT_RUSTY_BLACK"],
+                global_constants.ship_liveries["FREIGHT_OCHRE"],
+                global_constants.ship_liveries["FREIGHT_BAUXITE"],
+            ],
         )
 
 

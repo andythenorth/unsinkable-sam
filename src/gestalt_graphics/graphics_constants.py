@@ -74,7 +74,7 @@ hull_recolour_dirty_black = {
     136 + 7: 8,
 }
 
-product_tanker_livery_recolour_maps = (
+tanker_livery_recolour_maps = (
     (
         "DFLT",
         {
