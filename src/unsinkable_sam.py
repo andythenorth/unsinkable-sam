@@ -107,6 +107,16 @@ def vacant_numeric_ids_formatted():
         + " onwards"
     )
 
+def validate_numeric_ids():
+    for ship in get_ships_in_buy_menu_order():
+        if numeric_id_defender.count(ship.numeric_id) > 1:
+            raise BaseException(
+                "Error: ship "
+                + ship.id
+                + " has a unit variant with numeric_id that collides ("
+                + str(ship.numeric_id)
+                + ") with a numeric_id of a unit variant in another consist"
+            )
 
 def main():
     # rosters
@@ -132,3 +142,5 @@ def main():
     tanker_ships.main()
     trawlers.main()
     utility_hovercraft.main()
+    # check for ID collisions
+    validate_numeric_ids()
