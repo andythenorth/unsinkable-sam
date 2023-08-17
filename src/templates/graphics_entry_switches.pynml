@@ -3,24 +3,48 @@ spriteset(${ship.id}_ss_wake, "src/graphics/hulls/${ship.hull_spritesheet_name}.
   spriteset_template_wake_${ship.id}(310)
 }
 
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship_not_moving, STORE_TEMP(PALETTE_USE_DEFAULT, 0x100)) {
-    return ${ship.id}_switch_graphics_ship;
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_wake_not_moving, STORE_TEMP(PALETTE_USE_DEFAULT, 0x100)) {
+    return ss_global_empty;
 }
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship_moving, STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100)) {
-    return ${ship.id}_switch_graphics_ship;
-}
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_wake, STORE_TEMP(PALETTE_USE_DEFAULT, 0x100)) {
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_wake_moving, STORE_TEMP(PALETTE_USE_DEFAULT, 0x100)) {
     return ${ship.id}_ss_wake;
 }
-
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_moving, getbits(extra_callback_info1, 8, 8)) {
-    0: return ${ship.id}_switch_graphics_ship_moving;
-    return ${ship.id}_switch_graphics_wake;
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_wake, current_speed) {
+    0: return ${ship.id}_switch_graphics_wake_not_moving;
+    return ${ship.id}_switch_graphics_wake_moving;
 }
 
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics, current_speed) {
-    0: return ${ship.id}_switch_graphics_ship_not_moving;
-    return ${ship.id}_switch_graphics_moving;
+<tal:decor_spriterow condition="ship.decor_spriterow_num is not None">
+    spriteset(${ship.id}_ss_decor_empty, "src/graphics/ships/${ship.id}.png") {
+      spriteset_template_empty_${ship.id}(${ship.decor_spriterow_num * 100} + 10)
+    }
+    spriteset(${ship.id}_ss_decor_part_load, "src/graphics/ships/${ship.id}.png") {
+      spriteset_template_part_load_${ship.id}(${ship.decor_spriterow_num * 100} + 10)
+    }
+    spriteset(${ship.id}_ss_decor_full_load, "src/graphics/ships/${ship.id}.png") {
+      spriteset_template_full_load_${ship.id}(${ship.decor_spriterow_num * 100} + 10)
+    }
+    <!--! this load state switch needs to be kept at parity with the equivalent switches in other vehicle templates -->
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_decor_percent_loaded, cargo_count*100/cargo_capacity) {
+            0: return ${ship.id}_ss_decor_empty;
+            1..99: return ${ship.id}_ss_decor_part_load;
+        return ${ship.id}_ss_decor_full_load;
+    }
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_decor_setup_more_layers, STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100)) {
+        return ${ship.id}_switch_graphics_decor_percent_loaded;
+    }
+</tal:decor_spriterow>
+
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship_setup_more_layers, STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100)) {
+    return ${ship.id}_switch_graphics_ship;
+}
+
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics, getbits(extra_callback_info1, 8, 8)) {
+    0: return ${ship.id}_switch_graphics_ship_setup_more_layers;
+    <tal:decor_spriterow condition="ship.decor_spriterow_num is not None">
+        1: return ${ship.id}_switch_graphics_decor_setup_more_layers;
+    </tal:decor_spriterow>
+    return ${ship.id}_switch_graphics_wake;
 }
 
 
@@ -37,4 +61,3 @@ spritegroup ${ship.id}_sg_purchase {
         ${ship.id}_ss_purchase,
     ];
 }
-

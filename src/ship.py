@@ -79,7 +79,7 @@ class BuyableVariant(object):
             recolour_strategy_num_purchase = recolour_strategy_num
 
         cc_num_to_recolour = (
-            1  # fixed to 1CC as of August 2023 self.ship.cc_num_to_recolour
+            self.ship.cc_num_to_recolour
         )
         flag_use_weathering = self.livery.get("use_weathering", False)
         flag_context_is_purchase = True if context == "purchase" else False
@@ -162,6 +162,10 @@ class Ship(object):
         self.effect_type = kwargs.get("effect_type", None)
         # what length to use for cargo sprites in cargo compositing
         self.cargo_length = kwargs.get("cargo_length", None)
+        # set to 2 in subclass if recolour sprite remaps should be applied to 2cc not 1cc (can't do both)
+        self.cc_num_to_recolour = 1
+        # optional decor spriterow eh
+        self.decor_spriterow_num = None
         # aids 'project management'
         self.sprites_complete = kwargs.get("sprites_complete", False)
 
@@ -712,7 +716,6 @@ class EdiblesTanker(Ship):
         self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos["edibles_tank"]
         # Graphics configuration
-        hull_recolour_map = graphics_constants.hull_recolour_white
         deck_recolour_map = {
             70: 1,
             60: 2,
@@ -725,12 +728,22 @@ class EdiblesTanker(Ship):
             graphics_constants.house_recolour_roof_CC1_1.copy()
         )  # copy because update is used to extend the map
         house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
+        # as of August 2023, to preserve the CC1 stripe, we use CC2 for the sprite recolour remap
+        self.cc_num_to_recolour = 2
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=hull_recolour_map,
+            hull_recolour_map=graphics_constants.hull_recolour_CC2,
             deck_recolour_map=deck_recolour_map,
             house_recolour_map=house_recolour_map,
             liveries=[
-                global_constants.ship_liveries["_DEFAULT"],
+                global_constants.ship_liveries["CC_WHITE"],
+                global_constants.ship_liveries["FREIGHT_SILVER"],
+                # can't use CC here as of August 2023 - no way to remap CC2 in the sprite to player CC1 choice, but we have to use CC2 in sprite to preserve CC1 stripe
+                # this could be addressed by using purple magic colour, but eh, we'd need to add support for that as cc -1 or something
+                # it was non-trivial to construct the recolour sprites for that
+                # alternatively we could have a 2CC-to-1CC recolour strategy, but not now eh
+                # !! these would benefit from variants-as-real-sprites instead of variants-as-recolour-sprites, this would allow more control over recolouring
+                # !! notably the CC stripe isn't desirable in all cases
+                # !! the stripe is a perfect case for decor?
             ],
         )
 
@@ -973,7 +986,7 @@ class Reefer(Ship):
         # improved decay rate
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
-        hull_recolour_map = graphics_constants.hull_recolour_white
+        self.decor_spriterow_num = 1
         deck_recolour_map = {
             70: 1,
             60: 2,
@@ -990,11 +1003,23 @@ class Reefer(Ship):
         # extend to invert funnel CC
         house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            hull_recolour_map=hull_recolour_map,
+            hull_recolour_map=graphics_constants.hull_recolour_CC1,
             deck_recolour_map=deck_recolour_map,
             house_recolour_map=house_recolour_map,
             apply_hull_recolours_to_ship=True,
-            liveries=[global_constants.ship_liveries["_DEFAULT"]],
+            liveries=[
+                global_constants.ship_liveries["CC_WHITE"],
+                global_constants.ship_liveries["FREIGHT_SILVER"],
+                global_constants.ship_liveries["COMPANY_COLOUR_USE_WEATHERING"],
+                global_constants.ship_liveries["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                # can't use CC here as of August 2023 - no way to remap CC2 in the sprite to player CC1 choice, but we have to use CC2 in sprite to preserve CC1 stripe
+                # this could be addressed by using purple magic colour, but eh, we'd need to add support for that as cc -1 or something
+                # it was non-trivial to construct the recolour sprites for that
+                # alternatively we could have a 2CC-to-1CC recolour strategy, but not now eh
+                # !! these would benefit from variants-as-real-sprites instead of variants-as-recolour-sprites, this would allow more control over recolouring
+                # !! notably the CC stripe isn't desirable in all cases
+                # !! the stripe is a perfect case for decor?
+            ],
         )
 
 

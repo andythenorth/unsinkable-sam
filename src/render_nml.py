@@ -77,6 +77,7 @@ def main():
         "recolour_sprites",
         "procedures_alternative_var_random_bits",
         "procedures_colour_randomisation_strategies",
+        "spriteset_empty_ss",
     ]
     for header_item in header_items:
         grf_nml.write(render_header_item_nml(header_item, consists))
