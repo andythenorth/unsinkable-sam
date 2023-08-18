@@ -74,21 +74,16 @@ hull_recolour_dirty_black = {
     136 + 7: 8,
 }
 
-tanker_livery_recolour_maps = (
-    (
-        "DFLT",
-        {
-            136: CC1,
-            137: CC1 + 1,
-            138: CC1 + 2,
-            139: CC1 + 3,
-            140: CC1 + 4,
-            141: CC1 + 5,
-            142: CC1 + 6,
-            143: CC1 + 7,
-        },
-    ),
-)
+tanker_livery_recolour_maps = {
+    136: CC1,
+    137: CC1 + 1,
+    138: CC1 + 2,
+    139: CC1 + 3,
+    140: CC1 + 4,
+    141: CC1 + 5,
+    142: CC1 + 6,
+    143: CC1 + 7,
+}
 
 # used because it's nicer to draw with dark red as magic colour, but it's not safe as a magic colour, so it's remapped to a spare purple range
 house_make_magic_red_safe_recolour_map = {

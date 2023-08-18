@@ -679,7 +679,6 @@ class CryoTanker(Ship):
         house_recolour_map = graphics_constants.house_recolour_roof_CC1_1
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            cargo_recolour_maps=polar_fox.constants.cryo_tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=house_recolour_map,
             liveries=[
@@ -1026,7 +1025,6 @@ class TankerBarge(TankerBase):
         self.base_id = "tanker_barge"
         super().__init__(**kwargs)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=polar_fox.constants.tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=graphics_constants.house_recolour_roof_CC1_1,
             liveries=[global_constants.ship_liveries["_DEFAULT"]],
@@ -1054,7 +1052,6 @@ class TankerShip(TankerBase):
             house_recolour_map = []
         house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=house_recolour_map,
             liveries=[
@@ -1083,7 +1080,6 @@ class ProductTankerShip(TankerBase):
         self.base_id = "product_tanker_ship"
         super().__init__(**kwargs)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            cargo_recolour_maps=graphics_constants.tanker_livery_recolour_maps,
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=graphics_constants.house_recolour_roof_silver_1,
             liveries=[

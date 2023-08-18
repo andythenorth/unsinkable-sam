@@ -268,34 +268,26 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             )
         )
 
-    def add_livery_only_spriterows(self):
-        # this might be extensible for containers when needed, using simple conditionals
-        # or because containers include random options it might need reworking,
-        # to be more similar to piece cargo handling, but using recolour not actual sprites
-        vehicle_livery_row_image_as_spritesheet = pixa.make_spritesheet_from_image(
+    def add_simple_recolour_spriterows(self):
+        # provides a simple default recolouring
+        # masks empty / loading / loaded states
+        # can also be used with an empty recolour just to trigger compositing if needed
+        vehicle_row_image_as_spritesheet = pixa.make_spritesheet_from_image(
             self.vehicle_base_image, DOS_PALETTE
         )
 
-        for label, recolour_map in self.ship.gestalt_graphics.cargo_recolour_maps:
-            crop_box_dest = (
-                0,
-                0,
-                self.sprites_max_x_extent,
-                3 * graphics_constants.spriterow_height,
+        crop_box_dest = (
+            0,
+            0,
+            self.sprites_max_x_extent,
+            3 * graphics_constants.spriterow_height,
+        )
+        self.units.append(
+            AppendToSpritesheet(
+                vehicle_row_image_as_spritesheet, crop_box_dest
             )
-            self.units.append(
-                AppendToSpritesheet(
-                    vehicle_livery_row_image_as_spritesheet, crop_box_dest
-                )
-            )
-            self.units.append(SimpleRecolour(recolour_map))
-            self.units.append(
-                AddCargoLabel(
-                    label=label,
-                    x_offset=self.sprites_max_x_extent + 5,
-                    y_offset=-1 * graphics_constants.spriterow_height,
-                )
-            )
+        )
+        self.units.append(SimpleRecolour(self.ship.gestalt_graphics.cargo_recolour_map))
 
     def add_bulk_cargo_spriterows(self):
         cargo_group_row_height = 2 * graphics_constants.spriterow_height
@@ -535,9 +527,9 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 ):
                     input_spriterow_count = 1
                     self.add_generic_spriterow()
-                elif spriterow_type == "livery_only":
+                elif spriterow_type == "simple_recolour_spriterows":
                     input_spriterow_count = 1
-                    self.add_livery_only_spriterows()
+                    self.add_simple_recolour_spriterows()
                 elif spriterow_type == "bulk_cargo":
                     input_spriterow_count = 2
                     self.add_bulk_cargo_spriterows()
