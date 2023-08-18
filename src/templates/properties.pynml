@@ -46,7 +46,7 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_create_visual_effect, ${ship.get_expression
             <!--!<tal:colour_mapping_cb switch="ship.requires_colour_mapping_cb>-->
                 <!--!<tal:use_colour_randomisation_strategies case="'use_colour_randomisation_strategies'">-->
                     <!--! ^^ unfinished templating optimisations nerfed whilst refactoring -->
-                    colour_mapping:                 switch_colour_mapping(${ship_variant.get_recolour_strategy_params()});
+                    <!--!colour_mapping:                 switch_colour_mapping(${ship_variant.get_recolour_strategy_params()});-->
                     purchase_colour_mapping:        switch_colour_mapping(${ship_variant.get_recolour_strategy_params(context="purchase")});
                 <!--!</tal:use_colour_randomisation_strategies>-->
             <!--!</tal:colour_mapping_cb>-->

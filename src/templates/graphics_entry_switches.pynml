@@ -30,12 +30,20 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_wake, current_speed) {
             1..99: return ${ship.id}_ss_decor_part_load;
         return ${ship.id}_ss_decor_full_load;
     }
-    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_decor_setup_more_layers, STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100)) {
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_decor_cabbage, 0) {
+        return PALETTE_USE_DEFAULT;
+    }
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_decor_setup_more_layers, STORE_TEMP(CB_FLAG_MORE_SPRITES | ${ship.id}_switch_graphics_decor_cabbage(), 0x100)) {
         return ${ship.id}_switch_graphics_decor_percent_loaded;
     }
 </tal:decor_spriterow>
 
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship_setup_more_layers, STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100)) {
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship_cabbage, vehicle_type_id) {
+    <tal:ship_variants repeat="ship_variant ship.resolve_buyable_variants()">
+        ${ship_variant.numeric_id}: return switch_colour_mapping(${ship_variant.get_recolour_strategy_params()});
+    </tal:ship_variants>
+}
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship_setup_more_layers, STORE_TEMP(CB_FLAG_MORE_SPRITES | ${ship.id}_switch_graphics_ship_cabbage(), 0x100)) {
     return ${ship.id}_switch_graphics_ship;
 }
 
