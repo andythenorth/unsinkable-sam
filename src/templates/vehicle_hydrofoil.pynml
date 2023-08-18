@@ -1,4 +1,4 @@
-// graphics
+// ported from Squid, hydrofoils have fancy handling of fly height and angle, depending on speed
 
 template spriteset_template_${ship.id}(y, y_offs_adjust) {
     //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]

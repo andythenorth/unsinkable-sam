@@ -1,4 +1,5 @@
-// graphics
+// ported from Squid, log tugs may or may not need a dedicated template...
+// can probably use a 'spritelayer cargo' template, similar to container carriers
 <tal:build_graphics define="states python:{'not_moving': 0 ,'moving': 600};
                             x_y_crops python:('28, 89', '113, 66', '138, 48', '113, 66')"
                     repeat="state states">

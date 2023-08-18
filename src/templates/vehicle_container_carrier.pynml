@@ -1,4 +1,5 @@
-// graphics
+// ported from Squid, probably needs renamed to 'spritelayer cargo', similar to Horse
+
 template spriteset_template_${ship.id}(y) {
     //[left_x,  upper_y,    width,      height,     offset_x,      offset_y,                       flags]
     [20,        y,          28,         89,          ${ship.offsets[0][0]}, ${ship.offsets[0][1]}, ANIM]
