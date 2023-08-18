@@ -42,10 +42,10 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship, current_speed) {
     return ${ship.id}_sg_moving;
 }
 
-<tal:include metal:use-macro="load: graphics_switches.pynml" />
+<tal:include metal:use-macro="load: graphics_entry_switches.pynml" />
 
-<tal:include metal:use-macro="load: speed_switches.pynml" />
+<tal:include metal:use-macro="load: speed.pynml" />
 
-<tal:include metal:use-macro="load: capacity_switches.pynml" />
+<tal:include metal:use-macro="load: capacity.pynml" />
 
 <tal:include metal:use-macro="load: properties.pynml" />

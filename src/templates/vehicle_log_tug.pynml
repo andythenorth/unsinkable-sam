@@ -179,9 +179,9 @@ spritegroup ${ship.id}_sg_purchase {
     ];
 }
 
-<tal:include metal:use-macro="load: speed_switches.pynml" />
+<tal:include metal:use-macro="load: speed.pynml" />
 
-<tal:include metal:use-macro="load: capacity_switches.pynml" />
+<tal:include metal:use-macro="load: capacity.pynml" />
 
 <tal:include metal:use-macro="load: properties.pynml" />
 
