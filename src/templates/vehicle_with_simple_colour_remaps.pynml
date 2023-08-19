@@ -22,13 +22,13 @@
             1..99: return ${ship.id}_ss_part_load_${spritelayer.layer_num};
         return ${ship.id}_ss_full_load_${spritelayer.layer_num};
     }
-    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_palette_cabbage_${spritelayer.layer_num}, vehicle_type_id) {
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_get_recolour_palette_${spritelayer.layer_num}, vehicle_type_id) {
         <tal:ship_variants repeat="ship_variant ship.resolve_buyable_variants()">
             ${ship_variant.numeric_id}: return switch_colour_mapping(${ship_variant.get_recolour_strategy_params(spritelayer)});
         </tal:ship_variants>
     }
     switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_layer_${spritelayer.layer_num}, STORE_TEMP(
-            CB_FLAG_MORE_SPRITES | ${ship.id}_switch_graphics_palette_cabbage_${spritelayer.layer_num}(), 0x100
+            CB_FLAG_MORE_SPRITES | ${ship.id}_switch_graphics_get_recolour_palette_${spritelayer.layer_num}(), 0x100
         )) {
         return ${ship.id}_switch_graphics_load_amount_${spritelayer.layer_num};
     }
@@ -53,7 +53,7 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship, getbits(extra_callbac
             <tal:more_sprites condition="not: repeat.spritelayer.end">
                 CB_FLAG_MORE_SPRITES |
             </tal:more_sprites>
-            ${ship.id}_switch_graphics_palette_cabbage_${spritelayer.layer_num}(), 0x100
+            ${ship.id}_switch_graphics_get_recolour_palette_${spritelayer.layer_num}(), 0x100
             )
         ) {
         return ${ship.id}_ss_purchase_${spritelayer.layer_num};

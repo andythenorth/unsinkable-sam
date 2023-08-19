@@ -16,6 +16,13 @@ class SpriteLayer(object):
         self.ship = ship
         self.selective_colour_protocols = kwargs.get("selective_colour_protocols", None)
 
+        self.deck_recolour_map=kwargs.get("deck_recolour_map", None)
+        self.house_recolour_map=kwargs.get("house_recolour_map", None)
+        self.hull_recolour_map=kwargs.get("hull_recolour_map", None)
+        self.superstructure_recolour_map=kwargs.get("superstructure_recolour_map", None)
+        # set to 2 in kwargs if recolour sprite remaps should be applied to 2cc not 1cc (can't do both)
+        self.cc_num_to_recolour_for_liveries = kwargs.get("cc_num_to_recolour_for_liveries", 1)
+
     @property
     def layer_num(self):
         # relies on layer num being order of list when created, should be fine

@@ -79,7 +79,7 @@ class BuyableVariant(object):
             # purchase strategy will be same as non-purchase
             recolour_strategy_num_purchase = recolour_strategy_num
 
-        cc_num_to_recolour = self.ship.cc_num_to_recolour
+        cc_num_to_recolour = spritelayer.cc_num_to_recolour_for_liveries
         flag_use_weathering = layer_livery.get("use_weathering", False)
         flag_context_is_purchase = True if context == "purchase" else False
 
@@ -161,8 +161,6 @@ class Ship(object):
         self.effect_type = kwargs.get("effect_type", None)
         # what length to use for cargo sprites in cargo compositing
         self.cargo_length = kwargs.get("cargo_length", None)
-        # set to 2 in subclass if recolour sprite remaps should be applied to 2cc not 1cc (can't do both)
-        self.cc_num_to_recolour = 1
         # aids 'project management'
         self.sprites_complete = kwargs.get("sprites_complete", False)
 
@@ -395,11 +393,12 @@ class Ship(object):
         # but if needed, add _offsets prop from constructor kwargs, and check existence of that here (otherwise returning defaults)
         return global_constants.vehicle_offsets[self.hull.hull_length]
 
-    def get_nml_expression_for_cargo_variant_random_switch(self, cargo_id=None):
+    def get_nml_expression_for_cargo_variant_random_switch(self, spritelayer, cargo_id=None):
         switch_id = (
             self.id
             + "_switch_graphics"
             + ("_" + str(cargo_id) if cargo_id is not None else "")
+            + ("_" + str(spritelayer.layer_num))
         )
         return "SELF," + switch_id + ", bitmask(TRIGGER_VEHICLE_ANY_LOAD)"
 
@@ -554,9 +553,13 @@ class BulkShip(BulkBase):
         # Graphics configuration
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(
             bulk=True,
-            spritelayers=[SpriteLayer(self)],
-            hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            house_recolour_map=graphics_constants.house_recolour_roof_rust_1,
+            spritelayers=[
+                SpriteLayer(
+                    self,
+                    house_recolour_map=graphics_constants.house_recolour_roof_rust_1,
+                    hull_recolour_map=graphics_constants.hull_recolour_CC1,
+                )
+            ],
             liveries=[
                 ["_DEFAULT"],
                 ["FREIGHT_NIGHTSHADE"],
@@ -722,6 +725,7 @@ class EdiblesTanker(Ship):
         self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos["edibles_tank"]
         # Graphics configuration
+        hull_recolour_map = graphics_constants.hull_recolour_CC1
         deck_recolour_map = {
             70: 1,
             60: 2,
@@ -733,17 +737,50 @@ class EdiblesTanker(Ship):
         house_recolour_map = (
             graphics_constants.house_recolour_roof_CC1_1.copy()
         )  # copy because update is used to extend the map
-        house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
-        # as of August 2023, to preserve the CC1 stripe, we use CC2 for the sprite recolour remap
-        self.cc_num_to_recolour = 2
+        house_recolour_map.update(graphics_constants.recolour_CC2_to_CC1)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            spritelayers=[SpriteLayer(self)],
-            hull_recolour_map=graphics_constants.hull_recolour_CC2,
-            deck_recolour_map=deck_recolour_map,
-            house_recolour_map=house_recolour_map,
+            spritelayers=[
+                SpriteLayer(
+                    self,
+                    hull_recolour_map=hull_recolour_map,
+                    house_recolour_map=house_recolour_map,
+                    deck_recolour_map=deck_recolour_map,
+                    superstructure_recolour_map=hull_recolour_map,
+                ),
+                SpriteLayer(
+                    self,
+                    selective_colour_protocols=["CC1"],
+                ),
+            ],
             liveries=[
-                ["CC_WHITE"],
-                ["FREIGHT_SILVER"],
+                [
+                    "CC_WHITE",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                ],
+                [
+                    "FREIGHT_SILVER",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                ],
+                [
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "CC_WHITE",
+                ],
+                [
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                    "CC_WHITE",
+                ],
+                [
+                    "FREIGHT_RUSTY_BLACK",
+                    "CC_WHITE",
+                ],
+                [
+                    "FREIGHT_OCHRE",
+                    "CC_WHITE",
+                ],
+                [
+                    "FREIGHT_SULPHUR",
+                    "CC_WHITE",
+                ],
             ],
         )
 
@@ -832,8 +869,13 @@ class FreighterShip(FreighterBase):
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(
             bulk=True,
             piece="open",
-            spritelayers=[SpriteLayer(self)],
-            house_recolour_map=house_recolour_map,
+            spritelayers=[
+                SpriteLayer(
+                    self,
+                    house_recolour_map=house_recolour_map,
+                    hull_recolour_map=graphics_constants.hull_recolour_CC1,
+                )
+            ],
             liveries=[
                 ["_DEFAULT"],
                 ["FREIGHT_PEWTER"],
@@ -993,6 +1035,7 @@ class Reefer(Ship):
         # improved decay rate
         self.cargo_age_period = 2 * global_constants.CARGO_AGE_PERIOD
         # Graphics configuration
+        hull_recolour_map = graphics_constants.hull_recolour_CC1
         deck_recolour_map = {
             70: 1,
             60: 2,
@@ -1007,10 +1050,16 @@ class Reefer(Ship):
             graphics_constants.house_recolour_roof_dark_red_1.copy()
         )  # copy because update is used to extend the map
         # extend to invert funnel CC
-        house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
+        house_recolour_map.update(graphics_constants.recolour_CC2_to_CC1)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             spritelayers=[
-                SpriteLayer(self),
+                SpriteLayer(
+                    self,
+                    hull_recolour_map=hull_recolour_map,
+                    house_recolour_map=house_recolour_map,
+                    deck_recolour_map=deck_recolour_map,
+                    superstructure_recolour_map=hull_recolour_map,
+                ),
                 SpriteLayer(
                     self,
                     selective_colour_protocols=["CC1"],
@@ -1018,12 +1067,9 @@ class Reefer(Ship):
                 SpriteLayer(
                     self,
                     selective_colour_protocols=["CC2"],
+                    superstructure_recolour_map=graphics_constants.recolour_CC2_to_CC1,
                 ),
             ],
-            hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            deck_recolour_map=deck_recolour_map,
-            house_recolour_map=house_recolour_map,
-            apply_hull_recolours_to_ship=True,
             liveries=[
                 [
                     "CC_WHITE",
@@ -1044,6 +1090,11 @@ class Reefer(Ship):
                     "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
                     "CC_WHITE",
                     "COMPANY_COLOUR_USE_WEATHERING",
+                ],
+                [
+                    "FREIGHT_TEAL",
+                    "CC_WHITE",
+                    "FREIGHT_TEAL",
                 ],
             ],
         )
@@ -1095,14 +1146,14 @@ class TankerShip(TankerBase):
             house_recolour_map = (
                 graphics_constants.house_recolour_roof_dark_red_1.copy()
             )  # copy because update is used to extend the map
-            house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
+            house_recolour_map.update(graphics_constants.recolour_CC2_to_CC1)
         elif self.subtype in ["B", "D", "F"]:
             house_recolour_map = (
                 graphics_constants.house_recolour_roof_silver_1.copy()
             )  # copy because update is used to extend the map
         else:
             house_recolour_map = []
-        house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
+        house_recolour_map.update(graphics_constants.recolour_CC2_to_CC1)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             spritelayers=[SpriteLayer(self)],
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,

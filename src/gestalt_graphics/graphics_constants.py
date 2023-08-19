@@ -3,6 +3,27 @@ CC1 = 198
 CC2 = 80
 house_magic_colour = 170
 
+recolour_CC2_to_CC1 = {
+    CC2: CC1,
+    CC2 + 1: CC1 + 1,
+    CC2 + 2: CC1 + 2,
+    CC2 + 3: CC1 + 3,
+    CC2 + 4: CC1 + 4,
+    CC2 + 5: CC1 + 5,
+    CC2 + 6: CC1 + 6,
+    CC2 + 7: CC1 + 7,
+}
+recolour_CC1_to_CC2 = {
+    CC1: CC2,
+    CC1 + 1: CC2 + 1,
+    CC1 + 2: CC2 + 2,
+    CC1 + 3: CC2 + 3,
+    CC1 + 4: CC2 + 4,
+    CC1 + 5: CC2 + 5,
+    CC1 + 6: CC2 + 6,
+    CC1 + 7: CC2 + 7,
+}
+
 hull_recolour_CC1 = {
     136: CC1,
     137: CC1 + 1,
@@ -97,16 +118,6 @@ house_make_magic_red_safe_recolour_map = {
     47: house_magic_colour + 7,
 }
 # arbitrary house recolouring maps
-house_recolour_CC2_to_CC1 = {
-    CC2: CC1,
-    CC2 + 1: CC1 + 1,
-    CC2 + 2: CC1 + 2,
-    CC2 + 3: CC1 + 3,
-    CC2 + 4: CC1 + 4,
-    CC2 + 5: CC1 + 5,
-    CC2 + 6: CC1 + 6,
-    CC2 + 7: CC1 + 7,
-}
 house_recolour_roof_CC1_1 = {
     house_magic_colour: CC1,
     house_magic_colour + 1: CC1 + 1,

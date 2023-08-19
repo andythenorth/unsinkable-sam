@@ -124,9 +124,6 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
     def extend_base_image_to_3_rows_with_waterline_masked_per_load_state(
         self,
         base_image,
-        deck_recolour_map=None,
-        house_recolour_map=None,
-        house_make_safe_recolour_map=None,
     ):
         # This composites the ship from:
         # - the ship base image (this contains the detail for the specific ship such as wheelhouse, holds etc)
@@ -152,7 +149,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             self.sprites_max_x_extent,
             10 + (3 * graphics_constants.spriterow_height),
         )
-        crop_box_ship_base = (
+        crop_box_superstructure_image = (
             0,
             0,
             self.sprites_max_x_extent,
@@ -184,8 +181,34 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         )
 
         for spritelayer in self.ship.gestalt_graphics.spritelayers:
-            # the ship image has false colour pixels for the hull, to aid drawing; remove these by converting to white, also convert any blue to white
-            ship_base = base_image.point(
+            # hull_base uses false colour pixels for establishing correct dimensions; make these blue
+            hull_image = (
+                hull_base.copy()
+                .crop(crop_box_hull_1)
+                .point(lambda i: 0 if (i in range(215, 227) or i == 244) else i)
+            )
+
+            # directly recolour for deck, house and hull adjustments, which can be defined per ship
+            # the specific ship pixels are recoloured separately
+            # Order
+            # 1. house recolour map tends to use the dark red range as magic colour because it's nice to draw in
+            #    but dark red may also be a destination for deck recolour, so first force the house magic red to use the spare (non-hull) purple range
+            # 2. deck recolour, as it recolours arbitrary ranges, and has a chance of colliding with house and hull destination colours
+            # 3. house (tends to use magic colour)
+            # 4. hull (tends to use magic colour)
+            hull_recolour_maps = [
+                graphics_constants.house_make_magic_red_safe_recolour_map,
+                spritelayer.deck_recolour_map,
+                spritelayer.house_recolour_map,
+                spritelayer.hull_recolour_map,
+            ]
+            for recolour_map in hull_recolour_maps:
+                if recolour_map is not None:
+                    recolour_table = ProcessingUnit().make_recolour_table(recolour_map)
+                    hull_image = hull_image.point(recolour_table)
+
+            # the ship superstructure image has false colour pixels for the hull, to aid drawing; remove these by converting to white, also convert any blue to white
+            superstructure_image= base_image.copy().point(
                 lambda i: 255
                 if (
                     i in range(178, 192)
@@ -194,35 +217,15 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 )
                 else i
             )
-
-            # hull_base uses false colour pixels for establishing correct dimensions; make these blue
-            hull_image = (
-                hull_base.copy()
-                .crop(crop_box_hull_1)
-                .point(lambda i: 0 if (i in range(215, 227) or i == 244) else i)
-            )
-
-            # !! this might need to work differently now??
-            # directly recolour for deck, house and hull adjustments, which can be defined per ship
-            # *not* for cargo-specific hull recoloring, pass cargo_recolour_maps to GestaltGraphicsSimpleColourRemaps for that case
-            # Order
-            # 1. house recolour map tends to use the dark red range as magic colour because it's nice to draw in
-            #    but dark red may also be a destination for deck recolour, so first force the house magic red to use the spare (non-hull) purple range
-            # 2. deck recolour, as it recolours arbitrary ranges, and has a chance of colliding with house and hull destination colours
-            # 3. house (tends to use magic colour)
-            # 4. hull (tends to use magic colour)
-            recolour_maps = [
-                graphics_constants.house_make_magic_red_safe_recolour_map,
-                self.ship.gestalt_graphics.deck_recolour_map,
-                self.ship.gestalt_graphics.house_recolour_map,
-                self.ship.gestalt_graphics.hull_recolour_map,
+            # recolour the ship pixels as needed
+            # it's known that the name of this is silly 'superstructure_recolour_maps' - it could be 'superstructure' or something, but eh
+            superstructure_recolour_maps = [
+                spritelayer.superstructure_recolour_map,
             ]
-            for recolour_map in recolour_maps:
+            for recolour_map in superstructure_recolour_maps:
                 if recolour_map is not None:
                     recolour_table = ProcessingUnit().make_recolour_table(recolour_map)
-                    hull_image = hull_image.point(recolour_table)
-                    if self.ship.gestalt_graphics.apply_hull_recolours_to_ship:
-                        ship_base = ship_base.point(recolour_table)
+                    superstructure_image = superstructure_image.point(recolour_table)
 
             # 3 different load states to composite into result image so 3 different crop boxes to make the rows
             dest_y_offset = (
@@ -248,8 +251,8 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             )
 
             # create a mask so that we paste only the ship pixels over the hull (no blue pixels)
-            ship_mask = ship_base.copy()
-            ship_mask = ship_mask.point(lambda i: 0 if i == 255 else 255).convert(
+            superstructure_mask = superstructure_image.copy()
+            superstructure_mask = superstructure_mask.point(lambda i: 0 if i == 255 else 255).convert(
                 "1"
             )  # the inversion here of blue and white looks a bit odd, but potato / potato
 
@@ -269,7 +272,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 
             if spritelayer.layer_num == 0:
                 combined_hull_ship_image = hull_image.copy()
-                combined_hull_ship_image.paste(ship_base, crop_box_ship_base, ship_mask)
+                combined_hull_ship_image.paste(superstructure_image, crop_box_superstructure_image, superstructure_mask)
                 result_image.paste(combined_hull_ship_image, crop_box_comp_dest_1)
                 result_image.paste(
                     combined_hull_ship_image, crop_box_comp_dest_2, waterline_mask_row_2
@@ -283,7 +286,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 if "reefer_gen_3C" in self.ship.id:
                     masked_ship_image.show()
                 """
-                masked_ship_image.paste(ship_base, crop_box_ship_base, ship_mask)
+                masked_ship_image.paste(superstructure_image, crop_box_superstructure_image, superstructure_mask)
                 result_image.paste(masked_ship_image, crop_box_comp_dest_1)
                 result_image.paste(
                     masked_ship_image, crop_box_comp_dest_2, waterline_mask_row_2

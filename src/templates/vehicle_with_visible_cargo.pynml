@@ -1,74 +1,120 @@
 <tal:include metal:use-macro="load: spriteset_templates.pynml" />
 
-spriteset(${ship.id}_ss_empty, "${global_constants.graphics_path}${ship.id}.png") {
-  spriteset_template_empty_${ship.id}(10)
-}
-
-<tal:cargo_variants repeat="cargo_variant_num python:range(ship.gestalt_graphics.num_cargo_sprite_variants)">
-    spriteset(${ship.id}_ss_${cargo_variant_num}_part_load, "${global_constants.graphics_path}${ship.id}.png") {
-      spriteset_template_part_load_${ship.id}(${cargo_variant_num * 200} + 110)
+<tal:layers repeat="spritelayer ship.gestalt_graphics.spritelayers">
+    spriteset(${ship.id}_ss_empty_${spritelayer.layer_num}, "${global_constants.graphics_path}${ship.id}.png") {
+      spriteset_template_empty_${ship.id}(10)
     }
-    spriteset(${ship.id}_ss_${cargo_variant_num}_full_load, "${global_constants.graphics_path}${ship.id}.png") {
-      spriteset_template_full_load_${ship.id}(${cargo_variant_num * 200} + 210)
-    }
-
-    spritegroup ${ship.id}_sg_loading_${cargo_variant_num} {
-        loaded:  [
-            ${ship.id}_ss_${cargo_variant_num}_part_load,
-        ];
-        loading: [
-            ${ship.id}_ss_${cargo_variant_num}_part_load,
-        ];
-    }
-
-    spritegroup ${ship.id}_sg_loaded_${cargo_variant_num} {
-        loaded:  [
-            ${ship.id}_ss_${cargo_variant_num}_full_load,
-        ];
-        loading: [
-            ${ship.id}_ss_${cargo_variant_num}_full_load,
-        ];
-    }
-
-    <!--! this switch needs to be kept at parity with the equivalent switches in other vehicle templates -->
-    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_percent_loaded_${cargo_variant_num}, cargo_count*100/cargo_capacity) {
-            0: return ${ship.id}_ss_empty;
-            1..99: return ${ship.id}_sg_loading_${cargo_variant_num};
-        return ${ship.id}_sg_loaded_${cargo_variant_num};
-    }
-</tal:cargo_variants>
-
-<tal:cargo_random_switches repeat="mapping ship.gestalt_graphics.cargo_row_map.items()">
-    <tal:exclude_default_cargo condition="mapping[0] != 'DFLT'">
-        random_switch (FEAT_SHIPS, ${ship.get_nml_expression_for_cargo_variant_random_switch(mapping[0])}) {
-            <tal:random_graphics_variations repeat="spriterow_num mapping[1]">
-                1: return ${ship.id}_switch_graphics_percent_loaded_${spriterow_num};
-            </tal:random_graphics_variations>
+    <tal:cargo_variants repeat="cargo_variant_num python:range(ship.gestalt_graphics.num_cargo_sprite_variants)">
+        <!--! !!!! the support for layers is incomplete as of August 2023 - as only one layer is used for ships with visible cargo
+            - we won't want to repeat all the cargo rows, only the empty ones
+            - but we do need to know the load state to place the overlay accurately
+            - the spritesheet format needs determined
+            - the spriteset calculation needs to figure out a y_offset
+            - the graphics generator doesn't handle layers for this gestalt
+        -->
+        spriteset(${ship.id}_ss_${cargo_variant_num}_part_load_${spritelayer.layer_num}, "${global_constants.graphics_path}${ship.id}.png") {
+          spriteset_template_part_load_${ship.id}(${cargo_variant_num * 200} + 110)
         }
-    </tal:exclude_default_cargo>
-</tal:cargo_random_switches>
+        spriteset(${ship.id}_ss_${cargo_variant_num}_full_load_${spritelayer.layer_num}, "${global_constants.graphics_path}${ship.id}.png") {
+          spriteset_template_full_load_${ship.id}(${cargo_variant_num * 200} + 210)
+        }
 
-random_switch (FEAT_SHIPS, ${ship.get_nml_expression_for_cargo_variant_random_switch('generic_cargos')}) {
-    <tal:random_graphics_variations repeat="spriterow_num ship.gestalt_graphics.generic_rows">
-        1: return ${ship.id}_switch_graphics_percent_loaded_${spriterow_num};
-    </tal:random_graphics_variations>
-}
+        spritegroup ${ship.id}_sg_loading_${cargo_variant_num}_${spritelayer.layer_num} {
+            loaded:  [
+                ${ship.id}_ss_${cargo_variant_num}_part_load_${spritelayer.layer_num},
+            ];
+            loading: [
+                ${ship.id}_ss_${cargo_variant_num}_part_load_${spritelayer.layer_num},
+            ];
+        }
 
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship, cargo_type_in_veh) {
-    <tal:cargos repeat="mapping ship.gestalt_graphics.cargo_row_map.items()">
+        spritegroup ${ship.id}_sg_loaded_${cargo_variant_num}_${spritelayer.layer_num} {
+            loaded:  [
+                ${ship.id}_ss_${cargo_variant_num}_full_load_${spritelayer.layer_num},
+            ];
+            loading: [
+                ${ship.id}_ss_${cargo_variant_num}_full_load_${spritelayer.layer_num},
+            ];
+        }
+
+        <!--! this switch needs to be kept at parity with the equivalent switches in other vehicle templates -->
+        switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_percent_loaded_${cargo_variant_num}_${spritelayer.layer_num}, cargo_count*100/cargo_capacity) {
+                0: return ${ship.id}_ss_empty_${spritelayer.layer_num};
+                1..99: return ${ship.id}_sg_loading_${cargo_variant_num}_${spritelayer.layer_num};
+            return ${ship.id}_sg_loaded_${cargo_variant_num}_${spritelayer.layer_num};
+        }
+    </tal:cargo_variants>
+
+    <tal:cargo_random_switches repeat="mapping ship.gestalt_graphics.cargo_row_map.items()">
         <tal:exclude_default_cargo condition="mapping[0] != 'DFLT'">
-            ${mapping[0]}: return ${ship.id}_switch_graphics_${mapping[0]};
+            random_switch (FEAT_SHIPS, ${ship.get_nml_expression_for_cargo_variant_random_switch(spritelayer, mapping[0])}) {
+                <tal:random_graphics_variations repeat="spriterow_num mapping[1]">
+                    1: return ${ship.id}_switch_graphics_percent_loaded_${spriterow_num}_${spritelayer.layer_num};
+                </tal:random_graphics_variations>
+            }
         </tal:exclude_default_cargo>
-    </tal:cargos>
-    return ${ship.id}_switch_graphics_generic_cargos;
+    </tal:cargo_random_switches>
+
+    random_switch (FEAT_SHIPS, ${ship.get_nml_expression_for_cargo_variant_random_switch(spritelayer, 'generic_cargos')}) {
+        <tal:random_graphics_variations repeat="spriterow_num ship.gestalt_graphics.generic_rows">
+            1: return ${ship.id}_switch_graphics_percent_loaded_${spriterow_num}_${spritelayer.layer_num};
+        </tal:random_graphics_variations>
+    }
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_cargo_type_${spritelayer.layer_num}, cargo_type_in_veh) {
+        <tal:cargos repeat="mapping ship.gestalt_graphics.cargo_row_map.items()">
+            <tal:exclude_default_cargo condition="mapping[0] != 'DFLT'">
+                ${mapping[0]}: return ${ship.id}_switch_graphics_${mapping[0]}_${spritelayer.layer_num};
+            </tal:exclude_default_cargo>
+        </tal:cargos>
+        return ${ship.id}_switch_graphics_generic_cargos_${spritelayer.layer_num};
+    }
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_get_recolour_palette_${spritelayer.layer_num}, vehicle_type_id) {
+        <tal:ship_variants repeat="ship_variant ship.resolve_buyable_variants()">
+            ${ship_variant.numeric_id}: return switch_colour_mapping(${ship_variant.get_recolour_strategy_params(spritelayer)});
+        </tal:ship_variants>
+    }
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_layer_${spritelayer.layer_num}, STORE_TEMP(
+            CB_FLAG_MORE_SPRITES | ${ship.id}_switch_graphics_get_recolour_palette_${spritelayer.layer_num}(), 0x100
+        )) {
+        return ${ship.id}_switch_graphics_cargo_type_${spritelayer.layer_num};
+    }
+</tal:layers>
+
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship, getbits(extra_callback_info1, 8, 8)) {
+    <tal:layers repeat="spritelayer ship.gestalt_graphics.spritelayers">
+        ${spritelayer.layer_num}: ${ship.id}_switch_graphics_layer_${spritelayer.layer_num};
+    </tal:layers>
+    <!--! we'll only chain here from non-wake layers, so no need to handle the default case -->
 }
+
 
 <!--! purchase menu handling -->
-spriteset(${ship.id}_ss_purchase, "${global_constants.graphics_path}${ship.id}.png") {
-  spriteset_template_purchase_${ship.id}(0)
-}
-switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_purchase, 0) {
-    return ${ship.id}_ss_purchase;
+<tal:layers repeat="spritelayer ship.gestalt_graphics.spritelayers">
+    <!--! !!!! the support for layers is incomplete as of August 2023 - as only one layer is used for ships with visible cargo
+        - we won't want to repeat all the cargo rows, only the empty ones
+        - but we do need to know the load state to place the overlay accurately
+        - the spritesheet format needs determined
+        - the spriteset calculation needs to figure out a y_offset
+        - the graphics generator doesn't handle layers for this gestalt
+    -->
+    spriteset(${ship.id}_ss_purchase_${spritelayer.layer_num}, "${global_constants.graphics_path}${ship.id}.png") {
+      spriteset_template_purchase_${ship.id}(0)
+    }
+    switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_purchase_setup_spritelayer_${spritelayer.layer_num},
+        STORE_TEMP(
+            <tal:more_sprites condition="not: repeat.spritelayer.end">
+                CB_FLAG_MORE_SPRITES |
+            </tal:more_sprites>
+            ${ship.id}_switch_graphics_get_recolour_palette_${spritelayer.layer_num}(), 0x100
+            )
+        ) {
+        return ${ship.id}_ss_purchase_${spritelayer.layer_num};
+    }
+</tal:layers>
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_purchase, getbits(extra_callback_info1, 8, 8)) {
+    <tal:layers repeat="spritelayer ship.gestalt_graphics.spritelayers">
+        ${spritelayer.layer_num}: ${ship.id}_switch_graphics_purchase_setup_spritelayer_${spritelayer.layer_num};
+    </tal:layers>
 }
 
 <tal:include metal:use-macro="load: graphics_entry_switches.pynml" />
