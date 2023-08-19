@@ -52,8 +52,12 @@ class Pipeline(object):
         for spritelayer in self.ship.gestalt_graphics.spritelayers:
             draw_bounding_box = ImageDraw.Draw(spritesheet.sprites)
             # !! shim
-            cabbage_foo_1 = 3 # should be num spriterows per layer in this gestalt
-            y_offset = (spritelayer.layer_num * cabbage_foo_1 * graphics_constants.spriterow_height) + 10
+            cabbage_foo_1 = 3  # should be num spriterows per layer in this gestalt
+            y_offset = (
+                spritelayer.layer_num
+                * cabbage_foo_1
+                * graphics_constants.spriterow_height
+            ) + 10
             draw_bounding_box.rectangle(
                 [970, y_offset, 970 + 148, y_offset + 48], fill=0, outline=None, width=0
             )
@@ -155,12 +159,13 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             graphics_constants.spriterow_height,
         )
 
-
         result_image = Image.new(
             "P",
             (
                 self.sprites_max_x_extent,
-                len(self.ship.gestalt_graphics.spritelayers) * 3 * graphics_constants.spriterow_height,
+                len(self.ship.gestalt_graphics.spritelayers)
+                * 3
+                * graphics_constants.spriterow_height,
             ),
         )
         result_image.putpalette(DOS_PALETTE)
@@ -181,7 +186,13 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         for spritelayer in self.ship.gestalt_graphics.spritelayers:
             # the ship image has false colour pixels for the hull, to aid drawing; remove these by converting to white, also convert any blue to white
             ship_base = base_image.point(
-                lambda i: 255 if (i in range(178, 192) or i == 0 or i not in spritelayer.colours_to_select_for_inclusion) else i
+                lambda i: 255
+                if (
+                    i in range(178, 192)
+                    or i == 0
+                    or i not in spritelayer.colours_to_select_for_inclusion
+                )
+                else i
             )
 
             # hull_base uses false colour pixels for establishing correct dimensions; make these blue
@@ -213,9 +224,10 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                     if self.ship.gestalt_graphics.apply_hull_recolours_to_ship:
                         ship_base = ship_base.point(recolour_table)
 
-
             # 3 different load states to composite into result image so 3 different crop boxes to make the rows
-            dest_y_offset = spritelayer.layer_num * 3 * graphics_constants.spriterow_height
+            dest_y_offset = (
+                spritelayer.layer_num * 3 * graphics_constants.spriterow_height
+            )
             crop_box_comp_dest_1 = (
                 0,
                 dest_y_offset,
@@ -257,9 +269,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
 
             if spritelayer.layer_num == 0:
                 combined_hull_ship_image = hull_image.copy()
-                combined_hull_ship_image.paste(
-                    ship_base, crop_box_ship_base, ship_mask
-                )
+                combined_hull_ship_image.paste(ship_base, crop_box_ship_base, ship_mask)
                 result_image.paste(combined_hull_ship_image, crop_box_comp_dest_1)
                 result_image.paste(
                     combined_hull_ship_image, crop_box_comp_dest_2, waterline_mask_row_2
@@ -273,9 +283,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 if "reefer_gen_3C" in self.ship.id:
                     masked_ship_image.show()
                 """
-                masked_ship_image.paste(
-                    ship_base, crop_box_ship_base, ship_mask
-                )
+                masked_ship_image.paste(ship_base, crop_box_ship_base, ship_mask)
                 result_image.paste(masked_ship_image, crop_box_comp_dest_1)
                 result_image.paste(
                     masked_ship_image, crop_box_comp_dest_2, waterline_mask_row_2
@@ -329,14 +337,18 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
             0,
             0,
             self.sprites_max_x_extent,
-            len(self.ship.gestalt_graphics.spritelayers) * 3 * graphics_constants.spriterow_height,
+            len(self.ship.gestalt_graphics.spritelayers)
+            * 3
+            * graphics_constants.spriterow_height,
         )
         self.units.append(
             AppendToSpritesheet(vehicle_row_image_as_spritesheet, crop_box_dest)
         )
         # !!! shim
         # !!! it's worth noting that the hull + deck recolours will already have been applied in vehicle_base_image
-        recolour_map_cabbage_foo = [self.ship.gestalt_graphics.cargo_recolour_map, {}][0]
+        recolour_map_cabbage_foo = [self.ship.gestalt_graphics.cargo_recolour_map, {}][
+            0
+        ]
         self.units.append(SimpleRecolour(recolour_map_cabbage_foo))
 
     def add_bulk_cargo_spriterows(self):

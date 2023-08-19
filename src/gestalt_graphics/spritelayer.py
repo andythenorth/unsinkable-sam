@@ -1,5 +1,6 @@
 import gestalt_graphics.graphics_constants as graphics_constants
 
+
 class SpriteLayer(object):
     """
     Class to manage vehicle spritelayers, used when composing vehicles from a stack of multiple sprites.

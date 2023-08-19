@@ -2,16 +2,15 @@ from ship import FreighterShip
 
 
 def main():
-
     """
-        possible names for gen 2 ships
-        name="Pendeen",
-        name="Pitney",
-        name="Bamburgh",
-        name="Achillbeg",
-        name="Rosenthal",
-        name="Watchet",
-        name="Amherst",
+    possible names for gen 2 ships
+    name="Pendeen",
+    name="Pitney",
+    name="Bamburgh",
+    name="Achillbeg",
+    name="Rosenthal",
+    name="Watchet",
+    name="Amherst",
     """
 
     ship = FreighterShip(

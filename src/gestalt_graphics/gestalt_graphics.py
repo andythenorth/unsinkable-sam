@@ -21,7 +21,9 @@ class GestaltGraphics(object):
         for livery_names_by_layer in kwargs.get("liveries", None):
             liveries_by_layer = []
             for layer_livery_name in livery_names_by_layer:
-                liveries_by_layer.append(global_constants.ship_liveries[layer_livery_name])
+                liveries_by_layer.append(
+                    global_constants.ship_liveries[layer_livery_name]
+                )
             self.liveries.append(liveries_by_layer)
 
     @property
