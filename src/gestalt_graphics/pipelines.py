@@ -349,9 +349,15 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         )
         # !!! shim
         # !!! it's worth noting that the hull + deck recolours will already have been applied in vehicle_base_image
+        # we may not even want to keep this as recolouring of the whole row?  Do we even need that as a post-processing option?
+        # will it be faster to skip this?
+        print("recolour_map_cabbage_foo needs sorting out if we want the option to recolour an entire composited sprite")
+        """
         recolour_map_cabbage_foo = [self.ship.gestalt_graphics.cargo_recolour_map, {}][
             0
         ]
+        """
+        recolour_map_cabbage_foo = {}
         self.units.append(SimpleRecolour(recolour_map_cabbage_foo))
 
     def add_bulk_cargo_spriterows(self):

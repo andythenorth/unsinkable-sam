@@ -619,7 +619,7 @@ class CargoLiner(Ship):
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
             house_recolour_map=house_recolour_map,
-            apply_hull_recolours_to_ship=True,
+            apply_hull_recolours_to_ship=True, # to delete, no longer used, set supestructure_recolour_map to same as hull instead
             liveries=[
                 ["_DEFAULT"],
                 ["FREIGHT_PEWTER"],
@@ -1219,7 +1219,7 @@ class Trawler(Ship):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_dark_blue,
-            apply_hull_recolours_to_ship=True,
+            apply_hull_recolours_to_ship=True, # to delete, no longer used, set supestructure_recolour_map to same as hull instead
             liveries=[["_DEFAULT"]],
         )
 
