@@ -539,7 +539,7 @@ class BulkBarge(BulkBase):
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
             house_recolour_map=graphics_constants.house_recolour_roof_CC1_1,
-            liveries=[[global_constants.ship_liveries["_DEFAULT"]]],
+            liveries=[["_DEFAULT"]],
         )
 
 
@@ -558,13 +558,13 @@ class BulkShip(BulkBase):
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
             house_recolour_map=graphics_constants.house_recolour_roof_rust_1,
             liveries=[
-                [global_constants.ship_liveries["_DEFAULT"]],
-                [global_constants.ship_liveries["FREIGHT_NIGHTSHADE"]],
-                [global_constants.ship_liveries["FREIGHT_RUSTY_BLACK"]],
-                [global_constants.ship_liveries["FREIGHT_OCHRE"]],
-                [global_constants.ship_liveries["FREIGHT_GREY"]],
-                [global_constants.ship_liveries["FREIGHT_RUBY"]],
-                [global_constants.ship_liveries["FREIGHT_TEAL"]],
+                ["_DEFAULT"],
+                ["FREIGHT_NIGHTSHADE"],
+                ["FREIGHT_RUSTY_BLACK"],
+                ["FREIGHT_OCHRE"],
+                ["FREIGHT_GREY"],
+                ["FREIGHT_RUBY"],
+                ["FREIGHT_TEAL"],
             ],
         )
 
@@ -618,13 +618,13 @@ class CargoLiner(Ship):
             house_recolour_map=house_recolour_map,
             apply_hull_recolours_to_ship=True,
             liveries=[
-                [global_constants.ship_liveries["_DEFAULT"]],
-                [global_constants.ship_liveries["FREIGHT_PEWTER"]],
-                [global_constants.ship_liveries["FREIGHT_OIL_BLACK"]],
-                [global_constants.ship_liveries["FREIGHT_RUBY"]],
-                [global_constants.ship_liveries["FREIGHT_GREY"]],
-                [global_constants.ship_liveries["FREIGHT_TEAL"]],
-                [global_constants.ship_liveries["FREIGHT_SULPHUR"]],
+                ["_DEFAULT"],
+                ["FREIGHT_PEWTER"],
+                ["FREIGHT_OIL_BLACK"],
+                ["FREIGHT_RUBY"],
+                ["FREIGHT_GREY"],
+                ["FREIGHT_TEAL"],
+                ["FREIGHT_SULPHUR"],
             ],
         )
 
@@ -664,7 +664,7 @@ class CoveredHopperCarrier(Ship):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            liveries=[[global_constants.ship_liveries["_DEFAULT"]]],
+            liveries=[["_DEFAULT"]],
         )
 
 
@@ -692,21 +692,17 @@ class CryoTanker(Ship):
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=house_recolour_map,
             liveries=[
-                [global_constants.ship_liveries["_DEFAULT"]],
-                [
-                    global_constants.ship_liveries[
-                        "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"
-                    ]
-                ],
-                [global_constants.ship_liveries["FREIGHT_RUBY"]],
-                [global_constants.ship_liveries["FREIGHT_SILVER"]],
-                [global_constants.ship_liveries["FREIGHT_PEWTER"]],
-                [global_constants.ship_liveries["FREIGHT_NIGHTSHADE"]],
-                [global_constants.ship_liveries["FREIGHT_TEAL"]],
-                [global_constants.ship_liveries["FREIGHT_SULPHUR"]],
-                [global_constants.ship_liveries["FREIGHT_OCHRE"]],
-                [global_constants.ship_liveries["FREIGHT_RUSTY_BLACK"]],
-                [global_constants.ship_liveries["FREIGHT_BAUXITE"]],
+                ["_DEFAULT"],
+                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_RUBY"],
+                ["FREIGHT_SILVER"],
+                ["FREIGHT_PEWTER"],
+                ["FREIGHT_NIGHTSHADE"],
+                ["FREIGHT_TEAL"],
+                ["FREIGHT_SULPHUR"],
+                ["FREIGHT_OCHRE"],
+                ["FREIGHT_RUSTY_BLACK"],
+                ["FREIGHT_BAUXITE"],
             ],
         )
 
@@ -746,15 +742,8 @@ class EdiblesTanker(Ship):
             deck_recolour_map=deck_recolour_map,
             house_recolour_map=house_recolour_map,
             liveries=[
-                [global_constants.ship_liveries["CC_WHITE"]],
-                [global_constants.ship_liveries["FREIGHT_SILVER"]],
-                # can't use CC here as of August 2023 - no way to remap CC2 in the sprite to player CC1 choice, but we have to use CC2 in sprite to preserve CC1 stripe
-                # this could be addressed by using purple magic colour, but eh, we'd need to add support for that as cc -1 or something
-                # it was non-trivial to construct the recolour sprites for that
-                # alternatively we could have a 2CC-to-1CC recolour strategy, but not now eh
-                # !! these would benefit from variants-as-real-sprites instead of variants-as-recolour-sprites, this would allow more control over recolouring
-                # !! notably the CC stripe isn't desirable in all cases
-                # !! the stripe is a perfect case for decor?
+                ["CC_WHITE"],
+                ["FREIGHT_SILVER"],
             ],
         )
 
@@ -778,7 +767,7 @@ class FlatDeckBarge(Ship):
         self.gestalt_graphics = GestaltGraphicsVisibleCargo(
             piece="flat",
             spritelayers=[SpriteLayer(self)],
-            liveries=[[global_constants.ship_liveries["_DEFAULT"]]],
+            liveries=[["_DEFAULT"]],
         )
 
     # class FruitVegCarrier(Ship):
@@ -821,7 +810,7 @@ class FreighterBarge(FreighterBase):
             piece="open",
             spritelayers=[SpriteLayer(self)],
             house_recolour_map=graphics_constants.house_recolour_roof_CC1_1,
-            liveries=[[global_constants.ship_liveries["_DEFAULT"]]],
+            liveries=[["_DEFAULT"]],
         )
 
 
@@ -846,13 +835,13 @@ class FreighterShip(FreighterBase):
             spritelayers=[SpriteLayer(self)],
             house_recolour_map=house_recolour_map,
             liveries=[
-                [global_constants.ship_liveries["_DEFAULT"]],
-                [global_constants.ship_liveries["FREIGHT_PEWTER"]],
-                [global_constants.ship_liveries["FREIGHT_OIL_BLACK"]],
-                [global_constants.ship_liveries["FREIGHT_RUBY"]],
-                [global_constants.ship_liveries["FREIGHT_GREY"]],
-                [global_constants.ship_liveries["FREIGHT_TEAL"]],
-                [global_constants.ship_liveries["FREIGHT_RUSTY_BLACK"]],
+                ["_DEFAULT"],
+                ["FREIGHT_PEWTER"],
+                ["FREIGHT_OIL_BLACK"],
+                ["FREIGHT_RUBY"],
+                ["FREIGHT_GREY"],
+                ["FREIGHT_TEAL"],
+                ["FREIGHT_RUSTY_BLACK"],
             ],
         )
 
@@ -878,7 +867,7 @@ class LivestockCarrier(Ship):
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_silver,
             house_recolour_map=graphics_constants.house_recolour_roof_dark_red_1,
-            liveries=[[global_constants.ship_liveries["_DEFAULT"]]],
+            liveries=[["_DEFAULT"]],
         )
 
 
@@ -920,7 +909,7 @@ class MailShip(Ship):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            liveries=[[global_constants.ship_liveries["_DEFAULT"]]],
+            liveries=[["_DEFAULT"]],
         )
 
 
@@ -953,7 +942,7 @@ class PaxFastLoadingShip(PaxShipBase):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            liveries=[[global_constants.ship_liveries["_DEFAULT"]]],
+            liveries=[["_DEFAULT"]],
         )
 
     @property
@@ -977,7 +966,7 @@ class PaxLuxuryShip(PaxShipBase):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_CC2,
-            liveries=[[global_constants.ship_liveries["_DEFAULT"]]],
+            liveries=[["_DEFAULT"]],
         )
 
     @property
@@ -1037,26 +1026,24 @@ class Reefer(Ship):
             apply_hull_recolours_to_ship=True,
             liveries=[
                 [
-                    global_constants.ship_liveries["CC_WHITE"],
-                    global_constants.ship_liveries["COMPANY_COLOUR_USE_WEATHERING"],
-                    global_constants.ship_liveries["COMPANY_COLOUR_USE_WEATHERING"],
+                    "CC_WHITE",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "COMPANY_COLOUR_USE_WEATHERING",
                 ],
                 [
-                    global_constants.ship_liveries["FREIGHT_SILVER"],
-                    global_constants.ship_liveries["COMPANY_COLOUR_USE_WEATHERING"],
-                    global_constants.ship_liveries["COMPANY_COLOUR_USE_WEATHERING"],
+                    "FREIGHT_SILVER",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "COMPANY_COLOUR_USE_WEATHERING",
                 ],
                 [
-                    global_constants.ship_liveries["COMPANY_COLOUR_USE_WEATHERING"],
-                    global_constants.ship_liveries["CC_WHITE"],
-                    global_constants.ship_liveries["COMPANY_COLOUR_USE_WEATHERING"],
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "CC_WHITE",
+                    "COMPANY_COLOUR_USE_WEATHERING",
                 ],
                 [
-                    global_constants.ship_liveries[
-                        "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"
-                    ],
-                    global_constants.ship_liveries["CC_WHITE"],
-                    global_constants.ship_liveries["COMPANY_COLOUR_USE_WEATHERING"],
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                    "CC_WHITE",
+                    "COMPANY_COLOUR_USE_WEATHERING",
                 ],
             ],
         )
@@ -1092,7 +1079,7 @@ class TankerBarge(TankerBase):
             spritelayers=[SpriteLayer(self)],
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=graphics_constants.house_recolour_roof_CC1_1,
-            liveries=[[global_constants.ship_liveries["_DEFAULT"]]],
+            liveries=[["_DEFAULT"]],
         )
 
 
@@ -1121,21 +1108,17 @@ class TankerShip(TankerBase):
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=house_recolour_map,
             liveries=[
-                [global_constants.ship_liveries["_DEFAULT"]],
-                [
-                    global_constants.ship_liveries[
-                        "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"
-                    ]
-                ],
-                [global_constants.ship_liveries["FREIGHT_SULPHUR"]],
-                [global_constants.ship_liveries["FREIGHT_SILVER"]],
-                [global_constants.ship_liveries["FREIGHT_TEAL"]],
-                [global_constants.ship_liveries["FREIGHT_OIL_BLACK"]],
-                [global_constants.ship_liveries["FREIGHT_RUBY"]],
-                [global_constants.ship_liveries["FREIGHT_GREY"]],
-                [global_constants.ship_liveries["FREIGHT_RUSTY_BLACK"]],
-                [global_constants.ship_liveries["FREIGHT_OCHRE"]],
-                [global_constants.ship_liveries["FREIGHT_BAUXITE"]],
+                ["_DEFAULT"],
+                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_SULPHUR"],
+                ["FREIGHT_SILVER"],
+                ["FREIGHT_TEAL"],
+                ["FREIGHT_OIL_BLACK"],
+                ["FREIGHT_RUBY"],
+                ["FREIGHT_GREY"],
+                ["FREIGHT_RUSTY_BLACK"],
+                ["FREIGHT_OCHRE"],
+                ["FREIGHT_BAUXITE"],
             ],
         )
 
@@ -1154,21 +1137,17 @@ class ProductTankerShip(TankerBase):
             deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
             house_recolour_map=graphics_constants.house_recolour_roof_silver_1,
             liveries=[
-                [global_constants.ship_liveries["_DEFAULT"]],
-                [
-                    global_constants.ship_liveries[
-                        "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"
-                    ]
-                ],
-                [global_constants.ship_liveries["FREIGHT_SULPHUR"]],
-                [global_constants.ship_liveries["FREIGHT_SILVER"]],
-                [global_constants.ship_liveries["FREIGHT_TEAL"]],
-                [global_constants.ship_liveries["FREIGHT_OIL_BLACK"]],
-                [global_constants.ship_liveries["FREIGHT_RUBY"]],
-                [global_constants.ship_liveries["FREIGHT_GREY"]],
-                [global_constants.ship_liveries["FREIGHT_RUSTY_BLACK"]],
-                [global_constants.ship_liveries["FREIGHT_OCHRE"]],
-                [global_constants.ship_liveries["FREIGHT_BAUXITE"]],
+                ["_DEFAULT"],
+                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_SULPHUR"],
+                ["FREIGHT_SILVER"],
+                ["FREIGHT_TEAL"],
+                ["FREIGHT_OIL_BLACK"],
+                ["FREIGHT_RUBY"],
+                ["FREIGHT_GREY"],
+                ["FREIGHT_RUSTY_BLACK"],
+                ["FREIGHT_OCHRE"],
+                ["FREIGHT_BAUXITE"],
             ],
         )
 
@@ -1190,7 +1169,7 @@ class Trawler(Ship):
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_dark_blue,
             apply_hull_recolours_to_ship=True,
-            liveries=[[global_constants.ship_liveries["_DEFAULT"]]],
+            liveries=[["_DEFAULT"]],
         )
 
 
@@ -1217,5 +1196,5 @@ class UtilityHovercraft(Ship):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            liveries=[[global_constants.ship_liveries["_DEFAULT"]]],
+            liveries=[["_DEFAULT"]],
         )

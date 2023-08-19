@@ -17,8 +17,12 @@ class GestaltGraphics(object):
         self.pipeline = None
         # spritelayers is required
         self.spritelayers = kwargs["spritelayers"]
-        # as of August 2023, unclear if it's wise to set this empty default or not, might reduce boilerplate, but doesn't actually solve anything
-        self.liveries = kwargs.get("liveries", [])
+        self.liveries = []
+        for livery_names_by_layer in kwargs.get("liveries", None):
+            liveries_by_layer = []
+            for layer_livery_name in livery_names_by_layer:
+                liveries_by_layer.append(global_constants.ship_liveries[layer_livery_name])
+            self.liveries.append(liveries_by_layer)
 
     @property
     def nml_template(self):
