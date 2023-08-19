@@ -12,11 +12,13 @@ class GestaltGraphics(object):
      - cargo graphics (if any)
     """
 
-    def __init__(self):
-        # no graphics processing by default
+    def __init__(self, **kwargs):
+        # no graphics processing by default - set this in the subclass after super()
         self.pipeline = None
-        # force livery to default for this gestalt
-        self.liveries = [global_constants.ship_liveries["_DEFAULT"]]
+        # spritelayers is required
+        self.spritelayers = kwargs["spritelayers"]
+        # as of August 2023, unclear if it's wise to set this empty default or not, might reduce boilerplate, but doesn't actually solve anything
+        self.liveries = kwargs.get("liveries", [])
 
     @property
     def nml_template(self):
@@ -46,7 +48,7 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
     """
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
         self.pipeline = pipelines.get_pipeline(
             "extend_spriterows_for_composited_cargos_pipeline"
@@ -70,7 +72,6 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
             self.piece_type = kwargs.get("piece")
         # required if piece is set, cargo sprites are available in multiple lengths, set the most appropriate
         self.cargo_length = kwargs.get("cargo_length", None)
-        self.liveries = kwargs["liveries"]
 
     @property
     def generic_rows(self):
@@ -159,7 +160,6 @@ class GestaltGraphicsSimpleColourRemaps(GestaltGraphics):
     """
     Simple recolouring of deck, house, hull etc to:
     - a single default livery
-    - optional extra liveries for specific cargos
 
     Can use 'magic' colour ranges (safer), or recolour other 'actual appearance' ranges (more likely to break / have unintended consequences).
     This gestalt can also be used as a shortcut simply for compositing ships to hulls.
@@ -167,24 +167,30 @@ class GestaltGraphicsSimpleColourRemaps(GestaltGraphics):
     """
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
         self.pipeline = pipelines.get_pipeline(
             "extend_spriterows_for_composited_cargos_pipeline"
         )
         # pass either a single hull recolour or pass recolours per cargo
         # !! August 2023 - this might be needless complexity, the multiple-cargo support is dropped, so not clear that's needed, might just be we can use hull colour
+        # !! looks like we can use cargo remap to handle e.g. remapping tanker pipe colours etc, this might be worth keeping
         self.hull_recolour_map = kwargs.get("hull_recolour_map", None)
         self.cargo_recolour_map = kwargs.get("cargo_recolour_map", {})
         # n.b. deck and house recolours are defined per gestalt as of Jan 2021, not in base class, refactor if need arises
         self.deck_recolour_map = kwargs.get("deck_recolour_map", None)
         self.house_recolour_map = kwargs.get("house_recolour_map", None)
         # option to recolour ship pixels per hull/house/deck rules, this is generally a desirable shortcut and allows drawing ship in magic colours matching hull
-        # however it can cause unwanted recolouring of ship pixels, so it's explicitly enabled per gestalt
+        # however it can cause unwanted recolouring of ship pixels, so it can be disabled per gestalt
+        # this is probably better handled by other means?
+        # !! as of August 2023 the default is inverted from False to True to see what happens
+        # !! this appears to cause e.g. tankers to recolour tanktops to same as house roof, due to house roof using magic red
+        # !! decor layers might address that, but it looks like we need to keep this feature, and revert the default to False
         self.apply_hull_recolours_to_ship = kwargs.get(
-            "apply_hull_recolours_to_ship", False
+            "apply_hull_recolours_to_ship", True
         )
-        self.liveries = kwargs["liveries"]
+        # !! shim
+        self.ship_layers = 2
 
     @property
     def generic_rows(self):

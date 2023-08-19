@@ -63,6 +63,14 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship, cargo_type_in_veh) {
     return ${ship.id}_switch_graphics_generic_cargos;
 }
 
+<!--! purchase menu handling -->
+spriteset(${ship.id}_ss_purchase, "${global_constants.graphics_path}${ship.id}.png") {
+  spriteset_template_purchase_${ship.id}(0)
+}
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_purchase, 0) {
+    return ${ship.id}_ss_purchase;
+}
+
 <tal:include metal:use-macro="load: graphics_entry_switches.pynml" />
 
 <tal:include metal:use-macro="load: speed.pynml" />

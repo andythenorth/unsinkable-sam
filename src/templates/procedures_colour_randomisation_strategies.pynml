@@ -84,11 +84,6 @@ switch (FEAT_SHIPS, SELF, switch_cc_num_to_recolour, LOAD_TEMP(${temp_storage_id
     2: switch_colour_set_use_weathering_2cc_to_2cc;
 }
 
-switch (FEAT_SHIPS, SELF, switch_colour_mapping_layers, getbits(extra_callback_info1, 8, 8)) {
-    0: switch_cc_num_to_recolour;
-    return base_sprite_2cc + 16 * company_colour2 + company_colour1;
-}
-
 switch (FEAT_SHIPS, SELF, switch_colour_mapping,
         cc_num_to_recolour,
         flag_use_weathering,
@@ -108,5 +103,5 @@ switch (FEAT_SHIPS, SELF, switch_colour_mapping,
                      STORE_TEMP(recolour_livery_num_${livery_num}, ${temp_storage_ids.get("recolour_livery_num_" + str(livery_num))}),
                  </tal:available_liveries>
                 ]) {
-    switch_colour_mapping_layers;
+    switch_cc_num_to_recolour;
 }

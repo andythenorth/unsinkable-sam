@@ -9,6 +9,7 @@ from time import time
 import unsinkable_sam
 import utils
 import global_constants
+import gestalt_graphics.graphics_constants as graphics_constants
 from polar_fox import git_info
 from rosters import (
     registered_rosters,
@@ -32,6 +33,7 @@ def render_header_item_nml(header_item, consists):
             consists=consists,
             global_constants=global_constants,
             temp_storage_ids=global_constants.temp_storage_ids,  # convenience measure
+            graphics_constants=graphics_constants,
             utils=utils,
             registered_rosters=registered_rosters,
             makefile_args=makefile_args,

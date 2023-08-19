@@ -13,7 +13,7 @@
 // PURCHASE MENU
 // -------------
 
-template spriteset_template_purchase_${ship.id}() {
+template spriteset_template_purchase_${ship.id}(y_offset) {
     //[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
     []
     []
@@ -22,7 +22,7 @@ template spriteset_template_purchase_${ship.id}() {
     []
     []
     <!--! we add 10px left and right padding to buy menu sprite to prevent cramped appearance in buy menu -->
-    [${global_constants.buy_menu_sprite_x_loc},  ${10 + ship.buy_menu_bb_y_offset}, 20 + ${ship.buy_menu_width}, ${global_constants.buy_menu_sprite_height}, -${int(ship.buy_menu_width / 2)}, -17, ANIM | NOCROP]
+    [${global_constants.buy_menu_sprite_x_loc},  y_offset + ${10 + ship.buy_menu_bb_y_offset}, 20 + ${ship.buy_menu_width}, ${global_constants.buy_menu_sprite_height}, -${int(ship.buy_menu_width / 2)}, -17, ANIM | NOCROP]
     []
 }
 
