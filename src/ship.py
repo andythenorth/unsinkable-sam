@@ -393,7 +393,9 @@ class Ship(object):
         # but if needed, add _offsets prop from constructor kwargs, and check existence of that here (otherwise returning defaults)
         return global_constants.vehicle_offsets[self.hull.hull_length]
 
-    def get_nml_expression_for_cargo_variant_random_switch(self, spritelayer, cargo_id=None):
+    def get_nml_expression_for_cargo_variant_random_switch(
+        self, spritelayer, cargo_id=None
+    ):
         switch_id = (
             self.id
             + "_switch_graphics"
@@ -619,7 +621,7 @@ class CargoLiner(Ship):
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
             house_recolour_map=house_recolour_map,
-            apply_hull_recolours_to_ship=True, # to delete, no longer used, set supestructure_recolour_map to same as hull instead
+            apply_hull_recolours_to_ship=True,  # to delete, no longer used, set supestructure_recolour_map to same as hull instead
             liveries=[
                 ["_DEFAULT"],
                 ["FREIGHT_PEWTER"],
@@ -749,7 +751,7 @@ class EdiblesTanker(Ship):
                 ),
                 SpriteLayer(
                     self,
-                    selective_colour_protocols=["CC1"],
+                    selective_colour_protocols_superstructure=["CC1"],
                 ),
             ],
             liveries=[
@@ -1062,11 +1064,11 @@ class Reefer(Ship):
                 ),
                 SpriteLayer(
                     self,
-                    selective_colour_protocols=["CC1"],
+                    selective_colour_protocols_superstructure=["CC1"],
                 ),
                 SpriteLayer(
                     self,
-                    selective_colour_protocols=["CC2"],
+                    selective_colour_protocols_superstructure=["CC2"],
                     superstructure_recolour_map=graphics_constants.recolour_CC2_to_CC1,
                 ),
             ],
@@ -1219,7 +1221,7 @@ class Trawler(Ship):
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             spritelayers=[SpriteLayer(self)],
             hull_recolour_map=graphics_constants.hull_recolour_dark_blue,
-            apply_hull_recolours_to_ship=True, # to delete, no longer used, set supestructure_recolour_map to same as hull instead
+            apply_hull_recolours_to_ship=True,  # to delete, no longer used, set supestructure_recolour_map to same as hull instead
             liveries=[["_DEFAULT"]],
         )
 

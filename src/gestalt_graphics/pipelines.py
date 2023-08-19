@@ -213,7 +213,7 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
                 if (
                     i in range(178, 192)
                     or i == 0
-                    or i not in spritelayer.colours_to_select_for_inclusion
+                    or i not in spritelayer.get_colours_to_select_for_inclusion("superstructure")
                 )
                 else i
             )
