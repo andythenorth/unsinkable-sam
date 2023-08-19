@@ -179,16 +179,9 @@ class ExtendSpriterowsForCompositedCargosPipeline(Pipeline):
         )
 
         for spritelayer in self.ship.gestalt_graphics.spritelayers:
-            # !!! shim checks - use spritelayer to get actual selective colour + recolours
-            if spritelayer.layer_num == 1:
-                selective_colour = [graphics_constants.CC1 + i for i in range(8)]
-            elif  spritelayer.layer_num == 2:
-                selective_colour = [graphics_constants.CC2 + i for i in range(8)]
-            else:
-                selective_colour = [i for i in range(255)]
             # the ship image has false colour pixels for the hull, to aid drawing; remove these by converting to white, also convert any blue to white
             ship_base = base_image.point(
-                lambda i: 255 if (i in range(178, 192) or i == 0 or i not in selective_colour) else i
+                lambda i: 255 if (i in range(178, 192) or i == 0 or i not in spritelayer.colours_to_select_for_inclusion) else i
             )
 
             # hull_base uses false colour pixels for establishing correct dimensions; make these blue

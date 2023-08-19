@@ -1020,7 +1020,17 @@ class Reefer(Ship):
         # extend to invert funnel CC
         house_recolour_map.update(graphics_constants.house_recolour_CC2_to_CC1)
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            spritelayers=[SpriteLayer(self), SpriteLayer(self), SpriteLayer(self)],
+            spritelayers=[
+                SpriteLayer(self),
+                SpriteLayer(
+                    self,
+                    selective_colour_protocols=["CC1"],
+                ),
+                SpriteLayer(
+                    self,
+                    selective_colour_protocols=["CC2"],
+                ),
+            ],
             hull_recolour_map=graphics_constants.hull_recolour_CC1,
             deck_recolour_map=deck_recolour_map,
             house_recolour_map=house_recolour_map,
