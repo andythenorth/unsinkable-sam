@@ -8,15 +8,26 @@
 
 <tal:layers repeat="spritelayer ship.gestalt_graphics.spritelayers">
     spriteset(${ship.id}_ss_empty_${spritelayer.layer_num}, "${global_constants.graphics_path}${ship.id}.png") {
-      spriteset_template_empty_${ship.id}((${spritelayer.layer_num} * 300) + 10)
+        spriteset_template_empty_${ship.id}(
+            ${int(spritelayer.layer_num) * 300}
+            + 10
+        )
     }
     spriteset(${ship.id}_ss_part_load_${spritelayer.layer_num}, "${global_constants.graphics_path}${ship.id}.png") {
-      spriteset_template_part_load_${ship.id}((${spritelayer.layer_num} * 300) + 110)
+        spriteset_template_part_load_${ship.id}(
+            ${int(spritelayer.layer_num) * 300}
+            + 110
+        )
     }
     spriteset(${ship.id}_ss_full_load_${spritelayer.layer_num}, "${global_constants.graphics_path}${ship.id}.png") {
-      spriteset_template_full_load_${ship.id}((${spritelayer.layer_num} * 300) + 210)
+        spriteset_template_full_load_${ship.id}(
+            ${int(spritelayer.layer_num) * 300}
+            + 210
+        )
     }
-    <!--! this switch needs to be kept at parity with the equivalent switches in other vehicle templates w.r.t which load % triggers which state -->
+    <!--! this switch needs to be kept at parity with the equivalent switches in other vehicle templates w.r.t which load % triggers which state
+        !!!! really needs to be a procedure returning load states 0, 1, or 2
+    -->
     switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_load_amount_${spritelayer.layer_num}, cargo_count*100/cargo_capacity) {
             0: return ${ship.id}_ss_empty_${spritelayer.layer_num};
             1..99: return ${ship.id}_ss_part_load_${spritelayer.layer_num};
@@ -45,8 +56,9 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship, getbits(extra_callbac
 <!--! purchase menu handling -->
 <tal:layers repeat="spritelayer ship.gestalt_graphics.spritelayers">
     spriteset(${ship.id}_ss_purchase_${spritelayer.layer_num}, "${global_constants.graphics_path}${ship.id}.png") {
-        <!--! !! nasty shim to get y_offset -->
-        spriteset_template_purchase_${ship.id}(${spritelayer.layer_num * graphics_constants.spriterow_height * 3})
+        spriteset_template_purchase_${ship.id}(
+            ${spritelayer.layer_num * graphics_constants.spriterow_height * 3}
+        )
     }
     switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_purchase_setup_spritelayer_${spritelayer.layer_num},
         STORE_TEMP(
@@ -64,7 +76,6 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_purchase, getbits(extra_cal
         ${spritelayer.layer_num}: ${ship.id}_switch_graphics_purchase_setup_spritelayer_${spritelayer.layer_num};
     </tal:layers>
 }
-
 
 <tal:include metal:use-macro="load: graphics_entry_switches.pynml" />
 

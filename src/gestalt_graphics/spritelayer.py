@@ -10,14 +10,20 @@ class SpriteLayer(object):
     selective_colour_named_ranges = {
         "CC1": [graphics_constants.CC1 + i for i in range(8)],
         "CC2": [graphics_constants.CC2 + i for i in range(8)],
+        "CONSTRUCTION_PURPLE": [graphics_constants.construction_purple + i for i in range(8)],
+        "HOUSE_MAGIC_RED_COLOUR": [graphics_constants.house_magic_red_colour + i for i in range(8)],
+        # be aware that adding negative protocols ("all but X") may have "interesting" side effects if used combinatorially with other rules
+        "NONE": [],
+        # as fallback / default
+        "ALL": [i for i in range(255)],
     }
 
     def __init__(self, ship, **kwargs):
         self.ship = ship
         self.selective_colour_protocols = {
-            "hull": kwargs.get("selective_colour_protocols_hull", None),
+            "hull": kwargs.get("selective_colour_protocols_hull", ["ALL"]),
             "superstructure": kwargs.get(
-                "selective_colour_protocols_superstructure", None
+                "selective_colour_protocols_superstructure", ["ALL"]
             ),
         }
         self.deck_recolour_map = kwargs.get("deck_recolour_map", None)
@@ -38,12 +44,7 @@ class SpriteLayer(object):
 
     def get_colours_to_select_for_inclusion(self, component):
         # returns a flat list of colours which will be selected (picked) into a layer from a source sprite image
-        # be aware that adding negative protocols ("all but X") may have "interesting" side effects if used combinatorially
         result = []
-        if self.selective_colour_protocols[component] == None:
-            # just select all if nothing is specified
-            result = [i for i in range(255)]
-        else:
-            for protocol in self.selective_colour_protocols[component]:
-                result.extend(self.selective_colour_named_ranges[protocol])
+        for protocol in self.selective_colour_protocols[component]:
+            result.extend(self.selective_colour_named_ranges[protocol])
         return result

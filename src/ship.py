@@ -560,16 +560,24 @@ class BulkShip(BulkBase):
                     self,
                     house_recolour_map=graphics_constants.house_recolour_roof_rust_1,
                     hull_recolour_map=graphics_constants.hull_recolour_CC1,
+                ),
+                SpriteLayer(
+                    self,
+                    selective_colour_protocols_hull=["NONE"],
+                    selective_colour_protocols_superstructure=["CC1"],
                 )
             ],
             liveries=[
-                ["_DEFAULT"],
-                ["FREIGHT_NIGHTSHADE"],
-                ["FREIGHT_RUSTY_BLACK"],
-                ["FREIGHT_OCHRE"],
-                ["FREIGHT_GREY"],
-                ["FREIGHT_RUBY"],
-                ["FREIGHT_TEAL"],
+                ["_DEFAULT", "COMPANY_COLOUR_USE_WEATHERING"],
+                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_GREY", "FREIGHT_RUSTY_BLACK"],
+                ["FREIGHT_NIGHTSHADE", "FREIGHT_OIL_BLACK"],
+                ["FREIGHT_RUSTY_BLACK", "FREIGHT_OIL_BLACK"],
+                ["FREIGHT_RUBY", "FREIGHT_BAUXITE"],
+                ["FREIGHT_BAUXITE", "FREIGHT_BAUXITE"],
+                ["FREIGHT_OCHRE", "FREIGHT_BAUXITE"],
+                ["FREIGHT_TEAL", "FREIGHT_PEWTER"],
+                ["FREIGHT_MINT_GREEN", "FREIGHT_PEWTER"],
             ],
         )
 
@@ -617,11 +625,16 @@ class CargoLiner(Ship):
             house_recolour_map = graphics_constants.house_recolour_roof_dark_red_1
         else:
             house_recolour_map = graphics_constants.house_recolour_roof_CC1_1
+        hull_recolour_map=graphics_constants.hull_recolour_CC1
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            spritelayers=[SpriteLayer(self)],
-            hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            house_recolour_map=house_recolour_map,
-            apply_hull_recolours_to_ship=True,  # to delete, no longer used, set supestructure_recolour_map to same as hull instead
+            spritelayers=[
+                SpriteLayer(
+                    self,
+                    hull_recolour_map=hull_recolour_map,
+                    house_recolour_map=house_recolour_map,
+                    superstructure_recolour_map=hull_recolour_map,
+                ),
+            ],
             liveries=[
                 ["_DEFAULT"],
                 ["FREIGHT_PEWTER"],
@@ -690,24 +703,103 @@ class CryoTanker(Ship):
         self.default_cargos = global_constants.default_cargos["cryo_gases"]
         self.loading_speed_multiplier = 2
         # Graphics configuration
-        house_recolour_map = graphics_constants.house_recolour_roof_CC1_1
+        hull_recolour_map = graphics_constants.hull_recolour_CC1
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            spritelayers=[SpriteLayer(self)],
-            hull_recolour_map=graphics_constants.hull_recolour_CC1,
-            deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
-            house_recolour_map=house_recolour_map,
+            spritelayers=[
+                SpriteLayer(
+                    self,
+                    deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
+                    hull_recolour_map=hull_recolour_map,
+                    superstructure_recolour_map=hull_recolour_map,
+                ),
+                # knock the house roof out specifically so we can make it CC for all liveries
+                SpriteLayer(
+                    self,
+                    selective_colour_protocols_hull=["HOUSE_MAGIC_RED_COLOUR"],
+                    selective_colour_protocols_superstructure=["NONE"],
+                    house_recolour_map=graphics_constants.house_recolour_roof_CC1_1,
+                ),
+                SpriteLayer(
+                    self,
+                    # pick certain pipes / hatch covers off the superstructure and recolour
+                    selective_colour_protocols_hull=["NONE"],
+                    selective_colour_protocols_superstructure=["CONSTRUCTION_PURPLE"],
+                    superstructure_recolour_map=graphics_constants.construction_purple_recolour_CC1,
+                ),
+                SpriteLayer(
+                    self,
+                    # pick the tanks out
+                    selective_colour_protocols_hull=["NONE"],
+                    selective_colour_protocols_superstructure=["CC1"],
+                ),
+            ],
             liveries=[
-                ["_DEFAULT"],
-                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
-                ["FREIGHT_RUBY"],
-                ["FREIGHT_SILVER"],
-                ["FREIGHT_PEWTER"],
-                ["FREIGHT_NIGHTSHADE"],
-                ["FREIGHT_TEAL"],
-                ["FREIGHT_SULPHUR"],
-                ["FREIGHT_OCHRE"],
-                ["FREIGHT_RUSTY_BLACK"],
-                ["FREIGHT_BAUXITE"],
+                [
+                    "_DEFAULT",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "CC_WHITE",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                ],
+                [
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "CC_WHITE",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                ],
+                [
+                    "FREIGHT_SILVER",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "CC_WHITE",
+                    "FREIGHT_SILVER",
+                ],
+                [
+                    "FREIGHT_PEWTER",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "FREIGHT_SILVER",
+                ],
+                [
+                    "FREIGHT_NIGHTSHADE",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "FREIGHT_PEWTER",
+                    "FREIGHT_SILVER",
+                ],
+                [
+                    "FREIGHT_TEAL",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "FREIGHT_TEAL",
+                    "FREIGHT_SILVER",
+                ],
+                [
+                    "FREIGHT_RUSTY_BLACK",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "FREIGHT_RUSTY_BLACK",
+                    "FREIGHT_PEWTER",
+                ],
+                [
+                    "FREIGHT_BAUXITE",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "FREIGHT_BAUXITE",
+                    "FREIGHT_PEWTER",
+                ],
+                [
+                    "FREIGHT_RUBY",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "CC_WHITE",
+                    "FREIGHT_RUBY",
+                ],
+                [
+                    "FREIGHT_OCHRE",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "FREIGHT_BAUXITE",
+                    "FREIGHT_RUBY",
+                ],
+                [
+                    "FREIGHT_SULPHUR",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "CC_WHITE",
+                    "FREIGHT_OCHRE",
+                ],
             ],
         )
 
@@ -745,42 +837,56 @@ class EdiblesTanker(Ship):
                 SpriteLayer(
                     self,
                     hull_recolour_map=hull_recolour_map,
-                    house_recolour_map=house_recolour_map,
                     deck_recolour_map=deck_recolour_map,
                     superstructure_recolour_map=hull_recolour_map,
                 ),
+                # knock the house roof out specifically so we can make it CC for all liveries
                 SpriteLayer(
                     self,
+                    selective_colour_protocols_hull=["HOUSE_MAGIC_RED_COLOUR"],
+                    selective_colour_protocols_superstructure=["NONE"],
+                    house_recolour_map=house_recolour_map,
+                ),
+                SpriteLayer(
+                    self,
+                    selective_colour_protocols_hull=["NONE"],
                     selective_colour_protocols_superstructure=["CC1"],
                 ),
             ],
             liveries=[
                 [
                     "CC_WHITE",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
                     "COMPANY_COLOUR_USE_WEATHERING",
                 ],
                 [
                     "FREIGHT_SILVER",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
                     "COMPANY_COLOUR_USE_WEATHERING",
                 ],
                 [
                     "COMPANY_COLOUR_USE_WEATHERING",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
                     "CC_WHITE",
                 ],
                 [
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
                     "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
                     "CC_WHITE",
                 ],
                 [
                     "FREIGHT_RUSTY_BLACK",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
                     "CC_WHITE",
                 ],
                 [
                     "FREIGHT_OCHRE",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
                     "CC_WHITE",
                 ],
                 [
                     "FREIGHT_SULPHUR",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
                     "CC_WHITE",
                 ],
             ],
@@ -1064,10 +1170,12 @@ class Reefer(Ship):
                 ),
                 SpriteLayer(
                     self,
+                    selective_colour_protocols_hull=["NONE"],
                     selective_colour_protocols_superstructure=["CC1"],
                 ),
                 SpriteLayer(
                     self,
+                    selective_colour_protocols_hull=["NONE"],
                     selective_colour_protocols_superstructure=["CC2"],
                     superstructure_recolour_map=graphics_constants.recolour_CC2_to_CC1,
                 ),
@@ -1156,22 +1264,37 @@ class TankerShip(TankerBase):
         else:
             house_recolour_map = []
         house_recolour_map.update(graphics_constants.recolour_CC2_to_CC1)
+        hull_recolour_map = graphics_constants.hull_recolour_CC1
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            spritelayers=[SpriteLayer(self)],
-            deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
-            house_recolour_map=house_recolour_map,
+            spritelayers=[
+                SpriteLayer(
+                    self,
+                    deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
+                    hull_recolour_map=hull_recolour_map,
+                    house_recolour_map=house_recolour_map,
+                    superstructure_recolour_map=hull_recolour_map,
+                ),
+                SpriteLayer(
+                    self,
+                    # pick certain pipes / hatch covers off the superstructure and recolour
+                    selective_colour_protocols_hull=["NONE"],
+                    selective_colour_protocols_superstructure=["CONSTRUCTION_PURPLE"],
+                    superstructure_recolour_map=graphics_constants.construction_purple_recolour_CC1,
+                ),
+            ],
             liveries=[
-                ["_DEFAULT"],
-                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
-                ["FREIGHT_SULPHUR"],
-                ["FREIGHT_SILVER"],
-                ["FREIGHT_TEAL"],
-                ["FREIGHT_OIL_BLACK"],
-                ["FREIGHT_RUBY"],
-                ["FREIGHT_GREY"],
-                ["FREIGHT_RUSTY_BLACK"],
-                ["FREIGHT_OCHRE"],
-                ["FREIGHT_BAUXITE"],
+                ["_DEFAULT", "COMPANY_COLOUR_USE_WEATHERING"],
+                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING", "COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_SILVER", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_GREY", "FREIGHT_PEWTER"],
+                ["FREIGHT_OIL_BLACK", "FREIGHT_PEWTER"],
+                ["FREIGHT_MINT_GREEN", "FREIGHT_GREMLIN_GREEN"],
+                ["FREIGHT_TEAL", "FREIGHT_TEAL"],
+                ["FREIGHT_RUSTY_BLACK", "FREIGHT_PEWTER"],
+                ["FREIGHT_BAUXITE", "FREIGHT_PEWTER"],
+                ["FREIGHT_RUBY", "FREIGHT_BAUXITE"],
+                ["FREIGHT_OCHRE", "FREIGHT_BAUXITE"],
+                ["FREIGHT_SULPHUR", "FREIGHT_OCHRE"],
             ],
         )
 
@@ -1185,22 +1308,37 @@ class ProductTankerShip(TankerBase):
     def __init__(self, **kwargs):
         self.base_id = "product_tanker_ship"
         super().__init__(**kwargs)
+        # Graphics configuration
+        hull_recolour_map = graphics_constants.hull_recolour_CC1
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
-            spritelayers=[SpriteLayer(self)],
-            deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
-            house_recolour_map=graphics_constants.house_recolour_roof_silver_1,
+            spritelayers=[
+                SpriteLayer(
+                    self,
+                    deck_recolour_map=graphics_constants.deck_recolour_map_dark_red_1,
+                    hull_recolour_map=hull_recolour_map,
+                    house_recolour_map=graphics_constants.house_recolour_roof_silver_1,
+                    superstructure_recolour_map=hull_recolour_map,
+                ),
+                SpriteLayer(
+                    self,
+                    # pick certain pipes / hatch covers off the superstructure and recolour
+                    selective_colour_protocols_hull=["NONE"],
+                    selective_colour_protocols_superstructure=["CC1"],
+                ),
+            ],
             liveries=[
-                ["_DEFAULT"],
-                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
-                ["FREIGHT_SULPHUR"],
-                ["FREIGHT_SILVER"],
-                ["FREIGHT_TEAL"],
-                ["FREIGHT_OIL_BLACK"],
-                ["FREIGHT_RUBY"],
-                ["FREIGHT_GREY"],
-                ["FREIGHT_RUSTY_BLACK"],
-                ["FREIGHT_OCHRE"],
-                ["FREIGHT_BAUXITE"],
+                ["_DEFAULT", "COMPANY_COLOUR_USE_WEATHERING"],
+                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING", "COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_SILVER", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_GREY", "FREIGHT_PEWTER"],
+                ["FREIGHT_OIL_BLACK", "FREIGHT_PEWTER"],
+                ["FREIGHT_MINT_GREEN", "FREIGHT_GREMLIN_GREEN"],
+                ["FREIGHT_TEAL", "FREIGHT_TEAL"],
+                ["FREIGHT_RUSTY_BLACK", "FREIGHT_PEWTER"],
+                ["FREIGHT_BAUXITE", "FREIGHT_PEWTER"],
+                ["FREIGHT_RUBY", "FREIGHT_RUBY"],
+                ["FREIGHT_OCHRE", "FREIGHT_RUBY"],
+                ["FREIGHT_SULPHUR", "FREIGHT_OCHRE"],
             ],
         )
 

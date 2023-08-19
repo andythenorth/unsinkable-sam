@@ -526,6 +526,14 @@ ship_liveries = {
             ("COLOUR_RED", "COLOUR_WHITE"),
         ],
     },
+    "FREIGHT_MINT_GREEN": {
+        "colour_set": "pale_green",
+        "use_weathering": True,
+        "docs_image_input_cc": [
+            ("COLOUR_BLUE", "COLOUR_BLUE"),
+            ("COLOUR_RED", "COLOUR_WHITE"),
+        ],
+    },
     "CC_BLUE": {
         "colour_set": "blue",
         "use_weathering": True,

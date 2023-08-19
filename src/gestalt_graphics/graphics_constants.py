@@ -1,7 +1,9 @@
 # colour defaults
 CC1 = 198
 CC2 = 80
-house_magic_colour = 170
+construction_purple = 136
+house_magic_red_colour = 40
+house_magic_safe_colour = 170
 
 recolour_CC2_to_CC1 = {
     CC2: CC1,
@@ -24,58 +26,60 @@ recolour_CC1_to_CC2 = {
     CC1 + 7: CC2 + 7,
 }
 
-hull_recolour_CC1 = {
-    136: CC1,
-    137: CC1 + 1,
-    138: CC1 + 2,
-    139: CC1 + 3,
-    140: CC1 + 4,
-    141: CC1 + 5,
-    142: CC1 + 6,
-    143: CC1 + 7,
+construction_purple_recolour_CC1 = {
+    construction_purple: CC1,
+    construction_purple + 1: CC1 + 1,
+    construction_purple + 2: CC1 + 2,
+    construction_purple + 3: CC1 + 3,
+    construction_purple + 4: CC1 + 4,
+    construction_purple + 5: CC1 + 5,
+    construction_purple + 6: CC1 + 6,
+    construction_purple + 7: CC1 + 7,
 }
-hull_recolour_CC2 = {
-    136: CC2,
-    137: CC2 + 1,
-    138: CC2 + 2,
-    139: CC2 + 3,
-    140: CC2 + 4,
-    141: CC2 + 5,
-    142: CC2 + 6,
-    143: CC2 + 7,
+hull_recolour_CC1 = construction_purple_recolour_CC1
+construction_purple_recolour_CC2 = {
+    construction_purple: CC2,
+    construction_purple + 1: CC2 + 1,
+    construction_purple + 2: CC2 + 2,
+    construction_purple + 3: CC2 + 3,
+    construction_purple + 4: CC2 + 4,
+    construction_purple + 5: CC2 + 5,
+    construction_purple + 6: CC2 + 6,
+    construction_purple + 7: CC2 + 7,
 }
+hull_recolour_CC2 = construction_purple_recolour_CC2
 hull_recolour_white = {
-    136: 8,
-    137: 9,
-    138: 10,
-    139: 11,
-    140: 12,
-    141: 13,
-    142: 14,
-    143: 15,
+    construction_purple: 8,
+    construction_purple + 1: 9,
+    construction_purple + 2: 10,
+    construction_purple + 3: 11,
+    construction_purple + 4: 12,
+    construction_purple + 5: 13,
+    construction_purple + 6: 14,
+    construction_purple + 7: 15,
 }
 hull_recolour_silver = {
-    136: 16,
-    137: 17,
-    138: 18,
-    139: 19,
-    140: 20,
-    141: 21,
-    142: 22,
-    143: 23,
+    construction_purple: 16,
+    construction_purple + 1: 17,
+    construction_purple + 2: 18,
+    construction_purple + 3: 19,
+    construction_purple + 4: 20,
+    construction_purple + 5: 21,
+    construction_purple + 6: 22,
+    construction_purple + 7: 23,
 }
 hull_recolour_dark_blue = {
-    136: 144,
-    137: 145,
-    138: 146,
-    139: 147,
-    140: 148,
-    141: 149,
-    142: 150,
-    143: 151,
+    construction_purple: 144,
+    construction_purple + 1: 145,
+    construction_purple + 2: 146,
+    construction_purple + 3: 147,
+    construction_purple + 4: 148,
+    construction_purple + 5: 149,
+    construction_purple + 6: 150,
+    construction_purple + 7: 151,
 }
 hull_recolour_dark_grey = {
-    136: 33,
+    construction_purple: 33,
     136 + 1: 34,
     136 + 2: 6,
     136 + 3: 7,
@@ -85,7 +89,7 @@ hull_recolour_dark_grey = {
     136 + 7: 39,
 }
 hull_recolour_dirty_black = {
-    136: 70,
+    construction_purple: 70,
     136 + 1: 71,
     136 + 2: 33,
     136 + 3: 5,
@@ -96,70 +100,78 @@ hull_recolour_dirty_black = {
 }
 
 tanker_livery_recolour_maps = {
-    136: CC1,
-    137: CC1 + 1,
-    138: CC1 + 2,
-    139: CC1 + 3,
-    140: CC1 + 4,
-    141: CC1 + 5,
-    142: CC1 + 6,
-    143: CC1 + 7,
+    construction_purple: CC1,
+    construction_purple + 1: CC1 + 1,
+    construction_purple + 2: CC1 + 2,
+    construction_purple + 3: CC1 + 3,
+    construction_purple + 4: CC1 + 4,
+    construction_purple + 5: CC1 + 5,
+    construction_purple + 6: CC1 + 6,
+    construction_purple + 7: CC1 + 7,
 }
 
 # used because it's nicer to draw with dark red as magic colour, but it's not safe as a magic colour, so it's remapped to a spare purple range
 house_make_magic_red_safe_recolour_map = {
-    40: house_magic_colour,
-    41: house_magic_colour + 1,
-    42: house_magic_colour + 2,
-    43: house_magic_colour + 3,
-    44: house_magic_colour + 4,
-    45: house_magic_colour + 5,
-    46: house_magic_colour + 6,
-    47: house_magic_colour + 7,
+    house_magic_red_colour: house_magic_safe_colour,
+    house_magic_red_colour + 1: house_magic_safe_colour + 1,
+    house_magic_red_colour + 2: house_magic_safe_colour + 2,
+    house_magic_red_colour + 3: house_magic_safe_colour + 3,
+    house_magic_red_colour + 4: house_magic_safe_colour + 4,
+    house_magic_red_colour + 5: house_magic_safe_colour + 5,
+    house_magic_red_colour + 6: house_magic_safe_colour + 6,
+    house_magic_red_colour + 7: house_magic_safe_colour + 7,
 }
 # arbitrary house recolouring maps
 house_recolour_roof_CC1_1 = {
-    house_magic_colour: CC1,
-    house_magic_colour + 1: CC1 + 1,
-    house_magic_colour + 2: CC1 + 2,
-    house_magic_colour + 3: CC1 + 3,
-    house_magic_colour + 4: CC1 + 4,
-    house_magic_colour + 5: CC1 + 5,
-    house_magic_colour + 6: CC1 + 6,
-    house_magic_colour + 7: CC1 + 7,
+    house_magic_safe_colour: CC1,
+    house_magic_safe_colour + 1: CC1 + 1,
+    house_magic_safe_colour + 2: CC1 + 2,
+    house_magic_safe_colour + 3: CC1 + 3,
+    house_magic_safe_colour + 4: CC1 + 4,
+    house_magic_safe_colour + 5: CC1 + 5,
+    house_magic_safe_colour + 6: CC1 + 6,
+    house_magic_safe_colour + 7: CC1 + 7,
 }
 house_recolour_roof_dark_red_1 = {
-    house_magic_colour: 40,
-    house_magic_colour + 1: 41,
-    house_magic_colour + 2: 42,
-    house_magic_colour + 3: 43,
-    house_magic_colour + 4: 44,
-    house_magic_colour + 5: 45,
-    house_magic_colour + 6: 46,
-    house_magic_colour + 7: CC1 + 7,
+    house_magic_safe_colour: 40,
+    house_magic_safe_colour + 1: 41,
+    house_magic_safe_colour + 2: 42,
+    house_magic_safe_colour + 3: 43,
+    house_magic_safe_colour + 4: 44,
+    house_magic_safe_colour + 5: 45,
+    house_magic_safe_colour + 6: 46,
+    house_magic_safe_colour + 7: CC1 + 7,
 }
 house_recolour_roof_silver_1 = {
-    house_magic_colour: 16,
-    house_magic_colour + 1: 17,
-    house_magic_colour + 2: 18,
-    house_magic_colour + 3: 19,
-    house_magic_colour + 4: 20,
-    house_magic_colour + 5: 21,
-    house_magic_colour + 6: 22,
-    house_magic_colour + 7: 23,
+    house_magic_safe_colour: 16,
+    house_magic_safe_colour + 1: 17,
+    house_magic_safe_colour + 2: 18,
+    house_magic_safe_colour + 3: 19,
+    house_magic_safe_colour + 4: 20,
+    house_magic_safe_colour + 5: 21,
+    house_magic_safe_colour + 6: 22,
+    house_magic_safe_colour + 7: 23,
 }
 house_recolour_roof_rust_1 = {
-    house_magic_colour: 60,
-    house_magic_colour + 1: 72,
-    house_magic_colour + 2: 123,
-    house_magic_colour + 3: 74,
-    house_magic_colour + 4: 75,
-    house_magic_colour + 5: 76,
-    house_magic_colour + 6: 77,
-    house_magic_colour + 7: 78,
+    house_magic_safe_colour: 60,
+    house_magic_safe_colour + 1: 72,
+    house_magic_safe_colour + 2: 123,
+    house_magic_safe_colour + 3: 74,
+    house_magic_safe_colour + 4: 75,
+    house_magic_safe_colour + 5: 76,
+    house_magic_safe_colour + 6: 77,
+    house_magic_safe_colour + 7: 78,
 }
 
 # arbitrary deck recolouring maps
+deck_recolour_map_CC1 = {
+    70: CC1,
+    60: CC1 + 1,
+    72: CC1 + 2,
+    123: CC1 + 3,
+    74: CC1 + 4,
+    75: CC1 + 5,
+}
 deck_recolour_map_dark_red_1 = {
     70: 40,
     60: 41,
