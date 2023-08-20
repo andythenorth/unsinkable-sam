@@ -576,8 +576,8 @@ class BulkShip(BulkBase):
                 ["FREIGHT_RUBY", "FREIGHT_BAUXITE"],
                 ["FREIGHT_BAUXITE", "FREIGHT_BAUXITE"],
                 ["FREIGHT_OCHRE", "FREIGHT_BAUXITE"],
-                ["FREIGHT_TEAL", "FREIGHT_PEWTER"],
                 ["FREIGHT_MINT_GREEN", "FREIGHT_PEWTER"],
+                ["FREIGHT_TEAL", "FREIGHT_PEWTER"],
             ],
         )
 

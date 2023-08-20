@@ -119,7 +119,9 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_ship, getbits(extra_callbac
         - the graphics generator doesn't handle layers for this gestalt
     -->
     spriteset(${ship.id}_ss_purchase_${spritelayer.layer_num}, "${global_constants.graphics_path}${ship.id}.png") {
-      spriteset_template_purchase_${ship.id}(0)
+      spriteset_template_purchase_${ship.id}(
+            ${int(spritelayer.layer_num) * 300}
+      )
     }
     switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_purchase_setup_spritelayer_${spritelayer.layer_num},
         STORE_TEMP(
