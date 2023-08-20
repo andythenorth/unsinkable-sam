@@ -634,15 +634,23 @@ class CargoLiner(Ship):
                     house_recolour_map=house_recolour_map,
                     superstructure_recolour_map=hull_recolour_map,
                 ),
+                SpriteLayer(
+                    self,
+                    # pick certain pipes / hatch covers off the superstructure and recolour
+                    selective_colour_protocols_hull=["NONE"],
+                    selective_colour_protocols_superstructure=["CONSTRUCTION_PURPLE"],
+                    superstructure_recolour_map=graphics_constants.construction_purple_recolour_CC1,
+                ),
             ],
             liveries=[
-                ["_DEFAULT"],
-                ["FREIGHT_PEWTER"],
-                ["FREIGHT_OIL_BLACK"],
-                ["FREIGHT_RUBY"],
-                ["FREIGHT_GREY"],
-                ["FREIGHT_TEAL"],
-                ["FREIGHT_SULPHUR"],
+                ["_DEFAULT", "_DEFAULT"],
+                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_GREY", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_OIL_BLACK", "FREIGHT_OIL_BLACK"],
+                ["FREIGHT_TEAL", "FREIGHT_PEWTER"],
+                ["FREIGHT_RUSTY_BLACK", "FREIGHT_BAUXITE"],
+                ["FREIGHT_BAUXITE", "FREIGHT_RUSTY_BLACK"],
+                ["FREIGHT_RUBY", "FREIGHT_RUBY"],
             ],
         )
 
