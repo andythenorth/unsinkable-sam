@@ -636,21 +636,29 @@ class CargoLiner(Ship):
                 ),
                 SpriteLayer(
                     self,
-                    # pick certain pipes / hatch covers off the superstructure and recolour
+                    # pick the deck
+                    selective_colour_protocols_hull=["DECK_BROWN"],
+                    selective_colour_protocols_superstructure=["NOT_1CC"],
+                    hull_recolour_map=graphics_constants.deck_recolour_map_CC1,
+                    superstructure_recolour_map=graphics_constants.deck_recolour_map_CC1,
+                ),
+                SpriteLayer(
+                    self,
+                    # pick the doors off
                     selective_colour_protocols_hull=["NONE"],
                     selective_colour_protocols_superstructure=["CONSTRUCTION_PURPLE"],
                     superstructure_recolour_map=graphics_constants.construction_purple_recolour_CC1,
                 ),
             ],
             liveries=[
-                ["_DEFAULT", "_DEFAULT"],
-                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
-                ["FREIGHT_GREY", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
-                ["FREIGHT_OIL_BLACK", "FREIGHT_OIL_BLACK"],
-                ["FREIGHT_TEAL", "FREIGHT_PEWTER"],
-                ["FREIGHT_RUSTY_BLACK", "FREIGHT_BAUXITE"],
-                ["FREIGHT_BAUXITE", "FREIGHT_RUSTY_BLACK"],
-                ["FREIGHT_RUBY", "FREIGHT_RUBY"],
+                ["_DEFAULT", "FREIGHT_RUBY", "_DEFAULT"],
+                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING", "FREIGHT_RUBY", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_OIL_BLACK", "FREIGHT_RUBY", "FREIGHT_OIL_BLACK"],
+                ["FREIGHT_RUBY", "FREIGHT_OIL_BLACK", "FREIGHT_RUBY"],
+                ["FREIGHT_BAUXITE", "FREIGHT_OIL_BLACK", "FREIGHT_RUSTY_BLACK"],
+                ["FREIGHT_RUSTY_BLACK", "FREIGHT_OIL_BLACK", "FREIGHT_BAUXITE"],
+                ["FREIGHT_GREY", "FREIGHT_OIL_BLACK", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                ["FREIGHT_TEAL", "FREIGHT_NIGHTSHADE", "FREIGHT_PEWTER"],
             ],
         )
 

@@ -4,6 +4,16 @@ CC2 = 80
 construction_purple = 136
 house_magic_red_colour = 40
 house_magic_safe_colour = 170
+# this one isn't a clean range, for historical reasons
+deck_brown = [
+    70,
+    60,
+    72,
+    123,
+    74,
+    75,
+    76,
+]
 
 recolour_CC2_to_CC1 = {
     CC2: CC1,
@@ -165,28 +175,31 @@ house_recolour_roof_rust_1 = {
 
 # arbitrary deck recolouring maps
 deck_recolour_map_CC1 = {
-    70: CC1,
-    60: CC1 + 1,
-    72: CC1 + 2,
-    123: CC1 + 3,
-    74: CC1 + 4,
-    75: CC1 + 5,
+    deck_brown[0]: CC1,
+    deck_brown[1]: CC1 + 1,
+    deck_brown[2]: CC1 + 2,
+    deck_brown[3]: CC1 + 3,
+    deck_brown[4]: CC1 + 4,
+    deck_brown[5]: CC1 + 5,
+    deck_brown[6]: CC1 + 6,
 }
 deck_recolour_map_dark_red_1 = {
-    70: 40,
-    60: 41,
-    72: 42,
-    123: 43,
-    74: 44,
-    75: 45,
+    deck_brown[0]: 40,
+    deck_brown[1]: 41,
+    deck_brown[2]: 42,
+    deck_brown[3]: 43,
+    deck_brown[4]: 44,
+    deck_brown[5]: 45,
+    deck_brown[6]: 46,
 }
 deck_recolour_map_merchandise_1 = {
-    70: 104,
-    60: 105,
-    72: 32,
-    123: 33,
-    74: 34,
-    75: 35,
+    deck_brown[0]: 104,
+    deck_brown[1]: 105,
+    deck_brown[2]: 32,
+    deck_brown[3]: 33,
+    deck_brown[4]: 34,
+    deck_brown[5]: 35,
+    deck_brown[6]: 36,
 }
 
 # facts about 'standard' spritesheets, spritesheets varying from this will be painful

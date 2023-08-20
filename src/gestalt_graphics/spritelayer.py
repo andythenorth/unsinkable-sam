@@ -11,9 +11,11 @@ class SpriteLayer(object):
         "CC1": [graphics_constants.CC1 + i for i in range(8)],
         "CC2": [graphics_constants.CC2 + i for i in range(8)],
         "CONSTRUCTION_PURPLE": [graphics_constants.construction_purple + i for i in range(8)],
+        "DECK_BROWN": [i for i in graphics_constants.deck_brown],
         "HOUSE_MAGIC_RED_COLOUR": [graphics_constants.house_magic_red_colour + i for i in range(8)],
         # be aware that adding negative protocols ("all but X") may have "interesting" side effects if used combinatorially with other rules
         "NONE": [],
+        "NOT_1CC": [i for i in range(255) if i not in [graphics_constants.CC1 + i for i in range(8)]],
         # as fallback / default
         "ALL": [i for i in range(255)],
     }
