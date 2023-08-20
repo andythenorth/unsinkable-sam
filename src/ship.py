@@ -565,11 +565,14 @@ class BulkShip(BulkBase):
                     self,
                     selective_colour_protocols_hull=["NONE"],
                     selective_colour_protocols_superstructure=["CC1"],
-                )
+                ),
             ],
             liveries=[
                 ["_DEFAULT", "COMPANY_COLOUR_USE_WEATHERING"],
-                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
+                [
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                ],
                 ["FREIGHT_GREY", "FREIGHT_RUSTY_BLACK"],
                 ["FREIGHT_NIGHTSHADE", "FREIGHT_OIL_BLACK"],
                 ["FREIGHT_RUSTY_BLACK", "FREIGHT_OIL_BLACK"],
@@ -618,14 +621,20 @@ class CargoLiner(Ship):
         ]
         self.default_cargos = global_constants.default_cargos["box"]
         # Graphics configuration
-        hull_recolour_map=graphics_constants.hull_recolour_CC1
+        hull_recolour_map = graphics_constants.hull_recolour_CC1
         self.gestalt_graphics = GestaltGraphicsSimpleColourRemaps(
             spritelayers=[
                 SpriteLayer(
                     self,
                     hull_recolour_map=hull_recolour_map,
-                    house_recolour_map=graphics_constants.house_recolour_roof_silver_1,
                     superstructure_recolour_map=hull_recolour_map,
+                ),
+                SpriteLayer(
+                    # pick the house roof
+                    self,
+                    selective_colour_protocols_hull=["HOUSE_MAGIC_RED_COLOUR"],
+                    selective_colour_protocols_superstructure=["NONE"],
+                    house_recolour_map=graphics_constants.house_recolour_roof_CC1_1,
                 ),
                 SpriteLayer(
                     self,
@@ -644,14 +653,50 @@ class CargoLiner(Ship):
                 ),
             ],
             liveries=[
-                ["_DEFAULT", "FREIGHT_RUBY", "_DEFAULT"],
-                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING", "FREIGHT_RUBY", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
-                ["FREIGHT_OIL_BLACK", "FREIGHT_RUBY", "FREIGHT_OIL_BLACK"],
-                ["FREIGHT_RUBY", "FREIGHT_OIL_BLACK", "FREIGHT_RUBY"],
-                ["FREIGHT_BAUXITE", "FREIGHT_OIL_BLACK", "FREIGHT_RUSTY_BLACK"],
-                ["FREIGHT_RUSTY_BLACK", "FREIGHT_OIL_BLACK", "FREIGHT_BAUXITE"],
-                ["FREIGHT_GREY", "FREIGHT_OIL_BLACK", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
-                ["FREIGHT_TEAL", "FREIGHT_NIGHTSHADE", "FREIGHT_PEWTER"],
+                ["_DEFAULT", "FREIGHT_SILVER", "FREIGHT_RUBY", "_DEFAULT"],
+                [
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                    "FREIGHT_SILVER",
+                    "FREIGHT_RUBY",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                ],
+                [
+                    "FREIGHT_OIL_BLACK",
+                    "FREIGHT_SILVER",
+                    "FREIGHT_RUBY",
+                    "FREIGHT_OIL_BLACK",
+                ],
+                ["FREIGHT_RUBY", "FREIGHT_SILVER", "FREIGHT_OIL_BLACK", "FREIGHT_RUBY"],
+                [
+                    "FREIGHT_BAUXITE",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                    "FREIGHT_OIL_BLACK",
+                    "FREIGHT_RUSTY_BLACK",
+                ],
+                [
+                    "FREIGHT_RUSTY_BLACK",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                    "FREIGHT_OIL_BLACK",
+                    "FREIGHT_BAUXITE",
+                ],
+                [
+                    "FREIGHT_GREY",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                    "FREIGHT_OIL_BLACK",
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                ],
+                [
+                    "FREIGHT_TEAL",
+                    "FREIGHT_SILVER",
+                    "FREIGHT_NIGHTSHADE",
+                    "FREIGHT_PEWTER",
+                ],
+                [
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                    "FREIGHT_NIGHTSHADE",
+                    "FREIGHT_PEWTER",
+                ],
             ],
         )
 
@@ -1293,7 +1338,10 @@ class TankerShip(TankerBase):
             ],
             liveries=[
                 ["_DEFAULT", "COMPANY_COLOUR_USE_WEATHERING"],
-                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING", "COMPANY_COLOUR_USE_WEATHERING"],
+                [
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                ],
                 ["FREIGHT_SILVER", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
                 ["FREIGHT_GREY", "FREIGHT_PEWTER"],
                 ["FREIGHT_OIL_BLACK", "FREIGHT_PEWTER"],
@@ -1337,7 +1385,10 @@ class ProductTankerShip(TankerBase):
             ],
             liveries=[
                 ["_DEFAULT", "COMPANY_COLOUR_USE_WEATHERING"],
-                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING", "COMPANY_COLOUR_USE_WEATHERING"],
+                [
+                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
+                    "COMPANY_COLOUR_USE_WEATHERING",
+                ],
                 ["FREIGHT_SILVER", "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
                 ["FREIGHT_GREY", "FREIGHT_PEWTER"],
                 ["FREIGHT_OIL_BLACK", "FREIGHT_PEWTER"],
