@@ -576,11 +576,10 @@ class BulkShip(BulkBase):
                 ["FREIGHT_GREY", "FREIGHT_RUSTY_BLACK"],
                 ["FREIGHT_NIGHTSHADE", "FREIGHT_OIL_BLACK"],
                 ["FREIGHT_RUSTY_BLACK", "FREIGHT_OIL_BLACK"],
-                ["FREIGHT_RUBY", "FREIGHT_BAUXITE"],
                 ["FREIGHT_BAUXITE", "FREIGHT_BAUXITE"],
                 ["FREIGHT_OCHRE", "FREIGHT_BAUXITE"],
-                ["FREIGHT_MINT_GREEN", "FREIGHT_PEWTER"],
                 ["FREIGHT_TEAL", "FREIGHT_PEWTER"],
+                ["COMPANY_COLOUR_USE_WEATHERING", "FREIGHT_PEWTER"],
             ],
         )
 
@@ -665,13 +664,6 @@ class CargoLiner(Ship):
                     "FREIGHT_SILVER",
                     "FREIGHT_RUBY",
                     "FREIGHT_OIL_BLACK",
-                ],
-                ["FREIGHT_RUBY", "FREIGHT_SILVER", "FREIGHT_OIL_BLACK", "FREIGHT_RUBY"],
-                [
-                    "FREIGHT_BAUXITE",
-                    "COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING",
-                    "FREIGHT_OIL_BLACK",
-                    "FREIGHT_RUSTY_BLACK",
                 ],
                 [
                     "FREIGHT_RUSTY_BLACK",
@@ -1040,12 +1032,11 @@ class FreighterShip(FreighterBase):
             ],
             liveries=[
                 ["_DEFAULT"],
-                ["FREIGHT_PEWTER"],
+                ["COMPLEMENT_COMPANY_COLOUR_USE_WEATHERING"],
                 ["FREIGHT_OIL_BLACK"],
-                ["FREIGHT_RUBY"],
+                ["FREIGHT_RUSTY_BLACK"],
                 ["FREIGHT_GREY"],
                 ["FREIGHT_TEAL"],
-                ["FREIGHT_RUSTY_BLACK"],
             ],
         )
 
