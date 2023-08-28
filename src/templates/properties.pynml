@@ -6,7 +6,16 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_create_visual_effect, ${ship.get_expression
 }
 
 
+
+
 <tal:ship_variants repeat="ship_variant ship.resolve_buyable_variants()">
+    switch (FEAT_SHIPS, SELF, ${ship_variant.id}_articulated_part, extra_callback_info1) {
+        0: return ${ship_variant.numeric_id};
+        1: return ${ship_variant.numeric_id};
+        2: return ${ship_variant.numeric_id};
+        return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+    }
+
     item(FEAT_SHIPS, ${ship_variant.id}, ${ship_variant.numeric_id}) {
         property {
             name:                           ${ship.name};
@@ -49,6 +58,7 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_create_visual_effect, ${ship.get_expression
             <!--!additional_text:                ${ship.get_buy_menu_string()};-->
             cargo_subtype_text:             ${ship.id}_switch_cargo_subtype_text;
             create_effect:                  ${ship.id}_create_visual_effect;
+            articulated_part:               ${ship_variant.id}_articulated_part;
         }
     }
 
