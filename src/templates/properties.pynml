@@ -9,7 +9,7 @@ switch (FEAT_SHIPS, SELF, ${ship.id}_create_visual_effect, ${ship.get_expression
 <tal:ship_variants repeat="ship_variant ship.resolve_buyable_variants()">
     item(FEAT_SHIPS, ${ship_variant.id}, ${ship_variant.numeric_id}) {
         property {
-            name:                           ${ship.name};
+            name:                           ${ship.name_as_property};
             climates_available:             NO_CLIMATE; // nml constant
             sound_effect:                   ${ship.sound_effect};
             effect_spawn_model:             ${ship.effect_spawn_model};

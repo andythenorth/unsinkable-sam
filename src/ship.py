@@ -101,8 +101,8 @@ class Ship(object):
     """Base class for all types of ships."""
 
     def __init__(self, name, numeric_id, gen, subtype, hull, **kwargs):
-        self.id = self.base_id + "_gen_" + str(gen) + subtype
         self._name = name  # private var because 'name' is accessed via @property method to add subtype string
+        self.id = self.base_id + "_gen_" + str(gen) + subtype + "_" + self.id_substr_from_name
         self.numeric_id = numeric_id
         numeric_id_defender.append(numeric_id)
         # roster is set when the vehicle is registered to a roster, only one roster per vehicle
@@ -327,7 +327,7 @@ class Ship(object):
         return "STR_" + self.str_type_info
 
     @property
-    def name(self):
+    def name_as_property(self):
         return (
             "string(STR_NAME_"
             + self.id.upper()
@@ -335,6 +335,12 @@ class Ship(object):
             + self.name_suffix_as_string_name
             + "))"
         )
+
+    @property
+    def id_substr_from_name(self):
+        parts = self._name.split(" ")
+        result = "_".join(parts)
+        return result.lower()
 
     def get_buy_menu_string(self):
         buy_menu_template = Template(
