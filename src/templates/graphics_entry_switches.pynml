@@ -1,0 +1,25 @@
+<!--! wakes are in hull spritesheet; ship gen determines which hull gen to use -->
+spriteset(${ship.id}_ss_wake, "src/graphics/hulls/${ship.hull_spritesheet_name}.png") {
+  spriteset_template_wake_${ship.id}(310)
+}
+
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_wake_not_moving, STORE_TEMP(PALETTE_USE_DEFAULT, 0x100)) {
+    return ss_global_empty;
+}
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_wake_moving, STORE_TEMP(PALETTE_USE_DEFAULT, 0x100)) {
+    return ${ship.id}_ss_wake;
+}
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics_wake, current_speed) {
+    0: return ${ship.id}_switch_graphics_wake_not_moving;
+    return ${ship.id}_switch_graphics_wake_moving;
+}
+
+<!--! all ship layers switch to the ship entry point, we'll handle them explicitly there later, this switch is to handle wake
+      wake should be last layer, and is not included in gestalt_graphics.spritelayers structure
+-->
+switch (FEAT_SHIPS, SELF, ${ship.id}_switch_graphics, getbits(extra_callback_info1, 8, 8)) {
+    <tal:layers repeat="spritelayer ship.gestalt_graphics.spritelayers">
+        ${spritelayer.layer_num}: return ${ship.id}_switch_graphics_ship;
+    </tal:layers>
+    return ${ship.id}_switch_graphics_wake;
+}

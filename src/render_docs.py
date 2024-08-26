@@ -5,6 +5,8 @@ import sys
 import os
 
 currentdir = os.curdir
+import multiprocessing
+from itertools import repeat
 from time import time
 from PIL import Image
 import markdown
@@ -13,12 +15,11 @@ import global_constants
 import utils as utils
 import unsinkable_sam
 from polar_fox import git_info
+from doc_helper import DocHelper
 
-# !! this is done differently in iron horse, with registered fetched from iron_horse module
+# !! this is done differently in iron horse, with registered rosters fetched from iron_horse module
 from rosters import registered_rosters
 
-# get the strings from base lang file so they can be used in docs
-base_lang_strings = utils.parse_base_lang()
 metadata = {}
 metadata.update(global_constants.metadata)
 
@@ -27,138 +28,11 @@ makefile_args = utils.get_makefile_args(sys)
 
 docs_src = os.path.join(currentdir, "src", "docs_templates")
 
-# palette = utils.dos_palette_to_rgb()
-
-
-class DocHelper(object):
-    # dirty class to help do some doc formatting
-
-    def get_ships_by_subclass(self, ships):
-        # first find all the subclasses + their vehicles
-        ships_by_subclass = {}
-        for ship in ships:
-            subclass = type(ship)
-            if subclass in ships_by_subclass:
-                ships_by_subclass[subclass].append(ship)
-            else:
-                ships_by_subclass[subclass] = [ship]
-        # reformat to a list we can then sort so order is consistent
-        result = [
-            {
-                "name": i.__name__,
-                "doc": i.__doc__,
-                "class_obj": subclass,
-                "ships": ships_by_subclass[i],
-            }
-            for i in ships_by_subclass
-        ]
-        return sorted(result, key=lambda subclass: subclass["name"])
-
-    def get_roster_name(self, index):
-        return base_lang_strings.get("STR_PARAM_ROSTER_OPTION_" + str(index), "")
-
-    def get_roster_by_id(self, roster_id, registered_rosters):
-        for roster in registered_rosters:
-            if roster.id == roster_id:
-                return roster
-        # default result
-        return None
-
-    def fetch_prop(self, result, prop_name, value):
-        result["ship"][prop_name] = value
-        result["subclass_props"].append(prop_name)
-        return result
-
-    def unpack_name_suffix(self, name_suffix_as_string_name):
-        try:
-            return base_lang_strings[name_suffix_as_string_name]
-        except:
-            # no good solution currently for
-            # 1. names for roles that are consistent, but ship model name suffixes change (Collier vs. Mini Bulker)
-            # 2. no ship in scope
-            # probably need a separate set of strings for the role?  Parent types?
-            utils.echo_message(
-                "Can't return name suffix for " + name_suffix_as_string_name
-            )
-            return "CABBAGE"
-
-    def unpack_name_string(self, ship):
-        return (
-            ship._name + " " + self.unpack_name_suffix(ship.name_suffix_as_string_name)
-        )
-
-    def get_props_to_print_in_code_reference(self, subclass):
-        props_to_print = {}
-        for ship in subclass["ships"]:
-            result = {"ship": {}, "subclass_props": []}
-
-            result = self.fetch_prop(result, "Ship Name", self.unpack_name_string(ship))
-            result = self.fetch_prop(result, "Subtype", ship.subtype)
-            result = self.fetch_prop(
-                result, "Extra Info", base_lang_strings[ship.get_str_type_info()]
-            )
-            result = self.fetch_prop(result, "Speed Laden", int(ship.speed))
-            result = self.fetch_prop(result, "Intro Date", ship.intro_date)
-            result = self.fetch_prop(result, "Vehicle Life", ship.vehicle_life)
-            result = self.fetch_prop(result, "Capacity", ship.default_capacity)
-            result = self.fetch_prop(result, "Buy Cost", ship.buy_cost)
-            result = self.fetch_prop(result, "Running Cost", ship.running_cost)
-            result = self.fetch_prop(result, "Loading Speed", ship.loading_speed)
-
-            props_to_print[ship] = result["ship"]
-            props_to_print[subclass["name"]] = result["subclass_props"]
-
-        return props_to_print
-
-    def get_base_numeric_id(self, vehicle):
-        return vehicle.numeric_id
-
-    def get_active_nav(self, doc_name, nav_link):
-        return ("", "active")[doc_name == nav_link]
-
-    def ships_as_tech_tree(self, ships):
-        # !! does not handle roster at time of writing
-        # structure
-        #    |- role_group
-        #       |- base_id (role)
-        #          |- generation
-        #             |- ship
-        # if there's no ship matching a combination of keys in the tree, there will be a None entry for that node in the tree, to ease walking the tree
-        result = {}
-        # much nested loops
-        for role_group in global_constants.role_group_mapping:
-            role_branches = {}
-            for role in global_constants.role_group_mapping[role_group]:
-                role_branches[role] = {}
-                # hard-coded for now, move to global constants another day
-                for subtype in ["A", "B", "C", "D", "E", "F"]:
-                    subtype_branch = {}
-                    # walk the generations, providing default None objects
-                    for gen in range(
-                        1,
-                        len(
-                            self.get_roster_by_id(
-                                "default", unsinkable_sam.registered_rosters
-                            ).intro_dates["DEFAULT"]
-                        )
-                        + 1,
-                    ):
-                        subtype_branch[gen] = None
-                    # get the ships matching this role
-                    for ship in ships:
-                        if ship.base_id == role and ship.subtype == subtype:
-                            subtype_branch[ship.gen] = ship
-                    # to prevent empty rows in tech tree, only include the subtype_branch if it contains actual ships
-                    if set(subtype_branch.values()) != {None}:
-                        role_branches[role][subtype] = subtype_branch
-            result[role_group] = role_branches
-        return result
-
-
 def render_docs(
     doc_list,
     file_type,
     docs_output_path,
+    doc_helper,
     ships,
     use_markdown=False,
     source_is_repo_root=False,
@@ -183,10 +57,9 @@ def render_docs(
             global_constants=global_constants,
             makefile_args=makefile_args,
             git_info=git_info,
-            base_lang_strings=base_lang_strings,
             metadata=metadata,
             utils=utils,
-            doc_helper=DocHelper(),
+            doc_helper=doc_helper,
             doc_name=doc_name,
         )
         if use_markdown:
@@ -199,7 +72,7 @@ def render_docs(
                 git_info=git_info,
                 metadata=metadata,
                 utils=utils,
-                doc_helper=DocHelper(),
+                doc_helper=doc_helper,
                 doc_name=doc_name,
             )
         if file_type == "html":
@@ -216,7 +89,7 @@ def render_docs(
         doc_file.close()
 
 
-def render_docs_vehicle_details(ship, docs_output_path, ships):
+def render_docs_vehicle_details(ship, docs_output_path, doc_helper, ships):
     # imports inside functions are generally avoided
     # but PageTemplateLoader is expensive to import and causes unnecessary overhead for Pool mapping when processing docs graphics
     from chameleon import PageTemplateLoader
@@ -231,10 +104,9 @@ def render_docs_vehicle_details(ship, docs_output_path, ships):
         registered_rosters=unsinkable_sam.registered_rosters,
         makefile_args=makefile_args,
         git_info=git_info,
-        base_lang_strings=base_lang_strings,
         metadata=metadata,
         utils=utils,
-        doc_helper=DocHelper(),
+        doc_helper=doc_helper,
         doc_name=doc_name,
     )
     doc_file = codecs.open(
@@ -244,7 +116,7 @@ def render_docs_vehicle_details(ship, docs_output_path, ships):
     doc_file.close()
 
 
-def render_docs_images(docs_output_path, ships):
+def render_docs_images(ship, docs_output_path, doc_helper):
     # process vehicle buy menu sprites for reuse in docs
     # extend this similar to render_docs if other image types need processing in future
 
@@ -253,45 +125,57 @@ def render_docs_images(docs_output_path, ships):
     # for development, just run render_graphics manually before running render_docs
     vehicle_graphics_src = os.path.join(currentdir, "generated", "graphics")
     buy_menu_bb = global_constants.spritesheet_bounding_boxes[6]
-    for ship in ships:
-        vehicle_spritesheet = Image.open(
-            os.path.join(vehicle_graphics_src, ship.id + ".png")
+    vehicle_spritesheet = Image.open(
+        os.path.join(vehicle_graphics_src, ship.id + ".png")
+    )
+    processed_vehicle_image = vehicle_spritesheet.crop(
+        box=(
+            buy_menu_bb[0],
+            10
+            + global_constants.spritesheet_bounding_boxes[2][2]
+            - global_constants.docs_ship_image_height,
+            buy_menu_bb[0] + ship.buy_menu_width,
+            10 + global_constants.spritesheet_bounding_boxes[2][2],
         )
-        processed_vehicle_image = vehicle_spritesheet.crop(
-            box=(
-                buy_menu_bb[0],
-                10
-                + global_constants.spritesheet_bounding_boxes[2][2]
-                - global_constants.docs_ship_image_height,
-                buy_menu_bb[0] + ship.buy_menu_width,
-                10 + global_constants.spritesheet_bounding_boxes[2][2],
-            )
-        )
-        # oversize the images to account for how browsers interpolate the images on retina / HDPI screens
-        processed_vehicle_image = processed_vehicle_image.resize(
-            (
-                4 * ship.buy_menu_width,
-                4 * global_constants.buy_menu_sprite_height,
-            ),
-            resample=Image.Resampling.NEAREST,
-        )
+    )
+    # oversize the images to account for how browsers interpolate the images on retina / HDPI screens
+    processed_vehicle_image = processed_vehicle_image.resize(
+        (
+            4 * ship.buy_menu_width,
+            4 * global_constants.buy_menu_sprite_height,
+        ),
+        resample=Image.Resampling.NEAREST,
+    )
 
-        output_path = os.path.join(
-            currentdir,
-            "docs",
-            "html",
-            "static",
-            "img",
-            ship.id + ".png",
-            # ship.id + "_" + colour_name + ".png",
-        )
-        processed_vehicle_image.save(output_path, optimize=True, transparency=0)
+    output_path = os.path.join(
+        currentdir,
+        "docs",
+        "html",
+        "static",
+        "img",
+        ship.id + ".png",
+        # ship.id + "_" + colour_name + ".png",
+    )
+    processed_vehicle_image.save(output_path, optimize=True, transparency=0)
 
 
 def main():
     print("[RENDER DOCS] render_docs.py")
     start = time()
     unsinkable_sam.main()
+
+    # default to no mp, makes debugging easier (mp fails to pickle errors correctly)
+    num_pool_workers = makefile_args.get("num_pool_workers", 0)
+    if num_pool_workers == 0:
+        use_multiprocessing = False
+        # just print, no need for a coloured echo_message
+        print("Multiprocessing disabled: (PW=0)")
+    else:
+        use_multiprocessing = True
+        # logger = multiprocessing.log_to_stderr()
+        # logger.setLevel(25)
+        # just print, no need for a coloured echo_message
+        print("Multiprocessing enabled: (PW=" + str(num_pool_workers) + ")")
 
     # setting up a cache for compiled chameleon templates can significantly speed up template rendering
     chameleon_cache_path = os.path.join(
@@ -316,6 +200,8 @@ def main():
     # default sort for docs is by ship intro date
     ships = sorted(ships, key=lambda ship: ship.intro_date)
 
+    doc_helper = DocHelper(lang_strings=utils.get_lang_data("english", ships)["lang_strings"])
+
     dates = sorted([i.intro_date for i in ships])
     metadata["dates"] = (dates[0], dates[-1])
 
@@ -331,27 +217,48 @@ def main():
     license_docs = ["license"]
     markdown_docs = ["changelog"]
 
-    render_docs(html_docs, "html", docs_output_path, ships)
-    render_docs(txt_docs, "txt", docs_output_path, ships)
+    render_docs(html_docs, "html", docs_output_path, doc_helper, ships)
+    render_docs(txt_docs, "txt", docs_output_path, doc_helper, ships)
     render_docs(
         license_docs,
         "txt",
         docs_output_path,
+        doc_helper,
         ships,
         source_is_repo_root=True,
     )
     # just render the markdown docs twice to get txt and html versions, simples no?
-    render_docs(markdown_docs, "txt", docs_output_path, ships)
-    render_docs(markdown_docs, "html", docs_output_path, ships, use_markdown=True)
+    render_docs(markdown_docs, "txt", docs_output_path, doc_helper, ships)
+    render_docs(markdown_docs, "html", docs_output_path, doc_helper, ships, use_markdown=True)
 
     # render vehicle details
     for ship in ships:
-        render_docs_vehicle_details(ship, docs_output_path, ships)
+        render_docs_vehicle_details(ship, docs_output_path, doc_helper, ships)
+
 
     # process images for use in docs
-    render_docs_images(docs_output_path, ships)
-    # eh, how long does this take anyway?
-    print(format((time() - start), ".2f") + "s")
+    # yes, I really did bother using a pool to save at best a couple of seconds, because FML :)
+    slow_start = time()
+    if use_multiprocessing == False:
+        for ship in ships:
+            render_docs_images(ship, docs_output_path, doc_helper)
+    else:
+        # Would this go faster if the pipelines from each consist were placed in MP pool, not just the consist?
+        # probably potato / potato tbh
+        pool = multiprocessing.Pool(processes=num_pool_workers)
+        pool.starmap(
+            render_docs_images,
+            zip(ships, repeat(docs_output_path), repeat(doc_helper)),
+        )
+        pool.close()
+        pool.join()
+    print("render_docs_images", time() - slow_start)
+
+    print(
+        "[RENDER DOCS]",
+        "- complete",
+        format((time() - start), ".2f") + "s",
+    )
 
 
 if __name__ == "__main__":

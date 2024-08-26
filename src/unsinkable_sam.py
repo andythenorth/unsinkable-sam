@@ -40,14 +40,12 @@ from vehicles import (
     edibles_tankers,
     freighter_barges,
     freighter_ships,
-    merchandise_freighter_ships,
     livestock_carriers,
     mail_ships,
     pax_fast_loading_ships,
     pax_luxury_ships,
     product_tanker_ships,
     reefers,
-    scrap_carrier_ships,
     tanker_barges,
     tanker_ships,
     trawlers,
@@ -91,22 +89,66 @@ def get_ships_in_buy_menu_order():
     return ships
 
 
-def vacant_numeric_ids_formatted():
-    # when adding vehicles it's useful to know what the next free numeric ID is
-    # tidy-mind problem, but do we have any vacant numeric ID slots in the currently used range?
-    max_id = max(numeric_id_defender)
-    id_gaps = []
-    for id in range(0, max_id):
+def find_vacant_id_runs():
+    unused_ids = []
+    for i in range(int(0), int(65000 / 10)):
+        id = i * 10
         if id not in numeric_id_defender:
-            id_gaps.append(str(id))
-    return (
-        "Vacant numeric ID slots: "
-        + ", ".join(id_gaps)
-        + (" and from " if len(id_gaps) > 0 else "")
-        + str(max_id + 1)
-        + " onwards"
-    )
+            unused_ids.append(id)
+    id_runs = []
+    run = []
+    unused_ids.sort()
+    for count, unused_id in enumerate(unused_ids):
+        # first loop
+        if count == 0:
+            run.append(unused_id)
+        # all other loops
+        else:
+            previous_id = unused_ids[count - 1]
+            if (unused_id - previous_id) == 10:
+                # run continues
+                run.append(unused_id)
+            else:
+                id_runs.append(run)
+                run = [unused_id]
+        if count == len(unused_ids) - 1:
+            # if last, close the run
+            id_runs.append(run)
+        else:
+            previous_id = unused_id
+    vacant_id_runs = []
+    for id_run in id_runs:
+        vacant_id_runs.append(sorted([min(id_run), max(id_run)]))
 
+    report_content = ""
+    id_gaps = []
+    for id_run in vacant_id_runs:
+        if id_run[0] == id_run[1]:
+            # single id
+            id_gaps.append(str(id_run[0]))
+        else:
+            # range of ids
+            id_gaps.append(" to ".join([str(id) for id in id_run]))
+    report_content += (
+        "Vacant IDs"
+        + ":\n"
+        + ", ".join(id_gaps)
+        + "\n"
+    )
+    # 'print' eh? - but it's fine echo_message isn't intended for this kind of info, don't bother changing
+    print(report_content)
+
+
+def validate_numeric_ids():
+    for ship in get_ships_in_buy_menu_order():
+        if numeric_id_defender.count(ship.numeric_id) > 1:
+            raise BaseException(
+                "Error: ship "
+                + ship.id
+                + " has a unit variant with numeric_id that collides ("
+                + str(ship.numeric_id)
+                + ") with a numeric_id of a unit variant in another consist"
+            )
 
 def main():
     # rosters
@@ -120,15 +162,15 @@ def main():
     edibles_tankers.main()
     freighter_barges.main()
     freighter_ships.main()
-    merchandise_freighter_ships.main()
     livestock_carriers.main()
     mail_ships.main()
     pax_fast_loading_ships.main()
     pax_luxury_ships.main()
     product_tanker_ships.main()
     reefers.main()
-    scrap_carrier_ships.main()
     tanker_barges.main()
     tanker_ships.main()
     trawlers.main()
     utility_hovercraft.main()
+    # check for ID collisions
+    validate_numeric_ids()

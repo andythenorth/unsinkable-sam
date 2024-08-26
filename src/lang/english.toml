@@ -1,0 +1,129 @@
+[GLOBAL_PRAGMA]
+grflangid = "0x01"
+plural = "0"
+
+[STR_GRF_DESCRIPTION]
+base = "License: {SILVER}GPL v2{}{BLACK}"
+
+[STR_EMPTY]
+base = ""
+
+[STR_PARAM_RESET_CONSTRUCTION_COSTS]
+base = "Use improved construction costs for canals, aqueducts and locks."
+
+[STR_PARAM_RESET_CONSTRUCTION_COSTS_DESC]
+base = "Reduces construction (and removal) costs for canals, aqueducts and locks.  Provides a better balance between water transport and other transport types."
+
+[STR_PARAM_ADJUST_SHIP_SPEEDS]
+base = "Ship speed"
+
+[STR_PARAM_ADJUST_SHIP_SPEEDS_OPTION_0]
+base = "Like watching paint dry"
+
+[STR_PARAM_ADJUST_SHIP_SPEEDS_OPTION_1]
+base = "Ideal"
+
+[STR_PARAM_ADJUST_SHIP_SPEEDS_OPTION_2]
+base = "Cheating"
+
+[STR_PARAM_ROSTER]
+base = "Roster"
+
+[STR_PARAM_ROSTER_DESC]
+base = "Choose which set of ships to use."
+
+[STR_PARAM_ROSTER_OPTION_0]
+base = "This Sceptered Isle"
+
+[STR_NAME_BULK_BARGE]
+base = "Bulk Barge"
+
+[STR_NAME_CARGO_LINER]
+base = "Cargo Liner"
+
+[STR_NAME_COLLIER]
+base = "Collier"
+
+[STR_NAME_COVERED_HOPPER_BARGE]
+base = "Covered Bulk Barge"
+
+[STR_NAME_CRYO_TANKER]
+base = "Cryo Tanker"
+
+[STR_NAME_EDIBLES_TANKER]
+base = "Edibles Tanker"
+
+[STR_NAME_FREIGHTER_BARGE]
+base = "Barge"
+
+[STR_NAME_FREIGHTER_SHIP]
+base = "Freighter"
+
+[STR_NAME_LIVESTOCK_CARRIER]
+base = "Livestock Carrier"
+
+[STR_NAME_LOG_TUG]
+base = "Log Tug"
+
+[STR_NAME_MAIL_SHIP]
+base = "Mail Ship"
+
+[STR_NAME_MINI_BULKER]
+base = "Mini Bulker"
+
+[STR_NAME_PAX_FAST_LOADING]
+base = "Ferry"
+
+[STR_NAME_PAX_LUXURY]
+base = "Luxury Ferry"
+
+[STR_NAME_PRODUCT_TANKER_SHIP]
+base = "Product Tanker"
+
+[STR_NAME_REEFER]
+base = "Refrigerated Ship"
+
+[STR_NAME_TANKER_BARGE]
+base = "Tank Barge"
+
+[STR_NAME_TANKER_SHIP]
+base = "Tanker"
+
+[STR_NAME_TRAWLER]
+base = "Trawler"
+
+[STR_NAME_UTILITY_HOVERCRAFT]
+base = "Hovercraft"
+
+[STR_POWER_TYPE_DIESEL]
+base = "Diesel"
+
+[STR_HULL_SIZE_A]
+base = "Micro"
+
+[STR_HULL_SIZE_B]
+base = "Mini"
+
+[STR_HULL_SIZE_C]
+base = "Small"
+
+[STR_HULL_SIZE_D]
+base = "Large"
+
+[STR_BUY_MENU_TEXT]
+base = "{}Type: {GOLD}{STRING}{}{STRING}"
+
+[STR_BUY_MENU_REFIT_CAPACITIES_PACKET]
+base = "{}{BLACK}Capacity when refitted: {GOLD}{COMMA} bags of mail or {COMMA}t of express freight"
+
+[STR_GENERIC_REFIT_SUBTYPE]
+base = "({COMMA} units)"
+
+[STR_GENERIC_REFIT_SUBTYPE_BUY_MENU_INFO]
+base = "{}{BLACK}Refittable capacities: {GOLD}{COMMA}, {COMMA} or {COMMA}{STRING}"
+
+[STR_SPRITES_COMPLETE]
+base = "{}Sprites Complete: {GOLD}Yup"
+
+[STR_SPRITES_INCOMPLETE]
+base = "{}Sprites Complete: {GOLD}Nope"

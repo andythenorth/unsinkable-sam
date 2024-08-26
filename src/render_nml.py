@@ -1,5 +1,3 @@
-print("[RENDER NML] render_nml.py")
-
 import codecs  # used for writing files - more unicode friendly than standard open() module
 
 import sys
@@ -11,6 +9,7 @@ from time import time
 import unsinkable_sam
 import utils
 import global_constants
+import gestalt_graphics.graphics_constants as graphics_constants
 from polar_fox import git_info
 from rosters import (
     registered_rosters,
@@ -34,6 +33,7 @@ def render_header_item_nml(header_item, consists):
             consists=consists,
             global_constants=global_constants,
             temp_storage_ids=global_constants.temp_storage_ids,  # convenience measure
+            graphics_constants=graphics_constants,
             utils=utils,
             registered_rosters=registered_rosters,
             makefile_args=makefile_args,
@@ -55,9 +55,10 @@ def render_consist_nml(consist):
 
 
 def main():
+    print("[RENDER NML]")
     start = time()
     unsinkable_sam.main()
-    print(unsinkable_sam.vacant_numeric_ids_formatted())
+    print(unsinkable_sam.find_vacant_id_runs())
 
     generated_nml_path = os.path.join(generated_files_path, "nml")
     if not os.path.exists(generated_nml_path):
@@ -76,7 +77,9 @@ def main():
         "header",
         "cargo_table",
         "recolour_sprites",
+        "procedures_alternative_var_random_bits",
         "procedures_colour_randomisation_strategies",
+        "spriteset_empty_ss",
     ]
     for header_item in header_items:
         grf_nml.write(render_header_item_nml(header_item, consists))
@@ -86,7 +89,11 @@ def main():
         grf_nml.write(render_consist_nml(consist))
     grf_nml.close()
     # eh, how long does this take anyway?
-    print(format((time() - start), ".2f") + "s")
+    print(
+        "[RENDER NML]",
+        "- complete",
+        format((time() - start), ".2f") + "s",
+    )
 
 
 if __name__ == "__main__":

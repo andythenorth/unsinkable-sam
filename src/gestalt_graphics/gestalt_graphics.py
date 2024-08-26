@@ -2,6 +2,7 @@ import polar_fox
 import gestalt_graphics.graphics_constants as graphics_constants
 from gestalt_graphics import pipelines
 import utils
+import global_constants
 
 
 class GestaltGraphics(object):
@@ -11,9 +12,19 @@ class GestaltGraphics(object):
      - cargo graphics (if any)
     """
 
-    def __init__(self):
-        # no graphics processing by default
+    def __init__(self, **kwargs):
+        # no graphics processing by default - set this in the subclass after super()
         self.pipeline = None
+        # spritelayers is required
+        self.spritelayers = kwargs["spritelayers"]
+        self.liveries = []
+        for livery_names_by_layer in kwargs.get("liveries", None):
+            liveries_by_layer = []
+            for layer_livery_name in livery_names_by_layer:
+                liveries_by_layer.append(
+                    global_constants.ship_liveries[layer_livery_name]
+                )
+            self.liveries.append(liveries_by_layer)
 
     @property
     def nml_template(self):
@@ -43,21 +54,11 @@ class GestaltGraphicsVisibleCargo(GestaltGraphics):
     """
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
         self.pipeline = pipelines.get_pipeline(
             "extend_spriterows_for_composited_cargos_pipeline"
         )
-        # default hull recolour to CC1, pass param to over-ride as needed
-        self.hull_recolour_map = kwargs.get(
-            "hull_recolour_map", graphics_constants.hull_recolour_CC1
-        )
-        # n.b. deck and house recolours are defined per gestalt as of Jan 2021, not in base class, refactor if need arises
-        self.deck_recolour_map = kwargs.get("deck_recolour_map", None)
-        self.house_recolour_map = kwargs.get("house_recolour_map", None)
-        # option to recolour ship pixels per hull/house/deck rules, this is generally a desirable shortcut and allows drawing ship in magic colours matching hull
-        # however it can cause unwanted recolouring of ship pixels, so it's explicitly enabled per gestalt
-        self.apply_hull_recolours_to_ship = kwargs.get('apply_hull_recolours_to_ship', False)
         # cargo flags
         self.has_bulk = kwargs.get("bulk", False)
         self.has_piece = kwargs.get("piece", None) is not None
@@ -153,7 +154,6 @@ class GestaltGraphicsSimpleColourRemaps(GestaltGraphics):
     """
     Simple recolouring of deck, house, hull etc to:
     - a single default livery
-    - optional extra liveries for specific cargos
 
     Can use 'magic' colour ranges (safer), or recolour other 'actual appearance' ranges (more likely to break / have unintended consequences).
     This gestalt can also be used as a shortcut simply for compositing ships to hulls.
@@ -161,30 +161,11 @@ class GestaltGraphicsSimpleColourRemaps(GestaltGraphics):
     """
 
     def __init__(self, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
         # as of Jan 2018 only one pipeline is used, but support is in place for alternative pipelines
         self.pipeline = pipelines.get_pipeline(
             "extend_spriterows_for_composited_cargos_pipeline"
         )
-        # pass either a single hull recolour or pass recolours per cargo
-        if kwargs.get("hull_recolour_map", None) is not None:
-            self.hull_recolour_map = kwargs.get("hull_recolour_map", None)
-            default_cargo_recolour_map = (
-                ("DFLT", {}),
-            )  # cargo_recolour_maps requires an empty default
-            self.cargo_recolour_maps = kwargs.get(
-                "cargo_recolour_maps", default_cargo_recolour_map
-            )
-        else:
-            # rely on erroring if neither hull_recolour_map or cargo_recolour_maps are passed
-            self.cargo_recolour_maps = kwargs["cargo_recolour_maps"]
-            self.hull_recolour_map = None
-        # n.b. deck and house recolours are defined per gestalt as of Jan 2021, not in base class, refactor if need arises
-        self.deck_recolour_map = kwargs.get("deck_recolour_map", None)
-        self.house_recolour_map = kwargs.get("house_recolour_map", None)
-        # option to recolour ship pixels per hull/house/deck rules, this is generally a desirable shortcut and allows drawing ship in magic colours matching hull
-        # however it can cause unwanted recolouring of ship pixels, so it's explicitly enabled per gestalt
-        self.apply_hull_recolours_to_ship = kwargs.get('apply_hull_recolours_to_ship', False)
 
     @property
     def generic_rows(self):
@@ -198,19 +179,12 @@ class GestaltGraphicsSimpleColourRemaps(GestaltGraphics):
     def get_output_row_counts_by_type(self):
         # the template for visible livery requires the count of _all_ the liveries, *no calculating later*
         # 3 rows per livery (empty, 50% load, 100% load)
-        return [("livery_only", 3 * self.num_cargo_sprite_variants)]
+        return [("simple_recolour_spriterows", 3 * self.num_cargo_sprite_variants)]
 
     @property
     def cargo_row_map(self):
-        # !! this works more by accident than design
-        # !! the order of cargo types here must be kept in sync with the order in the cargo graphics processor
+        # stub shim, could maybe be refactored out
         result = {}
-        counter = 0
-        for cargo_map in self.cargo_recolour_maps:
-            result[cargo_map[0]] = [
-                counter
-            ]  # list because multiple spriterows can map to a cargo label
-            counter += 1
         return result
 
 

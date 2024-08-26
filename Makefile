@@ -21,7 +21,6 @@ GRAPHICS_TARGET = generated/graphics/make_target
 LANG_DIR = generated/lang
 LANG_TARGET = $(LANG_DIR)/english.lng
 NML_FILE = generated/unsinkable-sam.nml
-NML_FLAGS = -l $(LANG_DIR) --verbosity=4
 
 -include Makefile.local
 
@@ -81,10 +80,10 @@ $(GRAPHICS_TARGET): $(shell $(FIND_FILES) --ext=.py --ext=.png src)
 	$(_V) $(PYTHON3) src/render_graphics.py $(ARGS)
 	$(_V) touch $(GRAPHICS_TARGET)
 
-$(LANG_TARGET): $(shell $(FIND_FILES) --ext=.py --ext=.pynml --ext=.lng src)
+$(LANG_TARGET): $(shell $(FIND_FILES) --ext=.py --ext=.pynml --ext=.toml src)
 	$(_V) $(PYTHON3) src/render_lang.py $(ARGS)
 
-$(HTML_DOCS): $(GRAPHICS_TARGET) $(LANG_TARGET) $(shell $(FIND_FILES) --ext=.py --ext=.pynml --ext=.pt --ext=.lng --ext=.png src)
+$(HTML_DOCS): $(GRAPHICS_TARGET) $(shell $(FIND_FILES) --ext=.py --ext=.pynml --ext=.pt --ext=.lng --ext=.png src)
 	$(_V) $(PYTHON3) src/render_docs.py $(ARGS)
 
 $(NML_FILE): $(shell $(FIND_FILES) --ext=.py --ext=.pynml src)
@@ -93,12 +92,12 @@ $(NML_FILE): $(shell $(FIND_FILES) --ext=.py --ext=.pynml src)
 # nmlc is used to compile a nfo file only, which is then used by grfcodec
 # this means that the (relatively slow) nmlc stage can be skipped if the nml file is unchanged (only graphics changed)
 $(NFO_FILE): $(LANG_TARGET) $(NML_FILE) | $(GRAPHICS_TARGET)
-	$(NMLC) $(NML_FLAGS) --nfo=$(NFO_FILE) $(NML_FILE)
+	$(NMLC) -l generated/lang/$(*F) --verbosity=4 --palette=DEFAULT  --no-optimisation-warning --nfo=$(NFO_FILE) $(NML_FILE)
 
 # N.B grf codec can't compile into a specific target dir, so after compiling, move the compiled grf to appropriate dir
 # grfcodec -n was tried, but was slower and produced a large grf file
 $(GRF_FILE): $(GRAPHICS_TARGET) $(NFO_FILE)
-	$(GRFCODEC) -s -e -c -g 2 $(PROJECT_NAME).grf generated
+	time $(GRFCODEC) -s -e -c -g 2 $(PROJECT_NAME).grf generated
 	mv $(PROJECT_NAME).grf $(GRF_FILE)
 
 $(TAR_FILE): $(GRF_FILE) $(HTML_DOCS)
@@ -138,8 +137,10 @@ copy_docs_to_grf_farm:
 # this is a macOS-specifc install location; the pre-2017 Makefile handled multiple platforms, that could be restored if needed
 # remove first, OpenTTD does not like having the _contents_ of the current file change under it, but will handle a removed-and-replaced file correctly
 install: default
+	$(_V) echo "[INSTALLING]"
 	rm ~/Documents/OpenTTD/newgrf/$(PROJECT_NAME).grf
 	cp $(GRF_FILE) ~/Documents/OpenTTD/newgrf/
+	$(_V) echo "[DONE]"
 
 clean:
 	$(_V) echo "[CLEANING]"

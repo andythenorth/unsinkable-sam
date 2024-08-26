@@ -44,6 +44,8 @@ grf {
 	}
 }
 
+// temp shim to copied Iron Horse code - replace with player param?
+param_ship_colour_randomisation = 1;
 
 basecost {
  	PR_RUNNING_SHIP: 2;

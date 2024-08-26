@@ -3,7 +3,7 @@ from ship import MailShip
 
 def main():
     ship = MailShip(
-        numeric_id=28,
+        numeric_id=280,
         name="Diamond",
         gen=3,
         subtype="A",
@@ -12,7 +12,7 @@ def main():
     )
 
     ship = MailShip(
-        numeric_id=27,
+        numeric_id=270,
         name="Delta",
         gen=3,
         subtype="B",
@@ -21,7 +21,7 @@ def main():
     )
 
     ship = MailShip(
-        numeric_id=26,
+        numeric_id=260,
         name="Olympic",
         gen=3,
         subtype="D",

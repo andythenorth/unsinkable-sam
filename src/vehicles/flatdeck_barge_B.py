@@ -1,7 +1,7 @@
 from ship import FlatDeckBarge
 
 ship = FlatDeckBarge(
-    numeric_id=36,
+    numeric_id=360,
     name="Gunnison",
     subtype="B",
     hull="BargeHouseRear",

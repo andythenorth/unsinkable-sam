@@ -3,7 +3,7 @@ from ship import PaxLuxuryShip
 
 def main():
     ship = PaxLuxuryShip(
-        numeric_id=23,
+        numeric_id=230,
         name="Bonavista",
         gen=3,
         subtype="C",
@@ -12,7 +12,7 @@ def main():
     )
 
     ship = PaxLuxuryShip(
-        numeric_id=22,
+        numeric_id=220,
         name="Zealand",
         gen=3,
         subtype="D",

@@ -3,7 +3,7 @@ from ship import TankerShip
 
 def main():
     ship = TankerShip(
-        numeric_id=43,
+        numeric_id=1100,
         name="Chirikov",
         gen=2,
         subtype="E",
@@ -14,7 +14,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=67,
+        numeric_id=1120,
         name="Salso",
         gen=3,
         subtype="A",
@@ -25,7 +25,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=34,
+        numeric_id=1140,
         name="Berwick",
         gen=3,
         subtype="B",
@@ -36,7 +36,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=44,
+        numeric_id=1160,
         name="Kalsoy",
         gen=3,
         subtype="C",
@@ -47,7 +47,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=1,
+        numeric_id=1180,
         name="Ellesmere",
         gen=3,
         subtype="D",
@@ -58,7 +58,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=19,
+        numeric_id=1200,
         name="Gunfleet",
         gen=3,
         subtype="E",
@@ -69,7 +69,7 @@ def main():
     )
 
     ship = TankerShip(
-        numeric_id=2,
+        numeric_id=1220,
         name="Rotterdam",
         gen=3,
         subtype="F",
@@ -82,7 +82,7 @@ def main():
 
 """
     ship = TankerShip(
-        numeric_id=31,
+        numeric_id=1240,
         name="Escobar",
         gen=4,
         subtype="E",

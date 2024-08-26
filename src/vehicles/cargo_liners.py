@@ -3,7 +3,7 @@ from ship import CargoLiner
 
 def main():
     ship = CargoLiner(
-        numeric_id=9,
+        numeric_id=90,
         name="Amethyste",
         gen=2,
         subtype="E",
@@ -13,7 +13,7 @@ def main():
     )
 
     ship = CargoLiner(
-        numeric_id=75,
+        numeric_id=750,
         name="Inisheer",
         gen=3,
         subtype="A",
@@ -23,7 +23,7 @@ def main():
     )
 
     ship = CargoLiner(
-        numeric_id=70,
+        numeric_id=700,
         name="Braddock",
         gen=3,
         subtype="B",
@@ -33,7 +33,7 @@ def main():
     )
 
     ship = CargoLiner(
-        numeric_id=71,
+        numeric_id=710,
         name="Magellan",
         gen=3,
         subtype="C",
@@ -43,7 +43,7 @@ def main():
     )
 
     ship = CargoLiner(
-        numeric_id=7,
+        numeric_id=70,
         name="Rampside",
         gen=3,
         subtype="D",
@@ -53,7 +53,7 @@ def main():
     )
 
     ship = CargoLiner(
-        numeric_id=45,
+        numeric_id=450,
         name="Rivingen",
         gen=3,
         subtype="E",
@@ -63,7 +63,7 @@ def main():
     )
 
     ship = CargoLiner(
-        numeric_id=8,
+        numeric_id=80,
         name="Trondheim",
         gen=3,
         subtype="F",

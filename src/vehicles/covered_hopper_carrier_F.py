@@ -1,7 +1,7 @@
 from ship import CoveredHopperCarrier
 
 ship = CoveredHopperCarrier(
-    numeric_id=33,
+    numeric_id=330,
     name="Fairport",
     subtype="F",
     hull="PushBargeHouseRear",

@@ -3,7 +3,7 @@ from ship import Reefer
 
 def main():
     ship = Reefer(
-        numeric_id=76,
+        numeric_id=760,
         name="Seafrost",
         gen=3,
         subtype="A",
@@ -13,7 +13,7 @@ def main():
     )
 
     ship = Reefer(
-        numeric_id=61,
+        numeric_id=610,
         name="Langara",
         gen=3,
         subtype="B",
@@ -23,7 +23,7 @@ def main():
     )
 
     ship = Reefer(
-        numeric_id=60,
+        numeric_id=600,
         name="Samphire",
         gen=3,
         subtype="C",
@@ -33,7 +33,7 @@ def main():
     )
 
     ship = Reefer(
-        numeric_id=14,
+        numeric_id=140,
         name="Kodiak",
         gen=3,
         subtype="D",
@@ -43,7 +43,7 @@ def main():
     )
 
     ship = Reefer(
-        numeric_id=59,
+        numeric_id=590,
         name="Caribou",
         gen=3,
         subtype="E",
@@ -53,7 +53,7 @@ def main():
     )
 
     ship = Reefer(
-        numeric_id=15,
+        numeric_id=150,
         name="Helsinki",
         gen=3,
         subtype="F",

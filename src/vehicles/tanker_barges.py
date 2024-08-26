@@ -3,7 +3,7 @@ from ship import TankerBarge
 
 def main():
     ship = TankerBarge(
-        numeric_id=98,
+        numeric_id=980,
         name="Walney",
         gen=3,
         subtype="C",
@@ -14,7 +14,7 @@ def main():
     )
 
     ship = TankerBarge(
-        numeric_id=40,
+        numeric_id=400,
         name="Durance",
         gen=3,
         subtype="D",
@@ -25,7 +25,7 @@ def main():
     )
 
     ship = TankerBarge(
-        numeric_id=49,
+        numeric_id=490,
         name="Notto",
         gen=3,
         subtype="E",
@@ -36,7 +36,7 @@ def main():
     )
 
     ship = TankerBarge(
-        numeric_id=39,
+        numeric_id=390,
         name="Columbus",
         gen=3,
         subtype="F",

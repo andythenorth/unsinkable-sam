@@ -3,7 +3,7 @@ from ship import LivestockCarrier
 
 def main():
     ship = LivestockCarrier(
-        numeric_id=72,
+        numeric_id=720,
         name="Kittimack",
         gen=3,
         subtype="B",
@@ -12,7 +12,7 @@ def main():
     )
 
     ship = LivestockCarrier(
-        numeric_id=73,
+        numeric_id=730,
         name="Gore Creek",
         gen=3,
         subtype="C",
@@ -22,7 +22,7 @@ def main():
     )
 
     ship = LivestockCarrier(
-        numeric_id=20,
+        numeric_id=200,
         name="Dockacre",
         gen=3,
         subtype="D",
@@ -31,7 +31,7 @@ def main():
     )
 
     ship = LivestockCarrier(
-        numeric_id=74,
+        numeric_id=740,
         name="Erry Vane",
         gen=3,
         subtype="E",
@@ -41,7 +41,7 @@ def main():
     )
 
     ship = LivestockCarrier(
-        numeric_id=16,
+        numeric_id=160,
         name="Sharkbait",
         gen=3,
         subtype="F",

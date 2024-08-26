@@ -1,92 +1,107 @@
 <!--! ** Various strategies for random recolouring of vehicles / intermodal containers ** -->
 
-<!--! * Shared colour sets with variants of CC, may be used by multiple strategies -->
-<!--! note that random bits need to be unique within the switch chain to prevent dependent results -->
-<tal:colour_sets define="random_bits 'getbits(random_bits, 1, 1)';
-                         colour_sets {'dark_blue': ['COLOUR_DARK_BLUE', 'custom_dark_blue'],
-                                      'pale_green': ['COLOUR_PALE_GREEN', 'custom_pale_green'],
-                                      'pink': ['COLOUR_PINK', 'custom_dark_pink'],
-                                      'yellow': ['COLOUR_YELLOW', 'custom_dark_yellow'],
-                                      'red': ['COLOUR_RED', 'custom_dark_red'],
-                                      'light_blue': ['COLOUR_LIGHT_BLUE', 'custom_light_blue'],
-                                      'green': ['COLOUR_GREEN', 'custom_green'],
-                                      'dark_green': ['COLOUR_DARK_GREEN', 'custom_dark_green'],
-                                      'blue': ['COLOUR_BLUE', 'custom_blue'],
-                                      'cream': ['COLOUR_CREAM', 'custom_dark_cream'],
-                                      'mauve': ['COLOUR_MAUVE', 'custom_light_mauve'],
-                                      'purple': ['COLOUR_PURPLE', 'custom_light_purple'],
-                                      'orange': ['COLOUR_ORANGE', 'custom_dark_orange'],
-                                      'brown': ['COLOUR_BROWN', 'custom_dark_brown'],
-                                      'grey': ['COLOUR_GREY', 'custom_dark_grey'],
-                                      'white': ['COLOUR_WHITE', 'custom_dark_white'],
-                                       }">
-    <tal:colour_set repeat="colour_set colour_sets.items()">
-        <!--! uses 1 random bit from self, just 2 colour choices, more is overkill and often looks bad -->
-        switch (FEAT_SHIPS, SELF, switch_colour_set_${colour_set[0]}_1cc, ${random_bits}) {
-            1: return ${utils.unpack_colour(colour_set[1][1], 1)};
-            return ${utils.unpack_colour(colour_set[1][0], 1)};
-        }
-        switch (FEAT_SHIPS, SELF, switch_colour_set_${colour_set[0]}_2cc, ${random_bits}) {
-            1: return ${utils.unpack_colour(colour_set[1][1], 2)};
-            return ${utils.unpack_colour(colour_set[1][0], 2)};
-        }
-    </tal:colour_set>
+<!--!
+    !!! as of April 2023, this has nearly-complete support for randomising to 2nd company colour
+    but that looks bad with certain 2CC settings, in groups, and is not used
+    probably should be removed here, and in train.py recolour_strategy_num method
+-->
+<tal:colour_sets repeat="colour_set global_constants.colour_sets.items()">
+    <!--! note that random bits need to be unique within the switch chain to prevent dependent results -->
+    <!--! uses 1 random bit from self, just 2 colour choices, more is overkill and often looks bad -->
+    switch (FEAT_SHIPS, SELF, switch_colour_set_${colour_set[0]}_1cc,
+                <!--! check if randomisation is enabled (player parameter) -->
+                param_ship_colour_randomisation && LOAD_TEMP(${temp_storage_ids.flag_use_weathering})
+                ? random_bits_colour_set()
+                : 0) {
+        1: return ${utils.unpack_colour(colour_set[1][1], 1)};
+        return ${utils.unpack_colour(colour_set[1][0], 1)};
+    }
+    switch (FEAT_SHIPS, SELF, switch_colour_set_${colour_set[0]}_2cc,
+                <!--! check if randomisation is enabled (player parameter) -->
+                param_ship_colour_randomisation && LOAD_TEMP(${temp_storage_ids.flag_use_weathering})
+                ? random_bits_colour_set()
+                : 0) {
+        1: return ${utils.unpack_colour(colour_set[1][1], 2)};
+        return ${utils.unpack_colour(colour_set[1][0], 2)};
+    }
 </tal:colour_sets>
 
+<!--! company colour passed as a param to avoid pissing around switching between vars for CC1 or CC2 -->
+switch(FEAT_SHIPS, SELF, switch_get_complement_to_company_colour, context_company_colour, context_company_colour) {
+    <tal:complements_to_company_colours repeat="complement_pair global_constants.complements_to_company_colours.items()">
+        ${complement_pair[0]}: return ${complement_pair[1]};
+    </tal:complements_to_company_colours>
+}
 
-<!--! * Strategies for random recolouring of company colour on ships *
-    1. strategies apply rules to branch to colour sets, which apply a random choice from 2 shades of the chosen colour (as of Jan 2021)
-    2. !! UNFINISHED player parameter can choose certain strategies explicitly
+<!--! up to 8 random liveries (all 8 must be passed as params when initing the ship chain -->
+switch(FEAT_SHIPS, SELF, switch_get_random_from_available_liveries, random_bits_ship_random_remap_livery()) {
+     <tal:available_liveries repeat="livery_num range(8)">
+         ${livery_num}: return LOAD_TEMP(${temp_storage_ids.get("recolour_livery_num_" + str(livery_num))});
+     </tal:available_liveries>
+}
+
+<!--! convenience switch to define how to pick a colour -->
+switch(FEAT_SHIPS, SELF, switch_get_colour_constant_for_strategy, context_company_colour, [
+            <!--! stacked ternary to (1) check if in purchase and force the result if so (2) switch to random livery or fixed, per strategy -->
+            LOAD_TEMP(${temp_storage_ids.flag_context_is_purchase}) == 1
+                ? LOAD_TEMP(${temp_storage_ids.recolour_strategy_num_purchase})
+                : (
+                    LOAD_TEMP(${temp_storage_ids.recolour_strategy_num}) >= 102
+                    ? switch_get_random_from_available_liveries()
+                    : LOAD_TEMP(${temp_storage_ids.recolour_strategy_num})
+                )
+            ]
+        ) {
+    101: return switch_get_complement_to_company_colour(context_company_colour);
+    100: return context_company_colour;
+    return; <!--! just return the recolour strategy number -->
+}
+
+<!--! * Strategies for random recolouring of ships *
+    1. strategies apply rules to branch to colour sets, which apply a random choice from 2 shades of the chosen colour (as of Nov 2020)
+    2. player parameter can choose certain strategies explicitly
+    3. magic may or may not get added for engine-specific or cargo-specific colours
 -->
 
-<tal:switch_by_company_colour repeat="cc [['1cc', '1cc'], ['2cc', '2cc']]">
-    switch (FEAT_SHIPS, SELF, switch_by_company_colour_${cc[0]}_to_${cc[1]}, company_colour${cc[1][0]}) {
-        COLOUR_DARK_BLUE: switch_colour_set_dark_blue_${cc[0]};
-        COLOUR_PALE_GREEN: switch_colour_set_pale_green_${cc[0]};
-        COLOUR_PINK: switch_colour_set_pink_${cc[0]};
-        COLOUR_YELLOW: switch_colour_set_yellow_${cc[0]};
-        COLOUR_RED: switch_colour_set_red_${cc[0]};
-        COLOUR_LIGHT_BLUE: switch_colour_set_light_blue_${cc[0]};
-        COLOUR_GREEN: switch_colour_set_green_${cc[0]};
-        COLOUR_DARK_GREEN: switch_colour_set_dark_green_${cc[0]};
-        COLOUR_BLUE: switch_colour_set_blue_${cc[0]};
-        COLOUR_CREAM: switch_colour_set_cream_${cc[0]};
-        COLOUR_MAUVE: switch_colour_set_mauve_${cc[0]};
-        COLOUR_PURPLE: switch_colour_set_purple_${cc[0]};
-        COLOUR_ORANGE: switch_colour_set_orange_${cc[0]};
-        COLOUR_BROWN: switch_colour_set_brown_${cc[0]};
-        COLOUR_GREY: switch_colour_set_grey_${cc[0]};
-        COLOUR_WHITE: switch_colour_set_white_${cc[0]};
+<tal:switch_colour_set_use_weathering repeat="cc [['1cc', '1cc'], ['2cc', '2cc']]">
+    switch (FEAT_SHIPS, SELF, switch_colour_set_use_weathering_${cc[0]}_to_${cc[1]},
+                        switch_get_colour_constant_for_strategy(
+                            company_colour${cc[1][0]}
+                        )
+                    ) {
+        <tal:colour_sets repeat="colour_set global_constants.colour_sets.items()">
+            <!--! this relies on order matching the order of company colours per nml / openttd constants;
+                  e.g. COLOUR_DARK_BLUE = 0, COLOUR_WHITE= 15
+                  we then extend our own custom colour sets after the default colours -->
+            <!--! // debug: ${colour_set[1][0]}, ${colour_set[1][1]} -->
+            ${repeat.colour_set.index}: switch_colour_set_${colour_set[0]}_${cc[0]};
+        </tal:colour_sets>
     }
-</tal:switch_by_company_colour>
+</tal:switch_colour_set_use_weathering>
 
-<tal:strategy_no_randomisation replace="nothing">
-    switch (FEAT_SHIPS, SELF, switch_strategy_no_randomisation_unflipped, 0) {
-        return base_sprite_2cc + 16 * company_colour2 + company_colour1; <!--! apply regular 1CC and 2CC, no random -->
-    }
-    switch (FEAT_SHIPS, SELF, switch_strategy_no_randomisation_flipped, 0) {
-        return base_sprite_2cc + 16 * company_colour1 + company_colour2; <!--! apply swapped 2CC and 1CC, no random -->
-    }
-</tal:strategy_no_randomisation>
-
-switch (FEAT_SHIPS, SELF, switch_cc_num_to_randomise, LOAD_TEMP(${temp_storage_ids.cc_num_to_randomise})) {
-    1: switch_by_company_colour_1cc_to_1cc;
-    2: switch_by_company_colour_2cc_to_2cc;
+switch (FEAT_SHIPS, SELF, switch_cc_num_to_recolour, LOAD_TEMP(${temp_storage_ids.cc_num_to_recolour})) {
+    1: switch_colour_set_use_weathering_1cc_to_1cc;
+    2: switch_colour_set_use_weathering_2cc_to_2cc;
 }
 
-switch (FEAT_SHIPS, SELF, switch_colour_mapping, cc_num_to_randomise, auto_colour_randomisation_strategy_num,
-                                                    [
-                                                     STORE_TEMP(cc_num_to_randomise, ${temp_storage_ids.cc_num_to_randomise}),
-                                                     STORE_TEMP(auto_colour_randomisation_strategy_num, ${temp_storage_ids.auto_colour_randomisation_strategy_num}),
-                                                     ]) {
-    return switch_cc_num_to_randomise;
-}
-
-<!--! purchase cb doesn't appear to support checking flipped var (didn't test this thoroughly, might be wrong), so provide dedicated purchase entry point switch -->
-switch (FEAT_SHIPS, SELF, switch_colour_mapping_purchase, cc_num_to_randomise, auto_colour_randomisation_strategy_num,
-                                                    [
-                                                     STORE_TEMP(cc_num_to_randomise, ${temp_storage_ids.cc_num_to_randomise}),
-                                                     STORE_TEMP(auto_colour_randomisation_strategy_num, ${temp_storage_ids.auto_colour_randomisation_strategy_num}),
-                                                     ]) {
-    return switch_cc_num_to_randomise;
+switch (FEAT_SHIPS, SELF, switch_colour_mapping,
+        cc_num_to_recolour,
+        flag_use_weathering,
+        flag_context_is_purchase,
+        recolour_strategy_num,
+        recolour_strategy_num_purchase,
+        <tal:available_liveries repeat="livery_num range(8)">
+            recolour_livery_num_${livery_num},
+        </tal:available_liveries>
+                [
+                 STORE_TEMP(cc_num_to_recolour, ${temp_storage_ids.cc_num_to_recolour}),
+                 STORE_TEMP(flag_use_weathering, ${temp_storage_ids.flag_use_weathering}),
+                 STORE_TEMP(flag_context_is_purchase, ${temp_storage_ids.flag_context_is_purchase}),
+                 STORE_TEMP(recolour_strategy_num, ${temp_storage_ids.recolour_strategy_num}),
+                 STORE_TEMP(recolour_strategy_num_purchase, ${temp_storage_ids.recolour_strategy_num_purchase}),
+                 <tal:available_liveries repeat="livery_num range(8)">
+                     STORE_TEMP(recolour_livery_num_${livery_num}, ${temp_storage_ids.get("recolour_livery_num_" + str(livery_num))}),
+                 </tal:available_liveries>
+                ]) {
+    switch_cc_num_to_recolour;
 }
