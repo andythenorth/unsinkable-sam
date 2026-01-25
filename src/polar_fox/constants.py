@@ -138,6 +138,12 @@ cargo_labels = [
     "TYCO",
     "HWAR",
     "STBR",
+    "STSW",
+    "STPL",
+    "CHEM",
+    "LYE_",
+    "NUKF",
+    "NUKW",
     #
     "NULL",
 ]
@@ -184,7 +190,10 @@ base_refits_by_class = {
         ],
     },
     "cryo_gases": {"allowed": ["CC_GAS_BULK"], "disallowed": []},
-    "dump_freight": {"allowed": ["CC_OPEN_BULK"], "disallowed": []},
+    "open_bulk_non_food_grade": {
+        "allowed": ["CC_OPEN_BULK"],
+        "disallowed": ["CC_POTABLE"],
+    },
     "empty": {"allowed": [], "disallowed": []},
     "express_freight": {"allowed": ["CC_EXPRESS", "CC_ARMOURED"], "disallowed": []},
     "flatbed_freight": {"allowed": ["CC_FLATBED"], "disallowed": []},
@@ -246,10 +255,12 @@ allowed_refits_by_label = {
         "STCB",
         "STEL",
         "STIG",
+        "STPL",
         "STSE",
         "STSH",
         "STSL",
         "STST",
+        "STSW",
         "STWR",
         "TYCO",
         "ZINC",
@@ -269,7 +280,7 @@ allowed_refits_by_label = {
         "PHOS",
         "POTA",
         "QLME",
-        "RFPR",
+        "CHEM",
         "SALT",
         "SAND",
         "SASH",
@@ -312,29 +323,6 @@ allowed_refits_by_label = {
         "WHEA",
     ],
     # !! CABBAGE NEEDS UPDATED OCT 2024 - STILL NEEDED?
-    # for bolster wagon
-    "long_products": [
-        "ALUM",
-        "BDMT",
-        "COPR",
-        "ENSP",
-        "METL",
-        "PIPE",
-        "STAL",
-        "STBL",
-        "STCB",
-        "STEL",
-        "STIG",
-        "STSE",
-        "STSH",
-        "STSL",
-        "STST",
-        "STWR",
-        "WDPR",
-        "WOOD",
-        "ZINC",
-    ],
-    # !! CABBAGE NEEDS UPDATED OCT 2024 - STILL NEEDED?
     # hax for intermodal container sprite selection - reefer car refits work just fine using CC_REFRIGERATED
     "reefer": [
         "FISH",
@@ -343,45 +331,53 @@ allowed_refits_by_label = {
     ],
 }
 
-# rather than using disallowed classes (can cause breakage), specific labels are disallowed
-# !! CABBAGE NEEDS UPDATED OCT 2024 - STILL NEEDED?
+# these are maintained for legacy support with older industry grfs that don't use FRAX (or don't set potable / non-potable bits)
 disallowed_refits_by_label = {
-    "non_dump_bulk": [
-        "WOOD",
-        "FICR",
-        "BDMT",
-        "WDPR",
-        "GRAI",
-        "WHEA",
-        "CERE",
-        "MAIZ",
-        "FRUT",
+    # used to exclude from open bulk vehicles older cargos that set 'bulk' bit (prior to FRAX) but should be covered bulk, powder bulk, piece godos or have a food grade exclusion
+    "legacy_disallowed_open_bulk": [
+        "BAKE",
         "BEAN",
+        "BDMT",
+        "CBLK",
+        "CERE",
         "CMNT",
         "CTCD",
         "FERT",
+        "FICR",
+        "FRUT",
+        "GRAI",
+        "MAIZ",
         "OLSD",
+        "PLAS",
         "SUGR",
         "TOFF",
         "URAN",
-        "CBLK",
-        "PLAS",
-        "BAKE",
+        "WDPR",
+        "WHEA",
+        "WOOD",
     ],
-    # used to exclude from standard tankers
-    "non_generic_liquids": [
-        "MILK",
-        "WATR",
+    # used to exclude from generic tankers older food and gas cargos that set 'liquid' bit (prior to FRAX)
+    "legacy_disallowed_liquid_bulk": [
         "BEER",
-        "FOOD",
-        "EOIL",
-        "O2__",
         "CHLO",
+        "EOIL",
+        "FOOD",
+        "MILK",
         "N7__",
+        "O2__",
+        "WATR",
     ],
-    # !! CABBAGE ... DEPRECATED
-    "non_flatbed_freight": [],
-    "non_freight_special_cases": ["TOUR"],
+    # used to exclude from pressure tankers older cargos that used 'hazardous' bit (prior to FRAX)
+    "legacy_disallowed_gas_bulk": [
+        "ACID",
+        "BOOM",
+        "CTAR",
+        "LYE_",
+        "NUKF",
+        "NUKW",
+        "URAN",
+    ],
+    "legacy_disallowed_express": ["TOUR"],
 }
 
 # cascading lists of default cargos, if the first cargo(s) are not available, all will be tried in order

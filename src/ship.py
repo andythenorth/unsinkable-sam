@@ -526,7 +526,7 @@ class BulkBase(Ship):
         self.class_refit_groups = ["dump_freight"]
         self.label_refits_allowed = []  # no specific labels needed
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
-            "non_dump_bulk"
+            "legacy_disallowed_open_bulk"
         ]
         self.default_cargos = global_constants.default_cargos["dump"]
         self.loading_speed_multiplier = 2
@@ -622,7 +622,7 @@ class CargoLiner(Ship):
             "NITR",
         ]  # Iron Horse compatibility
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
-            "non_freight_special_cases"
+            "legacy_disallowed_express"
         ]
         self.default_cargos = global_constants.default_cargos["box"]
         # Graphics configuration
@@ -957,7 +957,7 @@ class FlatDeckBarge(Ship):
         self.class_refit_groups = ["flatbed_freight"]
         self.label_refits_allowed = ["GOOD"]
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
-            "non_freight_special_cases"
+            "legacy_disallowed_express"
         ]
         self.default_cargos = global_constants.default_cargos["flat"]
         # Graphics configuration
@@ -988,7 +988,7 @@ class FreighterBase(Ship):
         self.class_refit_groups = ["all_freight"]
         self.label_refits_allowed = []  # no specific labels needed, refits all freight
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
-            "non_freight_special_cases"
+            "legacy_disallowed_express"
         ]
         self.default_cargos = global_constants.default_cargos["open"]
 
@@ -1274,7 +1274,7 @@ class TankerBase(Ship):
             []
         )  # refits most cargos that have liquid class even if they might be edibles
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
-            "non_generic_liquids"
+            "legacy_disallowed_liquid_bulk"
         ]
         self.default_cargos = global_constants.default_cargos["tank"]
 
