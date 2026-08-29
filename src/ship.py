@@ -290,7 +290,7 @@ class Ship(object):
         for i in self.class_refit_groups:
             [
                 cargo_classes.append(cargo_class)
-                for cargo_class in global_constants.base_refits_by_class[i]
+                for cargo_class in global_constants.base_refits_by_class[i]['allowed']
             ]
         return ",".join(set(cargo_classes))  # use set() here to dedupe
 
@@ -523,7 +523,7 @@ class BulkBase(Ship):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.class_refit_groups = ["dump_freight"]
+        self.class_refit_groups = ["open_bulk_non_food_grade"]
         self.label_refits_allowed = []  # no specific labels needed
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
             "legacy_disallowed_open_bulk"
@@ -747,11 +747,11 @@ class CryoTanker(Ship):
     def __init__(self, **kwargs):
         self.base_id = "cryo_tanker"
         super().__init__(**kwargs)
-        self.class_refit_groups = []  # no classes, use explicit labels
-        self.label_refits_allowed = global_constants.allowed_refits_by_label[
-            "cryo_gases"
+        self.class_refit_groups = ["cryo_gases"]
+        self.label_refits_allowed = []
+        self.label_refits_disallowed = polar_fox.constants.disallowed_refits_by_label[
+            "legacy_disallowed_gas_bulk"
         ]
-        self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos["cryo_gases"]
         self.loading_speed_multiplier = 2
         # Graphics configuration
@@ -866,7 +866,7 @@ class EdiblesTanker(Ship):
         super().__init__(**kwargs)
         self.class_refit_groups = []  # no classes, use explicit labels
         self.label_refits_allowed = global_constants.allowed_refits_by_label[
-            "edible_liquids"
+            "legacy_allowed_food_grade_liquid_bulk"
         ]
         self.label_refits_disallowed = []
         self.default_cargos = global_constants.default_cargos["edibles_tank"]
@@ -1269,7 +1269,7 @@ class TankerBase(Ship):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.template = "vehicle_with_visible_cargo.pynml"
-        self.class_refit_groups = ["liquids"]
+        self.class_refit_groups = ["liquids_non_food_grade"]
         self.label_refits_allowed = (
             []
         )  # refits most cargos that have liquid class even if they might be edibles
