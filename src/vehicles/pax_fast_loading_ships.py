@@ -1,4 +1,4 @@
-from ship import PaxFastLoadingShip
+from ship.ship import PaxFastLoadingShip
 
 
 def main():

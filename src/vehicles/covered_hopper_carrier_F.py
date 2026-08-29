@@ -1,4 +1,4 @@
-from ship import CoveredHopperCarrier
+from ship.ship import CoveredHopperCarrier
 
 ship = CoveredHopperCarrier(
     numeric_id=330,

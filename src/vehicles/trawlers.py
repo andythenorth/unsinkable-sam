@@ -1,4 +1,4 @@
-from ship import Trawler
+from ship.ship import Trawler
 
 
 def main():

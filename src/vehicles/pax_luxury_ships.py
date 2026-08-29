@@ -1,4 +1,4 @@
-from ship import PaxLuxuryShip
+from ship.ship import PaxLuxuryShip
 
 
 def main():

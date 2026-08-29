@@ -1,4 +1,4 @@
-from ship import CargoLiner
+from ship.ship import CargoLiner
 
 
 def main():

@@ -1,4 +1,4 @@
-from ship import UtilityHovercraft
+from ship.ship import UtilityHovercraft
 
 
 def main():

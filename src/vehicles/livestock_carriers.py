@@ -1,4 +1,4 @@
-from ship import LivestockCarrier
+from ship.ship import LivestockCarrier
 
 
 def main():

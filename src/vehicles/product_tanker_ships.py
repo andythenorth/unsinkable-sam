@@ -1,4 +1,4 @@
-from ship import ProductTankerShip
+from ship.ship import ProductTankerShip
 
 
 def main():

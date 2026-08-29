@@ -1,4 +1,4 @@
-from ship import MailShip
+from ship.ship import MailShip
 
 
 def main():

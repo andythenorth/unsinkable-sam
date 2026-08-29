@@ -1,4 +1,4 @@
-from ship import CryoTanker
+from ship.ship import CryoTanker
 
 
 def main():

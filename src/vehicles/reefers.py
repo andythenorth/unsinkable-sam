@@ -1,4 +1,4 @@
-from ship import Reefer
+from ship.ship import Reefer
 
 
 def main():

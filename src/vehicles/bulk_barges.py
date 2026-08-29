@@ -1,4 +1,4 @@
-from ship import BulkBarge
+from ship.ship import BulkBarge
 
 
 def main():

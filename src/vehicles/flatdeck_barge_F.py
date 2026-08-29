@@ -1,4 +1,4 @@
-from ship import FlatDeckBarge
+from ship.ship import FlatDeckBarge
 
 ship = FlatDeckBarge(
     numeric_id=170,
