@@ -1270,9 +1270,9 @@ class TankerBase(Ship):
         super().__init__(**kwargs)
         self.template = "vehicle_with_visible_cargo.pynml"
         self.class_refit_groups = ["liquids_non_food_grade"]
-        self.label_refits_allowed = (
-            []
-        )  # refits most cargos that have liquid class even if they might be edibles
+        self.label_refits_allowed = global_constants.allowed_refits_by_label[
+            "allowed_tanker_products"
+        ]
         self.label_refits_disallowed = global_constants.disallowed_refits_by_label[
             "legacy_disallowed_liquid_bulk"
         ]
